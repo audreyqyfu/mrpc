@@ -1,0 +1,13 @@
+Package: MRPCALGO
+Type: Package
+Title: Mendelian Randomization (MR) based PC Algorithm
+Version: 1.0.1
+Author: Md. Bahadur Badsha <mdbadsha@uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Maintainer: Md. Bahadur Badsha <mdbadsha@uidaho.edu>
+Description: Estimate the DAG using the Mendelian Randomization (MR) based PC (MRPC) Algorithm.
+License: GPL (>= 2)
+LazyData: TRUE
+Imports: stats,pcalg,
+        Rgraphviz,methods,bnlearn,WGCNA,network,GGally,dynamicTreeCut,Hmisc,fastcluster
+NeedsCompilation: no
+Packaged: 2017-04-14 18:07:43 UTC; mdbadsha
