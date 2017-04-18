@@ -1,5 +1,5 @@
 
-MRPC<-function (data,suffStat,NQ,FDR,indepTest,labels, p, fixedGaps = NULL,
+MRPC<-function (data,suffStat,NQ,FDR,indepTest = c("gaussCItest", "citest"),labels, p, fixedGaps = NULL,
                fixedEdges = NULL, NAdelete = TRUE, m.max = Inf,u2pd = c("relaxed", "rand", "retry"),
                skel.method = c("stable", "original","stable.fast"), conservative = FALSE, maj.rule = FALSE,
                solve.confl = FALSE, verbose = FALSE)
@@ -32,16 +32,21 @@ MRPC<-function (data,suffStat,NQ,FDR,indepTest,labels, p, fixedGaps = NULL,
   }
   if (conservative && maj.rule)
     stop("Choose either conservative PC or majority rule PC!")
+  
+  #indepTestName <- as.character (quote(indepTest))
+  cat ("test for independence:", indepTest, "\n")
   skel <- ModiSkeleton(data,suffStat,FDR,indepTest,labels = labels,
                        method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
                        NAdelete = NAdelete, m.max = m.max, verbose = verbose)
   skel@call <- cl
+  
+  #indepTest <- match.fun (indepTest)
   if (NQ) {
     if (!conservative && !maj.rule) {
       switch(u2pd,relaxed = EdgesOrientation(skel,NQ=NQ,verbose = verbose))
     }
     else {
-      pc. <- pc.cons.intern(skel, suffStat, indepTest,
+      pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha = FDR,
                             version.unf = c(2, 1), maj.rule = maj.rule, verbose = verbose)
       EdgesOrientation(pc.$sk, verbose = verbose)
     }
@@ -52,7 +57,7 @@ MRPC<-function (data,suffStat,NQ,FDR,indepTest,labels, p, fixedGaps = NULL,
                                         solve.confl = solve.confl))
     }
     else {
-      pc. <- pc.cons.intern(skel, suffStat, indepTest, alpha=FDR,
+      pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha=FDR,
                             version.unf = c(2, 1), maj.rule = maj.rule, verbose = verbose)
       udag2pdagRelaxed(pc.$sk, verbose = verbose, unfVect = pc.$unfTripl,
                        solve.confl = solve.confl)
