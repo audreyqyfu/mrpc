@@ -46,6 +46,7 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
   #Step-2
   #Start to orient v-structures
   cat("\n V-structures are as follows :\n")
+  # extract edges involving at least one gene node
   edgesWithGs <- edges[which (edges[,1]>NQ | edges[,2]>NQ), ]
   ind <- edgesWithGs
   
