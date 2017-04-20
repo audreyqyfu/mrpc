@@ -47,10 +47,10 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
   #Start to orient v-structures
   cat("\n V-structures are as follows :\n")
   # extract edges involving at least one gene node
-  edgesWithGs <- edges[which (edges[,1]>NQ | edges[,2]>NQ), ]
-  ind <- edgesWithGs
+  #edgesWithGs <- edges[which (edges[,1]>NQ | edges[,2]>NQ), ]
+  #ind <- edgesWithGs
   
-  #ind <- which(g1 == 1, arr.ind = TRUE)  #Pullout the all relation in adjacency matrix from undirected graph
+  ind <- which(g1 == 1, arr.ind = TRUE)  #Pullout the all relation in adjacency matrix from undirected graph
   for (i in seq_len(nrow(ind))) {
     x <- ind[i, 1]
     y <- ind[i, 2]
