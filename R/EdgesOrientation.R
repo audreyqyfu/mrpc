@@ -28,18 +28,19 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
 
     # assign 1s to corresponding edges in tarmat
     # edges between two Vs are undirected (or bidirected)
-    tarmat[edgesWithBothVs] <- 1
     if (length (edgesWithBothVs) > 2) {
+      tarmat[edgesWithBothVs] <- 1
       tarmat[edgesWithBothVs[,2:1]] <- 1
     } else {
-      tarmat[edgesWithBothVs[2:1]] <- 1
+      tarmat[edgesWithBothVs[1], edgesWithBothVs[2]] <- 1
+      tarmat[edgesWithBothVs[2], edgesWithBothVs[1]] <- 1
     }
     # edges involving one V go from V to the other node
     tarmat[edgesWithVFirst] <- 1
     if (length(edgesWithVSecond) > 2) {
       tarmat[edgesWithVSecond[,2:1]] <- 1
     } else {
-      tarmat[edgesWithVSecond[2:1]] <- 1
+      tarmat[edgesWithVSecond[2], edgesWithVSecond[1]] <- 1
     }
   }
   
