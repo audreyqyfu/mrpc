@@ -80,7 +80,7 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
       #determine the direction using test results from part 1 based on MR
       #Repeat step 3 until all undirected edges to directed
   #Start to orient remaining edges.
-  #test
+  #test test
   repeat {
 
     S1=which(tarmat==1,arr.ind = T) #Pullout edges to extract parent and child/gene nodes from tarmat
