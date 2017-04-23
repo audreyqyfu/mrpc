@@ -3,9 +3,6 @@
 #We consider two scenario (with 4 cases), because we're working triplets to orient the v-structure first and then orient remaing edges
 #So,when more than three nodes, then the position of the genetic variant and genes are changed
 
-# test test test
-
-
 EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
 {
   g <- as(gInput@graph, "matrix") # g ia an adjacency from undirected graph
