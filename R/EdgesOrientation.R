@@ -35,8 +35,15 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
       tarmat[edgesWithBothVs[1], edgesWithBothVs[2]] <- 1
       tarmat[edgesWithBothVs[2], edgesWithBothVs[1]] <- 1
     }
-    # edges involving one V go from V to the other node
-    tarmat[edgesWithVFirst] <- 1
+    # Edges involving one V go from V to the other node
+    # Need to distinguish whether edgesWithVFirst or edgesWithVSecond is 
+    # a matrix or a vector.
+    if (length (edgesWithVFirst) > 2) {
+      tarmat[edgesWithVFirst] <- 1      
+    } else {
+      tarmat[edgesWithVFirst[1], edgesWithVFirst[2]] <- 1
+    }
+
     if (length(edgesWithVSecond) > 2) {
       tarmat[edgesWithVSecond[,2:1]] <- 1
     } else {
