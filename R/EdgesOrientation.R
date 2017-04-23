@@ -87,7 +87,7 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
       #determine the direction using test results from part 1 based on MR
       #Repeat step 3 until all undirected edges to directed
   #Start to orient remaining edges.
-  #test test
+
   #Condition for no edges with any nodes
   if (all(tarmat == 0))
   {
