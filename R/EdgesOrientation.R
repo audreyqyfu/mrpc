@@ -51,11 +51,7 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
     }
   }
   
-  #Condition for no edges with variants (in step 1) then MRPC is not applicable
-  if(length(edgesWithVFirst)==0 & length(edgesWithVSecond)==0 & length(edgesWithBothVs)==0){
-    stop("Error:no edges with variants, so MRPC is not applicable")
-  }
-  #OR we can use the following condition
+  #Condition for no edges with any nodes
   #Start
   if (all(tarmat == 0))
   {
@@ -199,21 +195,13 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
                   tarmat[z, y]  <- 1
                 }
               }
-              
             }
           }
         }
       }
-      
     }
-    #End to orient remaining edges.
   }
-  repeat {
-    old_tarmat <- tarmat
-    if (all(tarmat == old_tarmat))
-      break
-  }
-  
+  #End to orient remaining edges.
   gInput@graph<-as(tarmat, "graphNEL")
   gInput
 
