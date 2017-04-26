@@ -4,7 +4,7 @@
 Estimate the DAG using the Mendelian Randomization (MR) based PC (MRPC) Algorithm
 }
 \description{
-The \link{MRPC} function is used to estimate a directed acyclic graph (DAG) from observational data, by modifying of the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithms is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when \link{pc} algorithms are applied to noisy genomic data. To tackle these challenges, we develop a novel machine learning algorithm called Mendelian Randomization (MR) based PC \link{MRPC} to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithms, the three-major updated in the \link{MRPC} algorithm is that (i) we are incorporating sequential testing method to controls the False Discovery Rate (FDR), (ii) take a robust approach to reduces the impact of outliers and (iii) implemented a new way for edge direction determination based on MR. See details below.
+The MRPC () function is used to estimate a directed acyclic graph (DAG) from observational data, by modifying of the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithms is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when \link{pc} algorithms are applied to noisy genomic data. To tackle these challenges, we develop a novel machine learning algorithm called Mendelian Randomization (MR) based PC (MRPC) to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithms, the four-major updated in the MRPC algorithm is that (i) we are incorporating sequential testing method to controls the False Discovery Rate (FDR), (ii) take a robust approach to reduces the impact of outliers, (iii)improved v-structure identification and (iv) implemented a new way for edge direction determination based on MR. See details below.
 
 }
 \usage{
@@ -19,7 +19,7 @@ verbose = FALSE)
 }
 
 \arguments{
-The \link{MRPC} is the modification of the existing \link{pc}. Therefore, most of the terms and sentences are taken from \link{pc} (Spirtes et al., 2000).
+The MRPC is the modification of the existing \link{pc}. Therefore, most of the terms and sentences are taken from \link{pc} (Spirtes et al., 2000).
 
 \item{data}{
 Data matrix, where row is the samples and column is the genes. The column order from  Single-nucleotide polymorphism (SNPs), indels,copy number variation (CNV) or Expression quantitative trait loci (eQTL) to genes.
@@ -70,9 +70,12 @@ Nodes are used as a major building blocks of the models, which represent random 
 
 (ii) the number of statistical tests is unknown beforehand in all existing variants of PC algorithms. It is unclear how these algorithms control the false discovery rate (FDR) or marginal FDR (mFDR), because it is used alpha as a fixed pre-assigned significance level for testing the independence test, but results are sensitive to the choice of alpha, which is an important issue for multiple hypotheses testing.
 
-(iii) the gene expression data often have outliers, even after normalization, which may drastically alter the topology of the inferred graph.
+(iii) the gene expression data often have outliers, even after normalization, which may drastically alter the topology of the inferred graph. 
 
-To overcome the above challenges, we proposed a novel algorithm MRPC (MR-based PC), which can be applied to genotype and gene expression data and efficiently learn a causal graph of genes. \bold{Firstly}, we take a robust approach (Badsha et al., 2013) and calculate the robust correlation matrix on which the series of hypothesis testing is performed. \bold{Secondly}, we adopt a sequential method LOND (significance Levels based On Number of Discoveries) (Javanmard and Montanari, 2015) that controls the FDR or marginal FDR (mFDR) in an online manner, where level of significance is used a function of the previous decision made so far (we adjusted  at each step in the test) and that ensures that FDR and mFDR remains below the total alpha. \bold{Finally}, we implemented a new way for edge direction determination based on Mendelian randomization.
+(iv) to find the v-structure PC-algorithm assumed that if no evidence of two nodes are conditionally independent,then the nodes are conditionally dependent, although we don't have any evidence about their conditional dependence. In that case the orient v-structure is worng.
+
+To overcome the above challenges, we proposed a novel algorithm MRPC (MR-based PC), which can be applied to genotype and gene expression data and efficiently learn a causal graph of genes. \bold{Firstly}, we take a robust approach (Badsha et al., 2013) and calculate the robust correlation matrix on which the series of hypothesis testing is performed. \bold{Secondly}, we adopt a sequential method LOND (significance Levels based On Number of Discoveries) (Javanmard and Montanari, 2015) that controls the FDR or marginal FDR (mFDR) in an online manner, where level of significance is used a function of the previous decision made so far (we adjusted  at each step in the test) and that ensures that FDR and mFDR remains below the total alpha.
+\bold{Thirdly}, we improved v-structure identification using the addtional conditional test. \bold{Finally}, we implemented a new way for edge direction determination based on Mendelian randomization.
 
 The two main step in MRPC algorithm as follows:
 
@@ -2077,5 +2080,141 @@ par(mfrow=c(1,3))
 plot(pc.fit_MQ ,  main ="(A) Multiple eQTL topology (by pc (alpha=0.05))")
 plot(MRPC.fit_MQ_GT, main ="(B) Multiple eQTL topology (by MRPC_GT)")
 plot(MRPC.fit_MQ_CT, main ="(C) Multiple eQTL topology (by MRPC_CT)")
+
+
+#Three new models are not including above
+
+##v-->T1 and T2, T1-->T3, T2-->T3
+
+N=1000
+p=.45
+b0.1=0
+b1.1=1
+b1.2=1
+sd.1=1
+
+V <- c(sample(c(0, 1, 2),size = N,replace = TRUE,prob = c((1 - p)^2,2*p*(1 - p),p^2)))
+
+T1<- Case_1P(N=N,P1=V,b0.1 = b0.1,b1.1 = b1.1,sd.1 = sd.1)
+T2<- Case_1P(N=N,P1=V,b0.1 = b0.1,b1.1 = b1.1,sd.1 = sd.1)
+T3<- Case_2P(N=N,P1=T1,P2=T2,b0.1 = b0.1,b1.1 = b1.1,b1.2 = b1.2,sd.1 = sd.1)
+
+Sim_New1=data.frame(V=V,
+                    T1= T1,
+                    T2 = T2,
+                    T3=T3)
+
+n<-nrow (Sim_New1)    #Number of row
+V<-colnames(Sim_New1) #Column names
+
+Rcor_C=RobustCor(Sim_New1, 0) #Classical correlation (Beta=0)
+suffStat_C= list(C = Rcor_C$RR, n = n)
+
+Rcor_R=RobustCor(Sim_New1, 0.005) #Robust correlation (Beta=0.005)
+suffStat_R= list(C = Rcor_R$RR, n = n)
+
+### Estimated graph by pc
+pc.fit_New1 <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
+## Estimated graph by MRPC using gaussCItest
+MRPC.fit_New1_GT <- MRPC(Sim_New1,suffStat_R,NQ=1,FDR=0.05,
+                       indepTest ='gaussCItest',labels = V,verbose = TRUE)
+## Estimated graph by MRPC using ci.test
+MRPC.fit_New1_CT<- MRPC(Sim_New1,suffStat_R,NQ=1,FDR=0.05,
+                      indepTest ='citest',labels = V,verbose = TRUE)
+
+## Show estimated graph
+par(mfrow=c(1,3))
+plot(pc.fit_New1,  main ="(A) New model 1 (by pc (alpha=0.05))")
+plot(MRPC.fit_New1_GT, main ="(B) New model 1 (by MRPC_GT)")
+plot(MRPC.fit_New1_CT, main ="(C) New model 1 (by MRPC_CT)")
+
+##v-->T1 and T2, T1-->T3-->T3
+
+N=1000
+p=.45
+b0.1=0
+b1.1=1
+b1.2=1
+sd.1=1
+
+V <- c(sample(c(0, 1, 2),size = N,replace = TRUE,prob = c((1 - p)^2,2*p*(1 - p),p^2)))
+
+T1<- Case_1P(N=N,P1=V,b0.1 = b0.1,b1.1 = b1.1,sd.1 = sd.1)
+T3<- Case_1P(N=N,P1=T1,b0.1 = b0.1,b1.1 = b1.1,sd.1 = sd.1)
+T2<- Case_2P(N=N,P1=V,P2=T3,b0.1 = b0.1,b1.1 = b1.1,b1.2 = b1.2,sd.1 = sd.1)
+
+
+Sim_New2=data.frame(V=V,
+                    T1= T1,
+                    T2 = T2,
+                    T3=T3)
+
+n<-nrow (Sim_New2)    #Number of row
+V<-colnames(Sim_New2) #Column names
+
+Rcor_C=RobustCor(Sim_New2, 0) #Classical correlation (Beta=0)
+suffStat_C= list(C = Rcor_C$RR, n = n)
+
+Rcor_R=RobustCor(Sim_New2, 0.005) #Robust correlation (Beta=0.005)
+suffStat_R= list(C = Rcor_R$RR, n = n)
+### Estimated graph by pc
+pc.fit_New2 <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
+## Estimated graph by MRPC using gaussCItest
+MRPC.fit_New2_GT <- MRPC(Sim_New2,suffStat_R,NQ=1,FDR=0.05,
+                         indepTest ='gaussCItest',labels = V,verbose = TRUE)
+## Estimated graph by MRPC using ci.test
+MRPC.fit_New2_CT<- MRPC(Sim_New2,suffStat_R,NQ=1,FDR=0.05,
+                        indepTest ='citest',labels = V,verbose = TRUE)
+
+## Show estimated graph
+par(mfrow=c(1,3))
+plot(pc.fit_New2,  main ="(A) New model 2 (by pc (alpha=0.05))")
+plot(MRPC.fit_New2_GT, main ="(B) New model 2 (by MRPC_GT)")
+plot(MRPC.fit_New2_CT, main ="(C) New model 2 (by MRPC_CT)")
+
+
+##v-->T1 and T2, T2-->T1,T2
+
+N=1000
+p=.45
+b0.1=0
+b1.1=1
+b1.2=1
+sd.1=1
+
+V <- c(sample(c(0, 1, 2),size = N,replace = TRUE,prob = c((1 - p)^2,2*p*(1 - p),p^2)))
+
+T3<- Case_NP(N=N,b0.1 = b0.1,sd.1 = sd.1)
+T1<- Case_2P(N=N,P1=V,P2=T3,b0.1 = b0.1,b1.1 = b1.1,b1.2 = b1.2,sd.1 = sd.1)
+T2<- Case_2P(N=N,P1=V,P2=T3,b0.1 = b0.1,b1.1 = b1.1,b1.2 = b1.2,sd.1 = sd.1)
+
+
+Sim_New3=data.frame(V=V,
+                    T1= T1,
+                    T2 = T2,
+                    T3=T3)
+
+n<-nrow (Sim_New3)    #Number of row
+V<-colnames(Sim_New3) #Column names
+
+Rcor_C=RobustCor(Sim_New3, 0) #Classical correlation (Beta=0)
+suffStat_C= list(C = Rcor_C$RR, n = n)
+
+Rcor_R=RobustCor(Sim_New3, 0.005) #Robust correlation (Beta=0.005)
+suffStat_R= list(C = Rcor_R$RR, n = n)
+### Estimated graph by pc
+pc.fit_New3 <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
+## Estimated graph by MRPC using gaussCItest
+MRPC.fit_New3_GT <- MRPC(Sim_New3,suffStat_R,NQ=1,FDR=0.05,
+                         indepTest ='gaussCItest',labels = V,verbose = TRUE)
+## Estimated graph by MRPC using ci.test
+MRPC.fit_New3_CT<- MRPC(Sim_New3,suffStat_R,NQ=1,FDR=0.05,
+                        indepTest ='citest',labels = V,verbose = TRUE)
+
+## Show estimated graph
+par(mfrow=c(1,3))
+plot(pc.fit_New3, main ="(A) New model 3 (by pc (alpha=0.05))")
+plot(MRPC.fit_New3_GT, main ="(B) New model 3 (by MRPC_GT)")
+plot(MRPC.fit_New3_CT, main ="(C) New model 3 (by MRPC_CT)")
 
 }

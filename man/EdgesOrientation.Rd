@@ -8,15 +8,20 @@ Edges Orientation Rules for the MRPC Algorithm
 This function perform the last step of \link{MRPC} algorithm, where we determine the edge direction for undirected graph. The functions first determine the edges between genetic variants with the others based on MR, then orient v-structures, then orient the remaining edges, weather MR is applicable or not. MR is a new way for edge direction determination based four different cases. See below for the details.
 }
 \usage{
-EdgesOrientation(gInput,NQ, verbose = FALSE)
+EdgesOrientation(gInput,NQ, suffStat, FDR, verbose = FALSE)
 
 }
 
 \arguments{
 \item{gInput}{Object containing skeleton, marginal and conditional independence information.
 }
-
+\item{suffStat}{A \link{list} of sufficient statistics, containing all necessary elements for the conditional independence tests in the function indepTest for gaussCItest. The sufficient statistic consists of the correlation matrix of the data and the sample size.
+}
 \item{NQ}{Need to specify for how many genetic variants (SNPs/indels/CNV/eQTL) in your input data. For example, if your dataset have one genetic variants (first column), then NQ=1, if 2 (1st and 2nd Column), then NQ=2..and so on.
+}
+
+\item{FDR}{
+Need to specify pre-assigned level.If FDR=0.05, that ensures FDR and mFDR remains below 0.05.
 }
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
@@ -75,7 +80,7 @@ Skel.fit_0 <- ModiSkeleton(simu.data_M0,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_0 <- EdgesOrientation(Skel.fit_0,NQ=1, verbose=1)
+Edge_orientation_0 <- EdgesOrientation(Skel.fit_0,NQ=1, suffStat_R,FDR=0.05,verbose=1)
 
 ## Plot of the results
 
@@ -93,7 +98,7 @@ Skel.fit_1 <- ModiSkeleton(simu.data_M1,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_1 <- EdgesOrientation(Skel.fit_1,NQ=1, verbose=1)
+Edge_orientation_1 <- EdgesOrientation(Skel.fit_1,NQ=1,suffStat_R,FDR=0.05, verbose=1)
 
 ## Plot of the results
 
@@ -112,7 +117,7 @@ Skel.fit_2 <- ModiSkeleton(simu.data_M2,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_2 <- EdgesOrientation(Skel.fit_2,NQ=1, verbose=1)
+Edge_orientation_2 <- EdgesOrientation(Skel.fit_2,NQ=1,suffStat_R,FDR=0.05, verbose=1)
 
 ## Plot of the results
 
@@ -131,7 +136,7 @@ Skel.fit_3 <- ModiSkeleton(simu.data_M3,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_3 <- EdgesOrientation(Skel.fit_3,NQ=1, verbose=1)
+Edge_orientation_3 <- EdgesOrientation(Skel.fit_3,NQ=1,suffStat_R,FDR=0.05, verbose=1)
 
 ## Plot of the results
 
@@ -149,7 +154,7 @@ Skel.fit_4 <- ModiSkeleton(simu.data_M4,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_4 <- EdgesOrientation(Skel.fit_4,NQ=1, verbose=1)
+Edge_orientation_4 <- EdgesOrientation(Skel.fit_4,NQ=1,suffStat_R,FDR=0.05, verbose=1)
 
 ## Plot of the results
 
