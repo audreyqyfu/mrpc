@@ -1,4 +1,4 @@
-Package: MRPCALGO
+Package: MRPC
 Type: Package
 Title: Mendelian Randomization (MR) based PC Algorithm
 Version: 1.0.1
