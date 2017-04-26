@@ -189,7 +189,15 @@ EdgesOrientation<-function (gInput,NQ=NQ,suffStat=suffStat,FDR=FDR,verbose = FAL
                   tarmat[z, y]  <- 0
                 }
                 
-                #Case-3:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
+                #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
+                #then the edge direction will be z-->y.
+                if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput@sepset[[x]][[z]]) & !(y %in% gInput@sepset[[z]][[x]]))
+                {
+                  tarmat[z, y]  <- 1
+                  tarmat[y, z]  <- 0
+                }
+                
+                #Case-4:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
                 #then edge direction will be z<-->y
                 if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput@sepset[[x]][[y]]) &!(y %in% gInput@sepset[[x]][[z]]))
                 {
