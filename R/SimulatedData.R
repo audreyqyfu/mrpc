@@ -170,34 +170,39 @@ SimulatedData<- function(N, p, seed, model, b0.1, b1.1, b1.2,b1.3, sd.1) {
          },
          layersmodel = {
            T1<- Case_1P(N=N,
-                       P1=V,
-                       b0.1 = b0.1,
-                       b1.1 = b1.1,
-                       sd.1 = sd.1)
+                        P1=V,
+                        b0.1 = b0.1,
+                        b1.1 = b1.1,
+                        sd.1 = sd.1)
            T2<- Case_1P(N=N,
                         P1=V,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            T3<- Case_1P(N=N,
+                        P1=V,
+                        b0.1 = b0.1,
+                        b1.1 = b1.1,
+                        sd.1 = sd.1)
+           T4<- Case_1P(N=N,
                         P1=T1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T4<- Case_2P(N=N,
+           T5<- Case_2P(N=N,
                         P1=T1,
                         P2=T2,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         b1.2 = b1.2,
                         sd.1 = sd.1)
-           T5<- Case_1P(N=N,
+           T6<- Case_1P(N=N,
                         P1=T2,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T6<- Case_1P(N=N,
-                        P1=T1,
+           T7<- Case_1P(N=N,
+                        P1=T3,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
@@ -207,7 +212,8 @@ SimulatedData<- function(N, p, seed, model, b0.1, b1.1, b1.2,b1.3, sd.1) {
                              T3.L3 = T3,
                              T4.L4 = T4,
                              T5.L5 = T5,
-                             T6.L6 = T6))
+                             T6.L6 = T6,
+                             T7.L7 = T7))
          },
          multipleparentsmodel = {
 

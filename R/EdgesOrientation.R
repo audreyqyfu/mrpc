@@ -3,7 +3,7 @@
 #We consider two scenario (with 4 cases), because we're working triplets to orient the v-structure first and then orient remaing edges
 #So,when more than three nodes, then the position of the genetic variant and genes are changed
 
-EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
+EdgesOrientation<-function (gInput,NQ=NQ,suffStat=suffStat,FDR=FDR,verbose = FALSE)
 {
   g <- as(gInput@graph, "matrix") # g ia an adjacency from undirected graph
   g1=g
@@ -76,16 +76,24 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
     x <- ind[i, 1]
     y <- ind[i, 2]
     allZ <- setdiff(which(g1[y, ] == 1), x)
-
     for (z in allZ) {
-      # Triplet x-y-z is directed x-->y<--z if x and z conditionally dependent given y
-      if ((g1[x, z] == 0 & g1[x, y] == 1) & !(tarmat[y, x] ==1) & !(tarmat[z, y] ==1) & !(tarmat[y, z] ==1) & !(y %in% gInput@sepset[[x]][[z]] ||
-                              y %in% gInput@sepset[[z]][[x]])) {
+    # Triplet x-y-z is directed x-->y<--z if x and z conditionally dependent given y
+      if ((g1[x, z] == 0 & g1[x, y] == 1) & (tarmat[x, y] ==1) &!(tarmat[y, x] ==1) & !(tarmat[z, y] ==1) & !(tarmat[y, z] ==1) & 
+          !(y %in% gInput@sepset[[x]][[z]] || y %in% gInput@sepset[[z]][[x]])) 
+        {
+        pvalue=gaussCItest(x, z, y, suffStat) #additional conditional test
+        if(pvalue<FDR) #if satisfy then triplet x-y-z is directed x-->y<--z otherwise directed x-->y-->z
+        {
         if (verbose) {
           V=colnames(g)
           cat("\n", V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
         }
-        tarmat[x, y] <- tarmat[z, y] <- 1
+        tarmat[x, y] <- tarmat[z, y] <- 1 #directed x-->y<--z
+      }
+      else
+      {
+        tarmat[x, y]<-tarmat[y, z] <- 1   #directed x-->y-->z
+      }
       }
     }
   }
@@ -180,14 +188,8 @@ EdgesOrientation<-function (gInput,NQ=NQ,verbose = FALSE)
                   tarmat[y, z]  <- 1
                   tarmat[z, y]  <- 0
                 }
-                #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
-                #then the edge direction will be z-->y.
-                if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput@sepset[[x]][[z]]) & !(y %in% gInput@sepset[[z]][[x]]))
-                {
-                  tarmat[z, y]  <- 1
-                  tarmat[y, z]  <- 0
-                }
-                #Case-4:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
+                
+                #Case-3:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
                 #then edge direction will be z<-->y
                 if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput@sepset[[x]][[y]]) &!(y %in% gInput@sepset[[x]][[z]]))
                 {

@@ -43,7 +43,7 @@ MRPC<-function (data,suffStat,NQ,FDR,indepTest = c("gaussCItest", "citest"),labe
   #indepTest <- match.fun (indepTest)
   if (NQ) {
     if (!conservative && !maj.rule) {
-      switch(u2pd,relaxed = EdgesOrientation(skel,NQ=NQ,verbose = verbose))
+      switch(u2pd,relaxed = EdgesOrientation(skel,NQ=NQ,suffStat,FDR,verbose = verbose))
     }
     else {
       pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha = FDR,
