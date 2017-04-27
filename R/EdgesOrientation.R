@@ -78,7 +78,7 @@ EdgesOrientation<-function (gInput,NQ=NQ,suffStat=suffStat,FDR=FDR,verbose = FAL
     allZ <- setdiff(which(g1[y, ] == 1), x)
     for (z in allZ) {
     # Triplet x-y-z is directed x-->y<--z if x and z conditionally dependent given y
-      if ((g1[x, z] == 0 & g1[x, y] == 1) & (tarmat[x, y] ==1) &!(tarmat[y, x] ==1) & !(tarmat[z, y] ==1) & !(tarmat[y, z] ==1) & 
+      if ((g1[x, z] == 0 & g1[x, y] == 1) & !(tarmat[y, x] ==1) & !(tarmat[z, y] ==1) & !(tarmat[y, z] ==1) & 
           !(y %in% gInput@sepset[[x]][[z]] || y %in% gInput@sepset[[z]][[x]])) 
         {
         pvalue=gaussCItest(x, z, y, suffStat) #additional conditional test
