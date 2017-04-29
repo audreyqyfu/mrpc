@@ -73,12 +73,13 @@ Dendro_Module_Graph=function(Adj_directed,minModuleSize,NQ) {
   #Craete a graphical network used for the next step
   net= network(New_Mat_MO, directed = TRUE)
   #Make two group (i) for CNV=circle and (ii) genes=Triangle
+  #char=colnames(Ad_Matrix)[NQ+1:(ncol(Ad_Matrix)-1)] #all CNV
   char=colnames(Ad_Matrix)[1:NQ] #all CNV
-  net%v% "phono"= ifelse(colnames(New_Mat_MO) %in% char,"CNV", "Gene")
+  net%v% "phono"= ifelse(colnames(New_Mat_MO) %in% char,"Gene", "CNV")
 
   #library(GGally) #Need for ggnet2 function
   #Plot the final graph
-  ggnet2(net,color = Module,palette = col,node.size=5,arrow.size = 3,label=TRUE,label.size = 1,
-         shape.legend = "Node type ",edge.label.color = "Module",shape = "phono",color.legend = "Groups",legend.position = "bottom",arrow.gap = 0.010)
-
+  plotobj=ggnet2(net,color = Module,palette = col,node.size=5,arrow.size = 3,label=TRUE,label.size = 1,
+         shape.legend = "Node type ",edge.label.color = "Module",shape = "phono",color.legend = "Modules",legend.position = "bottom",arrow.gap = 0.010)
+  return(list(obj=plotobj,dynamicMods=dynamicMods,dynamicColors=dynamicColors))
 }

@@ -131,7 +131,7 @@ Skel.fit_0 <- ModiSkeleton(simu.data_M0,suffStat_R,FDR=0.05,indepTest=
 
 ## Plot of the results
 ## Show estimated skeleton
-plot(Skel.fit_0,  main ="Estimated Skeleton for Model 0")
+plot(Skel.fit_0$obj,  main ="Estimated Skeleton for Model 0")
 
 ## Model 1
 ## Estimate Skeleton
@@ -146,7 +146,7 @@ Skel.fit_1 <- ModiSkeleton(simu.data_M1,suffStat_R,FDR=0.05,indepTest=
 
 ## Plot of the results
 ## Show estimated skeleton
-plot(Skel.fit_1,  main ="Estimated Skeleton for Model 1")
+plot(Skel.fit_1$obj,  main ="Estimated Skeleton for Model 1")
 
 ## Model 2
 ## Estimate Skeleton
@@ -161,7 +161,7 @@ Skel.fit_2 <- ModiSkeleton(simu.data_M2,suffStat_R,FDR=0.05,indepTest=
 
 ## Plot of the results
 ## Show estimated skeleton
-plot(Skel.fit_2,  main ="Estimated Skeleton for Model 2")
+plot(Skel.fit_2$obj,  main ="Estimated Skeleton for Model 2")
 
 ## Model 3
 ## Estimate Skeleton
@@ -176,7 +176,7 @@ Skel.fit_3 <- ModiSkeleton(simu.data_M3,suffStat_R,FDR=0.05,indepTest=
 
 ## Plot of the results
 ## Show estimated skeleton
-plot(Skel.fit_3,  main ="Estimated Skeleton for Model 3")
+plot(Skel.fit_3$obj,  main ="Estimated Skeleton for Model 3")
 
 ## Model 4
 ## Estimate Skeleton
@@ -191,7 +191,7 @@ Skel.fit_4<- ModiSkeleton(simu.data_M4,suffStat_R,FDR=0.05,indepTest=
 
 ## Plot of the results
 ## Show estimated skeleton
-plot(Skel.fit_4,  main ="Estimated Skeleton for Model 4")
+plot(Skel.fit_4$obj,  main ="Estimated Skeleton for Model 4")
 
 }
 

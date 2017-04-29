@@ -40,9 +40,8 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "citest"
     sepset <- lapply(seq_p, function(.) vector("list", p))
     pMax <- matrix(-Inf, nrow = p, ncol = p)
     m <- 0L    #Current test number
-    Beta<-0L
-    R<-0L       #Rejection number
-    Alpha <-0L  #level of significance
+    R<-0L      #Rejection number
+    Alpha <-0L
     pval<-0L
 
     diag(pMax) <- 1
@@ -115,31 +114,18 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "citest"
 
             cat("Test number =", m, "\n")
             cat("pval =", pval[m], "\n")
+            
+            Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+            cat("Alpha value =", Alpha, "\n")
 
-            #Start sequential testing
-            Beta[m]=(6*FDR/pi^2)/m^2     #if a=2
-            #pre-assigned level (FDR) that ensures FDR and mFDR remains below
-            #Beta[m]=(FDR/1.202)/m^3    #if a=3
-            #Beta[m]=(90*FDR/pi^4)/m^4   #if a=4
-              if (m==1){
-                Alpha[m]=Beta[m]
-              }
-              if(m>1){
-                Alpha[m]=Beta[m]*(sum(R[1:(m-1)])+1)
-              }
-            #End sequential testing
-
-              cat("Alpha value =", Alpha[m], "\n")
-
-            if (pval[m]<= Alpha[m]) {  #Reject H0 (H0:nodes are independent)
+            if (pval[m]<= Alpha) {  #Reject H0 (H0:nodes are independent)
               R[m]=1
               cat("Since pval<Alpha,test is rejected: Nodes are dependent", "\n")
             } else {
               R[m]=0  #Accept H0
               cat("Since pval>Alpha,test is accepted:Nodes are independent", "\n")
             }
-
-            if (pval[m]>= Alpha[m]) {
+            if (pval[m]>= Alpha) {
               G[x, y] <- G[y, x] <- FALSE
               sepset[[x]][[y]] <- nbrs[S]
 
@@ -173,7 +159,9 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "citest"
     as(G, "graphNEL")
   }
   
-  new("pcAlgo",graph = Gobject,call = cl, n = integer(0),
-      max.ord = as.integer(ord - 1), n.edgetests = n.edgetests,
-      sepset = sepset,pMax = pMax, zMin = matrix(NA, 1, 1))
+  temp<-new("pcAlgo",graph = Gobject,call = cl, n = integer(0),
+            max.ord = as.integer(ord - 1), n.edgetests = n.edgetests,
+            sepset = sepset,pMax = pMax, zMin = matrix(NA, 1, 1))
+
+  return(list(obj=temp,test=m,alpha=Alpha,R=R))
 }

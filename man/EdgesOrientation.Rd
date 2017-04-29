@@ -15,9 +15,10 @@ EdgesOrientation(gInput,NQ, suffStat, FDR, verbose = FALSE)
 \arguments{
 \item{gInput}{Object containing skeleton, marginal and conditional independence information.
 }
-\item{suffStat}{A \link{list} of sufficient statistics, containing all necessary elements for the conditional independence tests in the function indepTest for gaussCItest. The sufficient statistic consists of the correlation matrix of the data and the sample size.
-}
+
 \item{NQ}{Need to specify for how many genetic variants (SNPs/indels/CNV/eQTL) in your input data. For example, if your dataset have one genetic variants (first column), then NQ=1, if 2 (1st and 2nd Column), then NQ=2..and so on.
+}
+\item{suffStat}{A \link{list} of sufficient statistics, containing all necessary elements for the conditional independence tests in the function indepTest for gaussCItest. The sufficient statistic consists of the correlation matrix of the data and the sample size.
 }
 
 \item{FDR}{
@@ -84,7 +85,7 @@ Edge_orientation_0 <- EdgesOrientation(Skel.fit_0,NQ=1, suffStat_R,FDR=0.05,verb
 
 ## Plot of the results
 
-plot(Edge_orientation_0,main ="Model 0")
+plot(Edge_orientation_0$obj,main ="Model 0")
 
 ## Model 1
 n<-nrow (simu.data_M1)    #Number of row
@@ -102,7 +103,7 @@ Edge_orientation_1 <- EdgesOrientation(Skel.fit_1,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_1,main ="Model 1")
+plot(Edge_orientation_1$obj,main ="Model 1")
 
 ## Model 2
 n<-nrow (simu.data_M2)    #Number of row
@@ -121,7 +122,7 @@ Edge_orientation_2 <- EdgesOrientation(Skel.fit_2,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_2,main ="Model 2")
+plot(Edge_orientation_2$obj,main ="Model 2")
 
 ## Model 3
 n<-nrow (simu.data_M3)    #Number of row
@@ -140,7 +141,7 @@ Edge_orientation_3 <- EdgesOrientation(Skel.fit_3,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_3,main ="Model 3")
+plot(Edge_orientation_3$obj,main ="Model 3")
 
 ## Model 4
 n<-nrow (simu.data_M4)     #Number of row
@@ -158,7 +159,7 @@ Edge_orientation_4 <- EdgesOrientation(Skel.fit_4,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_4,main ="Model 4")
+plot(Edge_orientation_4$obj,main ="Model 4")
 
 }
 

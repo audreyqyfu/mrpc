@@ -38,7 +38,7 @@ MRPC<-function (data,suffStat,NQ,FDR,indepTest = c("gaussCItest", "citest"),labe
   skel <- ModiSkeleton(data,suffStat,FDR,indepTest,labels = labels,
                        method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
                        NAdelete = NAdelete, m.max = m.max, verbose = verbose)
-  skel@call <- cl
+  skel$obj@call <- cl
   
   #indepTest <- match.fun (indepTest)
   if (NQ) {
