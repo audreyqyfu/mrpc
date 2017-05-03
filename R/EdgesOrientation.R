@@ -234,8 +234,8 @@ EdgesOrientation<-function (gInput,NQ=NQ,suffStat,FDR,verbose = FALSE)
   if((any(tarmat[1:NQ,]==1) || any(tarmat[,1:NQ]==1)) & all(tarmat[-c(1:NQ),-c(1:NQ)]==0))
   {
     tarmat1=g1
-    tarmat1[NQ,]=tarmat[NQ,]
-    tarmat1[,NQ]=tarmat[,NQ]
+    tarmat1[1:NQ,]=tarmat[1:NQ,]
+    tarmat1[,1:NQ]=tarmat[,1:NQ]
     tarmat=tarmat1
   }
   gInput$obj@graph<-as(tarmat, "graphNEL")
