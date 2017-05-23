@@ -5,7 +5,7 @@
 Draw Undirected Graph using the Modified Skeleton Function
 }
 \description{
-The \link{ModiSkeleton} function is used for estimate the undirected graph (skeleton) using the modified skeleton function. The main difference is that the \link{ModiSkeleton} function is used alpha (significance level) as a function of the prior outcomes (reject or accept hypothesis) but the existing \link{skeleton} function used alpha as a fixed pre-assigned significance level. See details in \bold{Choice of Significance Level} below.
+This Modiskeleton () function is used for estimate the undirected graph (skeleton) using the modified skeleton function. The main difference is that the ModiSkeleton () function is used alpha (significance level) as a function of the prior outcomes (reject or accept hypothesis) but the existing \link{skeleton} function used alpha as a fixed pre-assigned significance level. See details in \bold{Choice of Significance Level} below.
 }
 \usage{
 ModiSkeleton(data,suffStat,FDR, indepTest, labels, p,
@@ -80,7 +80,13 @@ Therefore, the \link{ModiSkeleton} function used LOND algorithm for alpha (level
 }
 
 \value{
-An object containing an estimate of the skeleton of the underlying DAG, the conditioning sets (sepset) that led to edge removals and several other parameters.
+An object containing an estimate of the skeleton of the underlying DAG as follow:
+\itemize{
+\item \code{obj}: object of class "graph" of the directed and undirected graph that was estimated.
+\item \code{test}: current test number
+\item \code{alpha}: level of significance that updated in every step of sequential FDR test.
+\item \code{R}: rejection number.
+}
 }
 \references{
 1.Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.

@@ -8,7 +8,7 @@ Sequential FDR
 Sequential FDR methd that control FDR and mFDR as online manner 
 }
 \usage{
-SeqFDR(m, FDR, a, R)
+SeqFDR(m, FDR, a=2, R)
 }
 
 \arguments{
@@ -17,7 +17,7 @@ SeqFDR(m, FDR, a, R)
 Number of current test
 }
   \item{FDR}{
-Pre-assigned significance level
+FDR level
 }
   \item{a}{
 Constant value =2

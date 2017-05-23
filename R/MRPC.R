@@ -34,6 +34,7 @@ MRPC<-function (data,suffStat,NQ,FDR,indepTest = c("gaussCItest", "citest"),labe
     stop("Choose either conservative PC or majority rule PC!")
   
   #indepTestName <- as.character (quote(indepTest))
+
   cat ("test for independence:", indepTest, "\n")
   skel <- ModiSkeleton(data,suffStat,FDR,indepTest,labels = labels,
                        method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
@@ -53,7 +54,7 @@ MRPC<-function (data,suffStat,NQ,FDR,indepTest = c("gaussCItest", "citest"),labe
   } else {
     if (!conservative && !maj.rule) {
       switch(u2pd, rand = udag2pdag(skel), retry = udag2pdagSpecial(skel)$pcObj,
-             relaxed = udag2pdagRelaxed(skel, verbose = verbose,
+             relaxed = udag2pdagRelaxed(skel$obj, verbose = verbose,
                                         solve.confl = solve.confl))
     }
     else {

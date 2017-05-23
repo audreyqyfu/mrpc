@@ -87,8 +87,13 @@ All statistical inference is done in the \bold{Step-1}, while the \bold{Step-2} 
 }
 
 \value{
-An object of \link{class} that are containing an estimate of the underlying DAG.
-
+An object of \link{class} that containing an estimate of the equivalence class of the underlying DAG.
+\itemize{
+\item \code{obj}: object of class "graph" of the directed and undirected graph that was estimated.
+\item \code{test}: current test number
+\item \code{alpha}: level of significance that updated in every step of sequential FDR test.
+\item \code{R}: rejection number.
+}
 }
 \references{
 1.Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.

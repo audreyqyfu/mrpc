@@ -24,7 +24,12 @@ Need to specify for how many SNPs/indels/CNV/eQTL in your input data matrix. For
 }
 
 \value{
-Graph
+An object of \link{class} that containing the graph object as follows:
+\itemize{
+\item \code{obj}: object of class "graph" of the directed and undirected graph that was estimated.
+\item \code{GroupMods}: list of modules with length of the nodes.
+\item \code{GroupModsColors}: list of color of the modules with length of the nodes.
+}
 }
 
 \author{

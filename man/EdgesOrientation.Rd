@@ -43,7 +43,13 @@ Four different cases are as follows:
 }
 
 \value{
-A class of objects that containing the information for directed graph.
+An object of \link{class} that containing an estimate of the equivalence class of the underlying DAG.
+\itemize{
+\item \code{obj}: object of class "graph" of the directed and undirected graph that was estimated.
+\item \code{test}: current test number
+\item \code{alpha}: level of significance that updated in every step of sequential FDR test.
+\item \code{R}: rejection number.
+}
 }
 
 

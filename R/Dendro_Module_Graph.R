@@ -32,13 +32,13 @@ Dendro_Module_Graph=function(Adj_directed,minModuleSize,NQ) {
                               minClusterSize = minModuleSize);
 
   Grouplist=table(dynamicMods)
-  print(Grouplist) #0=means unassigned genes
+  #print(Grouplist) #0=means unassigned genes
 
   # Convert numeric lables into colors
   dynamicColors = labels2colors(dynamicMods)
 
   Colorlist=table(dynamicColors)
-  print(Colorlist)
+  #print(Colorlist)
 
 # Plot the dendrogram and colors underneath
 
@@ -81,5 +81,5 @@ Dendro_Module_Graph=function(Adj_directed,minModuleSize,NQ) {
   #Plot the final graph
   plotobj=ggnet2(net,color = Module,palette = col,node.size=5,arrow.size = 3,label=TRUE,label.size = 1,
          shape.legend = "Node type ",edge.label.color = "Module",shape = "phono",color.legend = "Modules",legend.position = "bottom",arrow.gap = 0.010)
-  return(list(obj=plotobj,dynamicMods=dynamicMods,dynamicColors=dynamicColors))
+  return(list(obj=plotobj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist))
 }
