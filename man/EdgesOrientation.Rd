@@ -91,7 +91,7 @@ Edge_orientation_0 <- EdgesOrientation(Skel.fit_0,NQ=1, suffStat_R,FDR=0.05,verb
 
 ## Plot of the results
 
-plot(Edge_orientation_0$obj,main ="Model 0")
+plot(Edge_orientation_0$graph,main ="Model 0")
 
 ## Model 1
 n<-nrow (simu.data_M1)    #Number of row
@@ -109,7 +109,7 @@ Edge_orientation_1 <- EdgesOrientation(Skel.fit_1,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_1$obj,main ="Model 1")
+plot(Edge_orientation_1$graph,main ="Model 1")
 
 ## Model 2
 n<-nrow (simu.data_M2)    #Number of row
@@ -128,7 +128,7 @@ Edge_orientation_2 <- EdgesOrientation(Skel.fit_2,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_2$obj,main ="Model 2")
+plot(Edge_orientation_2$graph,main ="Model 2")
 
 ## Model 3
 n<-nrow (simu.data_M3)    #Number of row
@@ -147,7 +147,7 @@ Edge_orientation_3 <- EdgesOrientation(Skel.fit_3,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_3$obj,main ="Model 3")
+plot(Edge_orientation_3$graph,main ="Model 3")
 
 ## Model 4
 n<-nrow (simu.data_M4)     #Number of row
@@ -165,7 +165,7 @@ Edge_orientation_4 <- EdgesOrientation(Skel.fit_4,NQ=1,suffStat_R,FDR=0.05, verb
 
 ## Plot of the results
 
-plot(Edge_orientation_4$obj,main ="Model 4")
+plot(Edge_orientation_4$graph,main ="Model 4")
 
 }
 

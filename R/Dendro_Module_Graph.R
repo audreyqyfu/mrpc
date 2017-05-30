@@ -81,5 +81,5 @@ Dendro_Module_Graph=function(Adj_directed,minModuleSize,NQ) {
   #Plot the final graph
   plotobj=ggnet2(net,color = Module,palette = col,node.size=5,arrow.size = 3,label=TRUE,label.size = 1,
          shape.legend = "Node type ",edge.label.color = "Module",shape = "phono",color.legend = "Modules",legend.position = "bottom",arrow.gap = 0.010)
-  return(list(obj=plotobj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist))
+  return(list(graph=plotobj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist))
 }

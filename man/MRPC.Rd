@@ -118,7 +118,6 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 ## Load packages
 library(pcalg)  #library for existing pc
-library(bnlearn)#library for ci.test
 
 ## Load predefined simulated data
 ## Data pre-processing
@@ -164,8 +163,8 @@ indepTest ='citest',labels=V,verbose = TRUE)
 par(mfrow=c(2,2))
 plot(pc.fit_01,  main ="(A) Model 0(by pc (alpha=0.05))")
 plot(pc.fit_02,  main ="(B) Model 0(by pc(alpha=0.01))")
-plot(MRPC.fit_0_GT$obj, main ="(C) Model 0(by MRPC_GT)")
-plot(MRPC.fit_0_CT$obj, main ="(C) Model 0(by MRPC_CT)")
+plot(MRPC.fit_0_GT$graph, main ="(C) Model 0(by MRPC_GT)")
+plot(MRPC.fit_0_CT$graph, main ="(C) Model 0(by MRPC_CT)")
 
 #Another option for plot of the results. First fig is the nodes
 #dendrogram with modules color. second fig is the plot of the graph
@@ -173,7 +172,7 @@ plot(MRPC.fit_0_CT$obj, main ="(C) Model 0(by MRPC_CT)")
 #To idendify modules and complex graph (Suitable if you have many
 #nodes)
 #Adjacency matrix from directed graph
-Adj_directed=as(MRPC.fit_0_GT$obj@graph,"matrix")
+Adj_directed=as(MRPC.fit_0_GT$graph,"matrix")
 #Plot of the graph with modules color
 Dendro_Module_Graph(Adj_directed,minModuleSize = 1,NQ=1)
 
@@ -203,11 +202,11 @@ indepTest ='citest',labels=V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_1,  main ="(A) Model 1(by pc)")
-plot(MRPC.fit_1_GT$obj, main ="(B) Model 1(by MRPC_GT)")
-plot(MRPC.fit_1_CT$obj, main ="(C) Model 1(by MRPC_CT)")
+plot(MRPC.fit_1_GT$graph, main ="(B) Model 1(by MRPC_GT)")
+plot(MRPC.fit_1_CT$graph, main ="(C) Model 1(by MRPC_CT)")
 
 #Adjacency matrix from directed graph
-Adj_directed=as(MRPC.fit_1_GT$obj@graph,"matrix")
+Adj_directed=as(MRPC.fit_1_GT$graph,"matrix")
 #Plot of the graph with modules color
 Dendro_Module_Graph(Adj_directed,minModuleSize = 1,NQ=1)
 
@@ -237,11 +236,11 @@ indepTest ='citest',labels=V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_2,  main ="(A) Model 2(by pc)")
-plot(MRPC.fit_2_GT$obj, main ="(B) Model 2(by MRPC_GT)")
-plot(MRPC.fit_2_CT$obj, main ="(C) Model 2(by MRPC_CT)")
+plot(MRPC.fit_2_GT$graph, main ="(B) Model 2(by MRPC_GT)")
+plot(MRPC.fit_2_CT$graph, main ="(C) Model 2(by MRPC_CT)")
 
 #Adjacency matrix from directed graph
-Adj_directed=as(MRPC.fit_2_GT$obj@graph,"matrix")
+Adj_directed=as(MRPC.fit_2_GT$graph,"matrix")
 #Plot of the graph with modules color
 Dendro_Module_Graph(Adj_directed,minModuleSize = 1,NQ=1)
 
@@ -278,11 +277,11 @@ indepTest ='citest',labels=V,verbose = TRUE)
 par(mfrow=c(2,2))
 plot(pc.fit_31,  main ="(A) Model 3(by pc(alpha=0.05))")
 plot(pc.fit_32,  main ="(B) Model 3(by pc(alpha=0.01))")
-plot(MRPC.fit_3_GT$obj, main ="(C) Model 3(by MRPC_GT)")
-plot(MRPC.fit_3_CT$obj, main ="(D) Model 3(by MRPC_CT)")
+plot(MRPC.fit_3_GT$graph, main ="(C) Model 3(by MRPC_GT)")
+plot(MRPC.fit_3_CT$graph, main ="(D) Model 3(by MRPC_CT)")
 
 #Adjacency matrix from directed graph
-Adj_directed=as(MRPC.fit_3_GT$obj@graph,"matrix")
+Adj_directed=as(MRPC.fit_3_GT$graph,"matrix")
 #Plot of the graph with modules color
 Dendro_Module_Graph(Adj_directed,minModuleSize = 1,NQ=1)
 
@@ -312,11 +311,11 @@ MRPC.fit_4_CT <- MRPC(simu.data_M4,suffStat_R,NQ=1,FDR=0.05,indepTest =
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_4, main ="(A) Model 4(by pc)")
-plot(MRPC.fit_4_GT$obj,main ="(B) Model 4(by MRPC_GT)")
-plot(MRPC.fit_4_CT$obj,main ="(C) Model 4(by MRPC_CT)")
+plot(MRPC.fit_4_GT$graph,main ="(B) Model 4(by MRPC_GT)")
+plot(MRPC.fit_4_CT$graph,main ="(C) Model 4(by MRPC_CT)")
 
 #Adjacency matrix from directed graph
-Adj_directed=as(MRPC.fit_4_GT$obj@graph,"matrix")
+Adj_directed=as(MRPC.fit_4_GT$graph,"matrix")
 #Plot of the graph with modules color
 Dendro_Module_Graph(Adj_directed,minModuleSize = 1,NQ=1)
 
@@ -348,8 +347,8 @@ MRPC.fit_StarModel_CT <- MRPC(simu.data_StarModel,suffStat_R,NQ=1,FDR=0.05
 par(mfrow=c(2,2))
 plot(pc.fit_StarModel_05,  main ="(A) Star topology (by pc (alpha=0.05))")
 plot(pc.fit_StarModel_01,  main ="(B) Star topology (by pc (alpha=0.01))")
-plot(MRPC.fit_StarModel_GT$obj , main ="(C) Star topology (by MRPC_GT)")
-plot(MRPC.fit_StarModel_CT$obj , main ="(D) Star topology (by MRPC_CT)")
+plot(MRPC.fit_StarModel_GT$graph , main ="(C) Star topology (by MRPC_GT)")
+plot(MRPC.fit_StarModel_CT$graph , main ="(D) Star topology (by MRPC_CT)")
 
 ##Multiple Parents Model
 n<-nrow (simu.data_MultipleParentsModel)    #Number of row
@@ -382,8 +381,8 @@ plot(pc.fit_MultipleParentsModel_05,  main ="(A) Multiple Parents topology
 (by pc (alpha=0.05))")
 plot(pc.fit_MultipleParentsModel_01 ,  main ="(B) Multiple Parents
 topology (by pc (alpha=0.01))")
-plot(MRPC.fit_MultipleParentsModel_GT$obj,  main ="(C) Multiple Parents (by MRPC_GT)")
-plot(MRPC.fit_MultipleParentsModel_CT$obj,  main ="(D) Multiple Parents (by MRPC_CT)")
+plot(MRPC.fit_MultipleParentsModel_GT$graph,  main ="(C) Multiple Parents (by MRPC_GT)")
+plot(MRPC.fit_MultipleParentsModel_CT$graph,  main ="(D) Multiple Parents (by MRPC_CT)")
 
 
 ##Layer shape topology
@@ -414,8 +413,8 @@ FDR=0.05,indepTest = 'citest',labels=V,verbose = TRUE)
 par(mfrow=c(2,2))
 plot(pc.fit_LayersModel_05 ,  main ="(A) Layer topology (by pc (alpha=0.05))")
 plot(pc.fit_LayersModel_01 ,  main ="(B) Layer topology (by pc (alpha=0.01))")
-plot(MRPC.fit_LayersModel_GT$obj,  main ="(C) Layer topology (by MRPC_GT)")
-plot(MRPC.fit_LayersMode_CT$obj,  main ="(D) Layer topology (by MRPC_CT)")
+plot(MRPC.fit_LayersModel_GT$graph,  main ="(C) Layer topology (by MRPC_GT)")
+plot(MRPC.fit_LayersMode_CT$graph,  main ="(D) Layer topology (by MRPC_CT)")
 
 
 #In SimulatedData generating function, we generate the basic 5
@@ -459,8 +458,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_5,  main ="(A) Model 5(by pc (alpha=0.05))")
-plot(MRPC.fit_5_GT$obj, main ="(B) Model 5(by MRPC_GT)")
-plot(MRPC.fit_5_CT$obj, main ="(C) Model 5(by MRPC_CT)")
+plot(MRPC.fit_5_GT$graph, main ="(B) Model 5(by MRPC_GT)")
+plot(MRPC.fit_5_CT$graph, main ="(C) Model 5(by MRPC_CT)")
 
 
 #Model 6 (extention of model 0) based on model 1
@@ -496,8 +495,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_6,  main ="(A) Model 6(by pc (alpha=0.05))")
-plot(MRPC.fit_6_GT$obj, main ="(B) Model 6(by MRPC_GT)")
-plot(MRPC.fit_6_CT$obj, main ="(C) Model 6(by MRPC_CT)")
+plot(MRPC.fit_6_GT$graph, main ="(B) Model 6(by MRPC_GT)")
+plot(MRPC.fit_6_CT$graph, main ="(C) Model 6(by MRPC_CT)")
 
 
 #Model 7 (extention of model 0) based on model 2
@@ -533,8 +532,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_7,  main ="(A) Model 7(by pc (alpha=0.05))")
-plot(MRPC.fit_7_GT$obj, main ="(B) Model 7(by MRPC_GT)")
-plot(MRPC.fit_7_CT$obj, main ="(C) Model 7(by MRPC_CT)")
+plot(MRPC.fit_7_GT$graph, main ="(B) Model 7(by MRPC_GT)")
+plot(MRPC.fit_7_CT$graph, main ="(C) Model 7(by MRPC_CT)")
 
 #Model 8 (extention of model 0) based on model 3
 
@@ -569,8 +568,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_8,  main ="(A) Model 8(by pc (alpha=0.05))")
-plot(MRPC.fit_8_GT$obj, main ="(B) Model 8(by MRPC_GT)")
-plot(MRPC.fit_8_CT$obj, main ="(C) Model 8(by MRPC_CT)")
+plot(MRPC.fit_8_GT$graph, main ="(B) Model 8(by MRPC_GT)")
+plot(MRPC.fit_8_CT$graph, main ="(C) Model 8(by MRPC_CT)")
 
 #Model 9 (extention of model 0) based on model 4
 
@@ -606,8 +605,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_9,  main ="(A) Model 9(by pc (alpha=0.05))")
-plot(MRPC.fit_9_GT$obj, main ="(B) Model 9(by MRPC_GT)")
-plot(MRPC.fit_9_CT$obj, main ="(C) Model 9(by MRPC_CT)")
+plot(MRPC.fit_9_GT$graph, main ="(B) Model 9(by MRPC_GT)")
+plot(MRPC.fit_9_CT$graph, main ="(C) Model 9(by MRPC_CT)")
 
 #Model 10 (extention of model 1) based on model 0 (triplet=V,T1,T2)
 #Data
@@ -642,8 +641,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_10,  main ="(A) Model 10(by pc (alpha=0.05))")
-plot(MRPC.fit_10_GT$obj, main ="(B) Model 10(by MRPC_GT)")
-plot(MRPC.fit_10_CT$obj, main ="(C) Model 10(by MRPC_CT)")
+plot(MRPC.fit_10_GT$graph, main ="(B) Model 10(by MRPC_GT)")
+plot(MRPC.fit_10_CT$graph, main ="(C) Model 10(by MRPC_CT)")
 
 
 #Model 11 (extention of model 1) based on model 1 (triplet=V,T1,T2)
@@ -679,8 +678,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_11,  main ="(A) Model 11(by pc (alpha=0.05))")
-plot(MRPC.fit_11_GT$obj, main ="(B) Model 11(by MRPC_GT)")
-plot(MRPC.fit_11_CT$obj, main ="(C) Model 11(by MRPC_CT)")
+plot(MRPC.fit_11_GT$graph, main ="(B) Model 11(by MRPC_GT)")
+plot(MRPC.fit_11_CT$graph, main ="(C) Model 11(by MRPC_CT)")
 
 #Model 12 (extention of model 1) based on model 2 (triplet=V,T1,T2)
 #Data
@@ -715,8 +714,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_12,  main ="(A) Model 12(by pc (alpha=0.05))")
-plot(MRPC.fit_12_GT$obj, main ="(B) Model 12(by MRPC_GT)")
-plot(MRPC.fit_12_CT$obj, main ="(C) Model 12(by MRPC_CT)")
+plot(MRPC.fit_12_GT$graph, main ="(B) Model 12(by MRPC_GT)")
+plot(MRPC.fit_12_CT$graph, main ="(C) Model 12(by MRPC_CT)")
 
 #Model 13 (extention of model 1) based on model 3 (triplet=V,T1,T2)
 #Data
@@ -751,8 +750,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_13,  main ="(A) Model 13(by pc (alpha=0.05))")
-plot(MRPC.fit_13_GT$obj, main ="(B) Model 13(by MRPC_GT)")
-plot(MRPC.fit_13_CT$obj, main ="(C) Model 13(by MRPC_CT)")
+plot(MRPC.fit_13_GT$graph, main ="(B) Model 13(by MRPC_GT)")
+plot(MRPC.fit_13_CT$graph, main ="(C) Model 13(by MRPC_CT)")
 
 #Model 14 (extention of model 1) based on model 4 (triplet=V,T1,T2)
 #Data
@@ -788,8 +787,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_14,  main ="(A) Model 14(by pc (alpha=0.05))")
-plot(MRPC.fit_14_GT$obj, main ="(B) Model 14(by MRPC_GT)")
-plot(MRPC.fit_14_CT$obj, main ="(C) Model 14(by MRPC_CT)")
+plot(MRPC.fit_14_GT$graph, main ="(B) Model 14(by MRPC_GT)")
+plot(MRPC.fit_14_CT$graph, main ="(C) Model 14(by MRPC_CT)")
 
 #Model 15 (extention of model 1) based on model 1 (triplet=T1,T2,T3)
 #Data
@@ -824,8 +823,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_15,  main ="(A) Model 15(by pc (alpha=0.05))")
-plot(MRPC.fit_15_GT$obj, main ="(B) Model 15(by MRPC_GT)")
-plot(MRPC.fit_15_CT$obj, main ="(C) Model 15(by MRPC_CT)")
+plot(MRPC.fit_15_GT$graph, main ="(B) Model 15(by MRPC_GT)")
+plot(MRPC.fit_15_CT$graph, main ="(C) Model 15(by MRPC_CT)")
 
 #Model 16 (extention of model 1) based on model 2 (triplet=T1,T2,T3)
 #Data
@@ -860,8 +859,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_16,  main ="(A) Model 16(by pc (alpha=0.05))")
-plot(MRPC.fit_16_GT$obj, main ="(B) Model 16(by MRPC_GT)")
-plot(MRPC.fit_16_CT$obj, main ="(C) Model 16(by MRPC_CT)")
+plot(MRPC.fit_16_GT$graph, main ="(B) Model 16(by MRPC_GT)")
+plot(MRPC.fit_16_CT$graph, main ="(C) Model 16(by MRPC_CT)")
 
 #Model 17 (extention of model 1) based on model 4 (triplet=T1,T2,T3)
 #Data
@@ -912,8 +911,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_17,  main ="(A) Model 17(by pc (alpha=0.05))")
-plot(MRPC.fit_17_GT$obj, main ="(B) Model 17(by MRPC_GT)")
-plot(MRPC.fit_17_CT$obj, main ="(C) Model 17(by MRPC_CT)")
+plot(MRPC.fit_17_GT$graph, main ="(B) Model 17(by MRPC_GT)")
+plot(MRPC.fit_17_CT$graph, main ="(C) Model 17(by MRPC_CT)")
 
 #Model 18 (extention of model 2) based on model 0 (triplet=V,T1,T2)
 #Data
@@ -948,8 +947,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_18,  main ="(A) Model 18(by pc (alpha=0.05))")
-plot(MRPC.fit_18_GT$obj, main ="(B) Model 18(by MRPC_GT)")
-plot(MRPC.fit_18_CT$obj, main ="(C) Model 18(by MRPC_CT)")
+plot(MRPC.fit_18_GT$graph, main ="(B) Model 18(by MRPC_GT)")
+plot(MRPC.fit_18_CT$graph, main ="(C) Model 18(by MRPC_CT)")
 
 #Model 19 (extention of model 2) based on model 1 (triplet=V,T1,T2)
 #Data
@@ -984,8 +983,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_19,  main ="(A) Model 19(by pc (alpha=0.05))")
-plot(MRPC.fit_19_GT$obj, main ="(B) Model 19(by MRPC_GT)")
-plot(MRPC.fit_19_CT$obj, main ="(C) Model 19(by MRPC_CT)")
+plot(MRPC.fit_19_GT$graph, main ="(B) Model 19(by MRPC_GT)")
+plot(MRPC.fit_19_CT$graph, main ="(C) Model 19(by MRPC_CT)")
 
 #Model 20 (extention of model 2) based on model 2 (triplet=V,T1,T2)
 #Data
@@ -1020,8 +1019,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_20,  main ="(A) Model 20 (by pc (alpha=0.05))")
-plot(MRPC.fit_20_GT$obj, main ="(B) Model 20 (by MRPC_GT)")
-plot(MRPC.fit_20_CT$obj, main ="(C) Model 20 (by MRPC_CT)")
+plot(MRPC.fit_20_GT$graph, main ="(B) Model 20 (by MRPC_GT)")
+plot(MRPC.fit_20_CT$graph, main ="(C) Model 20 (by MRPC_CT)")
 
 #Model 21 (extention of model 2) based on model 3 (triplet=V,T1,T2)
 #Data
@@ -1056,8 +1055,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_21,  main ="(A) Model 21 (by pc (alpha=0.05))")
-plot(MRPC.fit_21_GT$obj, main ="(B) Model 21 (by MRPC_GT)")
-plot(MRPC.fit_21_CT$obj, main ="(C) Model 21 (by MRPC_CT)")
+plot(MRPC.fit_21_GT$graph, main ="(B) Model 21 (by MRPC_GT)")
+plot(MRPC.fit_21_CT$graph, main ="(C) Model 21 (by MRPC_CT)")
 
 #Model 22 (extention of model 2) based on model 4 (triplet=V,T1,T2)
 #Data
@@ -1108,8 +1107,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_22,  main ="(A) Model 22 (by pc (alpha=0.05))")
-plot(MRPC.fit_22_GT$obj, main ="(B) Model 22 (by MRPC_GT)")
-plot(MRPC.fit_22_CT$obj, main ="(C) Model 22 (by MRPC_CT)")
+plot(MRPC.fit_22_GT$graph, main ="(B) Model 22 (by MRPC_GT)")
+plot(MRPC.fit_22_CT$graph, main ="(C) Model 22 (by MRPC_CT)")
 
 #Model 23 (extention of model 2) based on model 3 (triplet=T2,T1,T3)
 #Data
@@ -1144,8 +1143,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_23,  main ="(A) Model 23 (by pc (alpha=0.05))")
-plot(MRPC.fit_23_GT$obj, main ="(B) Model 23 (by MRPC_GT)")
-plot(MRPC.fit_23_CT$obj, main ="(C) Model 23 (by MRPC_CT)")
+plot(MRPC.fit_23_GT$graph, main ="(B) Model 23 (by MRPC_GT)")
+plot(MRPC.fit_23_CT$graph, main ="(C) Model 23 (by MRPC_CT)")
 
 #Model 24 (extention of model 2) based on model 4 (triplet=T2,T1,T3)
 #Data
@@ -1197,8 +1196,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_24,  main ="(A) Model 24 (by pc (alpha=0.05))")
-plot(MRPC.fit_24_GT$obj, main ="(B) Model 24 (by MRPC_GT)")
-plot(MRPC.fit_24_CT$obj, main ="(C) Model 24 (by MRPC_CT)")
+plot(MRPC.fit_24_GT$graph, main ="(B) Model 24 (by MRPC_GT)")
+plot(MRPC.fit_24_CT$graph, main ="(C) Model 24 (by MRPC_CT)")
 
 #Model 25 (extention of model 3) based on model 0 (triplet=V,T1,T2)
 #Data
@@ -1233,8 +1232,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_25,  main ="(A) Model 25 (by pc (alpha=0.05))")
-plot(MRPC.fit_25_GT$obj, main ="(B) Model 25 (by MRPC_GT)")
-plot(MRPC.fit_25_CT$obj, main ="(C) Model 25 (by MRPC_CT)")
+plot(MRPC.fit_25_GT$graph, main ="(B) Model 25 (by MRPC_GT)")
+plot(MRPC.fit_25_CT$graph, main ="(C) Model 25 (by MRPC_CT)")
 
 #Model 26 (extention of model 3) based on model 1 (triplet=V,T1,T2)
 #Data
@@ -1269,8 +1268,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_26,  main ="(A) Model 26 (by pc (alpha=0.05))")
-plot(MRPC.fit_26_GT$obj, main ="(B) Model 26 (by MRPC_GT)")
-plot(MRPC.fit_26_CT$obj, main ="(C) Model 26 (by MRPC_CT)")
+plot(MRPC.fit_26_GT$graph, main ="(B) Model 26 (by MRPC_GT)")
+plot(MRPC.fit_26_CT$graph, main ="(C) Model 26 (by MRPC_CT)")
 
 #Model 27 (extention of model 3) based on model 2 (triplet=V,T1,T2)
 #Data
@@ -1305,8 +1304,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_27,  main ="(A) Model 27 (by pc (alpha=0.05))")
-plot(MRPC.fit_27_GT$obj, main ="(B) Model 27 (by MRPC_GT)")
-plot(MRPC.fit_27_CT$obj, main ="(C) Model 27 (by MRPC_CT)")
+plot(MRPC.fit_27_GT$graph, main ="(B) Model 27 (by MRPC_GT)")
+plot(MRPC.fit_27_CT$graph, main ="(C) Model 27 (by MRPC_CT)")
 
 #Model 28 (extention of model 3) based on model 3 (triplet=V,T1,T2)
 #Data
@@ -1341,8 +1340,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_28,  main ="(A) Model 28 (by pc (alpha=0.05))")
-plot(MRPC.fit_28_GT$obj, main ="(B) Model 28 (by MRPC_GT)")
-plot(MRPC.fit_28_CT$obj, main ="(C) Model 28 (by MRPC_CT)")
+plot(MRPC.fit_28_GT$graph, main ="(B) Model 28 (by MRPC_GT)")
+plot(MRPC.fit_28_CT$graph, main ="(C) Model 28 (by MRPC_CT)")
 
 #Model 29 (extention of model 3) based on model 4 (triplet=V,T1,T2)
 #Data
@@ -1377,8 +1376,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_29,  main ="(A) Model 29 (by pc (alpha=0.05))")
-plot(MRPC.fit_29_GT$obj, main ="(B) Model 29 (by MRPC_GT)")
-plot(MRPC.fit_29_CT$obj, main ="(C) Model 29 (by MRPC_CT)")
+plot(MRPC.fit_29_GT$graph, main ="(B) Model 29 (by MRPC_GT)")
+plot(MRPC.fit_29_CT$graph, main ="(C) Model 29 (by MRPC_CT)")
 
 #Model 30 (extention of model 3) based on model 1 (triplet=V,T1,T3)
 #Data
@@ -1413,8 +1412,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_30,  main ="(A) Model 30 (by pc (alpha=0.05))")
-plot(MRPC.fit_30_GT$obj, main ="(B) Model 30 (by MRPC_GT)")
-plot(MRPC.fit_30_CT$obj, main ="(C) Model 30 (by MRPC_CT)")
+plot(MRPC.fit_30_GT$graph, main ="(B) Model 30 (by MRPC_GT)")
+plot(MRPC.fit_30_CT$graph, main ="(C) Model 30 (by MRPC_CT)")
 
 #Model 31 (extention of model 3) based on model 2 (triplet=V,T1,T3)
 #Data
@@ -1449,8 +1448,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_31,  main ="(A) Model 31 (by pc (alpha=0.05))")
-plot(MRPC.fit_31_GT$obj, main ="(B) Model 31 (by MRPC_GT)")
-plot(MRPC.fit_31_CT$obj, main ="(C) Model 31 (by MRPC_CT)")
+plot(MRPC.fit_31_GT$graph, main ="(B) Model 31 (by MRPC_GT)")
+plot(MRPC.fit_31_CT$graph, main ="(C) Model 31 (by MRPC_CT)")
 
 #Model 32 (extention of model 3) based on model 4 (triplet=V,T1,T3)
 #Data
@@ -1485,8 +1484,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_32,  main ="(A) Model 32 (by pc (alpha=0.05))")
-plot(MRPC.fit_32_GT$obj, main ="(B) Model 32 (by MRPC_GT)")
-plot(MRPC.fit_32_CT$obj, main ="(C) Model 32 (by MRPC_CT)")
+plot(MRPC.fit_32_GT$graph, main ="(B) Model 32 (by MRPC_GT)")
+plot(MRPC.fit_32_CT$graph, main ="(C) Model 32 (by MRPC_CT)")
 
 #Model 33 (extention of model 3) based on model 2 (triplet=V,T1,T2)
 #Data
@@ -1521,8 +1520,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_33,  main ="(A) Model 33 (by pc (alpha=0.05))")
-plot(MRPC.fit_33_GT$obj, main ="(B) Model 33 (by MRPC_GT)")
-plot(MRPC.fit_33_CT$obj, main ="(C) Model 33 (by MRPC_CT)")
+plot(MRPC.fit_33_GT$graph, main ="(B) Model 33 (by MRPC_GT)")
+plot(MRPC.fit_33_CT$graph, main ="(C) Model 33 (by MRPC_CT)")
 
 #Model 34 (extention of model 4) based on model 1 (triplet=V,T1,T2)
 #Data
@@ -1557,8 +1556,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_34,  main ="(A) Model 34 (by pc (alpha=0.05))")
-plot(MRPC.fit_34_GT$obj, main ="(B) Model 34 (by MRPC_GT)")
-plot(MRPC.fit_34_CT$obj, main ="(C) Model 34 (by MRPC_CT)")
+plot(MRPC.fit_34_GT$graph, main ="(B) Model 34 (by MRPC_GT)")
+plot(MRPC.fit_34_CT$graph, main ="(C) Model 34 (by MRPC_CT)")
 
 #Model 35 (extention of model 4) based on model 2 (triplet=V,T1,T2)
 #Data
@@ -1612,8 +1611,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_35,  main ="(A) Model 35 (by pc (alpha=0.05))")
-plot(MRPC.fit_35_GT$obj, main ="(B) Model 35 (by MRPC_GT)")
-plot(MRPC.fit_35_CT$obj, main ="(C) Model 35 (by MRPC_CT)")
+plot(MRPC.fit_35_GT$graph, main ="(B) Model 35 (by MRPC_GT)")
+plot(MRPC.fit_35_CT$graph, main ="(C) Model 35 (by MRPC_CT)")
 
 #Model 36 (extention of model 4) based on model 3 (triplet=V,T1,T2)
 #Data
@@ -1648,8 +1647,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_36,  main ="(A) Model 36 (by pc (alpha=0.05))")
-plot(MRPC.fit_36_GT$obj, main ="(B) Model 36 (by MRPC_GT)")
-plot(MRPC.fit_36_CT$obj, main ="(C) Model 36 (by MRPC_CT)")
+plot(MRPC.fit_36_GT$graph, main ="(B) Model 36 (by MRPC_GT)")
+plot(MRPC.fit_36_CT$graph, main ="(C) Model 36 (by MRPC_CT)")
 
 #Model 37 (extention of model 4) based on model 4 (triplet=V,T1,T2)
 #Data
@@ -1691,8 +1690,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_37,  main ="(A) Model 37 (by pc (alpha=0.05))")
-plot(MRPC.fit_37_GT$obj, main ="(B) Model 37 (by MRPC_GT)")
-plot(MRPC.fit_37_CT$obj, main ="(C) Model 37 (by MRPC_CT)")
+plot(MRPC.fit_37_GT$graph, main ="(B) Model 37 (by MRPC_GT)")
+plot(MRPC.fit_37_CT$graph, main ="(C) Model 37 (by MRPC_CT)")
 
 #Model 38 (extention of model 4) based on model 1 (triplet=V,T1,T3)
 #Data
@@ -1727,8 +1726,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_38,  main ="(A) Model 38 (by pc (alpha=0.05))")
-plot(MRPC.fit_38_GT$obj, main ="(B) Model 38 (by MRPC_GT)")
-plot(MRPC.fit_38_CT$obj, main ="(C) Model 38 (by MRPC_CT)")
+plot(MRPC.fit_38_GT$graph, main ="(B) Model 38 (by MRPC_GT)")
+plot(MRPC.fit_38_CT$graph, main ="(C) Model 38 (by MRPC_CT)")
 
 #Model 39 (extention of model 4) based on model 2 (triplet=V,T1,T3)
 #Data
@@ -1780,8 +1779,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_39,  main ="(A) Model 39 (by pc (alpha=0.05))")
-plot(MRPC.fit_39_GT$obj, main ="(B) Model 39 (by MRPC_GT)")
-plot(MRPC.fit_39_CT$obj, main ="(C) Model 39 (by MRPC_CT)")
+plot(MRPC.fit_39_GT$graph, main ="(B) Model 39 (by MRPC_GT)")
+plot(MRPC.fit_39_CT$graph, main ="(C) Model 39 (by MRPC_CT)")
 
 #Model 40 (extention of model 4) based on model 4 (triplet=V,T1,T3)
 #Data
@@ -1827,8 +1826,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_40,  main ="(A) Model 40 (by pc (alpha=0.05))")
-plot(MRPC.fit_40_GT$obj, main ="(B) Model 40 (by MRPC_GT)")
-plot(MRPC.fit_40_CT$obj, main ="(C) Model 40 (by MRPC_CT)")
+plot(MRPC.fit_40_GT$graph, main ="(B) Model 40 (by MRPC_GT)")
+plot(MRPC.fit_40_CT$graph, main ="(C) Model 40 (by MRPC_CT)")
 
 
 
@@ -1867,9 +1866,9 @@ MRPC.fit_0_R_GT <- MRPC(simu.outdata_M0,suffStat_R,NQ=1,FDR=0.05
 ## Show estimated graph
 par(mfrow=c(2,2))
 plot(pc.fit_0,  main ="(A) Model 0(by pc (alpha=0.05))")
-plot(MRPC.fit_0_C_GT$obj,  main ="(B) Model 0(MRPC_GT(Classical Correlation))")
-plot(MRPC.fit_0_C_CT$obj, main ="(C) Model 0(by MRPC_CT)")
-plot(MRPC.fit_0_R_GT$obj, main ="(D) Model 0(by MRPC_GT(Robust Correlation))")
+plot(MRPC.fit_0_C_GT$graph,  main ="(B) Model 0(MRPC_GT(Classical Correlation))")
+plot(MRPC.fit_0_C_CT$graph, main ="(C) Model 0(by MRPC_CT)")
+plot(MRPC.fit_0_R_GT$graph, main ="(D) Model 0(by MRPC_GT(Robust Correlation))")
 
 
 ## Model 1
@@ -1903,9 +1902,9 @@ MRPC.fit_1_R_GT <- MRPC(simu.outdata_M1,suffStat_R,NQ=1,FDR=0.05
 ## Show estimated graph
 par(mfrow=c(2,2))
 plot(pc.fit_1,  main ="(A) Model 1(by pc (alpha=0.05))")
-plot(MRPC.fit_1_C_GT$obj,  main ="(B) Model 1(MRPC_GT(Classical Correlation))")
-plot(MRPC.fit_1_C_CT$obj, main ="(C) Model 1(by MRPC_CT)")
-plot(MRPC.fit_1_R_GT$obj, main ="(D) Model 1(by MRPC_GT(Robust Correlation))")
+plot(MRPC.fit_1_C_GT$graph,  main ="(B) Model 1(MRPC_GT(Classical Correlation))")
+plot(MRPC.fit_1_C_CT$graph, main ="(C) Model 1(by MRPC_CT)")
+plot(MRPC.fit_1_R_GT$graph, main ="(D) Model 1(by MRPC_GT(Robust Correlation))")
 
 
 ## Model 2
@@ -1938,9 +1937,9 @@ MRPC.fit_2_R_GT <- MRPC(simu.outdata_M2,suffStat_R,NQ=1,FDR=0.05
 ## Show estimated graph
 par(mfrow=c(2,2))
 plot(pc.fit_2,  main ="(A) Model 0(by pc (alpha=0.05))")
-plot(MRPC.fit_2_C_GT$obj,  main ="(B) Model 0(MRPC_GT(Classical Correlation))")
-plot(MRPC.fit_2_C_CT$obj, main ="(C) Model 0(by MRPC_CT)")
-plot(MRPC.fit_2_R_GT$obj, main ="(D) Model 0(by MRPC_GT(Robust Correlation))")
+plot(MRPC.fit_2_C_GT$graph,  main ="(B) Model 0(MRPC_GT(Classical Correlation))")
+plot(MRPC.fit_2_C_CT$graph, main ="(C) Model 0(by MRPC_CT)")
+plot(MRPC.fit_2_R_GT$graph, main ="(D) Model 0(by MRPC_GT(Robust Correlation))")
 
 
 ## Model 3
@@ -1973,9 +1972,9 @@ MRPC.fit_3_R_GT <- MRPC(simu.outdata_M3,suffStat_R,NQ=1,FDR=0.05
 ## Show estimated graph
 par(mfrow=c(2,2))
 plot(pc.fit_3,  main ="(A) Model 0(by pc (alpha=0.05))")
-plot(MRPC.fit_3_C_GT$obj,  main ="(B) Model 0(MRPC_GT(Classical Correlation))")
-plot(MRPC.fit_3_C_CT$obj, main ="(C) Model 0(by MRPC_CT)")
-plot(MRPC.fit_3_R_GT$obj, main ="(D) Model 0(by MRPC_GT(Robust Correlation))")
+plot(MRPC.fit_3_C_GT$graph,  main ="(B) Model 0(MRPC_GT(Classical Correlation))")
+plot(MRPC.fit_3_C_CT$graph, main ="(C) Model 0(by MRPC_CT)")
+plot(MRPC.fit_3_R_GT$graph, main ="(D) Model 0(by MRPC_GT(Robust Correlation))")
 
 ## Model 4
 Outdata=matrix(c(runif(n = 300, min = 80, max = 100)),ncol = 3)
@@ -2007,9 +2006,9 @@ MRPC.fit_4_R_GT <- MRPC(simu.outdata_M3,suffStat_R,NQ=1,FDR=0.05
 ## Show estimated graph
 par(mfrow=c(2,2))
 plot(pc.fit_4,  main ="(A) Model 4(by pc (alpha=0.05))")
-plot(MRPC.fit_4_C_GT$obj,  main ="(B) Model 4(MRPC_GT(Classical Correlation))")
-plot(MRPC.fit_4_C_CT$obj, main ="(C) Model 4(by MRPC_CT)")
-plot(MRPC.fit_4_R_GT$obj, main ="(D) Model 4(by MRPC_GT(Robust Correlation))")
+plot(MRPC.fit_4_C_GT$graph,  main ="(B) Model 4(MRPC_GT(Classical Correlation))")
+plot(MRPC.fit_4_C_CT$graph, main ="(C) Model 4(by MRPC_CT)")
+plot(MRPC.fit_4_R_GT$graph, main ="(D) Model 4(by MRPC_GT(Robust Correlation))")
 
 #Example from pclag
 data(gmG)
@@ -2038,8 +2037,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_Ex,  main ="(A) Model Ex(by pc (alpha=0.05))")
-plot(MRPC.fit_Ex_GT$obj, main ="(B) Model Ex(by MRPC_GT)")
-plot(MRPC.fit_Ex_CT$obj, main ="(C) Model Ex(by MRPC_CT)")
+plot(MRPC.fit_Ex_GT$graph, main ="(B) Model Ex(by MRPC_GT)")
+plot(MRPC.fit_Ex_CT$graph, main ="(C) Model Ex(by MRPC_CT)")
 
 ##Data for the multiple SNPs/indels/CNV/eQTL
 V1 <- c(sample(c(0, 1, 2),
@@ -2083,8 +2082,8 @@ indepTest ='citest',labels = V,verbose = TRUE)
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_MQ ,  main ="(A) Multiple eQTL topology (by pc (alpha=0.05))")
-plot(MRPC.fit_MQ_GT$obj, main ="(B) Multiple eQTL topology (by MRPC_GT)")
-plot(MRPC.fit_MQ_CT$obj, main ="(C) Multiple eQTL topology (by MRPC_CT)")
+plot(MRPC.fit_MQ_GT$graph, main ="(B) Multiple eQTL topology (by MRPC_GT)")
+plot(MRPC.fit_MQ_CT$graph, main ="(C) Multiple eQTL topology (by MRPC_CT)")
 
 
 #Three new models are not including above
@@ -2130,8 +2129,8 @@ MRPC.fit_New1_CT<- MRPC(Sim_New1,suffStat_R,NQ=1,FDR=0.05,
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_New1,  main ="(A) New model 1 (by pc (alpha=0.05))")
-plot(MRPC.fit_New1_GT$obj, main ="(B) New model 1 (by MRPC_GT)")
-plot(MRPC.fit_New1_CT$obj, main ="(C) New model 1 (by MRPC_CT)")
+plot(MRPC.fit_New1_GT$graph, main ="(B) New model 1 (by MRPC_GT)")
+plot(MRPC.fit_New1_CT$graph, main ="(C) New model 1 (by MRPC_CT)")
 
 ##v-->T1 and T2, T1-->T3-->T3
 
@@ -2174,8 +2173,8 @@ MRPC.fit_New2_CT<- MRPC(Sim_New2,suffStat_R,NQ=1,FDR=0.05,
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_New2,  main ="(A) New model 2 (by pc (alpha=0.05))")
-plot(MRPC.fit_New2_GT$obj, main ="(B) New model 2 (by MRPC_GT)")
-plot(MRPC.fit_New2_CT$obj, main ="(C) New model 2 (by MRPC_CT)")
+plot(MRPC.fit_New2_GT$graph, main ="(B) New model 2 (by MRPC_GT)")
+plot(MRPC.fit_New2_CT$graph, main ="(C) New model 2 (by MRPC_CT)")
 
 
 ##v-->T1 and T2, T2-->T1,T2
@@ -2219,7 +2218,7 @@ MRPC.fit_New3_CT<- MRPC(Sim_New3,suffStat_R,NQ=1,FDR=0.05,
 ## Show estimated graph
 par(mfrow=c(1,3))
 plot(pc.fit_New3, main ="(A) New model 3 (by pc (alpha=0.05))")
-plot(MRPC.fit_New3_GT$obj, main ="(B) New model 3 (by MRPC_GT)")
-plot(MRPC.fit_New3_CT$obj, main ="(C) New model 3 (by MRPC_CT)")
+plot(MRPC.fit_New3_GT$graph, main ="(B) New model 3 (by MRPC_GT)")
+plot(MRPC.fit_New3_CT$graph, main ="(C) New model 3 (by MRPC_CT)")
 
 }

@@ -8,6 +8,6 @@ Description: Estimate the DAG using the Mendelian Randomization (MR) based PC (M
 License: GPL (>= 2)
 LazyData: TRUE
 Imports: stats,pcalg,
-        Rgraphviz,methods,bnlearn,WGCNA,network,GGally,dynamicTreeCut,Hmisc,fastcluster
+        Rgraphviz,methods,bnlearn,WGCNA,network,GGally,dynamicTreeCut,Hmisc,fastcluster,BiocGenerics
 NeedsCompilation: no
 Packaged: 2017-04-14 18:07:43 UTC; mdbadsha

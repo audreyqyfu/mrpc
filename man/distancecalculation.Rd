@@ -52,7 +52,7 @@ MRPC.fit_2_GT <- MRPC(simu.data_M2,suffStat_R,NQ=1,FDR=0.05,
 indepTest ='gaussCItest', labels= V, verbose = TRUE)
 
 #
-Distance=distancecalculation(MRPC.fit_1_GT$obj,MRPC.fit_2_GT$obj,NQ=1)
+Distance=distancecalculation(MRPC.fit_1_GT$graph,MRPC.fit_2_GT$graph,NQ=1)
 
 }
 

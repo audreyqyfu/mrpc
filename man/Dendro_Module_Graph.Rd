@@ -54,7 +54,7 @@ MRPC.fit_0_GT <- MRPC(simu.data_M0,suffStat_R,NQ=1,FDR=0.05,
 indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 #Adjacency matrix from directed graph
-Adj_directed=as(MRPC.fit_0_GT$obj@graph,"matrix")
+Adj_directed=as(MRPC.fit_0_GT$graph,"matrix")
 #Plot of the graph
 Dendro_Module_Graph(Adj_directed,minModuleSize = 1,NQ=1)
 }
