@@ -58,10 +58,11 @@ distancecalculation=function (g1, g2,NQ)
     }
   }
   #
-  if(any(Distannce_matrix[1:NQ,]==.5) || any(Distannce_matrix[,1:NQ]==.5))
+  #if(NQ>1 & (any(Distannce_matrix[1:NQ,1:NQ]==.5) || any(Distannce_matrix[,1:NQ]==.5)))
+  if(NQ>1 & (any(Distannce_matrix[1:NQ,1:NQ]==.5)))
+    
   {
-    Distannce_matrix[1:NQ,]=0
-    Distannce_matrix[,1:NQ]=0  
+    Distannce_matrix[1:NQ,1:NQ]=0
   }
   
   
