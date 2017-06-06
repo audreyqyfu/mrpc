@@ -12,7 +12,13 @@ distancecalculation=function (g1, g2,NQ)
     m2 <- wgtMatrix(g2, transpose = FALSE)
     m2[m2 != 0] <- 1
   }
-  
+  #Ordering nodes
+   if(any(colnames(m1)!=colnames(m2)))
+   {
+     Order_node=match(colnames(m1),colnames(m2))
+     m2<-m2[Order_node,Order_node] #new
+   }
+   
   Distannce_matrix=matrix(0, nrow(m1),ncol(m1)) #Output matrix
   ind1=which(m1==1,arr.ind = T)  #pullout the edges from 1st graph
   ind2=which(m2==1,arr.ind = T)  #pullout the edges from 2nd graph
@@ -59,12 +65,11 @@ distancecalculation=function (g1, g2,NQ)
   }
   #
   #if(NQ>1 & (any(Distannce_matrix[1:NQ,1:NQ]==.5) || any(Distannce_matrix[,1:NQ]==.5)))
-  if(NQ>1 & (any(Distannce_matrix[1:NQ,1:NQ]==.5)))
-    
+  if(NQ>1)
   {
-    Distannce_matrix[1:NQ,1:NQ]=0
+    W=which(Distannce_matrix[1:NQ,1:NQ]==0.5,arr.ind = T)
+    Distannce_matrix[W]=0 
   }
-  
   
   Distance=sum(Distannce_matrix)  
   return(Distance)
