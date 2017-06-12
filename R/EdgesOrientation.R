@@ -74,6 +74,10 @@ EdgesOrientation<-function (gInput,NQ=NQ,suffStat,FDR,verbose = FALSE)
         m=m+1
         pval=gaussCItest(x, z, y, suffStat) #additional conditional test
         Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+        
+        cat("Additional pval value =", pval, "\n")
+        cat("Alpha value =", Alpha, "\n")
+        
         if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
           R[m]=1
         if (verbose) {

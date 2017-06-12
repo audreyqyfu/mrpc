@@ -6,7 +6,7 @@
 # To specify the model remember to use quotes. Ex. if you want to generate data for model 0 you would type 'model0' into the function.
 #For example for Model0=simulateData(N = 10^3,p = 0.45,seed = 5,'model0',b0.1 = 0,b1.1 = 1,b1.2 = 1, sd.1 = 1)
 
-SimulatedData<- function(N, p,model, b0.1, b1.1, b1.2,b1.3, sd.1) {
+SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
 
   #set.seed(seed)
 
