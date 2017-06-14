@@ -1,28 +1,35 @@
 RobustCor <- function(xx,Beta, plot=FALSE)
 {
-  xx=as.matrix(xx)
-  xx=na.omit(xx)
+  #xx=as.matrix(xx,na.action(xx))
+  #xx=na.omit(xx)
   #xx<- replace(xx, is.na(xx), 0)
   nn <- dim(xx)[1] # sample size
   mm <- dim(xx)[2]
   #####===============Initialization=================================
   Mx<-NULL; Median<-NULL; Dist<-NULL; Data0<-NULL
   for (ii in 1:dim(xx)[2])
-  {Median[ii] <- median(xx[,ii])}
+  {
+      Median[ii] <- median(xx[,ii],na.rm = T)
+    }
+
   #{Mode <- hist(xx[,ii], nclass = 20, plot = F)
   # Mx[ii] <- mean(Mode$mids[which(Mode$count==max(Mode$count))])
   #}
   for (jj in 1:dim(xx)[1])
-  {Dist[jj]<-sqrt(sum((xx[jj,]-Median)^2))}
+  {
+    Dist[jj]<-sqrt(sum((xx[jj,]-Median)^2,na.rm = T))
+    }
   for (kk in 1:dim(xx)[1])
-  {if (Dist[kk] <= as.numeric(quantile(Dist, p=.5)))
-    Data0 <- rbind(Data0, xx[kk,])}
+  {
+    if (Dist[kk] <= as.numeric(quantile(Dist, p=.5,na.rm = T)))
+    Data0 <- rbind(Data0, xx[kk,])
+    }
   #plot(Dist)
   #readline('Pls Enter')
   #####==========End Initialization================================
   #source("mpinv.r")
-  Mo <-as.numeric(colMeans(Data0))
-  Vo <- as.matrix(cov(Data0))
+  Mo <-as.numeric(colMeans(Data0,na.rm = T))
+  Vo <- as.matrix(cov(Data0,use = "pairwise.complete.obs"))
   DiffTol = 0.005;
   DiffNorm = +10000;
   Iter = 0;
@@ -32,7 +39,9 @@ RobustCor <- function(xx,Beta, plot=FALSE)
   {
     Wx <- NULL
     for (j1 in 1:nn)
-    { zo <- as.numeric(xx[j1,]-Mo)
+    { 
+    xx=replace(xx,is.na(xx),0)  
+    zo <- as.numeric(xx[j1,]-Mo)
     #zz <- bta*(t(zo)%*%solve(Vo)%*%zo)
     #if(det(t(Vo)%*%zo)<0.000005)
     zz <- Beta*(t(zo)%*%mpinv(Vo)%*%zo)
