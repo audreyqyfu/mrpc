@@ -22,6 +22,6 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \examples{
 ## Model 4
-simu.data_M4=SimulatedData(N = 10^3,p = 0.45, seed = 5,'model4',b0.1 = 0,b1.1
+simu.data_M4=SimulatedData(N = 10^3,p = 0.45,'model4',b0.1 = 0,b1.1
 =1,b1.2 = 1,b1.3=1,sd.1 = 1)
 }

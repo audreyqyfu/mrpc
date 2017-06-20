@@ -42,7 +42,7 @@ indepTest ='gaussCItest', labels= V, verbose = TRUE)
 #Inferred graph 
 
 n<-nrow (simu.data_M2)    #Number of row
-V<-colnames(simu.data_M2) #Column names
+V<-colnames(simu.data_M1) #Column names
 
 Rcor_R=RobustCor(simu.data_M2, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)

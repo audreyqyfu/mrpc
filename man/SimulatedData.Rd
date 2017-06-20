@@ -8,14 +8,13 @@ Generating Simulated Data
 Function for the generating simulated data
 }
 \usage{
-SimulatedData(N, p,seed,model,b0.1,b1.1,b1.2,b1.3,sd.1)
+SimulatedData(N, p,model,b0.1,b1.1,b1.2,b1.3,sd.1)
 }
 
 \arguments{
 
 \item{N}{Number of observation}
 \item{p}{Population frequency of the references allel. Real number between 0 to 1, which is the number of a particluar allel present}
-\item{seed}{Used for the random number generation}
 \item{model}{To specify the model you want. For example, if you want to generate data for model 0 you would type 'model0' into the function.}
 \item{b0.1}{Intercept of b0.1+b1.1*P1, where P1 is the 1st parent of the corresponding genes.}
 \item{b1.1}{Slope of P1 for b0.1+b1.1*P1, where P1 is the 1st parent of the corresponding genes.}
@@ -53,37 +52,36 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 
 
 ## Model 0
-simu.data_M0=SimulatedData(N = 10^3,p = 0.45, seed = 5
+simu.data_M0=SimulatedData(N = 10^3,p = 0.45
 ,'model0',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 1
-simu.data_M1=SimulatedData(N = 10^3,p = 0.45, seed = 5
+simu.data_M1=SimulatedData(N = 10^3,p = 0.45
 ,'model1',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 2
-simu.data_M2=SimulatedData(N = 10^3,p = 0.45, seed = 5
+simu.data_M2=SimulatedData(N = 10^3,p = 0.45
 ,'model2',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 3
-simu.data_M3=SimulatedData(N = 10^3,p = 0.45, seed = 5
+simu.data_M3=SimulatedData(N = 10^3,p = 0.45
 ,'model3',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 4
-simu.data_M4=SimulatedData(N = 10^3,p = 0.45, seed = 5
+simu.data_M4=SimulatedData(N = 10^3,p = 0.45
 ,'model4',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Star Model
-simu.data_StarModel=SimulatedData(N = 10^3,p = 0.45, seed
-= 5,'starmodel',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1
-= 1)
+simu.data_StarModel=SimulatedData(N = 10^3,p = 0.45, 
+'starmodel',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1= 1)
 
 ## Layers Model
 simu.data_LayersModel=SimulatedData(N = 10^3,p = 0.45,
-seed = 5,'layersmodel',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 =
+'layersmodel',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 =
 1,sd.1 = 1)
 ## Multiple Parents Model
 simu.data_MultipleParentsModel=SimulatedData(N = 10^3,p
-=0.45, seed = 5,'multipleparentsmodel',b0.1 = 0,b1.1 = 1
+=0.45, 'multipleparentsmodel',b0.1 = 0,b1.1 = 1
 ,b1.2 = 1,b1.3=1,sd.1 = 1)
 
 }

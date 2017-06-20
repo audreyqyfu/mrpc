@@ -3,6 +3,13 @@ RobustCor <- function(xx,Beta, plot=FALSE)
   #xx=as.matrix(xx,na.action(xx))
   #xx=na.omit(xx)
   #xx<- replace(xx, is.na(xx), 0)
+  if (any(is.na(xx))) #if any NA
+  {
+    set.seed(103)
+    xx=mice(xx,m=5,printFlag = F) #Multivariate Imputation by Chained Equations (MICE)
+    xx=complete(xx) #Creates imputed data sets
+  }
+  xx=as.matrix(xx)
   nn <- dim(xx)[1] # sample size
   mm <- dim(xx)[2]
   #####===============Initialization=================================

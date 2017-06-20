@@ -22,6 +22,6 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \examples{
 ## Model 3
-simu.data_M3=SimulatedData(N = 10^3,p = 0.45, seed = 5,'model3',b0.1 = 0,b1.1
+simu.data_M3=SimulatedData(N = 10^3,p = 0.45,'model3',b0.1 = 0,b1.1
 =1,b1.2 = 1,b1.3=1,sd.1 = 1)
 }

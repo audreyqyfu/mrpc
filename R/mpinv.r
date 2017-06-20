@@ -5,6 +5,8 @@ Eps <-100000*.Machine$double.eps;# 100*.Machine$double.eps;
 
 # singular value decomposition
 s <- svd(X);
+#s=SVDmiss(X)
+#d <- s$svd$d;
 d <- s$d;
 m <- length(d);
 if (!(is.vector(d)))
