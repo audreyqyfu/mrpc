@@ -1,14 +1,14 @@
-\name{distancecalculation}
-\alias{distancecalculation}
+\name{aSHD}
+\alias{aSHD}
 
 \title{
-Structural Distance Calculation 
+adjusted Structural Hamming Distance (aSHD) 
 }
 \description{
 Structural distance calculation between two graph.If missing edges then penalty =1 and if missing direction then penalty =0.5. 
 }
 \usage{
-distancecalculation(g1, g2, NQ)
+aSHD(g1, g2, NQ)
 }
 
 \arguments{
@@ -52,7 +52,7 @@ MRPC.fit_2_GT <- MRPC(simu.data_M2,suffStat_R,NQ=1,FDR=0.05,
 indepTest ='gaussCItest', labels= V, verbose = TRUE)
 
 #
-Distance=distancecalculation(MRPC.fit_1_GT$graph,MRPC.fit_2_GT$graph,NQ=1)
+Distance=aSHD(MRPC.fit_1_GT$graph,MRPC.fit_2_GT$graph,NQ=1)
 
 }
 
