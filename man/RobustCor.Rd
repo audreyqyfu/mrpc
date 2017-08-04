@@ -26,7 +26,14 @@ We take a robust approach and calculate the robust correlation matrix (Badsha et
 
 }
 \value{
-\link{list} of object
+\link{list} of objects as follows:
+
+\itemize{
+\item \code{RR}: robust correlation matrix
+\item \code{M}: robust mean vector
+\item \code{V}: robust covariance matrix
+\item \code{Wt}: weight for each observation.
+}
 }
 
 \references{

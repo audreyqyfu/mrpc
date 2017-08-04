@@ -89,7 +89,7 @@ EdgesOrientation<-function (gInput,NQ=NQ,suffStat,FDR,verbose = FALSE)
           } 
         else {
           R[m]=0  #Accept H0
-          cat("Since pval<Alpha,additional test is accepted:Nodes are independent", "\n")
+          cat("Since pval>Alpha,additional test is accepted:Nodes are independent", "\n")
             }
 
     }
