@@ -176,7 +176,7 @@ plot(pc.fit_0,  main ="(D) Model 0 (by pc (alpha=0.05))")
 #Adjacency matrix from directed graph
 Adj_directed=as(MRPC.fit_0_beta0.005$graph,"matrix")
 #Plot of the graph with modules color
-Dendro_Module_Graph(Adj_directed,minModuleSize = 1,NQ=1)
+DendroModuleGraph(Adj_directed,minModuleSize = 1,NQ=1)
 
 
 ## Model 1
