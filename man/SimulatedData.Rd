@@ -38,7 +38,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 
 
 \seealso{
-\link{MRPC} for estimating a DAG using the modified pc (MRPC) algorithm; \link{ModiSkeleton} for estimating a undirected graph using modified \link{skeleton} function; \link{EdgesOrientation} for orientation rules for edges in MRPC algorithm; \link{Case_NP} the gene to have data generated has no parent; \link{Case_1P} the gene to have data generated has one parent; \link{Case_2P} the gene to have data generated has two parents.
+\link{MRPC} for estimating a DAG using the modified pc (MRPC) algorithm; \link{ModiSkeleton} for estimating a undirected graph using modified \link{skeleton} function; \link{EdgeOrientation} for orientation rules for edges in MRPC algorithm; \link{Case_NP} the gene to have data generated has no parent; \link{Case_1P} the gene to have data generated has one parent; \link{Case_2P} the gene to have data generated has two parents.
 
 }
 \examples{
@@ -72,16 +72,16 @@ simu.data_M4=SimulatedData(N = 10^3,p = 0.45
 ,'model4',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Star Model
-simu.data_StarModel=SimulatedData(N = 10^3,p = 0.45, 
-'starmodel',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1= 1)
+simu.data_starshaped=SimulatedData(N = 10^3,p = 0.45, 
+'starshaped',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1= 1)
 
 ## Layers Model
-simu.data_LayersModel=SimulatedData(N = 10^3,p = 0.45,
-'layersmodel',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 =
+simu.data_layered=SimulatedData(N = 10^3,p = 0.45,
+'layered',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 =
 1,sd.1 = 1)
 ## Multiple Parents Model
-simu.data_MultipleParentsModel=SimulatedData(N = 10^3,p
-=0.45, 'multipleparentsmodel',b0.1 = 0,b1.1 = 1
+simu.data_multiparent=SimulatedData(N = 10^3,p
+=0.45, 'multiparent',b0.1 = 0,b1.1 = 1
 ,b1.2 = 1,b1.3=1,sd.1 = 1)
 
 }

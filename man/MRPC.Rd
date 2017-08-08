@@ -8,7 +8,7 @@ The MRPC () function is used to estimate a directed acyclic graph (DAG) from obs
 
 }
 \usage{
-MRPC(data,suffStat,NQ,FDR,indepTest, labels, p,
+MRPC(data,suffStat,GV,FDR,indepTest, labels, p,
 fixedGaps = NULL, fixedEdges = NULL,
 NAdelete = TRUE, m.max = Inf,u2pd =
 c("relaxed", "rand", "retry"),
@@ -26,7 +26,7 @@ Data matrix, where row is the samples and column is the genes. The column order 
 }
 \item{suffStat}{A \link{list} of sufficient statistics, containing all necessary elements for the conditional independence tests in the function indepTest for gaussCItest. The sufficient statistic consists of the correlation matrix of the data and the sample size.
 }
-\item{NQ}{Need to specify for how many SNPs/indels/CNV/eQTL in your input data matrix. For example, If your dataset have one SNPs/indels/CNV/eQTL (first column), then NQ=1, if 2 SNPs/indels/CNV/eQTL (1st and 2nd Column), then NQ=2..and so on.
+\item{GV}{Need to specify for how many genetic variant (SNPs/indels/CNV/eQTL) in your input data matrix. For example, If your dataset have one SNPs/indels/CNV/eQTL (first column), then GV=1, if 2 SNPs/indels/CNV/eQTL (1st and 2nd Column), then GV=2..and so on.
 }
 \item{FDR}{
 Need to specify pre-assigned level.If FDR=0.05, that ensures FDR and mFDR remains below 0.05.
@@ -81,7 +81,7 @@ The two main step in MRPC algorithm as follows:
 
 \bold{Step-1}: We incorporated sequential hypothesis testing to draw the undirected graph (skeleton) by \link{ModiSkeleton} function  (similar as the pc algorithm by \link{skeleton} function but, difference is that the \link{ModiSkeleton} function is used alpha (significance level) as a function of the prior outcomes (reject or accept hypothesis) but the \link{skeleton} function used alpha as a fixed pre-assigned significance level and \link{ModiSkeleton} take a robust correlation approach reduces the impact of outliers but the \link{skeleton} used classical correlation which is highly influnced by outliers. See details in in \link{ModiSkeleton} and \link{skeleton}).
 
-\bold{Step-2}: We implemented a new way for edge direction determination based on Mendelian randomization (MR). We consider the first column of the input matrix will be the genotype of the SNPs/indels/CNV/eQTL and the remaining column are the gene expression data. See details in \link{EdgesOrientation}.
+\bold{Step-2}: We implemented a new way for edge direction determination based on Mendelian randomization (MR). We consider the first column of the input matrix will be the genotype of the SNPs/indels/CNV/eQTL and the remaining column are the gene expression data. See details in \link{EdgeOrientation}.
 
 All statistical inference is done in the \bold{Step-1}, while the \bold{Step-2} is just application of deterministic rules on the results of the \bold{Step-1}. If the first part is done correctly, the second part will never fail. If, however, there occur errors in the \bold{Step-1}, the \bold{Step-2} will be more sensitive to it, since it depends on the inferential results of \bold{Step-1}.
 }
@@ -115,7 +115,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 
 }
 \seealso{
-\link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{EdgesOrientation} for orientation rules determination for edges in MRPC; \link{SimulatedData} for simulated data generating function.
+\link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{EdgeOrientation} for orientation rules determination for edges in MRPC; \link{SimulatedData} for simulated data generating function.
 }
 \examples{
 ## Load packages
@@ -146,11 +146,11 @@ Rcor_R=RobustCor(simu.data_M0, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_0_beta0.005 <- MRPC(simu.data_M0,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_0_beta0.005 <- MRPC(simu.data_M0,suffStat_R,GV=1,FDR=0.05,
 indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_0_beta0 <- MRPC(simu.data_M0,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_0_beta0 <- MRPC(simu.data_M0,suffStat_C,GV=1,FDR=0.05,
 indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -176,7 +176,7 @@ plot(pc.fit_0,  main ="(D) Model 0 (by pc (alpha=0.05))")
 #Adjacency matrix from directed graph
 Adj_directed=as(MRPC.fit_0_beta0.005$graph,"matrix")
 #Plot of the graph with modules color
-DendroModuleGraph(Adj_directed,minModuleSize = 1,NQ=1)
+DendroModuleGraph(Adj_directed,minModuleSize = 1,GV=1)
 
 
 ## Model 1
@@ -190,11 +190,11 @@ Rcor_R=RobustCor(simu.data_M1, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_1_beta0.005 <- MRPC(simu.data_M1,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_1_beta0.005 <- MRPC(simu.data_M1,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_1_beta0 <- MRPC(simu.data_M1,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_1_beta0 <- MRPC(simu.data_M1,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -222,11 +222,11 @@ Rcor_R=RobustCor(simu.data_M2, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_2_beta0.005 <- MRPC(simu.data_M2,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_2_beta0.005 <- MRPC(simu.data_M2,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_2_beta0 <- MRPC(simu.data_M2,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_2_beta0 <- MRPC(simu.data_M2,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -254,11 +254,11 @@ Rcor_R=RobustCor(simu.data_M3, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_3_beta0.005 <- MRPC(simu.data_M3,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_3_beta0.005 <- MRPC(simu.data_M3,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_3_beta0 <- MRPC(simu.data_M3,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_3_beta0 <- MRPC(simu.data_M3,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -286,11 +286,11 @@ Rcor_R=RobustCor(simu.data_M4, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_4_beta0.005 <- MRPC(simu.data_M4,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_4_beta0.005 <- MRPC(simu.data_M4,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_4_beta0 <- MRPC(simu.data_M4,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_4_beta0 <- MRPC(simu.data_M4,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -308,25 +308,25 @@ graphviz.plot(MRPC.fit_4_mmhc, main ="(C) Model 4 (mmhc)")
 plot(pc.fit_4,  main ="(D) Model 4 (by pc (alpha=0.05))")
 
 ## Star Model
-n<-nrow (simu.data_StarModel)    #Number of row
-V<-colnames(simu.data_StarModel) #Column names
+n<-nrow (simu.data_starshaped)    #Number of row
+V<-colnames(simu.data_starshaped) #Column names
 
-Rcor_C=RobustCor(simu.data_StarModel, 0)  #Classical correlation (Beta=0)
+Rcor_C=RobustCor(simu.data_starshaped, 0)  #Classical correlation (Beta=0)
 suffStat_C= list(C = Rcor_C$RR, n = n)
 
-Rcor_R=RobustCor(simu.data_StarModel, 0.005) #Robust correlation (Beta=0.005)
+Rcor_R=RobustCor(simu.data_starshaped , 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_StarModel_beta0.005 <- MRPC(simu.data_StarModel,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_StarModel_beta0.005 <- MRPC(simu.data_starshaped ,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_StarModel_beta0 <- MRPC(simu.data_StarModel,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_StarModel_beta0 <- MRPC(simu.data_starshaped ,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
-MRPC.fit_StarModel_mmhc<- mmhc(simu.data_StarModel)
+MRPC.fit_StarModel_mmhc<- mmhc(simu.data_starshaped )
 
 ## Estimated graph by existing pc
 pc.fit_StarModel <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels =V,verbose = TRUE)
@@ -341,25 +341,25 @@ plot(pc.fit_StarModel,  main ="(D) Star Model (by pc (alpha=0.05))")
 
 
 ## Multiple Parents Model
-n<-nrow (simu.data_MultipleParentsModel)    #Number of row
-V<-colnames(simu.data_MultipleParentsModel) #Column names
+n<-nrow (simu.data_multiparent)    #Number of row
+V<-colnames(simu.data_multiparent) #Column names
 
-Rcor_C=RobustCor(simu.data_MultipleParentsModel, 0)  #Classical correlation (Beta=0)
+Rcor_C=RobustCor(simu.data_multiparent, 0)  #Classical correlation (Beta=0)
 suffStat_C= list(C = Rcor_C$RR, n = n)
 
-Rcor_R=RobustCor(simu.data_MultipleParentsModel, 0.005) #Robust correlation (Beta=0.005)
+Rcor_R=RobustCor(simu.data_multiparent, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_Multiparents_beta0.005 <- MRPC(simu.data_MultipleParentsModel,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_Multiparents_beta0.005 <- MRPC(simu.data_multiparent,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_Multiparents_beta0 <- MRPC(simu.data_MultipleParentsModel,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_Multiparents_beta0 <- MRPC(simu.data_multiparent,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
-MRPC.fit_Multiparents_mmhc<- mmhc(simu.data_MultipleParentsModel)
+MRPC.fit_Multiparents_mmhc<- mmhc(simu.data_multiparent)
 
 ## Estimated graph by existing pc
 pc.fit_Multiparents <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels =V,verbose = TRUE)
@@ -374,25 +374,25 @@ plot(pc.fit_Multiparents,  main ="(D) Multiple Parents Model (by pc (alpha=0.05)
 
 
 ## Layer shape topology
-n<-nrow (simu.data_LayersModel)    #Number of row
-V<-colnames(simu.data_LayersModel) #Column names
+n<-nrow (simu.data_layered)    #Number of row
+V<-colnames(simu.data_layered) #Column names
 
-Rcor_C=RobustCor(simu.data_LayersModel, 0)  #Classical correlation (Beta=0)
+Rcor_C=RobustCor(simu.data_layered, 0)  #Classical correlation (Beta=0)
 suffStat_C= list(C = Rcor_C$RR, n = n)
 
-Rcor_R=RobustCor(simu.data_LayersModel, 0.005) #Robust correlation (Beta=0.005)
+Rcor_R=RobustCor(simu.data_layered, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_Layerd_beta0.005 <- MRPC(simu.data_LayersModel,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_Layerd_beta0.005 <- MRPC(simu.data_layered,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_Layerd_beta0 <- MRPC(simu.data_LayersModel,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_Layerd_beta0 <- MRPC(simu.data_layered,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
-MRPC.fit_Layerd_mmhc<- mmhc(simu.data_LayersModel)
+MRPC.fit_Layerd_mmhc<- mmhc(simu.data_layered)
 
 ## Estimated graph by existing pc
 pc.fit_Layerd <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels =V,verbose = TRUE)
@@ -434,11 +434,11 @@ Rcor_R=RobustCor(simu.data_M5, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_5_beta0.005 <- MRPC(simu.data_M5,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_5_beta0.005 <- MRPC(simu.data_M5,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_5_beta0 <- MRPC(simu.data_M5,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_5_beta0 <- MRPC(simu.data_M5,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -478,11 +478,11 @@ Rcor_R=RobustCor(simu.data_M6, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_6_beta0.005 <- MRPC(simu.data_M6,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_6_beta0.005 <- MRPC(simu.data_M6,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_6_beta0 <- MRPC(simu.data_M6,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_6_beta0 <- MRPC(simu.data_M6,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -522,11 +522,11 @@ Rcor_R=RobustCor(simu.data_M7, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_7_beta0.005 <- MRPC(simu.data_M7,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_7_beta0.005 <- MRPC(simu.data_M7,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_7_beta0 <- MRPC(simu.data_M7,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_7_beta0 <- MRPC(simu.data_M7,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -565,11 +565,11 @@ Rcor_R=RobustCor(simu.data_M8, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_8_beta0.005 <- MRPC(simu.data_M8,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_8_beta0.005 <- MRPC(simu.data_M8,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_8_beta0 <- MRPC(simu.data_M8,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_8_beta0 <- MRPC(simu.data_M8,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -608,11 +608,11 @@ Rcor_R=RobustCor(simu.data_M9, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_9_beta0.005 <- MRPC(simu.data_M9,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_9_beta0.005 <- MRPC(simu.data_M9,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_9_beta0 <- MRPC(simu.data_M9,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_9_beta0 <- MRPC(simu.data_M9,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -651,11 +651,11 @@ Rcor_R=RobustCor(simu.data_M10, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_10_beta0.005 <- MRPC(simu.data_M10,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_10_beta0.005 <- MRPC(simu.data_M10,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_10_beta0 <- MRPC(simu.data_M10,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_10_beta0 <- MRPC(simu.data_M10,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -695,11 +695,11 @@ Rcor_R=RobustCor(simu.data_M11, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_11_beta0.005 <- MRPC(simu.data_M11,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_11_beta0.005 <- MRPC(simu.data_M11,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_11_beta0 <- MRPC(simu.data_M11,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_11_beta0 <- MRPC(simu.data_M11,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -738,11 +738,11 @@ Rcor_R=RobustCor(simu.data_M12, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_12_beta0.005 <- MRPC(simu.data_M12,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_12_beta0.005 <- MRPC(simu.data_M12,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_12_beta0 <- MRPC(simu.data_M12,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_12_beta0 <- MRPC(simu.data_M12,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -781,11 +781,11 @@ Rcor_R=RobustCor(simu.data_M13, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_13_beta0.005 <- MRPC(simu.data_M13,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_13_beta0.005 <- MRPC(simu.data_M13,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_13_beta0 <- MRPC(simu.data_M13,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_13_beta0 <- MRPC(simu.data_M13,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -824,11 +824,11 @@ Rcor_R=RobustCor(simu.data_M14, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_14_beta0.005 <- MRPC(simu.data_M14,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_14_beta0.005 <- MRPC(simu.data_M14,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_14_beta0 <- MRPC(simu.data_M14,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_14_beta0 <- MRPC(simu.data_M14,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -867,11 +867,11 @@ Rcor_R=RobustCor(simu.data_M15, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_15_beta0.005 <- MRPC(simu.data_M15,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_15_beta0.005 <- MRPC(simu.data_M15,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_15_beta0 <- MRPC(simu.data_M15,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_15_beta0 <- MRPC(simu.data_M15,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -910,11 +910,11 @@ Rcor_R=RobustCor(simu.data_M16, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_16_beta0.005 <- MRPC(simu.data_M16,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_16_beta0.005 <- MRPC(simu.data_M16,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_16_beta0 <- MRPC(simu.data_M16,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_16_beta0 <- MRPC(simu.data_M16,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -969,11 +969,11 @@ Rcor_R=RobustCor(simu.data_M17, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_17_beta0.005 <- MRPC(simu.data_M17,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_17_beta0.005 <- MRPC(simu.data_M17,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_17_beta0 <- MRPC(simu.data_M17,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_17_beta0 <- MRPC(simu.data_M17,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1012,11 +1012,11 @@ Rcor_R=RobustCor(simu.data_M18, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_18_beta0.005 <- MRPC(simu.data_M18,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_18_beta0.005 <- MRPC(simu.data_M18,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_18_beta0 <- MRPC(simu.data_M18,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_18_beta0 <- MRPC(simu.data_M18,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1055,11 +1055,11 @@ Rcor_R=RobustCor(simu.data_M19, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_19_beta0.005 <- MRPC(simu.data_M19,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_19_beta0.005 <- MRPC(simu.data_M19,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_19_beta0 <- MRPC(simu.data_M19,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_19_beta0 <- MRPC(simu.data_M19,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1098,11 +1098,11 @@ Rcor_R=RobustCor(simu.data_M20, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_20_beta0.005 <- MRPC(simu.data_M20,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_20_beta0.005 <- MRPC(simu.data_M20,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_20_beta0 <- MRPC(simu.data_M20,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_20_beta0 <- MRPC(simu.data_M20,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1141,11 +1141,11 @@ Rcor_R=RobustCor(simu.data_M21, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_21_beta0.005 <- MRPC(simu.data_M21,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_21_beta0.005 <- MRPC(simu.data_M21,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_21_beta0 <- MRPC(simu.data_M21,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_21_beta0 <- MRPC(simu.data_M21,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1200,11 +1200,11 @@ Rcor_R=RobustCor(simu.data_M22, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_22_beta0.005 <- MRPC(simu.data_M22,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_22_beta0.005 <- MRPC(simu.data_M22,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_22_beta0 <- MRPC(simu.data_M22,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_22_beta0 <- MRPC(simu.data_M22,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1243,11 +1243,11 @@ Rcor_R=RobustCor(simu.data_M23, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_23_beta0.005 <- MRPC(simu.data_M23,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_23_beta0.005 <- MRPC(simu.data_M23,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_23_beta0 <- MRPC(simu.data_M23,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_23_beta0 <- MRPC(simu.data_M23,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1303,11 +1303,11 @@ Rcor_R=RobustCor(simu.data_M24, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_24_beta0.005 <- MRPC(simu.data_M24,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_24_beta0.005 <- MRPC(simu.data_M24,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_24_beta0 <- MRPC(simu.data_M24,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_24_beta0 <- MRPC(simu.data_M24,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1346,11 +1346,11 @@ Rcor_R=RobustCor(simu.data_M25, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_25_beta0.005 <- MRPC(simu.data_M25,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_25_beta0.005 <- MRPC(simu.data_M25,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_25_beta0 <- MRPC(simu.data_M25,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_25_beta0 <- MRPC(simu.data_M25,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1389,11 +1389,11 @@ Rcor_R=RobustCor(simu.data_M26, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_26_beta0.005 <- MRPC(simu.data_M26,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_26_beta0.005 <- MRPC(simu.data_M26,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_26_beta0 <- MRPC(simu.data_M26,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_26_beta0 <- MRPC(simu.data_M26,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1432,11 +1432,11 @@ Rcor_R=RobustCor(simu.data_M27, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_27_beta0.005 <- MRPC(simu.data_M27,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_27_beta0.005 <- MRPC(simu.data_M27,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_27_beta0 <- MRPC(simu.data_M27,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_27_beta0 <- MRPC(simu.data_M27,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1475,11 +1475,11 @@ Rcor_R=RobustCor(simu.data_M28, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_28_beta0.005 <- MRPC(simu.data_M28,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_28_beta0.005 <- MRPC(simu.data_M28,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_28_beta0 <- MRPC(simu.data_M28,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_28_beta0 <- MRPC(simu.data_M28,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1518,11 +1518,11 @@ Rcor_R=RobustCor(simu.data_M29, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_29_beta0.005 <- MRPC(simu.data_M29,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_29_beta0.005 <- MRPC(simu.data_M29,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_29_beta0 <- MRPC(simu.data_M29,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_29_beta0 <- MRPC(simu.data_M29,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1561,11 +1561,11 @@ Rcor_R=RobustCor(simu.data_M30, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_30_beta0.005 <- MRPC(simu.data_M30,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_30_beta0.005 <- MRPC(simu.data_M30,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_30_beta0 <- MRPC(simu.data_M30,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_30_beta0 <- MRPC(simu.data_M30,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1604,11 +1604,11 @@ Rcor_R=RobustCor(simu.data_M31, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_31_beta0.005 <- MRPC(simu.data_M31,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_31_beta0.005 <- MRPC(simu.data_M31,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_31_beta0 <- MRPC(simu.data_M31,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_31_beta0 <- MRPC(simu.data_M31,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1647,11 +1647,11 @@ Rcor_R=RobustCor(simu.data_M32, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_32_beta0.005 <- MRPC(simu.data_M32,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_32_beta0.005 <- MRPC(simu.data_M32,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_32_beta0 <- MRPC(simu.data_M32,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_32_beta0 <- MRPC(simu.data_M32,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1690,11 +1690,11 @@ Rcor_R=RobustCor(simu.data_M33, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_33_beta0.005 <- MRPC(simu.data_M33,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_33_beta0.005 <- MRPC(simu.data_M33,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_33_beta0 <- MRPC(simu.data_M33,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_33_beta0 <- MRPC(simu.data_M33,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1733,11 +1733,11 @@ Rcor_R=RobustCor(simu.data_M34, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_34_beta0.005 <- MRPC(simu.data_M34,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_34_beta0.005 <- MRPC(simu.data_M34,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_34_beta0 <- MRPC(simu.data_M34,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_34_beta0 <- MRPC(simu.data_M34,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1795,11 +1795,11 @@ Rcor_R=RobustCor(simu.data_M35, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_35_beta0.005 <- MRPC(simu.data_M35,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_35_beta0.005 <- MRPC(simu.data_M35,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_35_beta0 <- MRPC(simu.data_M35,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_35_beta0 <- MRPC(simu.data_M35,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1838,11 +1838,11 @@ Rcor_R=RobustCor(simu.data_M36, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_36_beta0.005 <- MRPC(simu.data_M36,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_36_beta0.005 <- MRPC(simu.data_M36,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_36_beta0 <- MRPC(simu.data_M36,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_36_beta0 <- MRPC(simu.data_M36,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1888,11 +1888,11 @@ Rcor_R=RobustCor(simu.data_M37, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_37_beta0.005 <- MRPC(simu.data_M37,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_37_beta0.005 <- MRPC(simu.data_M37,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_37_beta0 <- MRPC(simu.data_M37,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_37_beta0 <- MRPC(simu.data_M37,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1931,11 +1931,11 @@ Rcor_R=RobustCor(simu.data_M38, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_38_beta0.005 <- MRPC(simu.data_M38,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_38_beta0.005 <- MRPC(simu.data_M38,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_38_beta0 <- MRPC(simu.data_M38,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_38_beta0 <- MRPC(simu.data_M38,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -1991,11 +1991,11 @@ Rcor_R=RobustCor(simu.data_M39, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_39_beta0.005 <- MRPC(simu.data_M39,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_39_beta0.005 <- MRPC(simu.data_M39,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_39_beta0 <- MRPC(simu.data_M39,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_39_beta0 <- MRPC(simu.data_M39,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -2045,11 +2045,11 @@ Rcor_R=RobustCor(simu.data_M40, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_40_beta0.005 <- MRPC(simu.data_M40,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_40_beta0.005 <- MRPC(simu.data_M40,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_40_beta0 <- MRPC(simu.data_M40,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_40_beta0 <- MRPC(simu.data_M40,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -2089,11 +2089,11 @@ Rcor_R=RobustCor(simu.outdata_M0, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_0_Outlier_beta0.005 <- MRPC(simu.outdata_M0,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_0_Outlier_beta0.005 <- MRPC(simu.outdata_M0,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_0_Outlier_beta0 <- MRPC(simu.outdata_M0,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_0_Outlier_beta0 <- MRPC(simu.outdata_M0,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -2128,11 +2128,11 @@ Rcor_R=RobustCor(simu.outdata_M1, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_1_Outlier_beta0.005 <- MRPC(simu.outdata_M1,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_1_Outlier_beta0.005 <- MRPC(simu.outdata_M1,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_1_Outlier_beta0 <- MRPC(simu.outdata_M1,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_1_Outlier_beta0 <- MRPC(simu.outdata_M1,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -2166,11 +2166,11 @@ Rcor_R=RobustCor(simu.outdata_M2, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_2_Outlier_beta0.005 <- MRPC(simu.outdata_M2,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_2_Outlier_beta0.005 <- MRPC(simu.outdata_M2,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_2_Outlier_beta0 <- MRPC(simu.outdata_M2,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_2_Outlier_beta0 <- MRPC(simu.outdata_M2,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -2204,11 +2204,11 @@ Rcor_R=RobustCor(simu.outdata_M3, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_3_Outlier_beta0.005 <- MRPC(simu.outdata_M3,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_3_Outlier_beta0.005 <- MRPC(simu.outdata_M3,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_3_Outlier_beta0 <- MRPC(simu.outdata_M3,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_3_Outlier_beta0 <- MRPC(simu.outdata_M3,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -2241,11 +2241,11 @@ Rcor_R=RobustCor(simu.outdata_M4, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_4_Outlier_beta0.005 <- MRPC(simu.outdata_M4,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_4_Outlier_beta0.005 <- MRPC(simu.outdata_M4,suffStat_R,GV=1,FDR=0.05,
                              indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_4_Outlier_beta0 <- MRPC(simu.outdata_M4,suffStat_C,NQ=1,FDR=0.05,
+MRPC.fit_4_Outlier_beta0 <- MRPC(simu.outdata_M4,suffStat_C,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
@@ -2280,11 +2280,11 @@ suffStat_R= list(C = Rcor_R$RR, n = n)
 ### Estimated graph by pc
 pc.fit_Ex <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using gaussCItest
-MRPC.fit_Ex_GT <- MRPC(gmG$ x,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_Ex_GT <- MRPC(gmG$ x,suffStat_R,GV=1,FDR=0.05,
 indepTest ='gaussCItest',labels = V,verbose = TRUE)
 
 ## Estimated graph by MRPC using ci.test
-MRPC.fit_Ex_CT <- MRPC(gmG$ x,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_Ex_CT <- MRPC(gmG$ x,suffStat_R,GV=1,FDR=0.05,
 indepTest ='citest',labels = V,verbose = TRUE)
 
 ## Show estimated graph
@@ -2326,10 +2326,10 @@ suffStat_R= list(C = Rcor_R$RR, n = n)
 ### Estimated graph by pc
 pc.fit_MQ <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using gaussCItest
-MRPC.fit_MQ_GT <- MRPC(simu.data_MQ,suffStat_R,NQ=2,FDR=0.05,
+MRPC.fit_MQ_GT <- MRPC(simu.data_MQ,suffStat_R,GV=2,FDR=0.05,
 indepTest ='gaussCItest',labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using ci.test
-MRPC.fit_MQ_CT<- MRPC(simu.data_MQ,suffStat_R,NQ=2,FDR=0.05,
+MRPC.fit_MQ_CT<- MRPC(simu.data_MQ,suffStat_R,GV=2,FDR=0.05,
 indepTest ='citest',labels = V,verbose = TRUE)
 
 ## Show estimated graph
@@ -2373,10 +2373,10 @@ suffStat_R= list(C = Rcor_R$RR, n = n)
 ### Estimated graph by pc
 pc.fit_New1 <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using gaussCItest
-MRPC.fit_New1_GT <- MRPC(Sim_New1,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_New1_GT <- MRPC(Sim_New1,suffStat_R,GV=1,FDR=0.05,
                        indepTest ='gaussCItest',labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using ci.test
-MRPC.fit_New1_CT<- MRPC(Sim_New1,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_New1_CT<- MRPC(Sim_New1,suffStat_R,GV=1,FDR=0.05,
                       indepTest ='citest',labels = V,verbose = TRUE)
 
 ## Show estimated graph
@@ -2417,10 +2417,10 @@ suffStat_R= list(C = Rcor_R$RR, n = n)
 ### Estimated graph by pc
 pc.fit_New2 <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using gaussCItest
-MRPC.fit_New2_GT <- MRPC(Sim_New2,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_New2_GT <- MRPC(Sim_New2,suffStat_R,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using ci.test
-MRPC.fit_New2_CT<- MRPC(Sim_New2,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_New2_CT<- MRPC(Sim_New2,suffStat_R,GV=1,FDR=0.05,
                         indepTest ='citest',labels = V,verbose = TRUE)
 
 ## Show estimated graph
@@ -2462,10 +2462,10 @@ suffStat_R= list(C = Rcor_R$RR, n = n)
 ### Estimated graph by pc
 pc.fit_New3 <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using gaussCItest
-MRPC.fit_New3_GT <- MRPC(Sim_New3,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_New3_GT <- MRPC(Sim_New3,suffStat_R,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels = V,verbose = TRUE)
 ## Estimated graph by MRPC using ci.test
-MRPC.fit_New3_CT<- MRPC(Sim_New3,suffStat_R,NQ=1,FDR=0.05,
+MRPC.fit_New3_CT<- MRPC(Sim_New3,suffStat_R,GV=1,FDR=0.05,
                         indepTest ='citest',labels = V,verbose = TRUE)
 
 ## Show estimated graph

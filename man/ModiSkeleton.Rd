@@ -108,7 +108,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
- \link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm; \link{EdgesOrientation} for orientation rules for edges in MRPC; \link{SimulatedData} simulated data generating function.
+ \link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm; \link{EdgeOrientation} for orientation rules for edges in MRPC; \link{SimulatedData} simulated data generating function.
 }
 \examples{
 ## Load packages

@@ -134,7 +134,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
            ))
 
          },
-         starmodel = {
+         starshaped= {
 
            T1<- Case_1P(N=N,
                         P1=V,
@@ -168,7 +168,29 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                            T4.S4 = T4,
                            T5.S5 = T5))
          },
-         layersmodel = {
+         multiparent= {
+           
+           T2<- Case_NP(N=N,
+                        b0.1 = b0.1,
+                        sd.1 = sd.1)
+           T3<- Case_NP(N=N,
+                        b0.1 = b0.1,
+                        sd.1 = sd.1)
+           T1<- Case_3P(N=N,
+                        P1=V,
+                        P2=T2,
+                        P3=T3,
+                        b0.1 = b0.1,
+                        b1.1 = b1.1,
+                        b1.2 = b1.2,
+                        b1.3 = b1.3,
+                        sd.1 = sd.1)
+           return(data.frame(V,
+                             T1.L1 = T1,
+                             T2.L2 = T2,
+                             T3.L3 = T3))
+         },
+         layered= {
            T1<- Case_1P(N=N,
                         P1=V,
                         b0.1 = b0.1,
@@ -215,27 +237,6 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                              T6.L6 = T6,
                              T7.L7 = T7))
          },
-         multipleparentsmodel = {
-
-           T2<- Case_NP(N=N,
-                        b0.1 = b0.1,
-                        sd.1 = sd.1)
-           T3<- Case_NP(N=N,
-                        b0.1 = b0.1,
-                        sd.1 = sd.1)
-           T1<- Case_3P(N=N,
-                        P1=V,
-                        P2=T2,
-                        P3=T3,
-                        b0.1 = b0.1,
-                        b1.1 = b1.1,
-                        b1.2 = b1.2,
-                        b1.3 = b1.3,
-                        sd.1 = sd.1)
-           return(data.frame(V,
-                             T1.L1 = T1,
-                             T2.L2 = T2,
-                             T3.L3 = T3))
-         },
+         
          stop("Model not included or missing"))
 }

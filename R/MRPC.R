@@ -1,5 +1,5 @@
 
-MRPC<-function (data,suffStat,NQ,FDR,indepTest = c("gaussCItest", "citest"),labels, p, fixedGaps = NULL,
+MRPC<-function (data,suffStat,GV,FDR,indepTest = c("gaussCItest", "citest"),labels, p, fixedGaps = NULL,
                fixedEdges = NULL, NAdelete = TRUE, m.max = Inf,u2pd = c("relaxed", "rand", "retry"),
                skel.method = c("stable", "original","stable.fast"), conservative = FALSE, maj.rule = FALSE,
                solve.confl = FALSE, verbose = FALSE)
@@ -42,14 +42,14 @@ MRPC<-function (data,suffStat,NQ,FDR,indepTest = c("gaussCItest", "citest"),labe
   skel$call <- cl
   
   #indepTest <- match.fun (indepTest)
-  if (NQ) {
+  if (GV) {
     if (!conservative && !maj.rule) {
-      switch(u2pd,relaxed = EdgesOrientation(skel,NQ=NQ,suffStat,FDR,verbose = verbose))
+      switch(u2pd,relaxed = EdgeOrientation(skel,GV=GV,suffStat,FDR,verbose = verbose))
     }
     else {
       pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha = FDR,
                             version.unf = c(2, 1), maj.rule = maj.rule, verbose = verbose)
-      EdgesOrientation(pc.$sk, verbose = verbose)
+      EdgeOrientation(pc.$sk, verbose = verbose)
     }
   } else {
     if (!conservative && !maj.rule) {
