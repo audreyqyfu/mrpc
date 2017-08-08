@@ -307,38 +307,6 @@ plot(MRPC.fit_4_beta0$graph, main ="(B) Model 4 (MRPC (beta=0))")
 graphviz.plot(MRPC.fit_4_mmhc, main ="(C) Model 4 (mmhc)")
 plot(pc.fit_4,  main ="(D) Model 4 (by pc (alpha=0.05))")
 
-## Star Model
-n<-nrow (simu.data_starshaped)    #Number of row
-V<-colnames(simu.data_starshaped) #Column names
-
-Rcor_C=RobustCor(simu.data_starshaped, 0)  #Classical correlation (Beta=0)
-suffStat_C= list(C = Rcor_C$RR, n = n)
-
-Rcor_R=RobustCor(simu.data_starshaped , 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-## Estimated graph by MRPC using gaussCItest and beta=0.005
-MRPC.fit_StarModel_beta0.005 <- MRPC(simu.data_starshaped ,suffStat_R,GV=1,FDR=0.05,
-                             indepTest ='gaussCItest',labels=V,verbose = TRUE)
-
-## Estimated graph by MRPC using gaussCItest and beta=0
-MRPC.fit_StarModel_beta0 <- MRPC(simu.data_starshaped ,suffStat_C,GV=1,FDR=0.05,
-                         indepTest ='gaussCItest',labels=V,verbose = TRUE)
-
-## Estimated graph by mmhc
-MRPC.fit_StarModel_mmhc<- mmhc(simu.data_starshaped )
-
-## Estimated graph by existing pc
-pc.fit_StarModel <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels =V,verbose = TRUE)
-
-## Plot of the results
-## Show estimated graph
-par(mfrow=c(2,2))
-plot(MRPC.fit_StarModel_beta0.005$graph, main ="(A) Star Model (MRPC (beta=0.005))")
-plot(MRPC.fit_StarModel_beta0$graph, main ="(B) Star Model (MRPC (beta=0))")
-graphviz.plot(MRPC.fit_StarModel_mmhc, main ="(C) Star Model (mmhc)")
-plot(pc.fit_StarModel,  main ="(D) Star Model (by pc (alpha=0.05))")
-
 
 ## Multiple Parents Model
 n<-nrow (simu.data_multiparent)    #Number of row
@@ -372,6 +340,37 @@ plot(MRPC.fit_Multiparents_beta0$graph, main ="(B) Multiple Parents Model (MRPC 
 graphviz.plot(MRPC.fit_Multiparents_mmhc, main ="(C) Multiple Parents Model (mmhc)")
 plot(pc.fit_Multiparents,  main ="(D) Multiple Parents Model (by pc (alpha=0.05))")
 
+## Star Model
+n<-nrow (simu.data_starshaped)    #Number of row
+V<-colnames(simu.data_starshaped) #Column names
+
+Rcor_C=RobustCor(simu.data_starshaped, 0)  #Classical correlation (Beta=0)
+suffStat_C= list(C = Rcor_C$RR, n = n)
+
+Rcor_R=RobustCor(simu.data_starshaped , 0.005) #Robust correlation (Beta=0.005)
+suffStat_R= list(C = Rcor_R$RR, n = n)
+
+## Estimated graph by MRPC using gaussCItest and beta=0.005
+MRPC.fit_StarModel_beta0.005 <- MRPC(simu.data_starshaped ,suffStat_R,GV=1,FDR=0.05,
+                             indepTest ='gaussCItest',labels=V,verbose = TRUE)
+
+## Estimated graph by MRPC using gaussCItest and beta=0
+MRPC.fit_StarModel_beta0 <- MRPC(simu.data_starshaped ,suffStat_C,GV=1,FDR=0.05,
+                         indepTest ='gaussCItest',labels=V,verbose = TRUE)
+
+## Estimated graph by mmhc
+MRPC.fit_StarModel_mmhc<- mmhc(simu.data_starshaped )
+
+## Estimated graph by existing pc
+pc.fit_StarModel <- pc(suffStat_C,indepTest = gaussCItest,alpha=0.05,labels =V,verbose = TRUE)
+
+## Plot of the results
+## Show estimated graph
+par(mfrow=c(2,2))
+plot(MRPC.fit_StarModel_beta0.005$graph, main ="(A) Star Model (MRPC (beta=0.005))")
+plot(MRPC.fit_StarModel_beta0$graph, main ="(B) Star Model (MRPC (beta=0))")
+graphviz.plot(MRPC.fit_StarModel_mmhc, main ="(C) Star Model (mmhc)")
+plot(pc.fit_StarModel,  main ="(D) Star Model (by pc (alpha=0.05))")
 
 ## Layer shape topology
 n<-nrow (simu.data_layered)    #Number of row

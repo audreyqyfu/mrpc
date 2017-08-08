@@ -134,8 +134,31 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
            ))
 
          },
+         
+         multiparent= {
+           
+           T2<- Case_NP(N=N,
+                        b0.1 = b0.1,
+                        sd.1 = sd.1)
+           T3<- Case_NP(N=N,
+                        b0.1 = b0.1,
+                        sd.1 = sd.1)
+           T1<- Case_3P(N=N,
+                        P1=V,
+                        P2=T2,
+                        P3=T3,
+                        b0.1 = b0.1,
+                        b1.1 = b1.1,
+                        b1.2 = b1.2,
+                        b1.3 = b1.3,
+                        sd.1 = sd.1)
+           return(data.frame(V,
+                             T1.L1 = T1,
+                             T2.L2 = T2,
+                             T3.L3 = T3))
+         },
          starshaped= {
-
+           
            T1<- Case_1P(N=N,
                         P1=V,
                         b0.1 = b0.1,
@@ -161,34 +184,12 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-         return(data.frame(V,
-                           T1.S1 = T1,
-                           T2.S2 = T2,
-                           T3.S3 = T3,
-                           T4.S4 = T4,
-                           T5.S5 = T5))
-         },
-         multiparent= {
-           
-           T2<- Case_NP(N=N,
-                        b0.1 = b0.1,
-                        sd.1 = sd.1)
-           T3<- Case_NP(N=N,
-                        b0.1 = b0.1,
-                        sd.1 = sd.1)
-           T1<- Case_3P(N=N,
-                        P1=V,
-                        P2=T2,
-                        P3=T3,
-                        b0.1 = b0.1,
-                        b1.1 = b1.1,
-                        b1.2 = b1.2,
-                        b1.3 = b1.3,
-                        sd.1 = sd.1)
            return(data.frame(V,
-                             T1.L1 = T1,
-                             T2.L2 = T2,
-                             T3.L3 = T3))
+                             T1.S1 = T1,
+                             T2.S2 = T2,
+                             T3.S3 = T3,
+                             T4.S4 = T4,
+                             T5.S5 = T5))
          },
          layered= {
            T1<- Case_1P(N=N,
