@@ -167,7 +167,11 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "citest"
            # sepset = sepset,pMax = pMax, zMin = matrix(NA, 1, 1))
 
   #return(list(obj=temp,test=m,alpha=Alpha,R=R))
-  return(list(graph = Gobject,call = cl, n = integer(0),
-              max.ord = as.integer(ord - 1), n.edgetests = n.edgetests,
-              sepset = sepset,pMax = pMax, zMin = matrix(NA, 1, 1),test=m,alpha=Alpha,R=R))
-}
+  #else
+  #{
+    return(list(graph = Gobject,call = cl, n = integer(0),
+                max.ord = as.integer(ord - 1), n.edgetests = n.edgetests,
+                sepset = sepset,pMax = pMax, zMin = matrix(NA, 1, 1),test=m,alpha=Alpha,R=R))
+    
+  #}
+  }
