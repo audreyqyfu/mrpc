@@ -61,6 +61,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
   Alpha=gInput$alpha  #alpha
   R=gInput$R          #decision of test
   ind <- which(g1 == 1, arr.ind = TRUE)  #Pullout the all relation in adjacency matrix from undirected graph
+  V=colnames(g)
   for (i in seq_len(nrow(ind))) {
     x <- ind[i, 1]
     y <- ind[i, 2]
@@ -81,7 +82,6 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
         if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
           R[m]=1
         if (verbose) {
-            V=colnames(g)
             cat("\n", V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
             cat("Since pval<Alpha,additional test is rejected", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
              }

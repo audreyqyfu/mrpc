@@ -72,15 +72,16 @@ DendroModuleGraph=function(Adj_directed,minModuleSize,GV) {
   #library(network) need for network function
   #Craete a graphical network used for the next step
   net= network(New_Mat_MO, directed = TRUE)
-  #Make two group (i) for CNV=circle and (ii) genes=Triangle
+  #Make two group (i) for phenotypes (e.g., gene expression)=circle and (ii) genotypes=Triangle
   #char=colnames(Ad_Matrix)[GV+1:(ncol(Ad_Matrix)-1)] #all CNV
   char=colnames(Ad_Matrix)[1:GV] #all CNV
   #char=colnames(Ad_Matrix)[-c(1:GV)] #all CNV
-  net%v%"phono"= ifelse((colnames(New_Mat_MO) %in% char),"Phenotype","Genotype")
+  net%v%"phono"= ifelse((colnames(New_Mat_MO) %in% char),"Genotype","Phenotype")
 
   #library(GGally) #Need for ggnet2 function
   #Plot the final graph
-  plotobj=ggnet2(net,color = Module,palette = col,node.size=5,arrow.size = 3,label=TRUE,label.size = 1,
-         shape.legend = "Node type ",edge.label.color = Module,shape = "phono",color.legend = "Modules",legend.position = "bottom",arrow.gap = 0.010)
-  return(list(graph=plotobj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist))
+  plotobj=ggnet2(net,color = Module,palette = col,node.size=5,arrow.size = 3,label=TRUE,label.size = 1,alpha = 1,
+                 shape.legend = "Node type",edge.label.color = Module,shape = net%v%"phono",shape.palette = c("Genotype" = 17,"Phenotype" = 19),
+                 color.legend = "Modules",legend.position = "bottom",arrow.gap = 0.010)
+  return(list(graph=plotobj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist,Adjmatrixdirected=Adj_directed))
 }
