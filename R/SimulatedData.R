@@ -153,9 +153,9 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.3 = b1.3,
                         sd.1 = sd.1)
            return(data.frame(V,
-                             T1.L1 = T1,
-                             T2.L2 = T2,
-                             T3.L3 = T3))
+                             T1 = T1,
+                             T2 = T2,
+                             T3 = T3))
          },
          starshaped= {
            
@@ -185,11 +185,11 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            return(data.frame(V,
-                             T1.S1 = T1,
-                             T2.S2 = T2,
-                             T3.S3 = T3,
-                             T4.S4 = T4,
-                             T5.S5 = T5))
+                             T1 = T1,
+                             T2 = T2,
+                             T3 = T3,
+                             T4 = T4,
+                             T5 = T5))
          },
          layered= {
            T1<- Case_1P(N=N,
@@ -230,13 +230,13 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            return(data.frame(V,
-                             T1.L1 = T1,
-                             T2.L2 = T2,
-                             T3.L3 = T3,
-                             T4.L4 = T4,
-                             T5.L5 = T5,
-                             T6.L6 = T6,
-                             T7.L7 = T7))
+                             T1 = T1,
+                             T2 = T2,
+                             T3 = T3,
+                             T4 = T4,
+                             T5 = T5,
+                             T6 = T6,
+                             T7 = T7))
          },
          
          stop("Model not included or missing"))

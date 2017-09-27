@@ -73,6 +73,7 @@ DendroModuleGraph=function(Adj_directed,minModuleSize,GV) {
   #Craete a graphical network used for the next step
   net= network(New_Mat_MO, directed = TRUE)
   #Make two group (i) for phenotypes (e.g., gene expression)=circle and (ii) genotypes=Triangle
+  #shape.palette = c("Genotype" = 17,"Phenotype" = 19)
   #char=colnames(Ad_Matrix)[GV+1:(ncol(Ad_Matrix)-1)] #all CNV
   char=colnames(Ad_Matrix)[1:GV] #all CNV
   #char=colnames(Ad_Matrix)[-c(1:GV)] #all CNV
@@ -82,6 +83,6 @@ DendroModuleGraph=function(Adj_directed,minModuleSize,GV) {
   #Plot the final graph
   plotobj=ggnet2(net,color = Module,palette = col,node.size=5,arrow.size = 3,label=TRUE,label.size = 1,alpha = 1,
                  shape.legend = "Node type",edge.label.color = Module,shape = net%v%"phono",shape.palette = c("Genotype" = 17,"Phenotype" = 19),
-                 color.legend = "Modules",legend.position = "bottom",arrow.gap = 0.010)
+                 color.legend = "Modules color",legend.position = "bottom",arrow.gap = 0.010)
   return(list(graph=plotobj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist,Adjmatrixdirected=Adj_directed))
 }
