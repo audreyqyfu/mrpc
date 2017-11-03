@@ -30,8 +30,8 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         sd.1 = sd.1)
 
            return(data.frame(V,
-                             T1.0 = T1,
-                             T2.0 = T2
+                             T1 = T1,
+                             T2 = T2
            ))
 
          },
@@ -48,8 +48,8 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            return(data.frame(V,
-                             T1.1 = T1,
-                             T2.1 = T2
+                             T1 = T1,
+                             T2 = T2
            ))
          },
          model2 = {
@@ -64,8 +64,8 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.2 = b1.2,
                         sd.1 = sd.1)
            return(data.frame(V,
-                             T1.2 = T1,
-                             T2.2 = T2
+                             T1 = T1,
+                             T2 = T2
            ))
 
          },
@@ -81,8 +81,8 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            return(data.frame(V,
-                             T1.3 = T1,
-                             T2.3 = T2
+                             T1 = T1,
+                             T2 = T2
            ))
 
          },
@@ -129,8 +129,8 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
            T2[which(coinToss == 1)] <- T2.b[which(coinToss == 1)]
 
            return(data.frame(V,
-                             T1.4 = T1,
-                             T2.4 = T2
+                             T1 = T1,
+                             T2 = T2
            ))
 
          },
