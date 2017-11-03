@@ -10,7 +10,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
 
   #set.seed(seed)
 
-  V <- c(sample(c(0, 1, 2),
+  V1 <- c(sample(c(0, 1, 2),
                 size = N,
                 replace = TRUE,
                 prob = c((1 - p)^2,
@@ -20,7 +20,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
 
          model0 = {
            T1<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
@@ -29,7 +29,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b0.1 = b0.1,
                         sd.1 = sd.1)
 
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2
            ))
@@ -38,7 +38,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
 
          model1 = {
            T1<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
@@ -47,7 +47,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2
            ))
@@ -57,13 +57,13 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b0.1 = b0.1,
                         sd.1 = sd.1)
            T1<- Case_2P(N=N,
-                        P1=V,
+                        P1=V1,
                         P2=T2,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         b1.2 = b1.2,
                         sd.1 = sd.1)
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2
            ))
@@ -71,16 +71,16 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
          },
          model3 = {
            T1<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            T2<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2
            ))
@@ -88,12 +88,12 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
          },
          model4 = {
            T1.a<- Case_1P(N=N,
-                          P1=V,
+                          P1=V1,
                           b0.1 = b0.1,
                           b1.1 = b1.1,
                           sd.1 = sd.1)
            T2.a<- Case_2P(N=N,
-                          P1=V,
+                          P1=V1,
                           P2=T1.a,
                           b0.1 = b0.1,
                           b1.1 = b1.1,
@@ -101,12 +101,12 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                           sd.1 = sd.1)
 
            T2.b<- Case_1P(N=N,
-                          P1=V,
+                          P1=V1,
                           b0.1 = b0.1,
                           b1.1 = b1.1,
                           sd.1 = sd.1)
            T1.b<- Case_2P(N=N,
-                          P1=V,
+                          P1=V1,
                           P2=T2.b,
                           b0.1 = b0.1,
                           b1.1 = b1.1,
@@ -128,7 +128,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
 
            T2[which(coinToss == 1)] <- T2.b[which(coinToss == 1)]
 
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2
            ))
@@ -144,7 +144,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b0.1 = b0.1,
                         sd.1 = sd.1)
            T1<- Case_3P(N=N,
-                        P1=V,
+                        P1=V1,
                         P2=T2,
                         P3=T3,
                         b0.1 = b0.1,
@@ -152,7 +152,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.2 = b1.2,
                         b1.3 = b1.3,
                         sd.1 = sd.1)
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2,
                              T3 = T3))
@@ -160,7 +160,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
          starshaped= {
            
            T1<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
@@ -184,7 +184,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2,
                              T3 = T3,
@@ -193,12 +193,12 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
          },
          layered= {
            T1<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            T2<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
@@ -229,7 +229,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           return(data.frame(V,
+           return(data.frame(V1 = V1,
                              T1 = T1,
                              T2 = T2,
                              T3 = T3,
