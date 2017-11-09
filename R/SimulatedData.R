@@ -203,7 +203,7 @@ SimulatedData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                         b1.1 = b1.1,
                         sd.1 = sd.1)
            T3<- Case_1P(N=N,
-                        P1=V,
+                        P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
