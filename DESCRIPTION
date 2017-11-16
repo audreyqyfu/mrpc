@@ -1,7 +1,7 @@
 Package: MRPC
 Type: Package
 Title: Mendelian Randomization (MR) based PC Algorithm
-Version: 1.0.0
+Version: 1.0.1
 Author: Md. Bahadur Badsha <mdbadsha@uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 Maintainer: Md. Bahadur Badsha <mdbadsha@uidaho.edu>
 Description: Estimate the causal graph using the Mendelian Randomization (MR) based PC (MRPC) Algorithm.
