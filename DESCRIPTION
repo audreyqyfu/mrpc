@@ -1,7 +1,7 @@
 Package: MRPC
 Type: Package
 Title: Mendelian Randomization (MR) based PC Algorithm
-Version: 1.0.1
+Version: 1.0.0
 Author: Md. Bahadur Badsha <mdbadsha@uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 Maintainer: Md. Bahadur Badsha <mdbadsha@uidaho.edu>
 Description: Estimate the DAG using the Mendelian Randomization (MR) based PC (MRPC) Algorithm.
