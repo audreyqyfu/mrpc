@@ -8,13 +8,13 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
   g <- as(gInput$graph, "matrix") # g ia an adjacency from undirected graph
   g1=g
   p <- nrow(g)
-
+  
   # tarmat (adjacency matrix for directed graph) is updated in every step, 
   # and contains the output of final topology
   tarmat=matrix(0, nrow(g),ncol(g)) #same row and column from g
   rownames(tarmat)=rownames(g)     #same row names from g
   colnames(tarmat)=colnames(g)     #same column names from g
-
+  
   # extract all edges
   g[lower.tri(g)] <- 0  # Use only upper triangular because g is symmetric matrix
   edges <- which (g==1, arr.ind=TRUE)
@@ -25,7 +25,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
     edgesWithBothVs <- edges[which (edges[,1]<= GV & edges[,2]<=GV), ]
     edgesWithVFirst <- edges[which (edges[,1]<= GV & edges[,2]>GV), ]
     edgesWithVSecond <- edges[which (edges[,1]> GV & edges[,2]<=GV), ]
-
+    
     # assign 1s to corresponding edges in tarmat
     # edges between two Vs are undirected (or bidirected)
     if (length (edgesWithBothVs) > 2) {
@@ -43,7 +43,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
     } else {
       tarmat[edgesWithVFirst[1], edgesWithVFirst[2]] <- 1
     }
-
+    
     if (length(edgesWithVSecond) > 2) {
       tarmat[edgesWithVSecond[,2:1]] <- 1
     } else {
@@ -68,10 +68,10 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
     
     allZ <- setdiff(which(g1[y, ] == 1), x)
     for (z in allZ) {
-    # Triplet x-y-z is directed x-->y<--z if x and z conditionally dependent given y
+      # Triplet x-y-z is directed x-->y<--z if x and z conditionally dependent given y
       if ((g1[x, z] == 0 & g1[x, y] == 1 & g1[y, z] == 1)  & !(tarmat[y, x] ==1) & !(tarmat[z, y] ==1) & !(tarmat[y, z] ==1) & 
           !(y %in% gInput$sepset[[x]][[z]] || y %in% gInput$sepset[[z]][[x]])) 
-        {
+      {
         m=m+1
         pval=gaussCItest(x, z, y, suffStat) #additional conditional test
         Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
@@ -81,36 +81,36 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
         
         if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
           R[m]=1
-        if (verbose) {
+          if (verbose) {
             cat("\n", V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
             cat("Since pval<Alpha,additional test is rejected", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
-             }
+          }
           tarmat[x, y] <- tarmat[z, y] <- 1 #directed x-->y<--z
-          } 
+        } 
         else {
           R[m]=0  #Accept H0
           cat("Since pval>Alpha,additional test is accepted", "Nodes", V[x] ,"and" ,V[z] ,"are independent given", V[y], "\n")
-            }
-
+        }
+        
+      }
     }
   }
-  }
   #End to orient v-structures
-
+  
   
   #Step-3
-       #Orient remaining edges, weather MR is applicable or not based on the following process:
-       #Pullout all edges from g1 matrix and define 1st and 2nd node (goal to make a triplet for the remaining edges)
-       #extract all edges with involving those 1st and 2nd nodes (from row and column of g)
-       #ignore the nodes that already have direction
-       #form a triplet
-       #determine the direction using test results from part 1 based on MR
-       #Repeat until all undirected edges to directed
+  #Orient remaining edges, weather MR is applicable or not based on the following process:
+  #Pullout all edges from g1 matrix and define 1st and 2nd node (goal to make a triplet for the remaining edges)
+  #extract all edges with involving those 1st and 2nd nodes (from row and column of g)
+  #ignore the nodes that already have direction
+  #form a triplet
+  #determine the direction using test results from part 1 based on MR
+  #Repeat until all undirected edges to directed
   m=m
   Alpha=Alpha
   R=R
-  #Start to orient remaining edges.
-  if (any(tarmat == 1)) #if at least one edge directed already made so far
+  #Start to orient remaining edges when exist GV.
+  if (any(tarmat == 1) & GV>0) #if at least one edge directed already made so far
   {
     edgeall=which(g1==1,arr.ind = T) #Pullout the all edges again from g1 matrix
     for (u in 1:nrow(edgeall))
@@ -154,7 +154,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
               
               z<-0
               
-      #Scenario-2 (gene is the first column of the triplets)
+              #Scenario-2 (gene is the first column of the triplets)
               if (x>GV) #If Gene (other than genetic variant) is the first column
               {
                 ny=x  #New y
@@ -179,7 +179,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
                 }
                 
               }
-  if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
+              if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
               {
                 #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
                 #then the edge direction will be y-->z
@@ -192,19 +192,19 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
                 #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
                 #then the edge direction will be z-->y.
                 if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput$sepset[[x]][[z]]) & !(y %in% gInput$sepset[[z]][[x]]))
-                
+                  
                 {
                   m=m+1
                   pval=gaussCItest(x, z, y, suffStat) #additional conditional test
                   Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                   if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
                     R[m]=1
-                   
-                if (verbose) {
+                    
+                    if (verbose) {
                       V=colnames(g)
                       cat("\n", V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
                       cat("Since pval<Alpha,additional test is rejected", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
-                      }
+                    }
                     tarmat[z, y] <- 1 #directed z-->y
                   } 
                   else {
@@ -226,6 +226,86 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
       }
     }
   }
+  #Start to orient remaining edges when no GV.
+  if (any(tarmat == 1) & GV==0) #if at least one edge directed already made so far
+  {
+    WW1=unique(which(tarmat==1,arr.ind = T)[,2])
+    
+    if(length(WW1)!=0)
+    {
+      for (v1 in 1:length(WW1))
+      {
+        WW2=unique(which(tarmat[,WW1[v1]]==1,arr.ind = T)) #edge between v-structure  
+        WW3=c(unique(which(g[,WW1]==1,arr.ind = T)),unique(which(g[WW1,]==1,arr.ind = T))) #edges between nodes v-structure 
+        WW3<-WW3[WW3!= WW2]   #ignore if already direction
+        
+        if(length(WW3)!=0)
+        {
+          for (v2 in 1:length(WW3))
+          {
+            x=WW2[1]
+            y=WW1[v1]
+            z=WW3[v2]
+            if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
+            {
+              #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
+              #then the edge direction will be y-->z
+              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput$sepset[[x]][[z]]) || (y %in% gInput$sepset[[z]][[x]])))
+              {
+                tarmat[y, z]  <- 1
+                tarmat[z, y]  <- 0
+              }
+              
+              #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
+              #then the edge direction will be z-->y.
+              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput$sepset[[x]][[z]]) & !(y %in% gInput$sepset[[z]][[x]]))
+                
+              {
+                m=m+1
+                pval=gaussCItest(x, z, y, suffStat) #additional conditional test
+                Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
+                  R[m]=1
+                  
+                  if (verbose) {
+                    V=colnames(g)
+                    cat("\n", V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
+                    cat("Since pval<Alpha,additional test is rejected", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
+                  }
+                  tarmat[z, y] <- 1 #directed z-->y
+                } 
+                else {
+                  tarmat[y, z] <- 1
+                  R[m]=0  #Accept H0
+                }
+              }
+              #Case-4:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
+              #then edge direction will be z<-->y
+              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput$sepset[[x]][[y]]) &!(y %in% gInput$sepset[[x]][[z]]))
+              {
+                tarmat[y, z]  <- 1
+                tarmat[z, y]  <- 1
+              }
+            }
+            
+          }
+          tarmat1=g1
+          tarmat1[,WW1]=tarmat[,WW1]
+          tarmat1[WW1,]=tarmat[WW1,]
+          tarmat=tarmat1
+        }
+        
+        if(length(WW3)==0)
+        {
+          tarmat1=g1
+          tarmat1[,WW1]=tarmat[,WW1]
+          tarmat1[WW1,]=tarmat[WW1,]
+          tarmat=tarmat1
+        }
+      }
+    }
+  }
+  
   #Step 4
   #Produce as a same skeleton if no edges involves with genetic variants and no v-structures
   if(all(tarmat==0))
@@ -235,7 +315,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
   #Step 5
   #If found the direction with only genetic variants, no v-structures and 
   #all the other nodes still undirected, then remaining edges will be bidirected 
-
+  
   if((any(tarmat[1:GV,]==1) || any(tarmat[,1:GV]==1)) & all(tarmat[-c(1:GV),-c(1:GV)]==0))
   {
     tarmat1=g1
@@ -245,5 +325,5 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,verbose = FALSE)
   }
   gInput$graph<-as(tarmat, "graphNEL")
   gInput
-
+  
 }

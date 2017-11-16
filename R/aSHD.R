@@ -47,7 +47,6 @@ aSHD=function (g1, g2,GV)
     }
     
     #if((x<=GV & y<=GV) & m1[x,y]==1 & m1[y,x]!=1 & (m2[x,y]==1 || m2[y,x]==1))
-    
     #{
     # Distannce_matrix[x,y]=0.5 
     #}
