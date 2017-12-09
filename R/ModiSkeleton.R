@@ -105,6 +105,10 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "citest"
                 {
                 pval[m]<- gaussCItest(x, y, nbrs[S], suffStat)
               }
+              if(indepTest=="disCItest") #if indepTest=gaussCItest
+              {
+                pval[m]<- disCItest(x, y, nbrs[S], suffStat)
+              }
                                    
               #End to calculate P-value using ci.test and gaussCItest
 
