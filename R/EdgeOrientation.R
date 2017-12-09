@@ -1,6 +1,6 @@
 #This is the part 2 of MRPC to direction determination of the undirected edges.
 
-EdgeOrientation<-function (gInput,GV=GV,suffStat,indepTest =indepTest,FDR,verbose = FALSE)
+EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbose = FALSE)
 {
   g <- as(gInput$graph, "matrix") # g ia an adjacency from undirected graph (skleton)
   g1=g
