@@ -399,8 +399,9 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,indepTest =indepTest,FDR,verbos
                 }
                 if(indepTest=="disCItest") #if indepTest=gaussCItest
                 {
-                  pval=disCItest(x, y, z, suffStat) #additional
-                }                Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                pval=disCItest(x, y, z, suffStat) #additional
+                }                
+                Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m]=1
                   
