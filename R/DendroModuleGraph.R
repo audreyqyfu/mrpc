@@ -43,7 +43,7 @@ DendroModuleGraph=function(Adj_directed,minModuleSize,GV) {
 # Plot the dendrogram and colors underneath
 #par(mfrow=c(1,2))
 #sizeGrWindow(8,6);
-  plotDendroAndColors(geneTree, dynamicColors, "Dynamic Tree Cut",
+plotDendroAndColors(geneTree, dynamicColors, "Dynamic Tree Cut",
                       dendroLabels = FALSE, hang = 0.03,
                       addGuide = FALSE, guideHang = 0.05,
                       main = "Dendrogram and module colors of nodes")
