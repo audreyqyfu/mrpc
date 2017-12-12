@@ -12,7 +12,7 @@ data(ExampleMRPC)
 }
 
 \details{
-Contain a numeric data matrix and a graph. The data with 1000 samples in row and five variables in column for simple model. First two column is the genetic variants and remaning columns are the genes expression.On the other hand, for complex model 1000 samples in row and 22 variables in column. First 14 column is the genetic variants and remaning columns are the genes expression.   
+Contain a numeric data matrix and a graph. The data with 1000 samples in row and 6 variables in column for simple model. First two column is the genetic variants and remaning columns are the genes expression.On the other hand, for complex model 1000 samples in row and 22 variables in column. First 14 column is the genetic variants and remaning columns are the genes expression.   
 }
 \value{
 A list that containing the numeric data matrix and components of a graph.
@@ -29,7 +29,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 library(pcalg) #For graph plot
 data ("ExampleMRPC ")
-#If you need the data and a graph for simple model invloving 5 nodes
+#If you need the data and a graph for simple model invloving 6 nodes
 Data=ExampleMRPC$simple$data
 plot(ExampleMRPC$simple$graph)
 #If you need the data and a graph for simple model invloving 22 nodes
