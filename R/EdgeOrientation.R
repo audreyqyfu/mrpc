@@ -201,7 +201,9 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
       {
         for (d1 in 1:length(D1))
         {
-          Rem1=which(g[,D1[d1]]==1,arr.ind = T)
+          Rem1_row=which(g[,D1[d1]]==1,arr.ind = T)
+          Rem1_col=which(g[D1[d1],]==1,arr.ind = T)
+          Rem1=c(Rem1_row,Rem1_col)
           Rem2=which(tarmat[,Rem1]==1,arr.ind = T)
           if(length(Rem1)!=0 & length(Rem2)!=0)
           {
