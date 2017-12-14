@@ -118,7 +118,10 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
   if (any(tarmat == 1) & GV>0) #if at least one edge directed already made so far
   {
     WW1=unique(which(tarmat==1,arr.ind = T)[,2]) #pullout the all canidate genes for v-structure
-    WW1=WW1[-c(1:GV)] #ignor canidate genes for GV
+    #if(WW1<GV){
+    #WW1=WW1[-c(1:GV)] #ignor canidate genes for GV
+    WW1=setdiff(WW1,1:GV)
+    #}
     if(length(WW1)!=0)
     {
       #WW1=setdiff(WW1,1:GV)
@@ -328,7 +331,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 
                 cat("Additional pval value =", pval, "\n")
                 cat("Alpha value =", Alpha, "\n")
-              
+                
                 #Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m]=1
@@ -399,7 +402,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 }
                 if(indepTest=="disCItest") #if indepTest=gaussCItest
                 {
-                pval=disCItest(x, y, z, suffStat) #additional
+                  pval=disCItest(x, y, z, suffStat) #additional
                 }                
                 Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
