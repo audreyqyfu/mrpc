@@ -8,7 +8,7 @@ Edges Orientation Rules for the MRPC Algorithm
 This function perform the last step of \link{MRPC} algorithm, where we determine the edge direction for undirected graph. The functions first determine the edges between genetic variants with the others based on MR, then orient v-structures, then orient the remaining edges, weather MR is applicable or not. MR is a new way for edge direction determination based four different cases. See below for the details.
 }
 \usage{
-EdgeOrientation(gInput,GV, suffStat, FDR, verbose = FALSE)
+EdgeOrientation(gInput,GV=GV,suffStat, FDR, indepTest = indepTest, verbose = FALSE)
 
 }
 
@@ -24,6 +24,7 @@ EdgeOrientation(gInput,GV, suffStat, FDR, verbose = FALSE)
 \item{FDR}{
 Need to specify pre-assigned level.If FDR=0.05, that ensures FDR and mFDR remains below 0.05.
 }
+\item{indepTest}{A \link{function} for testing conditional independence. It is used to tests the conditional independence of x and y given S, called as indepTest(x,y,S,suffStat). Where, x and y are variables, and S is a (possibly empty) vector of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. The different indepTest is used for different data types, for example, Gaussian data = gaussCItest, Discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)}
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
 \details{
@@ -87,7 +88,8 @@ Skel.fit_0 <- ModiSkeleton(simu.data_M0,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_0 <- EdgeOrientation(Skel.fit_0,GV=1, suffStat_R,FDR=0.05,verbose=1)
+Edge_orientation_0 <- EdgeOrientation(Skel.fit_0,GV=1,suffStat_R,FDR=0.05,indepTest
+='gaussCItest',verbose=1)
 
 ## Plot of the results
 
@@ -101,11 +103,14 @@ Rcor_R=RobustCor(simu.data_M1, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 ## Estimate skeleton
 
-Skel.fit_1 <- ModiSkeleton(simu.data_M1,suffStat_R,FDR=0.05,indepTest=
+Skel.fit_1 <- ModiSkeleton(simu.data_M1
+,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_1 <- EdgeOrientation(Skel.fit_1,GV=1,suffStat_R,FDR=0.05, verbose=1)
+Edge_orientation_1 <- EdgeOrientation(Skel.fit_1
+,GV=1,suffStat_R,FDR=0.05, indepTest
+='gaussCItest',verbose=1)
 
 ## Plot of the results
 
@@ -120,11 +125,13 @@ suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimate skeleton
 
-Skel.fit_2 <- ModiSkeleton(simu.data_M2,suffStat_R,FDR=0.05,indepTest=
+Skel.fit_2 <- ModiSkeleton(simu.data_M2
+,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_2 <- EdgeOrientation(Skel.fit_2,GV=1,suffStat_R,FDR=0.05, verbose=1)
+Edge_orientation_2 <- EdgeOrientation(Skel.fit_2
+,GV=1,suffStat_R,FDR=0.05, indepTest='gaussCItest',verbose=1)
 
 ## Plot of the results
 
@@ -139,11 +146,14 @@ suffStat_R= list(C = Rcor_R$RR, n = n)
 
 ## Estimate skeleton
 
-Skel.fit_3 <- ModiSkeleton(simu.data_M3,suffStat_R,FDR=0.05,indepTest=
+Skel.fit_3 <- ModiSkeleton(simu.data_M3
+,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_3 <- EdgeOrientation(Skel.fit_3,GV=1,suffStat_R,FDR=0.05, verbose=1)
+Edge_orientation_3 <- EdgeOrientation(Skel.fit_3
+,GV=1,suffStat_R,FDR=0.05, indepTest
+='gaussCItest',verbose=1)
 
 ## Plot of the results
 
@@ -157,11 +167,14 @@ Rcor_R=RobustCor(simu.data_M4, 0.005) #Robust correlation (Beta=0.005)
 suffStat_R= list(C = Rcor_R$RR, n = n)
 ## Estimate skeleton
 
-Skel.fit_4 <- ModiSkeleton(simu.data_M4,suffStat_R,FDR=0.05,indepTest=
+Skel.fit_4 <- ModiSkeleton(simu.data_M4
+,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_4 <- EdgeOrientation(Skel.fit_4,GV=1,suffStat_R,FDR=0.05, verbose=1)
+Edge_orientation_4 <- EdgeOrientation(Skel.fit_4
+,GV=1,suffStat_R,FDR=0.05, indepTest
+='gaussCItest',verbose=1)
 
 ## Plot of the results
 
