@@ -2579,7 +2579,7 @@ Truth_test1<-as(tarmat, "graphNEL")
 par(mfrow=c(1,4))
 plot(Truth_test1,main=" (A) Truth")
 plot(MRPC.fit_test1$graph,main=" (B) MRPC")
-G6=graphviz.plot(mmhc_test1,main=" (C) mmhc")
+graphviz.plot(mmhc_test1,main=" (C) mmhc")
 plot(pc.fit_test1,main=" (D) pc")
 
 
