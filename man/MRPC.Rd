@@ -464,7 +464,7 @@ plot(pc.fit_Layered,  main ="(D) pc")
 #previous 5 basic topologies.
 #We also,showed example model from pcalg and multiple SNPs/indels/CNV/eQTL topology
 
-#Model 5 (extention of model 0) based on model 0
+#Model 5 (extention of model 0) based on model 0 (triplet=V,T1,T3)
 #Data
 
 V=simu.data_M0[ ,1];
@@ -510,7 +510,7 @@ plot(MRPC.fit_5$graph, main ="(A) MRPC")
 graphviz.plot(mmhc_5, main ="(C) mmhc")
 plot(pc.fit_5,  main ="(D) pc")
 
-#Model 6 (extention of model 0) based on model 1
+#Model 6 (extention of model 0) based on model 1 (triplet=V,T1,T3)
 #Data
 V=simu.data_M1[ ,1];
 T1=simu.data_M1[ ,2];
@@ -557,7 +557,7 @@ plot(MRPC.fit_6$graph, main ="(A) MRPC")
 graphviz.plot(mmhc_6, main ="(C) mmhc")
 plot(pc.fit_6,  main ="(D) pc")
 
-#Model 7 (extention of model 0) based on model 2
+#Model 7 (extention of model 0) based on model 2 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1];
 T1=simu.data_M2[ ,2];
@@ -603,7 +603,7 @@ plot(MRPC.fit_7$graph, main ="(A) MRPC")
 graphviz.plot(mmhc_7, main ="(C) mmhc")
 plot(pc.fit_7,  main ="(D) pc")
 
-#Model 8 (extention of model 0) based on model 3
+#Model 8 (extention of model 0) based on model 3 (triplet=V,T1,T3)
 #Data
 V=simu.data_M3[ ,1]
 T1=simu.data_M3[ ,2]
@@ -650,7 +650,7 @@ plot(MRPC.fit_8$graph, main ="(A) MRPC")
 graphviz.plot(mmhc_8, main ="(C) mmhc")
 plot(pc.fit_8,  main ="(D) pc")
 
-#Model 9 (extention of model 0) based on model 4
+#Model 9 (extention of model 0) based on model 4 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -699,7 +699,7 @@ plot(MRPC.fit_9$graph, main ="(A) MRPC")
 graphviz.plot(mmhc_9, main ="(C) mmhc")
 plot(pc.fit_9,  main ="(D) pc")
 
-#Model 10 (extention of model 1) based on model 0 (triplet=V,T1,T2)
+#Model 10 (extention of model 1) based on model 0 (triplet=V,T1,T3)
 #Data
 V=simu.data_M0[ ,1]
 T1=simu.data_M0[ ,2]
@@ -744,7 +744,7 @@ plot(MRPC.fit_10$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_10, main ="(C) mmhc")
 plot(pc.fit_10,  main ="(D) pc")
 
-#Model 11 (extention of model 1) based on model 1 (triplet=V,T1,T2)
+#Model 11 (extention of model 1) based on model 1 (triplet=V,T1,T3)
 #Data
 V=simu.data_M1[ ,1]
 T1=simu.data_M1[ ,2]
@@ -789,7 +789,7 @@ plot(MRPC.fit_11$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_11, main ="(C) mmhc")
 plot(pc.fit_11,  main ="(D) pc")
 
-#Model 12 (extention of model 1) based on model 2 (triplet=V,T1,T2)
+#Model 12 (extention of model 1) based on model 2 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1]
 T1=simu.data_M2[ ,2]
@@ -834,7 +834,7 @@ plot(MRPC.fit_12$graph, main ="(A) MRPC")
 graphviz.plot(mmhc_12, main ="(C) mmhc")
 plot(pc.fit_12,  main ="(D) pc")
 
-#Model 13 (extention of model 1) based on model 3 (triplet=V,T1,T2)
+#Model 13 (extention of model 1) based on model 3 (triplet=V,T1,T3)
 #Data
 V=simu.data_M3[ ,1]
 T1=simu.data_M3[ ,2]
@@ -879,7 +879,7 @@ plot(MRPC.fit_13$graph, main ="(A) MRPC")
 graphviz.plot(mmhc_13, main ="(C) mmhc")
 plot(pc.fit_13,  main ="(D) pc")
 
-#Model 14 (extention of model 1) based on model 4 (triplet=V,T1,T2)
+#Model 14 (extention of model 1) based on model 4 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -1087,7 +1087,7 @@ plot(MRPC.fit_17$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_17, main ="(C) mmhc")
 plot(pc.fit_17,  main ="(D) pc")
 
-#Model 18 (extention of model 2) based on model 0 (triplet=V,T1,T2)
+#Model 18 (extention of model 2) based on model 0 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1]
 T1=simu.data_M2[ ,2]
@@ -1133,7 +1133,7 @@ plot(MRPC.fit_18$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_18, main ="(C) mmhc")
 plot(pc.fit_18,  main ="(D) pc")
 
-#Model 19 (extention of model 2) based on model 1 (triplet=V,T1,T2)
+#Model 19 (extention of model 2) based on model 1 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1]
 T1=simu.data_M2[ ,2]
@@ -1180,7 +1180,7 @@ plot(MRPC.fit_19$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_19, main ="(C) mmhc")
 plot(pc.fit_19,  main ="(D) pc")
 
-#Model 20 (extention of model 2) based on model 2 (triplet=V,T1,T2)
+#Model 20 (extention of model 2) based on model 2 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1]
 T2=simu.data_M2[ ,3]
@@ -1227,7 +1227,7 @@ plot(MRPC.fit_20$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_20, main ="(C) mmhc")
 plot(pc.fit_20,  main ="(D) pc")
 
-#Model 21 (extention of model 2) based on model 3 (triplet=V,T1,T2)
+#Model 21 (extention of model 2) based on model 3 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1]
 T1=simu.data_M2[ ,2]
@@ -1274,7 +1274,7 @@ plot(MRPC.fit_21$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_21, main ="(C) mmhc")
 plot(pc.fit_21,  main ="(D) pc")
 
-#Model 22 (extention of model 2) based on model 4 (triplet=V,T1,T2)
+#Model 22 (extention of model 2) based on model 4 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1]
 T2=simu.data_M2[ ,3]
@@ -1452,7 +1452,7 @@ plot(MRPC.fit_24$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_24, main ="(C) mmhc")
 plot(pc.fit_24,  main ="(D) pc")
 
-#Model 25 (extention of model 3) based on model 0 (triplet=V,T1,T2)
+#Model 25 (extention of model 3) based on model 0 (triplet=V,T1,T3)
 #Data
 V=simu.data_M3[ ,1]
 T1=simu.data_M3[ ,2]
@@ -1498,7 +1498,7 @@ plot(MRPC.fit_25$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_25, main ="(C) mmhc")
 plot(pc.fit_25,  main ="(D) pc")
 
-#Model 26 (extention of model 3) based on model 1 (triplet=V,T1,T2)
+#Model 26 (extention of model 3) based on model 1 (triplet=V,T1,T3)
 #Data
 V=simu.data_M3[ ,1]
 T1=simu.data_M3[ ,2]
@@ -1545,7 +1545,7 @@ plot(MRPC.fit_26$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_26, main ="(C) mmhc")
 plot(pc.fit_26,  main ="(D) pc")
 
-#Model 27 (extention of model 3) based on model 2 (triplet=V,T1,T2)
+#Model 27 (extention of model 3) based on model 2 (triplet=V,T1,T3)
 #Data
 V=simu.data_M2[ ,1]
 T1=simu.data_M2[ ,2]
@@ -1592,7 +1592,7 @@ plot(MRPC.fit_27$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_27, main ="(C) mmhc")
 plot(pc.fit_27,  main ="(D) pc")
 
-#Model 28 (extention of model 3) based on model 3 (triplet=V,T1,T2)
+#Model 28 (extention of model 3) based on model 3 (triplet=V,T1,T3)
 #Data
 V=simu.data_M3[ ,1]
 T1=simu.data_M3[ ,2]
@@ -1639,7 +1639,7 @@ plot(MRPC.fit_28$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_28, main ="(C) mmhc")
 plot(pc.fit_28,  main ="(D) pc")
 
-#Model 29 (extention of model 3) based on model 4 (triplet=V,T1,T2)
+#Model 29 (extention of model 3) based on model 4 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -1688,7 +1688,7 @@ plot(MRPC.fit_29$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_29, main ="(C) mmhc")
 plot(pc.fit_29,  main ="(D) pc")
 
-#Model 30 (extention of model 3) based on model 1 (triplet=V,T1,T3)
+#Model 30 (extention of model 3) based on model 1 (triplet=V,T2,T3)
 #Data
 V=simu.data_M3[ ,1]
 T1=simu.data_M3[ ,2]
@@ -1735,7 +1735,7 @@ plot(MRPC.fit_30$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_30, main ="(C) mmhc")
 plot(pc.fit_30,  main ="(D) pc")
 
-#Model 31 (extention of model 3) based on model 2 (triplet=V,T1,T3)
+#Model 31 (extention of model 3) based on model 2 (triplet=V,T2,T3)
 #Data
 V=simu.data_M3[ ,1]
 T1=simu.data_M3[ ,2]
@@ -1782,7 +1782,7 @@ plot(MRPC.fit_31$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_31, main ="(C) mmhc")
 plot(pc.fit_31,  main ="(D) pc")
 
-#Model 32 (extention of model 3) based on model 4 (triplet=V,T1,T3)
+#Model 32 (extention of model 3) based on model 4 (triplet=V,T2,T3)
 #Data
 V=simu.data_M4[ ,1]
 T2=simu.data_M4[ ,2]
@@ -1831,7 +1831,7 @@ plot(MRPC.fit_32$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_32, main ="(C) mmhc")
 plot(pc.fit_32,  main ="(D) pc")
 
-#Model 33 (extention of model 3) based on model 2 (triplet=V,T1,T2)
+#Model 33 (extention of model 4) based on model 0 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -1879,7 +1879,7 @@ plot(MRPC.fit_33$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_33, main ="(C) mmhc")
 plot(pc.fit_33,  main ="(D) pc")
 
-#Model 34 (extention of model 4) based on model 1 (triplet=V,T1,T2)
+#Model 34 (extention of model 4) based on model 1 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -1927,7 +1927,7 @@ plot(MRPC.fit_34$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_34, main ="(C) mmhc")
 plot(pc.fit_34,  main ="(D) pc")
 
-#Model 35 (extention of model 4) based on model 2 (triplet=V,T1,T2)
+#Model 35 (extention of model 4) based on model 2 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T3=simu.data_M2[ ,3]
@@ -1993,7 +1993,7 @@ plot(MRPC.fit_35$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_35, main ="(C) mmhc")
 plot(pc.fit_35,  main ="(D) pc")
 
-#Model 36 (extention of model 4) based on model 3 (triplet=V,T1,T2)
+#Model 36 (extention of model 4) based on model 3 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -2042,7 +2042,7 @@ plot(MRPC.fit_36$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_36, main ="(C) mmhc")
 plot(pc.fit_36,  main ="(D) pc")
 
-#Model 37 (extention of model 4) based on model 4 (triplet=V,T1,T2)
+#Model 37 (extention of model 4) based on model 4 (triplet=V,T1,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -2100,7 +2100,7 @@ plot(MRPC.fit_37$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_37, main ="(C) mmhc")
 plot(pc.fit_37,  main ="(D) pc")
 
-#Model 38 (extention of model 4) based on model 1 (triplet=V,T1,T3)
+#Model 38 (extention of model 4) based on model 1 (triplet=V,T2,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -2149,7 +2149,7 @@ plot(MRPC.fit_38$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_38, main ="(C) mmhc")
 plot(pc.fit_38,  main ="(D) pc")
 
-#Model 39 (extention of model 4) based on model 2 (triplet=V,T1,T3)
+#Model 39 (extention of model 4) based on model 2 (triplet=V,T2,T3)
 #Data
 V=simu.data_M4[ ,1]
 T3=simu.data_M2[ ,3]
@@ -2215,7 +2215,7 @@ plot(MRPC.fit_39$graph, main ="(B) MRPC")
 graphviz.plot(mmhc_39, main ="(C) mmhc")
 plot(pc.fit_39,  main ="(D) pc")
 
-#Model 40 (extention of model 4) based on model 4 (triplet=V,T1,T3)
+#Model 40 (extention of model 4) based on model 4 (triplet=V,T2,T3)
 #Data
 V=simu.data_M4[ ,1]
 T1=simu.data_M4[ ,2]
@@ -2279,8 +2279,8 @@ plot(pc.fit_40,  main ="(D) pc")
 
 
 #To examine the robustness (Model 0-Model 4) of the MRPC method in
-#comparision of the PC method,we added some artificial outliers to
-#our data matrix randomly.First, we generated uniform distribution
+#comparision of the PC and mmhc method,we added some artificial outliers to
+#our original data matrix randomly.First, we generated uniform distribution
 #for outlying expression and add with the original data.
 
 ## Model 0
@@ -2517,7 +2517,7 @@ plot(pc.fit_4_Outlier,  main ="(E) pc")
 
 
 #Continuous phenotypes without genetic variant
-#N=1000 with moderate signals
+#N=1000 with moderate (0.5) signals
 
 #parameters
 N=1000
@@ -2584,7 +2584,7 @@ plot(pc.fit_test1,main=" (D) pc")
 
 
 #Discrete phenotypes with genetic variant example 1,
-#N=1000 with strong signals
+#N=1000 with strong (1.0) signals
 
 #parameters
 N=1000
@@ -2654,6 +2654,7 @@ graphviz.plot(mmhc_D1,main=" (C) mmhc")
 plot(pc.fit_D1,main = " (D) pc")
 
 ##Discrete phenotypes with genetic variant example 2
+#N=1000 with strong (1.0) signals
 #Parameters
 N=1000
 p=0.45
@@ -2719,9 +2720,8 @@ plot(MRPC_fit_D2$graph,main = " (B) MRPC")
 graphviz.plot(mmhc_D2,main=" (C) mmhc")
 plot(pc.fit_D2,main = " (D) pc")
 
-
-
 ##Discrete phenotypes without genetic variant example 1
+#N=1000 with strong (1.0) signals
 #Parameters
 N=1000
 #p=0.45
@@ -2782,6 +2782,7 @@ plot(pc.fit_D3,main = " (D) pc")
 
 
 ##Discrete phenotypes without genetic variant example 2
+#N=1000 with strong (1.0) signals
 #Parameters
 N=1000
 signal=1
