@@ -72,11 +72,11 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
         m=m+1
         if(indepTest=="gaussCItest") #if indepTest=gaussCItest
         {
-          pval<- gaussCItest(x, y, z, suffStat)
+          pval<- gaussCItest(x, z, y, suffStat)
         }
         if(indepTest=="disCItest") #if indepTest=gaussCItest
         {
-          pval=disCItest(x, y, z, suffStat) #additional
+          pval=disCItest(x, z, y, suffStat) #additional
         }
         #pval=disCItest(x, z, y, suffStat) #additional conditional test
         Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
@@ -154,11 +154,11 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 m=m+1
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest for continuous data
                 {
-                  pval<- gaussCItest(x, y, z, suffStat) #additional pval
+                  pval<- gaussCItest(x, z, y, suffStat) #additional pval
                 }
                 if(indepTest=="disCItest") #if indepTest=disCItest for discrete data 
                 {
-                  pval=disCItest(x, y, z, suffStat) #additional pval
+                  pval=disCItest(x, z, y, suffStat) #additional pval
                 }
                 Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 cat("Additional pval value =", pval, "\n")
@@ -229,11 +229,11 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 m=m+1
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest
                 {
-                  pval<- gaussCItest(x, y, z, suffStat)
+                  pval<- gaussCItest(x, z, y, suffStat)
                 }
                 if(indepTest=="disCItest") #if indepTest=gaussCItest
                 {
-                  pval=disCItest(x, y, z, suffStat) #additional
+                  pval=disCItest(x, z, y, suffStat) #additional
                 }                
                 Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
@@ -322,11 +322,11 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 m=m+1
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest
                 {
-                  pval<- gaussCItest(x, y, z, suffStat)
+                  pval<- gaussCItest(x, z, y, suffStat)
                 }
                 if(indepTest=="disCItest") #if indepTest=disCItest
                 {
-                  pval=disCItest(x, y, z, suffStat) #additional
+                  pval=disCItest(x, z, y, suffStat) #additional
                 }
                 
                 Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
@@ -400,11 +400,11 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 m=m+1
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest
                 {
-                  pval<- gaussCItest(x, y, z, suffStat)
+                  pval<- gaussCItest(x, z, y, suffStat)
                 }
                 if(indepTest=="disCItest") #if indepTest=gaussCItest
                 {
-                  pval=disCItest(x, y, z, suffStat) #additional
+                  pval=disCItest(x, z, y, suffStat) #additional
                 }                
                 Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
