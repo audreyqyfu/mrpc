@@ -207,9 +207,13 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
           Rem2=which(tarmat[,Rem1]==1,arr.ind = T)
           if(length(Rem1)!=0 & length(Rem2)!=0)
           {
-            x=Rem2
-            y=Rem1
-            z=D1[d1]
+            for (d11 in 1:length(Rem1))
+            {
+              x=Rem2[d11]
+              y=Rem1[d11]
+              z=D1[d1]
+            }
+            
             
             if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
             {
@@ -378,10 +382,12 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
           Rem2=which(tarmat[,Rem1]==1,arr.ind = T)
           if(length(Rem1)!=0 & length(Rem2)!=0)
           {
-            x=Rem2
-            y=Rem1
+            for (d11 in 1:length(Rem1))
+            {
+            x=Rem2[d11]
+            y=Rem1[d11]
             z=D1[d1]
-            
+            }
             if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
