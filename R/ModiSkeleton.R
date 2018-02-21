@@ -52,7 +52,8 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "disCIte
     while (!done && any(G) && ord <= m.max) {
       n.edgetests[ord1 <- ord + 1L] <- 0
       done <- TRUE
-      ind <- which(G, arr.ind = TRUE)
+      #ind <- which(G, arr.ind = TRUE)
+      ind <- which(upper.tri(G), arr.ind = TRUE)
       ind <- ind[order(ind[, 1]), ]
       remEdges <- nrow(ind)
       if (verbose)
