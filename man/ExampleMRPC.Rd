@@ -5,18 +5,34 @@
 Example Data for Simple and Complex Model
 }
 \description{
-Example of the numeric data (Gaussian and Discrete) matrix and components of a graph
+Example of the numeric data (Continuous and Discrete) matrix and components of a graph
 }
 \usage{
 data(ExampleMRPC)
 }
 
 \details{
-Contain a numeric data matrix and a graph. The data with 1000 samples in row and 6 variables in column for simple model. First two column is the genetic variants and remaning columns are the genes expression.On the other hand, for complex model 1000 samples in row and 22 variables in column. First 14 column is the genetic variants and remaning columns are the genes expression.   
+Contain a numeric data matrix and a graph for both continuous and discrete. 
+
+\bold{For continuous data with genetic information}: 1000 samples in row and 6 variables in column. First two column is the genetic variants and remaning columns are the genes expression.
+
+\bold{Continuous data without genetic information}: 1000 samples in row and 8 variables in column.
+
+\bold{Discrete data with genetic information}: 1000 samples in row and 6 variables in column. First column is the genetic variants and remaning columns are the genes expression.
+
+\bold{Discrete data without genetic information}: 1000 samples in row and 5 variables in column.
+
+\bold{Continuous data with genetic information for complex model}: 1000 samples in row and 22 variables in column. First 14 column is the genetic variants and remaning columns are the genes expression.   
 }
 \value{
 A list that containing the numeric data matrix and components of a graph.
 \itemize{
+\item \code{simple}: Simple model.
+\item \code{complex}: Complex model.
+\item \code{cont}: Continuous.
+\item \code{disc}: Discrete.
+\item \code{withGV}: With genetic information.
+\item \code{withoutGV}: Without genetic information.
 \item \code{data}: Data matrix.
 \item \code{graph}: Components of a graph.
 }
