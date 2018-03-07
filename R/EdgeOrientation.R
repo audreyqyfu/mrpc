@@ -137,7 +137,9 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             x=WW2[1]
             y=WW1[v1]
             z=WW3[v2]
-            if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
+            
+            
+            if ((!is.na(x) & !is.na(y) & !is.na(z)) & (x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
@@ -215,7 +217,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             }
             
             
-            if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
+            if ((!is.na(x) & !is.na(y) & !is.na(z)) & (x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
@@ -309,7 +311,8 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             x=WW2[1]
             y=WW1[v1]
             z=WW3[v2]
-            if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
+            
+            if ((!is.na(x) & !is.na(y) & !is.na(z)) & (x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
@@ -388,7 +391,8 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             y=Rem1[d11]
             z=D1[d1]
             }
-            if ((x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
+            
+            if ((!is.na(x) & !is.na(y) & !is.na(z)) & (x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
