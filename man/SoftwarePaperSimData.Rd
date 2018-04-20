@@ -27,6 +27,7 @@ Matrix
 1.Md. Bahadur Badsha, Audrey Qiuyan Fu: Learning causal biological networks with generalized Mendelian randomization.bioRxiv (2017), 171348. 
 
 2.Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
+
 3.Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. Causal Inference Using Graphical Models with the R Package pcalg. J. Stat.Softw. 47, 26 (2012).
 }
 \author{
