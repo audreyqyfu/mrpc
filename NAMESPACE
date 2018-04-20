@@ -13,6 +13,10 @@ exportPattern("EdgeOrientation")
 exportPattern("DendroModuleGraph")
 exportPattern("Cut_Modules")
 exportPattern("aSHD")
+exportPattern("SoftwarePaperSimData")
+exportPattern("Recall_Precision")
+
+
 importFrom("stats","dist","approx","as.dist","cor", "rbinom", "rnorm", "sd","as.hclust","na.omit","median","quantile","cov","cov2cor")
 importFrom("graphics", "plot")
 importFrom("pcalg","disCItest","gaussCItest","pc.cons.intern","udag2pdag","udag2pdagSpecial","udag2pdagRelaxed","getNextSet","wgtMatrix")
