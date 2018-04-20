@@ -5,7 +5,7 @@
 #The larger this distance, the more different the two graphs are. We adjusted 
 #the SHD to reduce the penalty on the wrong direction of an edge to 0.5.Details
 #in help(aSHD)
-aSHD=function (g1, g2,GV) 
+aSHD=function (g1, g2,GV,edge.presence=1.0,edge.direction=0.5) 
 {
   if (is(g1, "pcAlgo")) 
     g1 <- g1@graph
@@ -37,13 +37,13 @@ aSHD=function (g1, g2,GV)
     #If missing edges then penalty =1
     if((m1[x,y]==1 || m1[y,x]!=1)  & (m2[x,y]!=1 & m2[y,x]!=1) & Distannce_matrix[x,y]==0 & Distannce_matrix[y,x]==0 )
     {
-      Distannce_matrix[x,y]=1 
+      Distannce_matrix[x,y]=edge.presence 
     }
     #If missing direction then penalty =0.5
     if(m1[x,y]==1 & m1[y,x]!=1 & m2[x,y]==1 & m2[y,x]==1)
       
     {
-      Distannce_matrix[x,y]=0.5 
+      Distannce_matrix[x,y]=edge.direction
     }
     
     #if((x<=GV & y<=GV) & m1[x,y]==1 & m1[y,x]!=1 & (m2[x,y]==1 || m2[y,x]==1))
@@ -59,14 +59,14 @@ aSHD=function (g1, g2,GV)
     #If missing edge then penalty =1  
     if((m2[x,y]==1 || m2[y,x]!=1)  & (m1[x,y]!=1 & m1[y,x]!=1) & Distannce_matrix[x,y]==0 & Distannce_matrix[y,x]==0)
     {
-      Distannce_matrix[x,y]=1 
+      Distannce_matrix[x,y]=edge.presence 
     }
     
     #If missing direction then penalty =0.5
     if(m2[x,y]==1 & m2[y,x]!=1 & m1[y,x]==1 & Distannce_matrix[x,y]==0 & Distannce_matrix[y,x]==0)
       
     {
-      Distannce_matrix[x,y]=0.5 
+      Distannce_matrix[x,y]=edge.direction
     }
   }
   #

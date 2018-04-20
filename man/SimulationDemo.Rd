@@ -1,5 +1,5 @@
-\name{SoftwarePaperSimData}
-\alias{SoftwarePaperSimData}
+\name{SimulationDemo}
+\alias{SimulationDemo}
 
 \title{Same data but different node ordering
 }
@@ -7,9 +7,9 @@
 Investigate the impact of same data but different node ordering across three methods: MRPC (Batsha et al., 2018), the mmhc method (implemented in bnlearn; Scutari, 2010) and the pc method (implemented in pcalg; Kalisch et al., 2012). 
 }
 \usage{
-SoftwarePaperSimData(N, model,signal,n_data,n_nodeordering)
+SimulationDemo(N, model,signal,n_data,n_nodeordering)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{N}{Number of observation}
   \item{model}{To specify the truth you want that shown in table 1 and 2. For example, if you want to truth 1 you need type 'truth1' into the function.}
@@ -18,7 +18,7 @@ SoftwarePaperSimData(N, model,signal,n_data,n_nodeordering)
   \item{n_nodeordering}{how many times you want to order the node for testing the results}
 }
 \details{
-The output results as a csv file each row indicates the data sets and col's are the different node ordering by three methods MRPC, mmhc and pc respectively. 
+The output results as a matrix each row indicates the data sets and col's are the different node ordering by three methods MRPC, mmhc and pc respectively. 
 }
 \value{
 Matrix
@@ -44,7 +44,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 library(bnlearn) # for mmhc
 library(pcalg)   #for pc
 #Run
-SoftwarePaperSimData(N=1000,'truth1',signal=1,n_data=2, n_nodeordering=6)
+SimulationDemo(N=1000,'truth1',signal=1,n_data=2, n_nodeordering=6)
 
 }
 

@@ -4,7 +4,7 @@
 #we assign edge.presence=1 to an edge with the correct direction 
 #and edge.direction=0.5 to an edge with the wrong direction or no direction
 #Details please see help(Recall_Precision)
-Recall_Precision=function (g1, g2, GV,edge.presence,edge.direction) 
+Recall_Precision=function (g1, g2, GV,edge.presence=1.0,edge.direction=0.5) 
 { 
   if (is(g1, "pcAlgo")) 
     g1 <- g1@graph

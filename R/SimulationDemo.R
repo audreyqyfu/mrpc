@@ -1,7 +1,7 @@
-#For software paper truth 1 
+#This is the demo for simulation
 #Same data but different node ordering 
 #Details please see help(SoftwarePaperSimData)
-SoftwarePaperSimData<- function(N, model,signal,n_data,n_nodeordering) {
+SimulationDemo<- function(N, model,signal,n_data,n_nodeordering) {
   
 #parameters settings
 N=N
@@ -28,13 +28,7 @@ switch(model,
          tarmat_s1[2,3]=1
          tarmat_s1[3,4]=1
          #Graph
-         Truth_s1<-as(tarmat_s1, "graphNEL")
-         
-         #Convert binary to decimal for truth
-         #library(compositions)  #for binary to decimal
-         V1=as.vector(t(tarmat_s1))
-         A1 <- paste(V1,collapse="")
-         S_truth=compositions::unbinary(A1)
+         #Truth_s1<-as(tarmat_s1, "graphNEL")
          
          #Output matrices
          Diff_MRPC=matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
@@ -83,12 +77,8 @@ switch(model,
                Adj_MRPC<-Adj_MRPC[Order_node,Order_node] #new
              }
              
-             #Convert binary to decimal for MRPC
-             V2_MRPC=as.vector(t(Adj_MRPC))
-             A2_MRPC<- paste(V2_MRPC,collapse="")
-             S_MRPC=compositions::unbinary(A2_MRPC)
-             #Difference between truth and inferred
-             Diff_MRPC[i,j]=S_truth-S_MRPC
+             #Difference between inferred and truth
+             Diff_MRPC[i,j]=seqDiff(Adj_MRPC,tarmat_s1)
              
              ## Estimated graph by mmhc
              M_mmhc=mmhc(data.frame(Data2)) 
@@ -103,11 +93,8 @@ switch(model,
                Adj_mmhc<-Adj_mmhc[Order_node,Order_node] #new
              }
              #Convert binary to decimal for mmhc
-             V2_mmhc=as.vector(t(Adj_mmhc))
-             A2_mmhc<- paste(V2_mmhc,collapse="")
-             S_mmhc=compositions::unbinary(A2_mmhc)
-             #Difference between truth and inferred
-             Diff_mmhc[i,j]=S_truth-S_mmhc
+             #Difference between inferred and truth
+             Diff_mmhc[i,j]=seqDiff(Adj_mmhc,tarmat_s1)
              
              ## Estimated graph by PC
              PC.fit_1 <- pc(suffStat_C,alpha =0.05,
@@ -121,19 +108,17 @@ switch(model,
                Order_node=match(colnames(tarmat_s1),colnames(Adj_PC))
                Adj_PC<-Adj_PC[Order_node,Order_node] #new
              }
-             #Convert binary to decimal for PC
-             V2_PC=as.vector(t(Adj_PC))
-             A2_PC<- paste(V2_PC,collapse="")
-             S_PC=compositions::unbinary(A2_PC)
-             #Difference between truth and inferred
-             Diff_PC[i,j]=S_truth-S_PC
+             #Difference between inferred and truth
+             Diff_PC[i,j]=seqDiff(Adj_PC,tarmat_s1)
              
+             #Results=cbind (Diff_MRPC,Diff_mmhc,Diff_PC)
              # write results to csv file
              #row indicates the number of data and col indicates number of node ordering by MRPC,mmhc and PC respectively
-             write.table (cbind (Diff_MRPC,Diff_mmhc,Diff_PC), file = "Results_1.csv",sep=",",row.names = F,col.names = F)
-             
+             #write.table (cbind (Diff_MRPC,Diff_mmhc,Diff_PC), file = "Results_1.csv",sep=",",row.names = F,col.names = F)
+             #return(Results)
            }
-         }  
+         }
+         return(cbind (Diff_MRPC,Diff_mmhc,Diff_PC))
        },
        truth2 = {
          #Truth 2 (V1-->T1<--T2-->T3)
@@ -145,19 +130,13 @@ switch(model,
          tarmat_s2[3,2]=1
          tarmat_s2[3,4]=1
          #Graph
-         Truth_s2<-as(tarmat_s2, "graphNEL")
-         
-         #Convert binary to decimal for truth
-         #library(compositions)  #for binary to decimal
-         V2=as.vector(t(tarmat_s2))
-         A2 <- paste(V2,collapse="")
-         S_truth=compositions::unbinary(A2)
+         #Truth_s2<-as(tarmat_s2, "graphNEL")
          
          #Output matrices
          Diff_MRPC=matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
          Diff_mmhc=matrix(NA,ncol = ita_node,nrow = ita_data) #For mmhc
          Diff_PC=matrix(NA,ncol = ita_node,nrow = ita_data)   #For pc
-         
+         #Results=0L
          #Data
          for (i in 1:ita_data) {
            cat("ita_data=",i)
@@ -199,11 +178,7 @@ switch(model,
              }
              
              #Convert binary to decimal for MRPC
-             V2_MRPC=as.vector(t(Adj_MRPC))
-             A2_MRPC<- paste(V2_MRPC,collapse="")
-             S_MRPC=compositions::unbinary(A2_MRPC)
-             #Difference between truth and inferred
-             Diff_MRPC[i,j]=S_truth-S_MRPC
+             Diff_MRPC[i,j]=seqDiff(Adj_MRPC,tarmat_s2)
              
              ## Estimated graph by mmhc
              M_mmhc=mmhc(data.frame(Data2)) 
@@ -217,12 +192,8 @@ switch(model,
                Order_node=match(colnames(tarmat_s2),colnames(Adj_mmhc))
                Adj_mmhc<-Adj_mmhc[Order_node,Order_node] #new
              }
-             #Convert binary to decimal for mmhc
-             V2_mmhc=as.vector(t(Adj_mmhc))
-             A2_mmhc<- paste(V2_mmhc,collapse="")
-             S_mmhc=compositions::unbinary(A2_mmhc)
-             #Difference between truth and inferred
-             Diff_mmhc[i,j]=S_truth-S_mmhc
+             #Difference between inferred and truth
+             Diff_mmhc[i,j]=seqDiff(Adj_mmhc,tarmat_s2)
              
              ## Estimated graph by PC
              PC.fit_1 <- pc(suffStat_C,alpha =0.05,
@@ -237,18 +208,17 @@ switch(model,
                Adj_PC<-Adj_PC[Order_node,Order_node] #new
              }
              
-             #Convert binary to decimal for PC
-             V2_PC=as.vector(t(Adj_PC))
-             #Convert 
-             A2_PC<- paste(V2_PC,collapse="")
-             S_PC=compositions::unbinary(A2_PC)
-             #Difference between truth and inferred
-             Diff_PC[i,j]=S_truth-S_PC
+             #Difference between inferred and truth
+             Diff_PC[i,j]=seqDiff(Adj_PC,tarmat_s2)
+             #Results[i,j]=cbind (Diff_MRPC,Diff_mmhc,Diff_PC)
              # write results to csv file
              #row indicates the number of data and col indicates number of node ordering by MRPC,mmhc and PC respectively
-             write.table (cbind (Diff_MRPC,Diff_mmhc,Diff_PC), file = "Results_2.csv",sep=",",row.names = F,col.names = F)
-           }
+             #write.table (cbind (Diff_MRPC,Diff_mmhc,Diff_PC), file = "Results_2.csv",sep=",",row.names = F,col.names = F)
+             #return(Results)
+             }
          }
+         
+         return(cbind(Diff_MRPC,Diff_mmhc,Diff_PC))
        },
        stop("Model not included or missing"))
 }

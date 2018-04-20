@@ -54,7 +54,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 
 
 \seealso{
-\link{SimulatedData}: adjusted Structural Hamming Distance (aSHD)
+\link{aSHD}: adjusted Structural Hamming Distance (aSHD)
 }
 \examples{
 

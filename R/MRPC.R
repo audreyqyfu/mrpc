@@ -1,5 +1,5 @@
 
-MRPC<-function (data,suffStat,GV,FDR,indepTest = c("gaussCItest","disCItest", "citest"),labels, p, fixedGaps = NULL,
+MRPC<-function (data,suffStat,GV,FDR=0.05,indepTest = c("gaussCItest","disCItest", "citest"),labels, p, fixedGaps = NULL,
                fixedEdges = NULL, NAdelete = TRUE, m.max = Inf,u2pd = c("relaxed", "rand", "retry"),
                skel.method = c("stable", "original","stable.fast"), conservative = FALSE, maj.rule = FALSE,
                solve.confl = FALSE, verbose = FALSE)

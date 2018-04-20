@@ -13,8 +13,9 @@ exportPattern("EdgeOrientation")
 exportPattern("DendroModuleGraph")
 exportPattern("Cut_Modules")
 exportPattern("aSHD")
-exportPattern("SoftwarePaperSimData")
+exportPattern("SimulationDemo")
 exportPattern("Recall_Precision")
+exportPattern("seqDiff")
 
 
 importFrom("stats","dist","approx","as.dist","cor", "rbinom", "rnorm", "sd","as.hclust","na.omit","median","quantile","cov","cov2cor")
