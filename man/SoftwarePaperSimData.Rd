@@ -43,7 +43,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 library(bnlearn) # for mmhc
 library(pcalg)   #for pc
 #Run
-SoftwarePaperSimData(N=1000,'truth2',signal=1,n_data=2, n_nodeordering=6)
+SoftwarePaperSimData(N=1000,'truth1',signal=1,n_data=2, n_nodeordering=6)
 
 }
 
