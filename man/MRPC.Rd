@@ -8,7 +8,7 @@ The MRPC () function is used to estimate a directed acyclic graph (DAG) from obs
 
 }
 \usage{
-MRPC(data,suffStat,GV,FDR,indepTest, labels, p,
+MRPC(data,suffStat,GV,FDR=0.05,indepTest, labels, p,
 fixedGaps = NULL, fixedEdges = NULL,
 NAdelete = TRUE, m.max = Inf,u2pd =
 c("relaxed", "rand", "retry"),

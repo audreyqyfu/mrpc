@@ -39,12 +39,12 @@ tarmat_s1[3,4]=1
 tarmat_s2=matrix(0,nrow=4,ncol = 4)
 colnames(tarmat_s2)=c("V1","T1","T2","T3")
 rownames(tarmat_s2)=colnames(tarmat_s2)
-#Create an adjacency matrix for truth
+#Create an adjacency matrix for inferred
 tarmat_s2[1,2]=1
 tarmat_s2[3,2]=1
 tarmat_s2[3,4]=1
 
-#deviation from the truth
+#Deviation of the inferred from the truth
 seqDiff(tarmat_s2,tarmat_s1)
          
 }

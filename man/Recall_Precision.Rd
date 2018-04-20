@@ -5,10 +5,10 @@
 Performance Evaluation by Recall and Precision in MRPC
 }
 \description{
-Recall=(# edges correctly identified in inferred graph) / (# edges in true graph); #Precision = (# edges correctly identified in inferred graph) / (# edges in inferred graph). 
+Recall=(# edges correctly identified in inferred graph) / (# edges in true graph); #Precision = (# edges correctly identified in inferred graph) / (# edges in inferred graph).For example, when the true graph is V-->T1-->T2, and the inferred graphs are i) V-->T1-->T2, and V-->T2; ii) V-->T1--T2; and iii) V-->T1<--T2, the number of correctly identified edges is then 2, 1.5 and 1.5, respectively. Recall is calculated to be 1, 0.75 and 0.75 respectively, whereas precision is 2/3=0.67, 1.5/2=0.75, and 1.5/2=0.75, respectively.  
 }
 \usage{
-Recall_Precision(g1, g2, GV, edge.presence, edge.direction)
+Recall_Precision(g1, g2, GV, edge.presence=1.0, edge.direction=0.5)
 }
 
 \arguments{
