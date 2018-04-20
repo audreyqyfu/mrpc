@@ -19,7 +19,7 @@ First graph object, we say from the truth graph
 Second graph object, we say from the inferred graph
 }
   \item{GV}{
-Need to specify for how many genetic variants (SNPs/indels/CNV/eQTL) in your input data for the consistence of MRPC with others inference, because only the MRPC implemented the gMR.For example, if your dataset have one genetic variants (first column), then GV=1, if 2 (1st and 2nd Column), then GV=2..and so on.
+Need to specify for how many genetic variants (SNPs/indels/CNV/eQTL) in your input data. For example, if your dataset have one genetic variants (first column), then GV=1, if 2 (1st and 2nd Column), then GV=2..and so on.
 }
   \item{edge.presence}{
 specify the weights for edge presence
@@ -29,10 +29,11 @@ specify the weights for edge direction
 }
 }
 \details{
-We consider it more important to be able to identify the presence of an edge than to also get the direct correct.  Therefore, we assign 1 to an edge with the correct direction and 0.5 to an edge with the wrong direction or no direction (Badsha et al., 2018).
+We consider it more important to be able to identify the presence of an edge than to also get the direct correct. Therefore, we assign 1 to an edge with the correct direction and 0.5 to an edge with the wrong direction or no direction (Badsha et al., 2018).
 }
 
 \value{
+A \link{list} of object that containing the following:
 \itemize{
 \item \code{TP}: Total found edge in the inferred graph and edge exit in the true graph 
 \item \code{FP}: Total found edge in the inferred graph but no edge exit in the true graph

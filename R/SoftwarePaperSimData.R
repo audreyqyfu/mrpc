@@ -31,10 +31,10 @@ switch(model,
          Truth_s1<-as(tarmat_s1, "graphNEL")
          
          #Convert binary to decimal for truth
-         library(compositions)  #for binary to decimal
+         #library(compositions)  #for binary to decimal
          V1=as.vector(t(tarmat_s1))
          A1 <- paste(V1,collapse="")
-         S_truth=unbinary(A1)
+         S_truth=compositions::unbinary(A1)
          
          #Output matrices
          Diff_MRPC=matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
@@ -54,9 +54,11 @@ switch(model,
            
            for (j in 1:ita_node) {
              cat("ita_node=",j)
-             library(gtools) #Permute
+             #library(gtools) #Permute
+             #if (require(gtools)) {
              GV=1
-             temp.order<-c(GV,permute((GV+1):ncol(Data1)))
+             temp.order<-c(GV,gtools::permute((GV+1):ncol(Data1)))
+             #}
              # New data with permute
              Data2=Data1[,temp.order]
              
@@ -84,7 +86,7 @@ switch(model,
              #Convert binary to decimal for MRPC
              V2_MRPC=as.vector(t(Adj_MRPC))
              A2_MRPC<- paste(V2_MRPC,collapse="")
-             S_MRPC=unbinary(A2_MRPC)
+             S_MRPC=compositions::unbinary(A2_MRPC)
              #Difference between truth and inferred
              Diff_MRPC[i,j]=S_truth-S_MRPC
              
@@ -103,7 +105,7 @@ switch(model,
              #Convert binary to decimal for mmhc
              V2_mmhc=as.vector(t(Adj_mmhc))
              A2_mmhc<- paste(V2_mmhc,collapse="")
-             S_mmhc=unbinary(A2_mmhc)
+             S_mmhc=compositions::unbinary(A2_mmhc)
              #Difference between truth and inferred
              Diff_mmhc[i,j]=S_truth-S_mmhc
              
@@ -122,7 +124,7 @@ switch(model,
              #Convert binary to decimal for PC
              V2_PC=as.vector(t(Adj_PC))
              A2_PC<- paste(V2_PC,collapse="")
-             S_PC=unbinary(A2_PC)
+             S_PC=compositions::unbinary(A2_PC)
              #Difference between truth and inferred
              Diff_PC[i,j]=S_truth-S_PC
              
@@ -146,10 +148,10 @@ switch(model,
          Truth_s2<-as(tarmat_s2, "graphNEL")
          
          #Convert binary to decimal for truth
-         library(compositions)  #for binary to decimal
+         #library(compositions)  #for binary to decimal
          V2=as.vector(t(tarmat_s2))
          A2 <- paste(V2,collapse="")
-         S_truth=unbinary(A2)
+         S_truth=compositions::unbinary(A2)
          
          #Output matrices
          Diff_MRPC=matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
@@ -169,9 +171,9 @@ switch(model,
            
            for (j in 1:ita_node) {
              cat("ita_node=",j)
-             library(gtools) #Permute
+             #library(gtools) #Permute
              GV=1
-             temp.order<-c(GV,permute((GV+1):ncol(Data1)))
+             temp.order<-c(GV,gtools::permute((GV+1):ncol(Data1)))
              # New data with permute
              Data2=Data1[,temp.order]
              
@@ -199,7 +201,7 @@ switch(model,
              #Convert binary to decimal for MRPC
              V2_MRPC=as.vector(t(Adj_MRPC))
              A2_MRPC<- paste(V2_MRPC,collapse="")
-             S_MRPC=unbinary(A2_MRPC)
+             S_MRPC=compositions::unbinary(A2_MRPC)
              #Difference between truth and inferred
              Diff_MRPC[i,j]=S_truth-S_MRPC
              
@@ -218,7 +220,7 @@ switch(model,
              #Convert binary to decimal for mmhc
              V2_mmhc=as.vector(t(Adj_mmhc))
              A2_mmhc<- paste(V2_mmhc,collapse="")
-             S_mmhc=unbinary(A2_mmhc)
+             S_mmhc=compositions::unbinary(A2_mmhc)
              #Difference between truth and inferred
              Diff_mmhc[i,j]=S_truth-S_mmhc
              
@@ -239,7 +241,7 @@ switch(model,
              V2_PC=as.vector(t(Adj_PC))
              #Convert 
              A2_PC<- paste(V2_PC,collapse="")
-             S_PC=unbinary(A2_PC)
+             S_PC=compositions::unbinary(A2_PC)
              #Difference between truth and inferred
              Diff_PC[i,j]=S_truth-S_PC
              # write results to csv file

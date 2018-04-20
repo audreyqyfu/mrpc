@@ -7,6 +7,7 @@ Maintainer: Md. Bahadur Badsha <mdbadsha@uidaho.edu>
 Description: Estimate the causal graph using generalized Mendelian Randomization (MR) based PC (MRPC) Algorithm.
 License: GPL (>= 2)
 LazyData: TRUE
-Imports:BiocGenerics,bnlearn,dynamicTreeCut,fastcluster,GGally,Hmisc,methods,mice,network,pcalg,Rgraphviz,stats,WGCNA
+Imports:BiocGenerics,bnlearn,dynamicTreeCut,fastcluster,GGally,Hmisc,methods,mice,network,pcalg,Rgraphviz,stats,WGCNA,combinat
+Suggests:gtools,compositions
 NeedsCompilation: no
 Packaged: 2017-04-14 18:07:43 UTC; mdbadsha
