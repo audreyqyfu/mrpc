@@ -45,61 +45,101 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 library(pcalg) #For graph plot
 #Continuous data with genetic information
-data ("ExampleMRPC")     # load the data
-n <- nrow (ExampleMRPC$simple$cont$withGV$data)    # extract the sample size
-V <- colnames(ExampleMRPC$simple$cont$withGV$data)    # extract the node/column names
-Rcor_R <- RobustCor(ExampleMRPC$simple$cont$withGV$data, Beta=0.005) # calculate robust correlation matrix
+# load the data
+data ("ExampleMRPC")  
+# extract the sample size
+n <- nrow (ExampleMRPC$simple$cont$withGV$data)    
+# extract the node/column names
+V <- colnames(ExampleMRPC$simple$cont$withGV$data)    
+# calculate robust correlation matrix
+Rcor_R <- RobustCor(ExampleMRPC$simple$cont$withGV$data,
+Beta=0.005) 
+
 suffStat_R <- list(C = Rcor_R$RR, n = n)
-data.mrpc.cont.withGV <- MRPC(data=ExampleMRPC$simple$cont$withGV$data, suffStat=suffStat_R, GV=2,
-                              FDR=0.05, indepTest='gaussCItest', labels=V, verbose = TRUE)
+data.mrpc.cont.withGV <- 
+MRPC(data=ExampleMRPC$simple$cont$withGV$data,
+suffStat=suffStat_R,GV=2, FDR=0.05, indepTest =
+'gaussCItest',labels=V, verbose = TRUE)
+
 
 par (mfrow=c(1,2))
-plot (ExampleMRPC$simple$cont$withGV$graph, main="truth") # plot the truth graph
-plot (data.mrpc.cont.withGV$graph, main="inferred")    # plot the inferred causal graph
+# plot the truth graph
+plot (ExampleMRPC$simple$cont$withGV$graph, main="truth") 
+# plot the inferred causal graph
+plot (data.mrpc.cont.withGV$graph, main="inferred")    
 
 
 #Continuous data without genetic information
-data ("ExampleMRPC")     # load the data
-n <- nrow (ExampleMRPC$simple$cont$withoutGV$data)    # extract the sample size
-V <- colnames(ExampleMRPC$simple$cont$withoutGV$data)    # extract the node/column names
-Rcor_R <- RobustCor(ExampleMRPC$simple$cont$withoutGV$data, Beta=0.005) # calculate robust correlation matrix
+ # load the data
+data ("ExampleMRPC")    
+ # extract the sample size
+n <- nrow (ExampleMRPC$simple$cont$withoutGV$data) 
+# extract the node/column names
+V <- colnames(ExampleMRPC$simple$cont$withoutGV$data)   # calculate robust correlation matrix
+Rcor_R <- RobustCor(ExampleMRPC$simple$cont$withoutGV$data,
+Beta=0.005) 
 suffStat_R <- list(C = Rcor_R$RR, n = n)
-data.mrpc.cont.withoutGV <- MRPC(data=ExampleMRPC$simple$cont$withoutGV$data, suffStat=suffStat_R, GV=0,
-                                 FDR=0.05, indepTest='gaussCItest', labels=V, verbose = TRUE)
+data.mrpc.cont.withoutGV <- 
+MRPC(data=ExampleMRPC$simple$cont$withoutGV$data,
+suffStat=suffStat_R, GV=0,FDR=0.05, 
+indepTest='gaussCItest', labels=V, verbose = TRUE)
+
 
 par (mfrow=c(1,2))
-plot (ExampleMRPC$simple$cont$withoutGV$graph, main="truth") # plot the truth graph
-plot (data.mrpc.cont.withoutGV$graph, main="inferred")    # plot the inferred causal graph
-
+# plot the truth graph
+plot (ExampleMRPC$simple$cont$withoutGV$graph, main="truth") 
+# plot the inferred causal graph
+plot (data.mrpc.cont.withoutGV$graph, main="inferred")    
 #Discrete data with genetic information
-data ("ExampleMRPC")     # load the data
-n <- nrow (ExampleMRPC$simple$disc$withGV$data)    # extract the sample size
-V <- colnames(ExampleMRPC$simple$disc$withGV$data)    # extract the node/column names
-Rcor_R <- RobustCor(ExampleMRPC$simple$disc$withGV$data, Beta=0.005) # calculate robust correlation matrix
+# load the data
+data ("ExampleMRPC")     
+# extract the sample size
+n <- nrow (ExampleMRPC$simple$disc$withGV$data)  
+ # extract the node/column names
+V <- colnames(ExampleMRPC$simple$disc$withGV$data)
+# calculate robust correlation matrix
+Rcor_R <- RobustCor(ExampleMRPC$simple$disc$withGV$data, Beta=0.005) 
 suffStat_R <- list(C = Rcor_R$RR, n = n)
-data.mrpc.disc.withGV <- MRPC(data=ExampleMRPC$simple$disc$withGV$data, suffStat=suffStat_R, GV=1,
-                              FDR=0.05, indepTest='gaussCItest', labels=V, verbose = TRUE)
+data.mrpc.disc.withGV <-
+MRPC(data=ExampleMRPC$simple$disc$withGV$data, 
+suffStat=suffStat_R,GV=1,FDR=0.05, indepTest = 
+'gaussCItest',labels=V, verbose = TRUE)
 
 par (mfrow=c(1,2))
-plot (ExampleMRPC$simple$disc$withGV$graph, main="truth") # plot the truth graph
-plot (data.mrpc.disc.withGV$graph, main="inferred") # plot the inferred causal graph
+# plot the truth graph
+plot (ExampleMRPC$simple$disc$withGV$graph, main="truth") 
+# plot the inferred causal graph
+plot (data.mrpc.disc.withGV$graph, main="inferred") 
 
 #Discrete data without genetic information
-data ("ExampleMRPC")     # load the data
-n <- nrow (ExampleMRPC$simple$disc$withoutGV$data)    # extract the sample size
-V <- colnames(ExampleMRPC$simple$disc$withoutGV$data)    # extract the node/column names
-Rcor_R <- RobustCor(ExampleMRPC$simple$disc$withoutGV$data, Beta=0.005) # calculate robust correlation matrix
+ # load the data
+data ("ExampleMRPC")    
+ # extract the sample size
+n <- nrow (ExampleMRPC$simple$disc$withoutGV$data)  
+# extract the node/column names
+V <- colnames(ExampleMRPC$simple$disc$withoutGV$data)   
+# calculate robust correlation matrix
+Rcor_R <- RobustCor(ExampleMRPC$simple$disc$withoutGV$data, Beta=0.005) 
 suffStat_R <- list(C = Rcor_R$RR, n = n)
-data.mrpc.disc.withoutGV <- MRPC(data=ExampleMRPC$simple$disc$withoutGV$data, suffStat=suffStat_R, GV=1,
-                                 FDR=0.05, indepTest='gaussCItest', labels=V, verbose = TRUE)
+data.mrpc.disc.withoutGV <- 
+MRPC(data=ExampleMRPC$simple$disc$withoutGV$data, 
+suffStat=suffStat_R, GV=1,FDR=0.05, 
+indepTest='gaussCItest', labels=V, verbose = TRUE)
 
 par (mfrow=c(1,2))
-plot (ExampleMRPC$simple$disc$withoutGV$graph, main="truth") # plot the truth graph
-plot (data.mrpc.disc.withoutGV$graph, main="inferred") # plot the inferred causal graph
+# plot the truth graph
+plot (ExampleMRPC$simple$disc$withoutGV$graph, main="truth") 
+# plot the inferred causal graph
+plot (data.mrpc.disc.withoutGV$graph, main="inferred") 
 
 #Continuous data with genetic information for complex model
-data ("ExampleMRPC")     # load the data
-plot(ExampleMRPC$complex$cont$withGV$graph) # graph without clustering
-Adj_directed <- as(ExampleMRPC$complex$cont$withGV$graph,"matrix")
-DendroModuleGraph(Adj_directed, minModuleSize = 5, GV=14) # dendrogram and graph with clustering
+# load the data
+data ("ExampleMRPC")   
+# graph without clustering
+plot(ExampleMRPC$complex$cont$withGV$graph) 
+Adj_directed <- 
+as(ExampleMRPC$complex$cont$withGV$graph,"matrix")
+
+# dendrogram and graph with clustering
+DendroModuleGraph(Adj_directed, minModuleSize = 5, GV=14) 
 }

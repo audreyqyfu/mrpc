@@ -43,7 +43,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 
 #Adjacency matrix from directed example graph
-Adj_directed=as(ExampleMRPC$complex$graph,"matrix")
+Adj_directed=as(ExampleMRPC$complex$cont$withGV$graph,"matrix")
 #Plot of the graph
 DendroModuleGraph(Adj_directed,minModuleSize = 5,GV=14)
 }
