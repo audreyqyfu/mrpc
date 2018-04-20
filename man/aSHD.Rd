@@ -2,7 +2,7 @@
 \alias{aSHD}
 
 \title{
-adjusted Structural Hamming Distance (aSHD) 
+Adjusted Structural Hamming Distance (aSHD) 
 }
 \description{
 The SHD, as is implemented in the R package pcalg (Kalisch et al., 2012) and bnlearn(Scutari, 2010), counts how many differences exist between two directed graphs. This distance is 1 if an edge exists in one graph but missing in the other, or if the direction of an edge is different in the two graphs. The larger this distance, the more different the two graphs are. We adjusted the SHD to reduce the penalty on the wrong direction of an edge to 0.5. For example, between two graphs V-->T1<--T2 and V-->T1-->T2, the SHD is 1 and our aSHD is 0.5.
@@ -63,7 +63,7 @@ tarmat_s2[3,4]=1
 #Graph objects for inferred
 Inferred<-as(tarmat_s2, "graphNEL")
 #
-Distance=aSHD(MRPC.fit_1_GT$graph,MRPC.fit_2_GT$graph,GV=1,edge.presence=1.0, edge.direction=0.5)
+Distance=aSHD(Truth,Inferred,GV=1,edge.presence=1.0, edge.direction=0.5)
 
 }
 
