@@ -35,6 +35,7 @@ We consider it more important to be able to identify the presence of an edge tha
 \value{
 A \link{list} of object that containing the following:
 \itemize{
+\item \code{Matrix}: Results store for TP and FP
 \item \code{TP}: Total found edge in the inferred graph and edge exit in the true graph 
 \item \code{FP}: Total found edge in the inferred graph but no edge exit in the true graph
 \item \code{Recall}: Power, or sensitivity measures how many edges from the true graph a method can recover.
