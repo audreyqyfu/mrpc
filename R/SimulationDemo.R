@@ -31,9 +31,18 @@ switch(model,
          #Truth_s1<-as(tarmat_s1, "graphNEL")
          
          #Output matrices
+         #MRPC
          Diff_MRPC=matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
+         colnames(Diff_MRPC)<-paste("MRPC_NO",1:ita_node,sep="")
+         rownames(Diff_MRPC)<-paste("Data_",1:ita_data,sep="")
+         #mmhc
          Diff_mmhc=matrix(NA,ncol = ita_node,nrow = ita_data) #For mmhc
+         colnames(Diff_mmhc)<-paste("mmhc_NO",1:ita_node,sep="")
+         rownames(Diff_mmhc)<-paste("Data_",1:ita_data,sep="")
+         #pc
          Diff_PC=matrix(NA,ncol = ita_node,nrow = ita_data)   #For PC
+         colnames(Diff_PC)<-paste("PC_NO",1:ita_node,sep="")
+         rownames(Diff_PC)<-paste("Data_",1:ita_data,sep="")
          
          #Data
          for (i in 1:ita_data) {
@@ -133,9 +142,18 @@ switch(model,
          #Truth_s2<-as(tarmat_s2, "graphNEL")
          
          #Output matrices
+         #MRPC
          Diff_MRPC=matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
+         colnames(Diff_MRPC)<-paste("MRPC_NO",1:ita_node,sep="")
+         rownames(Diff_MRPC)<-paste("Data_",1:ita_data,sep="")
+         #mmhc
          Diff_mmhc=matrix(NA,ncol = ita_node,nrow = ita_data) #For mmhc
-         Diff_PC=matrix(NA,ncol = ita_node,nrow = ita_data)   #For pc
+         colnames(Diff_mmhc)<-paste("mmhc_NO",1:ita_node,sep="")
+         rownames(Diff_mmhc)<-paste("Data_",1:ita_data,sep="")
+         #pc
+         Diff_PC=matrix(NA,ncol = ita_node,nrow = ita_data)   #For PC
+         colnames(Diff_PC)<-paste("PC_NO",1:ita_node,sep="")
+         rownames(Diff_PC)<-paste("Data_",1:ita_data,sep="")
          #Results=0L
          #Data
          for (i in 1:ita_data) {
