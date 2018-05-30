@@ -34,4 +34,5 @@ When asked to update all/some/none [a/s/n], always select n.
 R>install_github("audreyqyfu/mrpc")
 
 Load the MRPC package.
+
 R> library(MRPC)
