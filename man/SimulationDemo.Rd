@@ -39,7 +39,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 #signal=1,N=1000 and 6 different node ordering. Therefore,
 #you will get 2 by 18 output matrix, where first and second row 
 #are the data 1 and 2 respectively. Column 1:6 is the result of 
-#MRPC with node #order 1,2...6,then column 7:12 is for mmhc and 
+#MRPC with node order 1,2...6,then column 7:12 is for mmhc and 
 #column 13:18 is for pc, #respectively
 
 library(bnlearn) # for mmhc
