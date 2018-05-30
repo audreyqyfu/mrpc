@@ -19,10 +19,15 @@ The devtools package provides install_github( ) that enables installing packages
 Based on our experience, some of the packages MRPC depends bioconductor packages needed for MRPC. These packages need to be installed before attempting to install MRPC.
 
 R> source ('https://bioconductor.org/biocLite.R')
+
 R> biocLite('Rgraphviz')
+
 R> biocLite('GO.db')
+
 R> biocLite('impute')
+
 R> biocLite('preprocessCore')
+
 When asked to update all/some/none [a/s/n], always select n.
 
 R>install_github("audreyqyfu/mrpc")
