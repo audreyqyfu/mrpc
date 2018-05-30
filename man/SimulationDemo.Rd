@@ -40,7 +40,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 #you will get 2 by 18 output matrix, where first and second row 
 #are the data 1 and 2 respectively. Column 1:6 is the result of 
 #MRPC with node order 1,2...6,then column 7:12 is for mmhc and 
-#column 13:18 is for pc, #respectively
+#column 13:18 is for pc,respectively
 
 library(bnlearn) # for mmhc
 library(pcalg)   #for pc
