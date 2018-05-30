@@ -1,10 +1,10 @@
 \name{MRPC}
 \alias{MRPC}
 \title{
-Estimate the DAG using Generalized Mendelian Randomization (gMR) based PC (MRPC) Algorithm
+Estimate the DAG using Principle of Mendelian Randomization (PMR) based PC (MRPC) Algorithm
 }
 \description{
-The MRPC () function is used to estimate a directed acyclic graph (DAG) from observational data, by modifying of the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithms is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when \link{pc} algorithms are applied to noisy genomic data. To tackle these challenges, we develop a novel machine learning algorithm called Mendelian Randomization (MR) based PC (MRPC) to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithms, the four-major updated in the MRPC algorithm is that (i) we are incorporating sequential testing method to controls the False Discovery Rate (FDR), (ii) take a robust approach to reduces the impact of outliers, (iii)improved v-structure identification and (iv) implemented a new way for edge direction determination based on gMR. See details below.
+The MRPC () function is used to estimate a directed acyclic graph (DAG) from observational data, by modifying of the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithms is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when \link{pc} algorithms are applied to noisy genomic data. To tackle these challenges, we develop a novel machine learning algorithm called Mendelian Randomization (MR) based PC (MRPC) to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithms, the four-major updated in the MRPC algorithm is that (i) we are incorporating sequential testing method to controls the False Discovery Rate (FDR), (ii) take a robust approach to reduces the impact of outliers, (iii)improved v-structure identification and (iv) implemented a new way for edge direction determination based on PMR. See details below.
 
 }
 \usage{

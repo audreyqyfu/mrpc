@@ -1,6 +1,6 @@
 The MRPC is the first machine learning algorithm that employs Principle of Mendelian randomization(PMR)and 
 learns a causal biological network from integrating genotype and molecular phenotype (such as gene expression) data. 
-MRPC, which incorporates Principle of MR (gMR) into PC algorithms and learns acausal graph where the nodes are genetic 
+MRPC, which incorporates Principle of MR (PMR) into PC algorithms and learns acausal graph where the nodes are genetic 
 variants and molecular phenotypes (such as gene expression), and where the edges between nodes are undirected or directed, 
 with the direction indicating causality. Crucially, by combining gMR with machine learning, our method is efficient and 
 accurate.
