@@ -60,7 +60,7 @@ switch(model,
              #library(gtools) #Permute
              #if (require(gtools)) {
              GV=1
-             temp.order<-c(GV,gtools::permute((GV+1):ncol(Data1)))
+             temp.order<-c(GV,permute((GV+1):ncol(Data1)))
              #}
              # New data with permute
              Data2=Data1[,temp.order]
