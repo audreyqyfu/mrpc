@@ -12,6 +12,7 @@ https://github.com/audreyqyfu/mrpc. To install the MRPC package, need to install
 (if devtools already not install). Invoke R and then type with the following command:
 
 R> install.packages(“devtools”)
+
 R>library(devtools)
 The devtools package provides install_github( ) that enables installing packages from github with the following command:
 
