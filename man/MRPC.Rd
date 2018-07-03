@@ -2517,11 +2517,11 @@ plot(pc.fit_4_Outlier,  main ="(E) pc")
 
 
 #Continuous phenotypes without genetic variant
-#N=1000 with moderate (0.5) signals
+#N=1000 with strong (1.0) signals
 
 #parameters
 N=1000
-signal=0.5
+signal=1.0
 b0.1 = 0
 b1.1 =signal
 b1.2 =signal
