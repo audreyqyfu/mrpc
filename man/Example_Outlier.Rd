@@ -16,9 +16,6 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 library(pcalg) #for pc
 library(bnlearn) #for mmhc
 
-load("Data_withoutoutlier.rda") #load data without outliers
-load("Data_withoutlier.rda")    #load data with outliers
-
 #Truth with and without outlier
 tarmat=matrix(0,nrow=ncol(Data_withoutoutlier),ncol = ncol(Data_withoutoutlier))
 colnames(tarmat)=colnames(Data_withoutoutlier)
