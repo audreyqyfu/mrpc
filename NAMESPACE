@@ -16,7 +16,7 @@ exportPattern("aSHD")
 exportPattern("SimulationDemo")
 exportPattern("Recall_Precision")
 exportPattern("seqDiff")
-
+exportPattern("InferenceAccuracyExample")
 
 importFrom("stats","dist","approx","as.dist","cor", "rbinom", "rnorm", "sd","as.hclust","na.omit","median","quantile","cov","cov2cor")
 importFrom("graphics", "plot")
