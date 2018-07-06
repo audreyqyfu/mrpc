@@ -40,11 +40,11 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 #Comparison of inference accuracy without a v-structure 
 #across 1000 data sets and sample size in each simulated 
-#data set is set to 1000. 
+#data set is set to 1000 with signal=1.0. 
 Result1=InferenceAccuracyExample(N=1000,signal=1.0,'model1',ita=1000)
 #Comparison of inference accuracy with a v-structure
 #across 1000 data sets and sample size in each simulated 
-#data set is set to 1000. 
+#data set is set to 1000 with signal=1.0. 
 Result2=InferenceAccuracyExample(N=1000,signal=1.0,'model2',ita=1000)
 
 }
