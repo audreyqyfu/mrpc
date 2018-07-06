@@ -144,7 +144,7 @@ SD_Precision_PC=sd(PC_Precision)         #SD
 
 #All outputs
 Outputs=matrix(c(Mean_Recall_MRPC,SD_Recall_MRPC,Mean_Precision_MRPC,SD_Precision_MRPC,Mean_Recall_mmhc,SD_Recall_mmhc,Mean_Precision_mmhc,SD_Precision_mmhc,Mean_Recall_PC,SD_Recall_PC,Mean_Precision_PC,SD_Precision_PC),nrow = 3,ncol = 4,byrow = T)
-colnames(Outputs)=c("Mean_Recal","SD_Recall","Mean_Precision","SD_Pricision")
+colnames(Outputs)=c("Mean_Recall","SD_Recall","Mean_Precision","SD_Pricision")
 rownames(Outputs)=c("MRPC","mmhc","PC")
 return(Outputs)
 }
