@@ -3,15 +3,14 @@ The R package MRPC is available at https://github.com/audreyqyfu/mrpc.
 
 #Installation
 
-#1. Installation of the most recent version from GitHub:
-
+1. Installation of the most recent version from GitHub:
 First install the R package devtools available on CRAN, if it is not already installed. This package provides function install_github( ) that enables installing packages directly from github with the following command.
 Invoke R and then type with the following command:
 R> install.packages (“devtools”)
 R>library (devtools)
 
-install R packages that MRPC depends on before running the next line 
-see details below
+#install R packages that MRPC depends on before running the #next line 
+#see details below
 
 R>install_github ("audreyqyfu/mrpc")
 
@@ -26,7 +25,7 @@ R> biocLite ('GO.db')
 R> biocLite ('impute')
 R> biocLite ('preprocessCore')
 
-#2. Installation from the source of a released package.
+2. Installation from the source of a released package.
 Download the package source MRPC_xxx.tar.gz.  
 In Terminal, navigate to the directory where the package is stored, and run the following command line:
 $ R CMD INSTALL MRPC_xxx.tar.gz
