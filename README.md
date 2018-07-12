@@ -31,15 +31,15 @@ R> biocLite('preprocessCore')
 
 2. Installation from package source.
 
-Download the package source MRPC_1.0.1.tar.gz.  
+Download the package source MRPC_2.0.0.tar.gz.  
 In Terminal, navigate to the directory where the package is stored, and run the following command line:
 
-$R CMD INSTALL MRPC_1.0.1.tar.gz
+$R CMD INSTALL MRPC_2.0.0.tar.gz
 
 Again, you may need to first install the Bioconductor packages that MRPC depends on using the instructions above.
-Alternatively, you may also run the following command line in R (change /path to where MRPC_1.0.1.tar.gz is stored on your computer):
+Alternatively, you may also run the following command line in R (change /path to where MRPC_2.0.0.tar.gz is stored on your computer):
 
-R> install.packages("~/path/MRPC_1.0.1.tar.gz", repos = NULL, type="source")
+R> install.packages("~/path/MRPC_2.0.0.tar.gz", repos = NULL, type="source")
 
 Using MRPC
 After installation, load the MRPC package into R:
