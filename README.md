@@ -2,7 +2,9 @@ MRPC builds on existing PC algorithms and learns a causal network with increased
 The R package MRPC is available at https://github.com/audreyqyfu/mrpc. 
 
 #Installation
+
 #1. Installation of the most recent version from GitHub:
+
 First install the R package devtools available on CRAN, if it is not already installed. This package provides function install_github( ) that enables installing packages directly from github with the following command.
 Invoke R and then type with the following command:
 R> install.packages (“devtools”)
