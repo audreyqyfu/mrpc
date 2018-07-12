@@ -1,38 +1,50 @@
-The MRPC is the first machine learning algorithm that employs Principle of Mendelian randomization(PMR)and 
-learns a causal biological network from integrating genotype and molecular phenotype (such as gene expression) data. 
-MRPC, which incorporates Principle of MR (PMR) into PC algorithms and learns acausal graph where the nodes are genetic 
-variants and molecular phenotypes (such as gene expression), and where the edges between nodes are undirected or directed, 
-with the direction indicating causality. Crucially, by combining gMR with machine learning, our method is efficient and 
-accurate.
+MRPC builds on existing PC algorithms and learns a causal network with increased accuracy. The inferred causal network contains directed and undirected edges, with the direction indicating causality. For genomic data, MRPC determines edge direction under the principle of Mendelian randomization when genotype and molecular phenotype (e.g. gene expression) data are both available at the individual level. Nodes in the inferred network may be a genotype or a molecular phenotype.
 
-Package implementation/installation: 
+The R package MRPC is available at https://github.com/audreyqyfu/mrpc. 
 
-The R package MRPC, can be downloaded with git from github in the following link:
-https://github.com/audreyqyfu/mrpc. To install the MRPC package, need to install the devtools package from CRAN first 
-(if devtools already not install). Invoke R and then type with the following command:
+Installation
 
+1. Installation from GitHub:
+First install the R package devtools available on CRAN, if it is not already installed. This package provides function install_github( ) that enables installing packages directly from github with the following command.
+Invoke R and then type with the following command:
 R> install.packages(“devtools”)
-
 R>library(devtools)
 
-The devtools package provides install_github( ) that enables installing packages from github with the following command:
-
-Based on our experience, some of the bioconductor packages needed for MRPC. These packages need to be installed before attempting to install MRPC.
-
-R> source ('https://bioconductor.org/biocLite.R')
-
-R> biocLite('Rgraphviz')
-
-R> biocLite('GO.db')
-
-R> biocLite('impute')
-
-R> biocLite('preprocessCore')
-
-When asked to update all/some/none [a/s/n], always select n.
+install R packages that MRPC depends on before running #the next line 
+see details below
 
 R>install_github("audreyqyfu/mrpc")
 
-Load the MRPC package.
+MRPC depends on several R packages from CRAN and from Bioconductor. It is likely that some of these packages are not installed on your computer. If the R package is available on CRAN, you may use the following command line for installation (change packagename to the name of the package to be installed) before running function install_github:
 
+R> install.packages(“packagename”)
+
+Note that package git2r is required.  However, currently its binary release for OS X is behind its source version and its Windows binary release. If you are using OS X, you need to install the slightly behind binary release for OS X.
+The following Bioconductor packages need to be installed before running function install_github:
+
+R> source ('https://bioconductor.org/biocLite.R')
+R> biocLite('RBGL')
+R> biocLite('Rgraphviz')
+R> biocLite('GO.db')
+R> biocLite('impute')
+R> biocLite('preprocessCore')
+
+2. Installation from package source.
+
+Download the package source MRPC_1.0.1.tar.gz.  
+In Terminal, navigate to the directory where the package is stored, and run the following command line:
+
+$R CMD INSTALL MRPC_1.0.1.tar.gz
+
+Again, you may need to first install the Bioconductor packages that MRPC depends on using the instructions above.
+Alternatively, you may also run the following command line in R (change /path to where MRPC_1.0.1.tar.gz is stored on your computer):
+
+R> install.packages("~/path/MRPC_1.0.1.tar.gz", repos = NULL, type="source")
+
+Using MRPC
+After installation, load the MRPC package into R:
 R> library(MRPC)
+Bring up the documentation of the package:
+R> library (help=MRPC)
+
+
