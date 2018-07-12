@@ -17,7 +17,7 @@ R>install_github ("audreyqyfu/mrpc")
 ```
 MRPC depends on several R packages from CRAN and from Bioconductor.  It is likely that some of these packages are not installed on your computer.  If the R package is available on CRAN, you may use the following command line for installation (change _packagename_ to the name of the package to be installed, e.g, bnlearn, pcalg, etc.) before running function `install_github`:
 ```
-R> install.packages("_packagename_")
+R> install.packages("packagename")
 ```
 **_Note that the package git2r is one of the required packages.  However, currently (as of July 2018) its binary release for OS X is behind its source version and its Windows binary release. If you are using OS X, you need to install the slightly-behind binary release for OS X._**
 
