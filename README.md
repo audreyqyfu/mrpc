@@ -1,7 +1,7 @@
 MRPC builds on existing PC algorithms and learns a causal network with increased accuracy.  The inferred causal network contains directed and undirected edges, with the direction indicating causality.  For genomic data, MRPC determines edge direction under the principle of Mendelian randomization when genotype and molecular phenotype (e.g. gene expression) data are both available at the individual level.  Nodes in the inferred network may be a genotype or a molecular phenotype.  
 The R package MRPC is available at https://github.com/audreyqyfu/mrpc. 
 
-#Installation
+Installation
 
 1. Installation of the most recent version from GitHub:
 First install the R package devtools available on CRAN, if it is not already installed. This package provides function install_github( ) that enables installing packages directly from github with the following command.
@@ -9,7 +9,7 @@ Invoke R and then type with the following command:
 R> install.packages (“devtools”)
 R>library (devtools)
 
-#install R packages that MRPC depends on before running the #next line 
+#install R packages that MRPC depends on before running the next line 
 #see details below
 
 R>install_github ("audreyqyfu/mrpc")
