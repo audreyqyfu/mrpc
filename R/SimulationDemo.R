@@ -77,7 +77,7 @@ switch(model,
              MRPC.fit_1 <- MRPC(Data2,suffStat_R,GV=1,FDR=0.05,
                                 indepTest ='gaussCItest',labels=V,verbose = TRUE)
              #adjacency matrix from directed graph by MRPC
-             Adj_MRPC=as(MRPC.fit_1$graph,"matrix")
+             Adj_MRPC=as(MRPC.fit_1@graph,"matrix")
              
              #If ordering nodes
              if(any(colnames(tarmat_s1)!=colnames(Adj_MRPC)))
@@ -186,7 +186,7 @@ switch(model,
              MRPC.fit_1 <- MRPC(Data2,suffStat_R,GV=1,FDR=0.05,
                                 indepTest ='gaussCItest',labels=V,verbose = TRUE)
              #adjacency matrix from directed graph by MRPC
-             Adj_MRPC=as(MRPC.fit_1$graph,"matrix")
+             Adj_MRPC=as(MRPC.fit_1@graph,"matrix")
              
              #If ordering nodes
              if(any(colnames(tarmat_s2)!=colnames(Adj_MRPC)))
