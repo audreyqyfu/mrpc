@@ -1,13 +1,12 @@
 Package: MRPC
 Type: Package
-Title: Mendelian Randomization (MR) based PC Algorithm
+Title: Mendelian Randomization (MR) Based PC Algorithm
 Version: 2.0.0
-Author: Md. Bahadur Badsha <mdbadsha@uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
-Maintainer: Md. Bahadur Badsha <mdbadsha@uidaho.edu>
+Author: Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Maintainer: Md Bahadur Badsha <mdbadsha@uidaho.edu>
 Description: Estimate the causal graph using generalized Mendelian Randomization (MR) based PC (MRPC) Algorithm.
 License: GPL (>= 2)
 LazyData: TRUE
-Imports:BiocGenerics,bnlearn,dynamicTreeCut,fastcluster,GGally,Hmisc,methods,mice,network,pcalg,Rgraphviz,stats,WGCNA,combinat,gtools
-Suggests:compositions
+Imports:bnlearn,compositions,dynamicTreeCut,GGally,fastcluster,gtools,graph,graphics,Hmisc,methods,mice,network,pcalg,stats,utils,WGCNA
 NeedsCompilation: no
-Packaged: 2017-04-14 18:07:43 UTC; mdbadsha
+Packaged: 2018-08-09 18:07:43 UTC; mdbadsha
