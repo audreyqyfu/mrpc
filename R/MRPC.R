@@ -39,7 +39,7 @@ MRPC<-function (data,suffStat,GV,FDR=0.05,indepTest = c("gaussCItest","disCItest
   skel <- ModiSkeleton(data,suffStat,FDR,indepTest,labels = labels,
                        method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
                       NAdelete = NAdelete, m.max = m.max, verbose = verbose)
-  skel$call <- cl
+  skel@call <- cl
   
   #indepTest <- match.fun (indepTest)
   #if (GV) {
