@@ -9,9 +9,9 @@ This Modiskeleton () function is used for estimate the undirected graph (skeleto
 }
 \usage{
 ModiSkeleton(data,suffStat,FDR, indepTest, labels, p,
-method = c("stable","original", "stable.fast"),
-m.max = Inf,fixedGaps = NULL, fixedEdges = NULL,
-NAdelete = TRUE, verbose = FALSE)
+    method = c("stable","original", "stable.fast"),
+    m.max = Inf,fixedGaps = NULL, fixedEdges = NULL,
+    NAdelete = TRUE, verbose = FALSE)
 }
 
 \arguments{
@@ -55,6 +55,7 @@ character vector of variable (or node) names.
   \item{verbose}{
 (optional) If TRUE, detailed output is provided. Default is FALSE for no output details
 }
+
 }
 \details{
 We incorporated sequential hypothesis testing to draw the undirected graph (skeleton) by \link{ModiSkeleton} function  (similar as the pc algorithm by \link{skeleton} function but, difference is that the \link{ModiSkeleton} function is used alpha (significance level) as a function of the prior outcomes (reject or accept hypothesis) but the \link{skeleton} function used alpha as a fixed pre-assigned significance level and \link{ModiSkeleton} take a robust correlation approach (Badsha et al., 2013) reduces the impact of outliers but the \link{skeleton} used classical correlation which is highly influnced by outliers. See details in in \link{ModiSkeleton} and \link{skeleton}). The other's term is the same as existing \link{skeleton}.
@@ -81,12 +82,33 @@ Therefore, the \link{ModiSkeleton} function used LOND algorithm for alpha (level
 
 \value{
 An object containing an estimate of the skeleton of the underlying DAG as follow:
-\itemize{
-\item \code{obj}: object of class "graph" of the directed and undirected graph that was estimated.
-\item \code{test}: current test number
-\item \code{alpha}: level of significance that updated in every step of sequential FDR test.
-\item \code{R}: rejection number.
-}
+\describe{
+    
+    \item{\code{call}:}{a \link{call} object: the original function call.}
+    
+    \item{\code{n}:}{an "integer", the sample 
+    size used to estimate the graph.}
+        \item{\code{max.ord}:}{an integer, the 
+    maximum size of the conditioning set used 
+    in the conditional independence tests of   
+    the (first part of the algorithm).}
+    \item{\code{n.edgetests}:}{the number of 
+    conditional independence tests performed by
+    the (first part of the) algorithm.}
+    \item{\code{sepset}:}{ separation sets.}
+    \item{\code{pMax}:}{a numeric square matrix
+    , where the (i, j)th entry contains the 
+    maximal p-value of all conditional
+    independence tests for edge i--j.}
+    \item{\code{graph}:}{Object of class \code{"\linkS4class{graph}"}:
+      the undirected or partially directed graph that was estimated.}
+          \item{\code{zMin}:}{Deprecated.}
+    \item{\code{test}:}{an "integer", no. of tests have been performed.}
+    \item{\code{alpha}:}{"Non integer", level of significance 
+    for the current test.}
+    \item{\code{R}:}{a "vector", all decisions made so far from tests have been performed.}
+    
+  }
 }
 \references{
 1.Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
@@ -104,7 +126,9 @@ An object containing an estimate of the skeleton of the underlying DAG as follow
 7. Spirtes, P. Glymour, C and Scheines, R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
 }
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin
+<mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu
+<audreyf@uidaho.edu>
 }
 
 \seealso{
@@ -124,80 +148,38 @@ library(bnlearn)#library for ci.test
 # We used pre-assigned level alpha=0.05 that ensures
 #FDR and mFDR remains below 0.05.
 
-## Model 0
-## Estimate Skeleton
-n<-nrow (simu.data_M0)    #Number of row
-V<-colnames(simu.data_M0) #Column names
-
-Rcor_R=RobustCor(simu.data_M0, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-Skel.fit_0 <- ModiSkeleton(simu.data_M0,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Plot of the results
-## Show estimated skeleton
-plot(Skel.fit_0$graph,  main ="Estimated Skeleton for Model 0")
-
 ## Model 1
 ## Estimate Skeleton
-n<-nrow (simu.data_M1)    #Number of row
-V<-colnames(simu.data_M1) #Column names
+data<-simu.data_M1 #data for model 1
+n<-nrow (data)     #Number of row
+V<-colnames(data)  #Column names
 
-Rcor_R=RobustCor(simu.data_M1, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
+Rcor_R<-RobustCor(data, 0.005) #Robust correlation (Beta=0.005)
+suffStat_R<- list(C = Rcor_R$RR, n = n)
 
-Skel.fit_1 <- ModiSkeleton(simu.data_M1,suffStat_R,FDR=0.05,indepTest=
+Skel.fit<- ModiSkeleton(data,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Plot of the results
 ## Show estimated skeleton
-plot(Skel.fit_1$graph,  main ="Estimated Skeleton for Model 1")
-
-## Model 2
-## Estimate Skeleton
-n<-nrow (simu.data_M2)    #Number of row
-V<-colnames(simu.data_M2) #Column names
-
-Rcor_R=RobustCor(simu.data_M2, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-Skel.fit_2 <- ModiSkeleton(simu.data_M2,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Plot of the results
-## Show estimated skeleton
-plot(Skel.fit_2$graph,  main ="Estimated Skeleton for Model 2")
-
-## Model 3
-## Estimate Skeleton
-n<-nrow(simu.data_M3)     #Number of row
-V<-colnames(simu.data_M3) #Column names
-
-Rcor_R=RobustCor(simu.data_M3, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-Skel.fit_3 <- ModiSkeleton(simu.data_M3,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Plot of the results
-## Show estimated skeleton
-plot(Skel.fit_3$graph,  main ="Estimated Skeleton for Model 3")
-
-## Model 4
-## Estimate Skeleton
-n<-nrow (simu.data_M4)    #Number of row
-V<-colnames(simu.data_M4) #Column names
-
-Rcor_R=RobustCor(simu.data_M4, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-Skel.fit_4<- ModiSkeleton(simu.data_M4,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Plot of the results
-## Show estimated skeleton
-plot(Skel.fit_4$graph,  main ="Estimated Skeleton for Model 4")
+#if (require(Rgraphviz)){
+plot(Skel.fit@graph,  main ="Estimated Skeleton")
+#}
+## Other models are available and may be called as follows:
+# Model 0
+# data<-simu.data_M0,
+# Model 2
+# data<-simu.data_M2
+# Model 3
+# data<-simu.data_M3
+# Model 4
+# data<-simu.data_M4
+# Model Multiparent
+# data<-simu.data_multiparent
+# Model Star
+# data<-simu.data_starshaped
+# Model Layered
+# data<-simu.data_layered
 
 }
 
