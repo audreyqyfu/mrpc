@@ -15,7 +15,6 @@ EdgeOrientation(gInput,GV=GV,suffStat, FDR, indepTest = indepTest, verbose = FAL
 \arguments{
 \item{gInput}{Object containing skeleton, marginal and conditional independence information.
 }
-
 \item{GV}{Need to specify for how many genetic variants (SNPs/indels/CNV/eQTL) in your input data. For example, if your dataset have one genetic variants (first column), then GV=1, if 2 (1st and 2nd Column), then GV=2..and so on.
 }
 \item{suffStat}{A \link{list} of sufficient statistics, containing all necessary elements for the conditional independence tests in the function indepTest for gaussCItest. The sufficient statistic consists of the correlation matrix of the data and the sample size.
@@ -45,17 +44,38 @@ Four different cases are as follows:
 
 \value{
 An object of \link{class} that containing an estimate of the equivalence class of the underlying DAG.
-\itemize{
-\item \code{obj}: object of class "graph" of the directed and undirected graph that was estimated.
-\item \code{test}: current test number
-\item \code{alpha}: level of significance that updated in every step of sequential FDR test.
-\item \code{R}: rejection number.
-}
+\describe{
+    
+    \item{\code{call}:}{a \link{call} object: the original function call.}
+    
+    \item{\code{n}:}{an "integer", the sample 
+    size used to estimate the graph.}
+        \item{\code{max.ord}:}{an integer, the 
+    maximum size of the conditioning set used 
+    in the conditional independence tests of   
+    the (first part of the algorithm).}
+    \item{\code{n.edgetests}:}{the number of 
+    conditional independence tests performed by
+    the (first part of the) algorithm.}
+    \item{\code{sepset}:}{ separation sets.}
+    \item{\code{pMax}:}{a numeric square matrix
+    , where the (i, j)th entry contains the 
+    maximal p-value of all conditional
+    independence tests for edge i--j.}
+    \item{\code{graph}:}{Object of class \code{"\linkS4class{graph}"}:
+      the undirected or partially directed graph that was estimated.}
+          \item{\code{zMin}:}{Deprecated.}
+    \item{\code{test}:}{an "integer", no. of tests have been performed.}
+    \item{\code{alpha}:}{"Non integer", level of significance 
+    for the current test.}
+    \item{\code{R}:}{a "vector", all decisions made so far from tests have been performed.}
+    
+  }
 }
 
 
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \seealso{
@@ -66,119 +86,57 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 ## Load packages
 library(pcalg)  #library for existing pc
-
-
 ## Load predefined data
 ## Data pre-processing
 
 #The 1st column of the input matrix will be the
 #genetic variants and the remaining columns are the gene expression #data.
 
-## Model 0
-n<-nrow (simu.data_M0)    #Number of row
-V<-colnames(simu.data_M0) #Column names
-
-Rcor_R=RobustCor(simu.data_M0, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-
-## Estimate skeleton
-
-Skel.fit_0 <- ModiSkeleton(simu.data_M0,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Orientation edges
-Edge_orientation_0 <- EdgeOrientation(Skel.fit_0,GV=1,suffStat_R,FDR=0.05,indepTest
-='gaussCItest',verbose=1)
-
-## Plot of the results
-
-plot(Edge_orientation_0$graph,main ="Model 0")
-
 ## Model 1
-n<-nrow (simu.data_M1)    #Number of row
-V<-colnames(simu.data_M1) #Column names
+Truth<-MRPCtruth$M1   #Truth for model 1
+data<-simu.data_M1    #data load for model 1
+n<-nrow (data)    #Number of row
+V<-colnames(data) #Column names
 
-Rcor_R=RobustCor(simu.data_M1, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
+Rcor_R<-RobustCor(data, 0.005) #Robust correlation (Beta=0.005)
+suffStat_R<- list(C = Rcor_R$RR, n = n)
+
 ## Estimate skeleton
-
-Skel.fit_1 <- ModiSkeleton(simu.data_M1
-,suffStat_R,FDR=0.05,indepTest=
+Skel.fit<- ModiSkeleton(data,suffStat_R,FDR=0.05,indepTest=
 'gaussCItest',labels=V,verbose=TRUE)
 
 ## Orientation edges
-Edge_orientation_1 <- EdgeOrientation(Skel.fit_1
-,GV=1,suffStat_R,FDR=0.05, indepTest
+Edge_orientation<- EdgeOrientation(Skel.fit,GV=1,suffStat_R,FDR=0.05,indepTest
 ='gaussCItest',verbose=1)
 
 ## Plot of the results
-
-plot(Edge_orientation_1$graph,main ="Model 1")
-
-## Model 2
-n<-nrow (simu.data_M2)    #Number of row
-V<-colnames(simu.data_M2) #Column names
-
-Rcor_R=RobustCor(simu.data_M2, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-## Estimate skeleton
-
-Skel.fit_2 <- ModiSkeleton(simu.data_M2
-,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Orientation edges
-Edge_orientation_2 <- EdgeOrientation(Skel.fit_2
-,GV=1,suffStat_R,FDR=0.05, indepTest='gaussCItest',verbose=1)
-
-## Plot of the results
-
-plot(Edge_orientation_2$graph,main ="Model 2")
-
-## Model 3
-n<-nrow (simu.data_M3)    #Number of row
-V<-colnames(simu.data_M3) #Column names
-
-Rcor_R=RobustCor(simu.data_M3, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-
-## Estimate skeleton
-
-Skel.fit_3 <- ModiSkeleton(simu.data_M3
-,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Orientation edges
-Edge_orientation_3 <- EdgeOrientation(Skel.fit_3
-,GV=1,suffStat_R,FDR=0.05, indepTest
-='gaussCItest',verbose=1)
-
-## Plot of the results
-
-plot(Edge_orientation_3$graph,main ="Model 3")
-
-## Model 4
-n<-nrow (simu.data_M4)     #Number of row
-V<-colnames(simu.data_M4)  #Column names
-
-Rcor_R=RobustCor(simu.data_M4, 0.005) #Robust correlation (Beta=0.005)
-suffStat_R= list(C = Rcor_R$RR, n = n)
-## Estimate skeleton
-
-Skel.fit_4 <- ModiSkeleton(simu.data_M4
-,suffStat_R,FDR=0.05,indepTest=
-'gaussCItest',labels=V,verbose=TRUE)
-
-## Orientation edges
-Edge_orientation_4 <- EdgeOrientation(Skel.fit_4
-,GV=1,suffStat_R,FDR=0.05, indepTest
-='gaussCItest',verbose=1)
-
-## Plot of the results
-
-plot(Edge_orientation_4$graph,main ="Model 4")
+#if (require(Rgraphviz)){
+par(mfrow=c(1,2))
+plot(Truth,main ="(A) Truth")
+plot(Edge_orientation,main ="(B) MRPC ")
+#}
+## Other models are available and may be called as follows:
+# Model 0
+# Truth<-MRPCtruth$M0
+# data<-simu.data_M0,
+# Model 2
+# Truth<-MRPCtruth$M2
+# data<-simu.data_M2
+# Model 3
+# Truth<-MRPCtruth$M3
+# data<-simu.data_M3
+# Model 4
+# Truth<-MRPCtruth$M4
+# data<-simu.data_M4
+# Model Multiparent
+# Truth<-MRPCtruth$Multiparent
+# data<-simu.data_multiparent
+# Model Star
+# Truth<-MRPCtruth$Star
+# data<-simu.data_starshaped
+# Model Layered
+# Truth<-MRPCtruth$Layered
+# data<-simu.data_layered
 
 }
 
