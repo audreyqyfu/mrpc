@@ -33,7 +33,7 @@ Matrix
 }
 
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 
@@ -52,36 +52,37 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 
 
 ## Model 0
-simu.data_M0=SimulatedData(N = 10^3,p = 0.45
+simu.data_M0<-SimulatedData(N = 10^3,p = 0.45
 ,'model0',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 1
-simu.data_M1=SimulatedData(N = 10^3,p = 0.45
+simu.data_M1<-SimulatedData(N = 10^3,p = 0.45
 ,'model1',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 2
-simu.data_M2=SimulatedData(N = 10^3,p = 0.45
+simu.data_M2<-SimulatedData(N = 10^3,p = 0.45
 ,'model2',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 3
-simu.data_M3=SimulatedData(N = 10^3,p = 0.45
+simu.data_M3<-SimulatedData(N = 10^3,p = 0.45
 ,'model3',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
 ## Model 4
-simu.data_M4=SimulatedData(N = 10^3,p = 0.45
+simu.data_M4<-SimulatedData(N = 10^3,p = 0.45
 ,'model4',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1 = 1)
 
+## Multiple Parents Model
+simu.data_multiparent<-SimulatedData(N = 10^3,p
+=0.45, 'multiparent',b0.1 = 0,b1.1 = 1
+,b1.2 = 1,b1.3=1,sd.1 = 1)
+
 ## Star Model
-simu.data_starshaped=SimulatedData(N = 10^3,p = 0.45, 
+simu.data_starshaped<-SimulatedData(N = 10^3,p = 0.45, 
 'starshaped',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 = 1,sd.1= 1)
 
 ## Layers Model
-simu.data_layered=SimulatedData(N = 10^3,p = 0.45,
+simu.data_layered<-SimulatedData(N = 10^3,p = 0.45,
 'layered',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3 =
 1,sd.1 = 1)
-## Multiple Parents Model
-simu.data_multiparent=SimulatedData(N = 10^3,p
-=0.45, 'multiparent',b0.1 = 0,b1.1 = 1
-,b1.2 = 1,b1.3=1,sd.1 = 1)
 
 }
