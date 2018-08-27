@@ -9,7 +9,7 @@ Similar to \link{cut2} function with some modification.
 }
 \usage{
 Cut_Modules(x, cuts, m, g, levels.mean = FALSE,digits,minmax=TRUE,
-oneval=TRUE, onlycuts=FALSE)
+    oneval=TRUE, onlycuts=FALSE)
 
 }
 
@@ -49,6 +49,6 @@ set to TRUE to only return the vector of computed cuts. This consists of the int
 Vector
 }
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
