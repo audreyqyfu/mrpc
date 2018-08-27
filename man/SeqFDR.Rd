@@ -24,7 +24,7 @@ Constant value =2
 }
 
   \item{R}{
-Rejection number
+All decision from test have been performed.
 }
 }
 \details{
@@ -41,7 +41,7 @@ Integer alpha value
 
 }
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 
