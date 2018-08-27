@@ -62,8 +62,8 @@ for (i in 1:ita) {
   MRPC_Inferred<- MRPC(simu.data_2,suffStat_R1,GV=1,FDR=0.05,
                        indepTest ='gaussCItest',labels=V,verbose = TRUE)
   # Recall and Precision by MRPC
-  MRPC_Recall[i]=Recall_Precision(Truth_1, MRPC_Inferred$graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Recall
-  MRPC_Precision[i]=Recall_Precision(Truth_1, MRPC_Inferred$graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Precision
+  MRPC_Recall[i]=Recall_Precision(Truth_1, MRPC_Inferred@graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Recall
+  MRPC_Precision[i]=Recall_Precision(Truth_1, MRPC_Inferred@graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Precision
   
   ## Estimated graph by mmhc using gaussCItest
   M1=mmhc(simu.data_2) 
@@ -103,8 +103,8 @@ model2 = {
     MRPC_Inferred<- MRPC(simu.data_2,suffStat_R1,GV=1,FDR=0.05,
                          indepTest ='gaussCItest',labels=V,verbose = TRUE)
     # Recall and Precision by MRPC
-    MRPC_Recall[i]=Recall_Precision(Truth_2, MRPC_Inferred$graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Recall
-    MRPC_Precision[i]=Recall_Precision(Truth_2, MRPC_Inferred$graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Precision
+    MRPC_Recall[i]=Recall_Precision(Truth_2, MRPC_Inferred@graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Recall
+    MRPC_Precision[i]=Recall_Precision(Truth_2, MRPC_Inferred@graph, GV=1, edge.presence=1.0, edge.direction=0.5)$Precision
     
     ## Estimated graph by mmhc using gaussCItest
     M1=mmhc(simu.data_2) 
