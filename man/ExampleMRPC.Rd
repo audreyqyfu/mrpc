@@ -39,11 +39,11 @@ A list that containing the numeric data matrix and components of a graph.
 }
 
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \examples{
-library(pcalg) #For graph plot
+
 #Continuous data with genetic information
 # load the data
 data ("ExampleMRPC")  
@@ -61,13 +61,13 @@ MRPC(data=ExampleMRPC$simple$cont$withGV$data,
 suffStat=suffStat_R,GV=2, FDR=0.05, indepTest =
 'gaussCItest',labels=V, verbose = TRUE)
 
-
+#if (require(Rgraphviz)){
 par (mfrow=c(1,2))
 # plot the truth graph
 plot (ExampleMRPC$simple$cont$withGV$graph, main="truth") 
 # plot the inferred causal graph
-plot (data.mrpc.cont.withGV$graph, main="inferred")    
-
+plot (data.mrpc.cont.withGV, main="inferred")    
+#}
 
 #Continuous data without genetic information
  # load the data
@@ -84,12 +84,13 @@ MRPC(data=ExampleMRPC$simple$cont$withoutGV$data,
 suffStat=suffStat_R, GV=0,FDR=0.05, 
 indepTest='gaussCItest', labels=V, verbose = TRUE)
 
-
+#if (require(Rgraphviz)){
 par (mfrow=c(1,2))
 # plot the truth graph
 plot (ExampleMRPC$simple$cont$withoutGV$graph, main="truth") 
 # plot the inferred causal graph
-plot (data.mrpc.cont.withoutGV$graph, main="inferred")    
+plot (data.mrpc.cont.withoutGV, main="inferred") 
+#}
 #Discrete data with genetic information
 # load the data
 data ("ExampleMRPC")     
@@ -105,12 +106,13 @@ MRPC(data=ExampleMRPC$simple$disc$withGV$data,
 suffStat=suffStat_R,GV=1,FDR=0.05, indepTest = 
 'gaussCItest',labels=V, verbose = TRUE)
 
+#if (require(Rgraphviz)){
 par (mfrow=c(1,2))
 # plot the truth graph
 plot (ExampleMRPC$simple$disc$withGV$graph, main="truth") 
 # plot the inferred causal graph
-plot (data.mrpc.disc.withGV$graph, main="inferred") 
-
+plot (data.mrpc.disc.withGV, main="inferred") 
+#}
 #Discrete data without genetic information
  # load the data
 data ("ExampleMRPC")    
@@ -125,18 +127,20 @@ data.mrpc.disc.withoutGV <-
 MRPC(data=ExampleMRPC$simple$disc$withoutGV$data, 
 suffStat=suffStat_R, GV=1,FDR=0.05, 
 indepTest='gaussCItest', labels=V, verbose = TRUE)
-
+#if (require(Rgraphviz)){
 par (mfrow=c(1,2))
 # plot the truth graph
 plot (ExampleMRPC$simple$disc$withoutGV$graph, main="truth") 
 # plot the inferred causal graph
-plot (data.mrpc.disc.withoutGV$graph, main="inferred") 
-
+plot (data.mrpc.disc.withoutGV, main="inferred") 
+#}
 #Continuous data with genetic information for complex model
 # load the data
 data ("ExampleMRPC")   
 # graph without clustering
+#if (require(Rgraphviz)){
 plot(ExampleMRPC$complex$cont$withGV$graph) 
+#}
 Adj_directed <- 
 as(ExampleMRPC$complex$cont$withGV$graph,"matrix")
 
