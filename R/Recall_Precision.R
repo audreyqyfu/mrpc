@@ -61,7 +61,8 @@ Recall_Precision=function (g1, g2, GV,edge.presence=1.0,edge.direction=0.5)
   TP=1
   FP=2
   #library(combinat)
-  ind1=t(combinat::combn(ncol(m1), 2))
+  #ind1=t(combinat::combn(ncol(m1), 2))
+  ind1=t(combn(ncol(m1), 2))
   for (i in seq_len(nrow(ind1))) {
     x <- ind1[i, 1]  #1st node
     y <- ind1[i, 2]  #2nd node
