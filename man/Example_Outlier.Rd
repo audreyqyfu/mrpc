@@ -8,11 +8,10 @@ The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1,T2 and
 }
 
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \examples{
-#library(MRPC)  # for MRPC
 library(pcalg) #for pc
 library(bnlearn) #for mmhc
 
@@ -44,7 +43,8 @@ MRPC.fit_withoutoutlier<- MRPC(Data_withoutoutlier,suffStat_R1
 )
 
 ## Estimated graph by mmhc
-mmhc_withoutoutlier=mmhc(data.frame(Data_withoutoutlier))
+data=data.frame(Data_withoutoutlier)
+mmhc_withoutoutlier=mmhc(data)
 
 ## Estimated graph by existing pc with alpha=0.05
 pc.fit_withoutoutlier<- pc(suffStat_C1,indepTest = gaussCItest
@@ -66,7 +66,8 @@ MRPC.fit_withoutlier<- MRPC(Data_withoutlier,suffStat_R1,GV=2
 ,FDR=0.05,indepTest ='gaussCItest',labels=V,verbose = TRUE)
 
 ## Estimated graph by mmhc
-mmhc_withoutlier=mmhc(data.frame(Data_withoutlier))
+data=data.frame(Data_withoutlier)
+mmhc_withoutlier=mmhc(data)
 
 ## Estimated graph by existing pc with alpha=0.05
 pc.fit_withoutlier<- pc(suffStat_C1,indepTest = gaussCItest
@@ -74,14 +75,15 @@ pc.fit_withoutlier<- pc(suffStat_C1,indepTest = gaussCItest
 
 ## Plot of the results
 ## Show estimated graph
+#if (require(Rgraphviz)){
 par(mfrow=c(2,4))
 plot(Truth,main="Truth")
-plot(MRPC.fit_withoutoutlier$graph,main="MRPC")
+plot(MRPC.fit_withoutoutlier@graph,main="MRPC")
 graphviz.plot(mmhc_withoutoutlier,main="mmhc")
 plot(pc.fit_withoutoutlier,main="pc")
 plot(Truth,main=" ")
-plot(MRPC.fit_withoutlier$graph,main=" ")
+plot(MRPC.fit_withoutlier@graph,main=" ")
 graphviz.plot(mmhc_withoutlier,main=" ")
 plot(pc.fit_withoutlier,main=" ")
-
+#}
 }
