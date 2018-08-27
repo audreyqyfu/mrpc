@@ -17,7 +17,7 @@ export(SimulatedData)
 export(SimulationDemo)
 export(SeqFDR)
 export(seqDiff)
-#export(getGraph)
+
 
 importMethodsFrom("graph",
 		  ## addEdge,
