@@ -49,7 +49,7 @@ A \link{list} of object that containing the following:
 
 }
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 
@@ -58,26 +58,25 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 \examples{
 
-library(pcalg)   #for graph object
 #Truth graph (V1-->T1-->T2-->T3)
-tarmat_s1=matrix(0,nrow=4,ncol = 4)
-colnames(tarmat_s1)=c("V1","T1","T2","T3")
-rownames(tarmat_s1)=colnames(tarmat_s1)
+tarmat_s1<-matrix(0,nrow=4,ncol = 4)
+colnames(tarmat_s1)<-c("V1","T1","T2","T3")
+rownames(tarmat_s1)<-colnames(tarmat_s1)
 #Create an adjacency matrix for truth
-tarmat_s1[1,2]=1
-tarmat_s1[2,3]=1
-tarmat_s1[3,4]=1
+tarmat_s1[1,2]<-1
+tarmat_s1[2,3]<-1
+tarmat_s1[3,4]<-1
 #Graph object for truth
 Truth<-as(tarmat_s1, "graphNEL")
 
 #Inferred graph (V1-->T1<--T2-->T3)
-tarmat_s2=matrix(0,nrow=4,ncol = 4)
-colnames(tarmat_s2)=c("V1","T1","T2","T3")
-rownames(tarmat_s2)=colnames(tarmat_s2)
+tarmat_s2<-matrix(0,nrow=4,ncol = 4)
+colnames(tarmat_s2)<-c("V1","T1","T2","T3")
+rownames(tarmat_s2)<-colnames(tarmat_s2)
 #Create an adjacency matrix for truth
-tarmat_s2[1,2]=1
-tarmat_s2[3,2]=1
-tarmat_s2[3,4]=1
+tarmat_s2[1,2]<-1
+tarmat_s2[3,2]<-1
+tarmat_s2[3,4]<-1
 #Graph objects for inferred
 Inferred<-as(tarmat_s2, "graphNEL")
          
