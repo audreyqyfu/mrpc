@@ -21,28 +21,28 @@ Adjacency matrix from the second graph object
 }
 
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \examples{
 
 #Truth graph (V1-->T1-->T2-->T3)
-tarmat_s1=matrix(0,nrow=4,ncol = 4)
-colnames(tarmat_s1)=c("V1","T1","T2","T3")
-rownames(tarmat_s1)=colnames(tarmat_s1)
+tarmat_s1<-matrix(0,nrow=4,ncol = 4)
+colnames(tarmat_s1)<-c("V1","T1","T2","T3")
+rownames(tarmat_s1)<-colnames(tarmat_s1)
 #Create an adjacency matrix for truth
-tarmat_s1[1,2]=1
-tarmat_s1[2,3]=1
-tarmat_s1[3,4]=1
+tarmat_s1[1,2]<-1
+tarmat_s1[2,3]<-1
+tarmat_s1[3,4]<-1
 
 #Inferred graph (V1-->T1<--T2-->T3)
-tarmat_s2=matrix(0,nrow=4,ncol = 4)
-colnames(tarmat_s2)=c("V1","T1","T2","T3")
-rownames(tarmat_s2)=colnames(tarmat_s2)
+tarmat_s2<-matrix(0,nrow=4,ncol = 4)
+colnames(tarmat_s2)<-c("V1","T1","T2","T3")
+rownames(tarmat_s2)<-colnames(tarmat_s2)
 #Create an adjacency matrix for inferred
-tarmat_s2[1,2]=1
-tarmat_s2[3,2]=1
-tarmat_s2[3,4]=1
+tarmat_s2[1,2]<-1
+tarmat_s2[3,2]<-1
+tarmat_s2[3,4]<-1
 
 #Deviation of the inferred from the truth
 seqDiff(tarmat_s2,tarmat_s1)

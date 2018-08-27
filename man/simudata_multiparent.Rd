@@ -13,7 +13,7 @@ Matrix
 }
 
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \seealso{
@@ -21,6 +21,6 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 \examples{
 ## Multiple Parents Model
-simu.data_multiparent =SimulatedData(N = 10^3,p = 0.45,
+simu.data_multiparent<-SimulatedData(N = 10^3,p = 0.45,
 'multiparent',b0.1 = 0,b1.1 = 1,b1.2 = 1,b1.3=1,sd.1 = 1)
   }

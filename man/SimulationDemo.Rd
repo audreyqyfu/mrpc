@@ -31,12 +31,12 @@ Matrix
 3.Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. Causal Inference Using Graphical Models with the R Package pcalg. J. Stat.Softw. 47, 26 (2012).
 }
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \examples{
 #We want to generate 2 different data sets for truth1 with
-#signal=1,N=1000 and 6 different node ordering. Therefore,
+#signal=1,N=100 and 6 different node ordering. Therefore,
 #you will get 2 by 18 output matrix, where first and second row 
 #are the data 1 and 2 respectively. Column 1:6 is the result of 
 #MRPC with node order 1,2...6,then column 7:12 is for mmhc and 
@@ -45,7 +45,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 library(bnlearn) # for mmhc
 library(pcalg)   #for pc
 #Run
-Output=SimulationDemo(N=1000,'truth1',signal=1,n_data=2, n_nodeordering=6)
+Output<-SimulationDemo(N=100,'truth1',signal=1,n_data=2, n_nodeordering=6)
 
 }
 
