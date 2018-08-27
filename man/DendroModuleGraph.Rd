@@ -34,7 +34,7 @@ An object of list of \link{class} that containing the graph object as follows:
 }
 
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \seealso{
@@ -43,7 +43,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 
 #Adjacency matrix from directed example graph
-Adj_directed=as(ExampleMRPC$complex$cont$withGV$graph,"matrix")
+Adj_directed<-as(ExampleMRPC$complex$cont$withGV$graph,"matrix")
 #Plot of the graph
 DendroModuleGraph(Adj_directed,minModuleSize = 5,GV=14)
 }
