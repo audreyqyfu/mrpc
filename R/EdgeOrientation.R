@@ -2,7 +2,7 @@
 
 EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbose = FALSE)
 {
-  g <- as(gInput$graph, "matrix") # g ia an adjacency from undirected graph (skleton)
+  g <- as(gInput@graph, "matrix") # g ia an adjacency from undirected graph (skleton)
   g1=g
   p <- nrow(g)
   # tarmat (adjacency matrix for directed graph) is updated in every step, 
@@ -54,9 +54,9 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
   # extract edges involving at least one gene node
   #edgesWithGs <- edges[which (edges[,1]>GV | edges[,2]>GV), ]
   #ind <- edgesWithGs
-  m=gInput$test  #current test
-  Alpha=gInput$alpha  #alpha
-  R=gInput$R          #decision of test
+  m=gInput@test  #current test
+  Alpha=gInput@alpha  #alpha
+  R=gInput@R          #decision of test
   ind <- which(g1 == 1, arr.ind = TRUE)  #Pullout the all relation in adjacency matrix from undirected graph
   V=colnames(g)
   for (i in seq_len(nrow(ind))) {
@@ -67,7 +67,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
     for (z in allZ) {
       # Triplet x-y-z is directed x-->y<--z if x and z conditionally dependent given y
       if ((g1[x, z] == 0 & g1[x, y] == 1 & g1[y, z] == 1)  & !(tarmat[y, x] ==1) & !(tarmat[z, y] ==1) & !(tarmat[y, z] ==1) & 
-          !(y %in% gInput$sepset[[x]][[z]] || y %in% gInput$sepset[[z]][[x]])) 
+          !(y %in% gInput@sepset[[x]][[z]] || y %in% gInput@sepset[[z]][[x]])) 
       {
         m=m+1
         if(indepTest=="gaussCItest") #if indepTest=gaussCItest
@@ -143,14 +143,14 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
-              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput$sepset[[x]][[z]]) || (y %in% gInput$sepset[[z]][[x]])))
+              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput@sepset[[x]][[z]]) || (y %in% gInput@sepset[[z]][[x]])))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 0
               }
               #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
               #then the edge direction will be z-->y.
-              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput$sepset[[x]][[z]]) & !(y %in% gInput$sepset[[z]][[x]]))
+              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput@sepset[[x]][[z]]) & !(y %in% gInput@sepset[[z]][[x]]))
                 
               {
                 m=m+1
@@ -181,7 +181,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
               }
               #Case-4:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
               #then edge direction will be z<-->y
-              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput$sepset[[x]][[y]]) &!(y %in% gInput$sepset[[x]][[z]]))
+              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput@sepset[[x]][[y]]) &!(y %in% gInput@sepset[[x]][[z]]))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 1
@@ -221,7 +221,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
-              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput$sepset[[x]][[z]]) || (y %in% gInput$sepset[[z]][[x]])))
+              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput@sepset[[x]][[z]]) || (y %in% gInput@sepset[[z]][[x]])))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 0
@@ -229,7 +229,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
               
               #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
               #then the edge direction will be z-->y.
-              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput$sepset[[x]][[z]]) & !(y %in% gInput$sepset[[z]][[x]]))
+              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput@sepset[[x]][[z]]) & !(y %in% gInput@sepset[[z]][[x]]))
                 
               {
                 m=m+1
@@ -259,7 +259,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
               }
               #Case-4:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
               #then edge direction will be z<-->y
-              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput$sepset[[x]][[y]]) &!(y %in% gInput$sepset[[x]][[z]]))
+              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput@sepset[[x]][[y]]) &!(y %in% gInput@sepset[[x]][[z]]))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 1
@@ -316,14 +316,14 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
-              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput$sepset[[x]][[z]]) || (y %in% gInput$sepset[[z]][[x]])))
+              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput@sepset[[x]][[z]]) || (y %in% gInput@sepset[[z]][[x]])))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 0
               }
               #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
               #then the edge direction will be z-->y.
-              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput$sepset[[x]][[z]]) & !(y %in% gInput$sepset[[z]][[x]]))
+              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput@sepset[[x]][[z]]) & !(y %in% gInput@sepset[[z]][[x]]))
                 
               {
                 m=m+1
@@ -359,7 +359,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
               }
               #Case-4:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
               #then edge direction will be z<-->y
-              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput$sepset[[x]][[y]]) &!(y %in% gInput$sepset[[x]][[z]]))
+              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput@sepset[[x]][[y]]) &!(y %in% gInput@sepset[[x]][[z]]))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 1
@@ -396,7 +396,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
             {
               #Case-2: If,y and z are adjacent, x and z conditionally independent given y,
               #then the edge direction will be y-->z
-              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput$sepset[[x]][[z]]) || (y %in% gInput$sepset[[z]][[x]])))
+              if (g1[y, z] == 1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 & ((y %in% gInput@sepset[[x]][[z]]) || (y %in% gInput@sepset[[z]][[x]])))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 0
@@ -404,7 +404,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
               
               #Case-3: If,y and z are adjacent, x and z conditionally dependent given y,
               #then the edge direction will be z-->y.
-              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput$sepset[[x]][[z]]) & !(y %in% gInput$sepset[[z]][[x]]))
+              if (g1[y, z] == 1 & g1[x, z] != 1 & tarmat[x,y]==1 & tarmat[y, x]!=1 & tarmat[y, z]!=1 & tarmat[z, y]!=1 &!(y %in% gInput@sepset[[x]][[z]]) & !(y %in% gInput@sepset[[z]][[x]]))
                 
               {
                 m=m+1
@@ -434,7 +434,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
               }
               #Case-4:If, y & z have relation and x & y conditionally dependent given z and x & z conditionally independent given y,
               #then edge direction will be z<-->y
-              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput$sepset[[x]][[y]]) &!(y %in% gInput$sepset[[x]][[z]]))
+              if (g1[y, z] == 1 & g1[x, z] == 1 & g1[x, y] == 1 & !(z %in% gInput@sepset[[x]][[y]]) &!(y %in% gInput@sepset[[x]][[z]]))
               {
                 tarmat[y, z]  <- 1
                 tarmat[z, y]  <- 1
@@ -474,7 +474,7 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
     tarmat1[,1:GV]=tarmat[,1:GV]
     tarmat=tarmat1
   }
-  gInput$graph<-as(tarmat, "graphNEL")
+  gInput@graph<-as(tarmat, "graphNEL")
   gInput
   
 }
