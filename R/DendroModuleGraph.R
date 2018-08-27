@@ -19,10 +19,11 @@ DendroModuleGraph=function(Adj_directed,minModuleSize,GV) {
   dissTOM = 1-TOM
 #Call the hierarchical clustering function from fastcluster
 #This hclust that provides a much faster hierarchical clustering routine than the standard hclust function.
-  geneTree = fastcluster::hclust(as.dist(dissTOM), method = "average");
-# Plot the resulting clustering tree (dendrogram)
-  plot(geneTree, xlab="", sub="", main = "Gene clustering on TOM-based dissimilarity",
-       labels = FALSE, hang = 0.04);
+  #geneTree = fastcluster::hclust(as.dist(dissTOM), method = "average");
+  geneTree = hclust(as.dist(dissTOM), method = "average");
+  # Plot the resulting clustering tree (dendrogram)
+  #plot(geneTree, xlab="", sub="", main = "Gene clustering on TOM-based dissimilarity",
+       #labels = FALSE, hang = 0.04);
 
   minModuleSize =minModuleSize; #Need to mention minimum module size
 # Module identification using dynamic tree cut:
