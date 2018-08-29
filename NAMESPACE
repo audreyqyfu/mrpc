@@ -18,7 +18,6 @@ export(SimulationDemo)
 export(SeqFDR)
 export(seqDiff)
 
-
 importMethodsFrom("graph",
 		  ## addEdge,
 		  coerce,# as(., ...)
