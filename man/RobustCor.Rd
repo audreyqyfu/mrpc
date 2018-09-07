@@ -4,10 +4,10 @@
 Robust Correlation Matrix
 }
 \description{
-Robust correlation matrix based on beta value. A value of beta plays a key role in the performance of the robust method, which controls the tradeoff between the robustness and efficiency of the estimators.
+Robust correlation matrix based on beta value. The value of beta plays a key role in the performance of the robust method, which controls the tradeoff between the robustness and efficiency of the estimators.
 }
 \usage{
-RobustCor(xx,Beta,plot=FALSE)
+RobustCor(xx, Beta, plot = FALSE)
 }
 
 \arguments{
@@ -15,7 +15,7 @@ RobustCor(xx,Beta,plot=FALSE)
 Data matrix
 }
 \item{Beta}{
-Tuning parameter (0,1), if 0 then equal to nonrobust(classical) method. We suggested use, Beta=0.005 in both without and with outliers in simulation study. This value should reflect the amount of outliers in the data. Whereas a large value increases robustness, it reduces sensitivity of identifying an edge. We need a more principled way to determine this value.
+Tuning parameter, between 0 and 1, if 0 then equal to nonrobust, classical method. We suggest using, Beta = 0.005 in both without and with outliers in simulation study. This value should reflect the amount of outliers in the data. Whereas a large value increases robustness, it reduces sensitivity of identifying an edge. We need a more principled way to determine this value.
 }
 \item{plot}{
 To set no plotting as the default for weight vs gene index.
@@ -29,10 +29,10 @@ We take a robust approach and calculate the robust correlation matrix (Badsha et
 \link{list} of objects as follows:
 
 \itemize{
-\item \code{RR}: robust correlation matrix
-\item \code{M}: robust mean vector
-\item \code{V}: robust covariance matrix
-\item \code{Wt}: weight for each observation.
+\item \code{RR}: Robust correlation matrix.
+\item \code{M}: Robust mean vector.
+\item \code{V}: Robust covariance matrix.
+\item \code{Wt}: Weight for each observation.
 }
 }
 
@@ -41,10 +41,13 @@ We take a robust approach and calculate the robust correlation matrix (Badsha et
 2. Van Buuren, S., Groothuis-Oudshoorn, K. (2011). mice: Multivariate Imputation by Chained Equations in R. Journal of Statistical Software, 45(3), 1-67. http://www.jstatsoft.org/v45/i03/
 }
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \examples{
-R<-RobustCor(simu.data_M0, Beta=0.005,plot=FALSE)
-RCor<-R$RR  #Correlation matrix
+R <- RobustCor(simu.data_M0,
+               Beta = 0.005,
+               plot = FALSE)
+               
+RCor <- R$RR  # Correlation matrix
 }

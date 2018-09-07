@@ -14,9 +14,9 @@ Case_NP(N, b0.1, sd.1)
   \item{N}{
 Number of observations
 }
-  \item{b0.1}{Intercept of the corresponding simulated genes.}
+  \item{b0.1}{Intercept of the corresponding simulated gene.}
 
-\item{sd.1}{Standard deviation for corresponding data generated genes.}
+\item{sd.1}{Standard deviation for corresponding data generated gene.}
 }
 
 \value{
@@ -24,11 +24,11 @@ Vector
 }
 
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 \seealso{
 \link{SimulatedData} for simulated data generating function.
 }
 \examples{
-Case_NP(N=10^3, b0.1=0, sd.1=1)
+Case_NP(N = 10^3, b0.1 = 0, sd.1 = 1)
 }

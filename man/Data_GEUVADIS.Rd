@@ -5,7 +5,7 @@
 Data from GEUVADIS 
 }
 \description{
-GEUVADIS (Lappalainen et al., 2013) data (i.e., gene expression measured in LCLs of a subset of individuals genotyped in the 1000 Genomes Project) from 373 Europeans and 89 Africans samples.
+GEUVADIS (Lappalainen et al., 2013) data (i.e., gene expression measured in LCLs of a subset of individuals genotyped in the 1000 Genomes Project) from 373 Europeans and 89 Africans.
 }
 
 \details{
@@ -18,13 +18,14 @@ Matrix
 1. Lappalainen, T. et al. Transcriptome and genome sequencing uncovers functional variation in humans. Nature 501, 506-511 (2013).
 }
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \examples{
-#Data for 373 Europeans of eQTL 1
+# Data for 373 Europeans of eQTL 1
 Data_GEUVADIS$Data_Q1$Data_EUR
-#Data for 89 Africans of eQTL 1
+
+# Data for 89 Africans of eQTL 1
 Data_GEUVADIS$Data_Q1$Data_AFR
 }
 

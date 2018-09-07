@@ -5,27 +5,27 @@
 Performance Evaluation by Recall and Precision in MRPC
 }
 \description{
-Recall=(# edges correctly identified in inferred graph) / (# edges in true graph); #Precision = (# edges correctly identified in inferred graph) / (# edges in inferred graph).For example, when the true graph is V-->T1-->T2, and the inferred graphs are i) V-->T1-->T2, and V-->T2; ii) V-->T1--T2; and iii) V-->T1<--T2, the number of correctly identified edges is then 2, 1.5 and 1.5, respectively. Recall is calculated to be 1, 0.75 and 0.75 respectively, whereas precision is 2/3=0.67, 1.5/2=0.75, and 1.5/2=0.75, respectively.  
+Recall = (# edges correctly identified in inferred graph) / (# edges in true graph); Precision = (# edges correctly identified in inferred graph) / (# edges in inferred graph).For example, when the true graph is V-->T1-->T2, and the inferred graphs are i) V-->T1-->T2, and V-->T2; ii) V-->T1--T2; and iii) V-->T1<--T2, the number of correctly identified edges is then 2, 1.5, and 1.5, respectively. Recall is calculated to be 1, 0.75, and 0.75 respectively, whereas precision is 2/3 = 0.67, 1.5/2 = 0.75, and 1.5/2 = 0.75, respectively.  
 }
 \usage{
-Recall_Precision(g1, g2, GV, edge.presence=1.0, edge.direction=0.5)
+Recall_Precision(g1, g2, GV, edge.presence = 1.0, edge.direction = 0.5)
 }
 
 \arguments{
   \item{g1}{
-First graph object, we say from the truth graph
+First graph object, from the true graph
 }
   \item{g2}{
-Second graph object, we say from the inferred graph
+Second graph object, from the inferred graph
 }
   \item{GV}{
-Need to specify for how many genetic variants (SNPs/indels/CNV/eQTL) in your input data. For example, if your dataset have one genetic variants (first column), then GV=1, if 2 (1st and 2nd Column), then GV=2..and so on.
+The number of genetic variants (SNPs/indels/CNV/eQTL) in the input data. For example, if the data has one genetic variant, first column, then GV = 1, if 2, 1st and 2nd Column, then GV = 2, and so on.
 }
-  \item{edge.presence}{
-specify the weights for edge presence
+\item{edge.presence}{
+The weight for an edge being present.
 }
   \item{edge.direction}{
-specify the weights for edge direction
+The weight for the edge direction.
 }
 }
 \details{
@@ -36,10 +36,10 @@ We consider it more important to be able to identify the presence of an edge tha
 A \link{list} of object that containing the following:
 \itemize{
 \item \code{Matrix}: Results store for TP and FP
-\item \code{TP}: Total found edge in the inferred graph and edge exit in the true graph 
-\item \code{FP}: Total found edge in the inferred graph but no edge exit in the true graph
+\item \code{TP}: Total found edges in the inferred graph and edge exists in the true graph.
+\item \code{FP}: Total found edges in the inferred graph but no edge exists in the true graph.
 \item \code{Recall}: Power, or sensitivity measures how many edges from the true graph a method can recover.
-\item \code{Precision}: Measures how many correct edges are recovered in the inferred graph
+\item \code{Precision}: Measures how many correct edges are recovered in the inferred graph.
 }
 
 }
@@ -49,7 +49,7 @@ A \link{list} of object that containing the following:
 
 }
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 
@@ -58,28 +58,47 @@ Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.e
 }
 \examples{
 
-#Truth graph (V1-->T1-->T2-->T3)
-tarmat_s1<-matrix(0,nrow=4,ncol = 4)
-colnames(tarmat_s1)<-c("V1","T1","T2","T3")
-rownames(tarmat_s1)<-colnames(tarmat_s1)
-#Create an adjacency matrix for truth
-tarmat_s1[1,2]<-1
-tarmat_s1[2,3]<-1
-tarmat_s1[3,4]<-1
-#Graph object for truth
-Truth<-as(tarmat_s1, "graphNEL")
+# True model
+# True graph (V1 --> T1 --> T2 --> T3)
+tarmat_s1 <- matrix(0,
+                    nrow = 4,
+                    ncol = 4)
+                    
+colnames(tarmat_s1) <- c("V1", "T1", "T2", "T3")
 
-#Inferred graph (V1-->T1<--T2-->T3)
-tarmat_s2<-matrix(0,nrow=4,ncol = 4)
-colnames(tarmat_s2)<-c("V1","T1","T2","T3")
-rownames(tarmat_s2)<-colnames(tarmat_s2)
-#Create an adjacency matrix for truth
-tarmat_s2[1,2]<-1
-tarmat_s2[3,2]<-1
-tarmat_s2[3,4]<-1
-#Graph objects for inferred
-Inferred<-as(tarmat_s2, "graphNEL")
+rownames(tarmat_s1) <- colnames(tarmat_s1)
+
+# Create an adjacency matrix for the true graph
+tarmat_s1[1, 2] <- 1
+tarmat_s1[2, 3] <- 1
+tarmat_s1[3, 4] <- 1
+
+# Graph object of the true graph
+Truth <- as(tarmat_s1,
+            "graphNEL")
+
+# Inferred graph (V1 --> T1 <-- T2 --> T3)
+tarmat_s2 <- matrix(0,
+                    nrow = 4,
+                    ncol = 4)
+                    
+colnames(tarmat_s2) <-c ("V1", "T1", "T2", "T3")
+
+rownames(tarmat_s2) <- colnames(tarmat_s2)
+
+# Create an adjacency matrix for the inferred graph
+tarmat_s2[1, 2] <- 1
+tarmat_s2[3, 2] <- 1
+tarmat_s2[3, 4] <- 1
+
+# Graph objects for the inferred graph
+Inferred <- as(tarmat_s2,
+               "graphNEL")
          
 #Recall and Precision
-Recall_Precision(Truth, Inferred, GV=1, edge.presence=1.0, edge.direction=0.5)
+Recall_Precision(Truth,
+                 Inferred,
+                 GV = 1,
+                 edge.presence = 1.0,
+                 edge.direction = 0.5)
 }      

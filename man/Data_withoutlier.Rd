@@ -5,7 +5,7 @@
 Example Data with outlier
 }
 \description{
-This is the data with outlier
+This is the data with outliers.
 }
 
 \value{
@@ -13,7 +13,7 @@ Matrix
 }
 
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
 }
 
 \examples{
