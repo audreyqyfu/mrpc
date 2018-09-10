@@ -127,7 +127,7 @@ An object containing an estimate of the skeleton of the underlying DAG as follow
 7. Spirtes, P. Glymour, C and Scheines, R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
 }
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
 }
 
 \seealso{

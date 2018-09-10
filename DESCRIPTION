@@ -2,7 +2,7 @@ Package: MRPC
 Type: Package
 Title: Mendelian Randomization (MR) Based PC Algorithm
 Version: 2.0.0
-Author: Md Bahadur Badsha <mdbadsha@uidaho.edu>,Evan A Martin <mart9986@vandals.uidaho.edu> and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Author: Md Bahadur Badsha [aut,cre],Evan A Martin [ctb] and Audrey Qiuyan Fu [aut]
 Maintainer: Md Bahadur Badsha <mdbadsha@uidaho.edu>
 Description: Estimate the causal graph using generalized Mendelian Randomization (MR) based PC (MRPC) Algorithm.
 License: GPL (>= 2)

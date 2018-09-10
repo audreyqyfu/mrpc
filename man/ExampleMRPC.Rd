@@ -39,7 +39,7 @@ A list that containing the numeric data matrix and components of a graph.
 }
 
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
 }
 
 \examples{

@@ -8,7 +8,7 @@ The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 an
 }
 
 \author{
-Md Bahadur Badsha <mdbadsha@uidaho.edu>, Evan A Martin <mart9986@vandals.uidaho.edu>, and Audrey Qiuyan Fu <audreyf@uidaho.edu>
+Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
 }
 
 \examples{

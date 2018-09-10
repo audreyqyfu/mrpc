@@ -89,7 +89,7 @@ summary.
   }
 }
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md. Bahadur Badsha (\link{mdbadsha@uidaho.edu})
 }
 \seealso{
   \link{MRPC}, \link{ModiSkeleton}
