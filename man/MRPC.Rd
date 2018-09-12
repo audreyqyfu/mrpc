@@ -1,10 +1,10 @@
 \name{MRPC}
 \alias{MRPC}
 \title{
-Estimate the DAG using Principle of Mendelian Randomization (PMR) based PC (MRPC) Algorithm
+Estimate a causal network using the MRPC Algorithm
 }
 \description{
-The MRPC () function is used to estimate a directed acyclic graph (DAG) from observational data, by modifying the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithm is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when the \link{pc} algorithm is applied to noisy genomic data. To tackle these challenges, we developed a novel machine learning algorithm called Mendelian Randomization (MR) based PC (MRPC) to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithm, the four-major updates in the MRPC algorithm is that (i) we incorporate a sequential testing method to control the False Discovery Rate (FDR), (ii) take a robust approach to reduce the impact of outliers, (iii) improve v-structure identification and (iv) implemente a new way for edge direction determination based on PMR (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
+The MRPC () function is used to estimate a causal network (or causal graph) with directed and undirected edges from observational data, by modifying the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithm is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when the \link{pc} algorithm is applied to noisy genomic data. To tackle these challenges, we developed a novel machine learning algorithm called Mendelian Randomization (MR) based PC (MRPC) to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithm, the four major updates in the MRPC algorithm are that (i) we incorporate a sequential testing method to control the False Discovery Rate (FDR), (ii) take a robust approach to reduce the impact of outliers, (iii) improve v-structure identification and (iv) implement a new way for edge direction determination based on the Principle of Mendelian Randomization (PMR) (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
 
 }
 \usage{
