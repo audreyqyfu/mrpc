@@ -4,7 +4,7 @@ Title: Mendelian Randomization (MR) Based PC Algorithm
 Version: 2.0.0
 Author: Md Bahadur Badsha [aut,cre],Evan A Martin [ctb] and Audrey Qiuyan Fu [aut]
 Maintainer: Md Bahadur Badsha <mdbadsha@uidaho.edu>
-Description: Estimate the causal graph using generalized Mendelian Randomization (MR) based PC (MRPC) Algorithm.
+Description: Estimate the causal graph using generalized Mendelian Randomization (MR) based PC (MRPC) Algorithm. See Badsha et al., (2018) <arXiv:1806.01899>. 
 License: GPL (>= 2)
 LazyData: TRUE
 Imports:bnlearn,compositions,dynamicTreeCut,GGally,fastcluster,gtools,graph,graphics,Hmisc,methods,mice,network,pcalg,stats,sna,utils,WGCNA

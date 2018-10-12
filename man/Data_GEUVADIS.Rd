@@ -18,7 +18,7 @@ Matrix
 1. Lappalainen, T. et al. Transcriptome and genome sequencing uncovers functional variation in humans. Nature 501, 506-511 (2013).
 }
 \author{
-Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{

@@ -49,7 +49,7 @@ A \link{list} of object that containing the following:
 
 }
 \author{
-Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 

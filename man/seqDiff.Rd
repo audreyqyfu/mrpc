@@ -21,7 +21,7 @@ Adjacency matrix from the second graph object.
 }
 
 \author{
-Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{

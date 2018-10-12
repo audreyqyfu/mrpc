@@ -120,7 +120,7 @@ An object of \link{class} that contains an estimate of the equivalence class of 
 }
 
 \author{
-Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{

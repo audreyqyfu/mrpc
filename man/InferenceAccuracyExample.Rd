@@ -33,7 +33,7 @@ Matrix
 1. Badsha MB, Fu AQ (2018). Learning causal biological networks with the principle of Mendelian randomization." bioRxiv. doi:10.1101/171348.
 }
 \author{
-Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{

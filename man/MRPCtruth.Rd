@@ -9,7 +9,7 @@ Truth of the five basic topologies and three common topologies in biology, multi
 }
 
 \author{
-Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{

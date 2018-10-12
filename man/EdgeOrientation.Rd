@@ -75,7 +75,7 @@ An object of \link{class} that contains an estimate of the equivalence class of 
 
 
 \author{
-Md Bahadur Badsha (\link{mdbadsha@uidaho.edu})
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
@@ -96,7 +96,7 @@ library(pcalg)  #library for existing pc
 # Model 1
 Truth <- MRPCtruth$M1   #Truth for model 1
 data <- simu.data_M1    #data load for model 1
-n < -nrow (data)        #Number of row
+n <- nrow (data)        #Number of row
 V <- colnames(data)     #Column names
 
 Rcor_R <- RobustCor(data,
