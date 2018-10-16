@@ -48,6 +48,7 @@ importFrom("stats","sd","dist","approx","as.dist","cor", "rbinom", "rnorm","as.h
 importFrom("utils", "combn","write.table")
 importFrom("WGCNA","TOMsimilarity","labels2colors","plotDendroAndColors")
 import(sna)
+import(Rgraphviz)
 
 exportClasses("MRPCclass")
 exportMethods("summary", "show", "plot")
