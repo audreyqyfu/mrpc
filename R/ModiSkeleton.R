@@ -71,10 +71,24 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "disCIte
 
         if (G[y, x] && !fixedEdges[y, x]) {
           nbrsBool <- if (method == "stable")
-            G.l[[x]]
-          else G[, x]
-          nbrsBool[y] <- FALSE
-          nbrs <- seq_p[nbrsBool]
+          
+          nbrsBool1=G.l[[x]]
+          nbrsBool2=G.l[[y]] 
+          # G.l[[x]]
+          #else G[, x]
+          nbrsBool1[y] <- FALSE
+          nbrs_x <- seq_p[nbrsBool1]
+          #G.l[[y]]
+          #else G[, y]
+          nbrsBool2[x] <- FALSE
+          nbrs_y <- seq_p[nbrsBool2]
+          
+          nbrs<-unique(union(nbrs_x,nbrs_y))
+          
+          #G.l[[x]]
+          #else G[, x]
+          #nbrsBool[y] <- FALSE
+          #nbrs <- seq_p[nbrsBool]
           length_nbrs <- length(nbrs)
           if (length_nbrs >= ord) {
             if (length_nbrs > ord)
