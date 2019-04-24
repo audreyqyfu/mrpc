@@ -23,10 +23,3 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 \seealso{
 \link{SimulateData} for simulated data generating function.
 }
-\examples{
-## Layered Model
-simu_data_layered <- SimulateData(N = 10^3, p = 0.45,
-                                   'layered', b0.1 = 0,
-                                   b1.1 = 1, b1.2 = 1,
-                                   b1.3 = 1, sd.1 = 1)
-}

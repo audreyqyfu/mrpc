@@ -19,11 +19,3 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 \seealso{
 \link{SimulateData} for simulated data generating function.
 }
-
-\examples{
-## Model 3
-simu_data_M3 <- SimulateData(N = 10^3, p = 0.45,
-                              'model3', b0.1 = 0,
-                              b1.1 = 1, b1.2 = 1,
-                              b1.3 = 1, sd.1 = 1)
-}
