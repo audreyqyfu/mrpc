@@ -120,7 +120,7 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "disCIte
                 {
                 pval[m]<- gaussCItest(x, y, nbrs[S], suffStat)
               }
-              if(indepTest=="disCItest") #if indepTest=gaussCItest
+              if(indepTest=="disCItest") #if indepTest=disCItest
               {
                 pval[m]<- disCItest(x, y, nbrs[S], suffStat)
               }

@@ -67,7 +67,7 @@ plotDendroAndColors(geneTree, dynamicColors, "Dynamic Tree Cut",
   MM=0:(ncol(Adj_directed)-1)
   NN1=as.matrix(cumsum(n))
   NN2=NN1#[-nrow(NN1),]
-  Module<- Cut_Modules(MM,c(0,NN2))
+  Module<- CutModules(MM,c(0,NN2))
 
   col= rownames(CT)
   names(col) = levels(Module)

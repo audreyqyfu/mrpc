@@ -1,4 +1,4 @@
-Cut_Modules=function (x, cuts, m = 150, g, levels.mean = FALSE, digits, minmax = TRUE,
+CutModules=function (x, cuts, m = 150, g, levels.mean = FALSE, digits, minmax = TRUE,
                           oneval = TRUE, onlycuts = FALSE)
 {
   method <- 1
