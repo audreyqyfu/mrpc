@@ -1,7 +1,7 @@
 #This is the demo for simulation
 #Same data but different node ordering 
 #Details please see help(SoftwarePaperSimData)
-CompareMethodsNodesOrdering <- function(N, model,signal,n_data,n_nodeordering) {
+CompareMethodsNodeOrdering <- function(N, model,signal,n_data,n_nodeordering) {
   
 #parameters settings
 N <- N

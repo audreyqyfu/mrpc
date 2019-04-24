@@ -14,7 +14,7 @@ export(MRPC)
 export(RecallPrecision)
 export(RobustCor)
 export(SimulateData)
-export(CompareMethodsNodesOrdering)
+export(CompareMethodsNodeOrdering)
 export(SeqFDR)
 export(seqDiff)
 
