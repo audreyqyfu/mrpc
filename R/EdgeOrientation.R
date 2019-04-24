@@ -80,21 +80,21 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
         }
         #pval=disCItest(x, z, y, suffStat) #additional conditional test
         Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-        
+        cat("x=", x, " y=", y, " S=", z,"\n")
+        cat("Test number =", m, "\n")
         cat("Additional pval value =", pval, "\n")
         cat("Alpha value =", Alpha, "\n")
-        
         if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
           R[m]=1
           if (verbose) {
-            cat("\n", V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
-            cat("Since pval<Alpha,additional test is rejected", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
+        cat(V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
+        cat("Since pval<Alpha,additional test is rejected;", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
           }
           tarmat[x, y] <- tarmat[z, y] <- 1 #directed x-->y<--z
         } 
         else {
           R[m]=0  #Accept H0
-          cat("Since pval>Alpha,additional test is accepted", "Nodes", V[x] ,"and" ,V[z] ,"are independent given", V[y], "\n")
+          cat("Since pval>Alpha,additional test is accepted;", "Nodes", V[x] ,"and" ,V[z] ,"are independent given", V[y], "\n")
         }
         
       }
