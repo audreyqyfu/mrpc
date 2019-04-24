@@ -2,7 +2,7 @@
 \alias{seqDiff}
 
 \title{
-Deviation of the Two Sequnces
+Deviation of the two sequnces
 }
 \description{
 Deviation of the inferred graph from the true graph.

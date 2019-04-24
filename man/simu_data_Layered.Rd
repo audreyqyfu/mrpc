@@ -1,11 +1,11 @@
-\name{simu.data_M0}
-\alias{simu.data_M0}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\name{simu_data_layered}
+\alias{simu_data_layered}
 \title{
-Data for Model 0
+Data for the layered model
 }
+
 \description{
-Simulate Data for Model 0.
+Simulate data for the layered Model.
 }
 
 \details{
@@ -21,13 +21,12 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
-\link{SimulatedData} for simulated data generating function.
+\link{SimulateData} for simulated data generating function.
 }
-
 \examples{
-## Model 0
-simu.data_M0 <- SimulatedData(N = 10^3, p = 0.45,
-                              'model0', b0.1 = 0,
-                              b1.1 = 1, b1.2 = 1,
-                              b1.3 = 1, sd.1 = 1)
+## Layered Model
+simu_data_layered <- SimulateData(N = 10^3, p = 0.45,
+                                   'layered', b0.1 = 0,
+                                   b1.1 = 1, b1.2 = 1,
+                                   b1.3 = 1, sd.1 = 1)
 }

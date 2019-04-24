@@ -131,7 +131,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
- \link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm; \link{EdgeOrientation} for orientation rules for edges in MRPC; \link{SimulatedData} simulated data generating function.
+ \link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm; \link{EdgeOrientation} for orientation rules for edges in MRPC; \link{SimulateData} simulated data generating function.
 }
 \examples{
 # Load packages
@@ -150,7 +150,7 @@ library(bnlearn) # library for ci.test
 
 # Model 1
 # Estimate Skeleton
-data <- simu.data_M1 # data for model 1
+data <- simu_data_M1 # data for model 1
 n <- nrow(data)      # Number of row
 V <- colnames(data)  # Column names
 
@@ -170,25 +170,25 @@ plot(Skel.fit@graph,
 
 # Other models are available and may be called as follows:
 # Model 0
-# data <- simu.data_M0
+# data <- simu_data_M0
 
 # Model 2
-# data <- simu.data_M2
+# data <- simu_data_M2
 
 # Model 3
-# data <- simu.data_M3
+# data <- simu_data_M3
 
 # Model 4
-# data <- simu.data_M4
+# data <- simu_data_M4
 
 # Model Multiparent
-# data <- simu.data_multiparent
+# data <- simu_data_multiparent
 
 # Model Star
-# data <- simu.data_starshaped
+# data <- simu_data_starshaped
 
 # Model Layered
-# data <- simu.data_layered
+# data <- simu_data_layered
 
 }
 

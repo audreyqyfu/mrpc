@@ -1,14 +1,14 @@
-\name{Recall_Precision}
-\alias{Recall_Precision}
+\name{RecallPrecision}
+\alias{RecallPrecision}
 
 \title{
-Performance Evaluation by Recall and Precision in MRPC
+Performance evaluation by recall and precision in MRPC
 }
 \description{
 Recall = (# edges correctly identified in inferred graph) / (# edges in true graph); Precision = (# edges correctly identified in inferred graph) / (# edges in inferred graph).For example, when the true graph is V-->T1-->T2, and the inferred graphs are i) V-->T1-->T2, and V-->T2; ii) V-->T1--T2; and iii) V-->T1<--T2, the number of correctly identified edges is then 2, 1.5, and 1.5, respectively. Recall is calculated to be 1, 0.75, and 0.75 respectively, whereas precision is 2/3 = 0.67, 1.5/2 = 0.75, and 1.5/2 = 0.75, respectively.  
 }
 \usage{
-Recall_Precision(g1, g2, GV, edge.presence = 1.0, edge.direction = 0.5)
+RecallPrecision(g1, g2, GV, edge.presence = 1.0, edge.direction = 0.5)
 }
 
 \arguments{
@@ -38,6 +38,8 @@ A \link{list} of object that containing the following:
 \item \code{Matrix}: Results store for TP and FP
 \item \code{TP}: Total found edges in the inferred graph and edge exists in the true graph.
 \item \code{FP}: Total found edges in the inferred graph but no edge exists in the true graph.
+\item \code{NTE}: Total number of edges in the true graph.
+\item \code{NIE}: Total number of edges in the inferred graph.
 \item \code{Recall}: Power, or sensitivity measures how many edges from the true graph a method can recover.
 \item \code{Precision}: Measures how many correct edges are recovered in the inferred graph.
 }
@@ -96,7 +98,7 @@ Inferred <- as(tarmat_s2,
                "graphNEL")
          
 #Recall and Precision
-Recall_Precision(Truth,
+RecallPrecision(Truth,
                  Inferred,
                  GV = 1,
                  edge.presence = 1.0,

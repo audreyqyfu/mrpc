@@ -1,14 +1,14 @@
-\name{Cut_Modules}
-\alias{Cut_Modules}
+\name{CutModules}
+\alias{CutModules}
 
 \title{
-Cut the Modules
+Cut a numeric variable into intervals
 }
 \description{
 Similar to \link{cut2} function with some modification.
 }
 \usage{
-Cut_Modules(x, cuts, m, g, levels.mean = FALSE, digits, minmax = TRUE,
+CutModules(x, cuts, m, g, levels.mean = FALSE, digits, minmax = TRUE,
     oneval = TRUE, onlycuts = FALSE)
 
 }

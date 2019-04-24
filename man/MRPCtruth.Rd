@@ -2,7 +2,7 @@
 \alias{MRPCtruth}
 
 \title{
-Truth Models for MRPC Examples
+Truth models for MRPC examples
 }
 \description{
 Truth of the five basic topologies and three common topologies in biology, multi-parents, star and layered.

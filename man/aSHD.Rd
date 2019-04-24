@@ -2,7 +2,7 @@
 \alias{aSHD}
 
 \title{
-Adjusted Structural Hamming Distance (aSHD) 
+Adjusted structural hamming distance (aSHD) 
 }
 
 \description{

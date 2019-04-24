@@ -1,7 +1,7 @@
 \name{MRPC}
 \alias{MRPC}
 \title{
-Estimate a causal network using the MRPC Algorithm
+Estimate a causal network using the MRPC algorithm
 }
 \description{
 The MRPC () function is used to estimate a causal network (or causal graph) with directed and undirected edges from observational data, by modifying the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithm is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when the \link{pc} algorithm is applied to noisy genomic data. To tackle these challenges, we developed a novel machine learning algorithm called Mendelian Randomization (MR) based PC (MRPC) to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithm, the four major updates in the MRPC algorithm are that (i) we incorporate a sequential testing method to control the False Discovery Rate (FDR), (ii) take a robust approach to reduce the impact of outliers, (iii) improve v-structure identification and (iv) implement a new way for edge direction determination based on the Principle of Mendelian Randomization (PMR) (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
@@ -143,7 +143,7 @@ principle of Mendelian randomization. bioRxiv, 2018. doi:10.1101/171348.
 
 }
 \seealso{
-\link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{EdgeOrientation} for orientation rules determination for edges in MRPC; \link{SimulatedData} for simulated data generating function.
+\link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{EdgeOrientation} for orientation rules determination for edges in MRPC; \link{SimulateData} for simulated data generating function.
 }
 \examples{
 # Load packages
@@ -164,7 +164,7 @@ library(bnlearn)  # library for mmhc
 
 # Model 1
 Truth <- MRPCtruth$M1   # Truth for model 1
-data <- simu.data_M1    # load data for model 1
+data <- simu_data_M1    # load data for model 1
 n <- nrow (data)        # Number of rows
 V <- colnames(data)     # Column names
 
@@ -224,29 +224,29 @@ DendroModuleGraph(Adj_directed,
 # Other models are available and may be called as follows:
 # Model 0
 # Truth <- MRPCtruth$M0
-# data <- simu.data_M0
+# data <- simu_data_M0
 
 # Model 2
 # Truth <- MRPCtruth$M2
-# data <- simu.data_M2
+# data <- simu_data_M2
 
 # Model 3
 # Truth <- MRPCtruth$M3
-# data <- simu.data_M3
+# data <- simu_data_M3
 
 # Model 4
 # Truth <- MRPCtruth$M4
-# data <- simu.data_M4
+# data <- simu_data_M4
 
 # Model Multiparent
 # Truth <- MRPCtruth$Multiparent
-# data <- simu.data_multiparent
+# data <- simu_data_multiparent
 
 # Model Star
 # Truth <- MRPCtruth$Star
-# data <- simu.data_starshaped
+# data <- simu_data_starshaped
 
 # Model Layered
 # Truth <- MRPCtruth$Layered
-# data <- simu.data_layered
+# data <- simu_data_layered
 }

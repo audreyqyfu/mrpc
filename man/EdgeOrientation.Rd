@@ -2,7 +2,7 @@
 \alias{EdgeOrientation}
 
 \title{
-Edge Orientation Rules for the MRPC Algorithm
+Edge orientation rules for the MRPC algorithm
 }
 \description{
 This function performs the last step of the \link{MRPC} algorithm where it determines the edge direction of the undirected graph. The function first determines the edges between genetic variants and gene expression nodes based on MR. Then it orients the v-structures followed by the remaining edges weather MR is applicable or not. MR is a new way for edge direction determination based on four different cases. See below for the details.
@@ -79,7 +79,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
-\link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based (PC) algorithm; \link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{SimulatedData} for simulated data generating function.
+\link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based (PC) algorithm; \link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{SimulateData} for simulated data generating function.
 
 }
 
@@ -95,7 +95,7 @@ library(pcalg)  #library for existing pc
 
 # Model 1
 Truth <- MRPCtruth$M1   #Truth for model 1
-data <- simu.data_M1    #data load for model 1
+data <- simu_data_M1    #data load for model 1
 n <- nrow (data)        #Number of row
 V <- colnames(data)     #Column names
 
@@ -129,27 +129,27 @@ plot(Edge_orientation,
 
 # Model 2
 # Truth <- MRPCtruth$M2
-# data <- simu.data_M2
+# data <- simu_data_M2
 
 # Model 3
 # Truth <- MRPCtruth$M3
-# data <- simu.data_M3
+# data <- simu_data_M3
 
 # Model 4
 # Truth <- MRPCtruth$M4
-# data <- simu.data_M4
+# data <- simu_data_M4
 
 # Model Multiparent
 # Truth <- MRPCtruth$Multiparent
-# data <- simu.data_multiparent
+# data <- simu_data_multiparent
 
 # Model Star
 # Truth <- MRPCtruth$Star
-# data <- simu.data_starshaped
+# data <- simu_data_starshaped
 
 # Model Layered
 # Truth <- MRPCtruth$Layered
-# data <- simu.data_layered
+# data <- simu_data_layered
 
 }
 

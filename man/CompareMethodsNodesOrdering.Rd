@@ -1,13 +1,13 @@
-\name{SimulationDemo}
-\alias{SimulationDemo}
+\name{CompareMethodsNodesOrdering}
+\alias{CompareMethodsNodesOrdering}
 
-\title{Same data but different node orderings.}
+\title{Same data but different nodes ordering.}
 
 \description{
 Investigate the impact of the same data but with different node orderings across three methods: MRPC (Badsha et al., 2018), the mmhc method (implemented in bnlearn; Scutari, 2010) and the pc method (implemented in pcalg; Kalisch et al., 2012). 
 }
 \usage{
-SimulationDemo(N, model, signal, n_data, n_nodeordering)
+CompareMethodsNodesOrdering(N, model, signal, n_data, n_nodeordering)
 }
 
 \arguments{
@@ -47,7 +47,7 @@ library(bnlearn) # for mmhc
 library(pcalg)   # for pc
 
 # Run
-Output <- SimulationDemo(N = 100, 'truth1',
+Output <- CompareMethodsNodesOrdering(N = 100, 'truth1',
                          signal = 1, n_data = 2,
                          n_nodeordering = 6)
 

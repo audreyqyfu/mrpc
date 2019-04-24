@@ -1,7 +1,7 @@
 \name{RobustCor}
 \alias{RobustCor}
 \title{
-Robust Correlation Matrix
+Robust correlation matrix
 }
 \description{
 Robust correlation matrix based on beta value. The value of beta plays a key role in the performance of the robust method, which controls the tradeoff between the robustness and efficiency of the estimators.
@@ -45,7 +45,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{
-R <- RobustCor(simu.data_M0,
+R <- RobustCor(simu_data_M0,
                Beta = 0.005,
                plot = FALSE)
                

@@ -1,7 +1,7 @@
 \name{DendroModuleGraph }
 \alias{DendroModuleGraph }
 \title{
-Visualization of Nodes by Dendrogram with Modules and Inferred Graph
+Visualization of nodes by dendrogram with modules and inferred graph
 }
 \description{
 Clustering dendrogram of nodes with dissimilarity based on topological overlap, together with assigned module colors and graphical visualization.
@@ -38,12 +38,12 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
-\link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm; \link{ModiSkeleton} for estimating a skeleton using the modified skeleton function; \link{EdgeOrientation} for orientation rules used to determine the edges in MRPC; \link{SimulatedData} for simulated data generating function.
+\link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm; \link{ModiSkeleton} for estimating a skeleton using the modified skeleton function; \link{EdgeOrientation} for orientation rules used to determine the edges in MRPC; \link{SimulateData} for simulated data generating function.
 }
 \examples{
 
 # Adjacency matrix from directed example graph
-Adj_directed <- as(ExampleMRPC$complex$cont$withGV$graph,
+Adj_directed <- as(data_examples$complex$cont$withGV$graph,
                    "matrix")
 
 # Plot of the graph

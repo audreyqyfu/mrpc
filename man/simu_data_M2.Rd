@@ -1,10 +1,10 @@
-\name{simu.data_M2}
-\alias{simu.data_M2}
+\name{simu_data_M2}
+\alias{simu_data_M2}
 \title{
-Data for Model 2
+Data for model 2
 }
 \description{
-Simulate Data for Model 2.
+Simulate data for model 2.
 }
 
 \details{
@@ -18,12 +18,12 @@ Matrix
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 \seealso{
-\link{SimulatedData} for simulated data generating function.
+\link{SimulateData} for simulated data generating function.
 }
 
 \examples{
 ## Model 2
-simu.data_M2 <- SimulatedData(N = 10^3, p = 0.45,
+simu_data_M2 <- SimulateData(N = 10^3, p = 0.45,
                               'model2', b0.1 = 0,
                               b1.1 = 1, b1.2 = 1,
                               b1.3 = 1, sd.1 = 1)

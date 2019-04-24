@@ -1,5 +1,5 @@
 \name{MRPCclass-class}
-\title{Class of MRPC Algorithm Results}
+\title{Class of MRPC algorithm results}
 \docType{class}
 \alias{MRPCclass-class}
 \alias{plot,MRPCclass,ANY-method}
@@ -89,7 +89,7 @@ summary.
   }
 }
 \author{
-Md. Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 \seealso{
   \link{MRPC}, \link{ModiSkeleton}
@@ -99,7 +99,7 @@ Md. Bahadur Badsha (mdbadsha@uidaho.edu)
 showClass("MRPCclass")
 
 # generate a MRPCclass object
-data <- simu.data_M1
+data <- simu_data_M1
 n <- nrow(data)      # Number of rows
 V <- colnames(data)  # Column names
 

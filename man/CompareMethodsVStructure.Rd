@@ -1,5 +1,5 @@
-\name{InferenceAccuracyExample}
-\alias{InferenceAccuracyExample}
+\name{CompareMethodsVStructure}
+\alias{CompareMethodsVStructure}
 
 \title{
 Comparison of inference accuracy with and without a v-structure
@@ -8,7 +8,7 @@ Comparison of inference accuracy with and without a v-structure
 This is the example comparison of inference accuracy with and without a v-structure by recall and precision of three methods, MPRC, mmhc, and pc, across 1000 data sets. Signal values indicate the signal strength: the larger the value the stronger the signal. The sample size in each simulated data set is 1000. See Badsha and Fu, 2018 for the comparison of inference accuracy with sample sizes of 50, 200, and 500 .  
 }
 \usage{
-InferenceAccuracyExample(N = 1000, signal, model, ita = 1000)
+CompareMethodsVStructure(N = 1000, signal, model, ita = 1000)
 }
 
 \arguments{
@@ -37,19 +37,19 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
-\link{Recall_Precision}: Performance Evaluation by Recall and Precision in MRPC.
+\link{RecallPrecision}: Performance Evaluation by Recall and Precision in MRPC.
 }
 \examples{
 # Comparison of inference accuracy without a v-structure 
 # across 10 data sets and sample size in each simulated 
 # data set is set to 100 with signal = 1.0. 
-Result1 <- InferenceAccuracyExample(N = 100, signal = 1.0,
+Result1 <- CompareMethodsVStructure(N = 100, signal = 1.0,
                                     'model1', ita = 10)
 
 # Comparison of inference accuracy with a v-structure
 # across 10 data sets and sample size in each simulated 
 # data set is set to 100 with signal=1.0. 
-Result2 <- InferenceAccuracyExample(N = 100, signal = 1.0,
+Result2 <- CompareMethodsVStructure(N = 100, signal = 1.0,
                                     'model2', ita = 10)
 
 }

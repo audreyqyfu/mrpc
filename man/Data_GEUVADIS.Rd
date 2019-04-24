@@ -1,5 +1,5 @@
-\name{Data_GEUVADIS}
-\alias{Data_GEUVADIS}
+\name{data_GEUVADIS}
+\alias{data_GEUVADIS}
 
 \title{
 Data from GEUVADIS 
@@ -23,9 +23,8 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \examples{
 # Data for 373 Europeans of eQTL 1
-Data_GEUVADIS$Data_Q1$Data_EUR
+data_GEUVADIS$Data_Q1$Data_EUR
 
 # Data for 89 Africans of eQTL 1
-Data_GEUVADIS$Data_Q1$Data_AFR
+data_GEUVADIS$Data_Q1$Data_AFR
 }
-
