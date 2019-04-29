@@ -168,11 +168,17 @@ data("data_examples")
 # graph without clustering
 plot(data_examples$complex$cont$withGV$graph) 
 
+# Adjacency matrix from directed example graph
 Adj_directed <- as(data_examples$complex$cont$withGV$graph,
                    "matrix")
 
-# dendrogram and graph with clustering
-DendroModuleGraph(Adj_directed,
-                  minModuleSize = 5,
-                  GV = 14) 
+# Plot of dendrogram with modules colors of nodes
+PlotDendrogramObj <- PlotDendrogram(Adj_directed,
+                  minModuleSize = 5)
+                  
+#Visualization of inferred graph with modules colors
+PlotGraphWithModulesObj<-PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=14,node.size=8
+,arrow.size = 5,label.size = 3,alpha = 1) 
+#plot 
+plot(PlotGraphWithModulesObj)  
 }

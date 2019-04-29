@@ -216,10 +216,17 @@ plot(pc.fit,
 Adj_directed <- as(MRPC.fit@graph,
                    "matrix")
 
-# Plot of the graph with colored modules.
-DendroModuleGraph(Adj_directed,
-                  minModuleSize = 1,
-                  GV = 1)
+# Plot of dendrogram with modules colors of nodes
+PlotDendrogramObj <- PlotDendrogram(Adj_directed,
+                  minModuleSize = 5)
+                  
+#Visualization of inferred graph with modules colors
+PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=14,node.size
+=8,arrow.size = 5,label.size = 3,alpha = 1) 
+
+#plot 
+plot(PlotGraphWithModulesObj) 
+
 
 # Other models are available and may be called as follows:
 # Model 0
