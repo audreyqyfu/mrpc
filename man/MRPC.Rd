@@ -218,10 +218,10 @@ Adj_directed <- as(MRPC.fit@graph,
 
 # Plot of dendrogram with modules colors of nodes
 PlotDendrogramObj <- PlotDendrogram(Adj_directed,
-                  minModuleSize = 5)
+                  minModuleSize = 2)
                   
 #Visualization of inferred graph with modules colors
-PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=14,node.size
+PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=1,node.size
 =8,arrow.size = 5,label.size = 3,alpha = 1) 
 
 #plot 
