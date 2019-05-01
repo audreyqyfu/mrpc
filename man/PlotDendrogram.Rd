@@ -2,13 +2,16 @@
 \alias{PlotDendrogram}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Clustering of nodes by dendrogram with modules
+Plot a dendrogram and display node groups in colored modules
 }
 \description{
-Clustering and visualization dendrogram of nodes with dissimilarity based on topological overlap, together with assigned modules colors.
+Generate a dendrogram of nodes with dissimilarity based on topological overlap, and group nodes into modules indicated by colors.
 }
 \usage{
-PlotDendrogram(Adj_directed,minModuleSize)
+PlotDendrogram(Adj_directed, minModuleSize, groupLabels = " ", 
+               dendroLabels = FALSE, hclustHang = 0.03, 
+               dendroAddGuide = FALSE, dendroGuideHang = 0.05, 
+               dendroMain = "Dendrogram with modules of nodes in colors", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,6 +21,27 @@ Adjacency matrix from directed graph
 \item{minModuleSize}{
 Minimum module size.
 }
+\item{groupLabels}{
+Argument for \link{plotDendroAndColors}. Labels for the colorings given in colors. The labels will be printed to the left of the color rows in the plot. 
+}
+\item{dendroLabels}{
+Argument for \link{plotDendroAndColors}. Dendrogram labels. 
+}
+\item{hclustHang}{
+Argument \code{hang} for \link{plot.hclust}. The fraction of the plot height by which labels should hang below the rest of the plot. 
+}
+\item{dendroAddGuide}{
+Argument \code{addGuide} for \link{plotDendroAndColors}. Logical: should vertical "guide lines" be added to the dendrogram plot? The lines make it easier to identify color codes with individual samples. 
+}
+\item{dendroGuideHang}{
+Argument \code{guideHang} for \link{plotDendroAndColors}. The fraction of the dendrogram height to leave between the top end of the guide line and the dendrogram merge height.  
+}
+\item{dendroMain}{
+Argument \code{main} for \link{plot.hclust}. Title of the plot.  
+}
+\item{...}{
+Additional plotting arguments for \link{plotDendroAndColors} and \link{plot.hclust}.  
+}
 }
 
 \value{
@@ -25,7 +49,7 @@ A list containing the graph objects as follows:
 \itemize{
 \item \code{PlotDendrogramObj}: An object of class "graph" of the estimated graph.
 \item \code{dynamicColors}: A list of colors with corresponding nodes.
-\item \code{GroupMods}: Dynamic tree cut to identify modules whose expression profiles are very similar.
+\item \code{GroupMods}: Dynamic tree cut to identify modules whose phenotype profiles are very similar.
 \item \code{GroupModsColors}: A table for number of nodes with corresponding colors.
 \item \code{Adj_symmetric_matrix}: A symmetric matrix from ddjacency matrix of directed graph.
 }
@@ -37,7 +61,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
-\link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm.
+\link{MRPC}.
 }
 \examples{
 # Adjacency matrix from directed example graph
