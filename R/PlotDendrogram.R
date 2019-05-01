@@ -1,4 +1,4 @@
-PlotDendrogram=function(Adj_directed,minModuleSize=5) {
+PlotDendrogram=function(Adj_directed, minModuleSize = 5, groupLabels = " ", dendroLabels = FALSE, hclustHang = 0.03, dendroAddGuide = FALSE, dendroGuideHang = 0.05, dendroMain = "Dendrogram with modules of nodes in colors", ...) {
   
   #Adj_directed is a matrix from directed graph
   #Start to find Module based on library(WGCNA)
@@ -42,9 +42,9 @@ PlotDendrogram=function(Adj_directed,minModuleSize=5) {
   # Plot the dendrogram and colors underneath
   #par(mfrow=c(1,2))
   #sizeGrWindow(20,6);
-  PlotDendrogramObj <- plotDendroAndColors(geneTree, dynamicColors, " ",
-                      dendroLabels = FALSE, hang = 0.03,
-                      addGuide = FALSE, guideHang = 0.05,
-                      main = "Plot of dendrogram with modules colors of nodes")
+  PlotDendrogramObj <- plotDendroAndColors(dendro = geneTree, colors = dynamicColors, groupLabels = groupLabels,
+                      dendroLabels = dendroLabels, hang = hclustHang,
+                      addGuide = dendroAddGuide, guideHang = dendroGuideHang,
+                      main = dendroMain, ...)
 return(list(graph=PlotDendrogramObj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist,Adj_symmetric_matrix=Adj_symmetric_matrix))
 }
