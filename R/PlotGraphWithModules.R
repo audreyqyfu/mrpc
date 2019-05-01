@@ -40,7 +40,7 @@ PlotGraphWithModules=function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=8,a
   #library(GGally) #Need for ggnet2 function
   #Plot the final graph
   PlotGraphWithModulesObj <- ggnet2(net,color = Module,palette = col,node.size=node.size,arrow.size = arrow.size,label=TRUE,label.size = label.size,alpha = alpha,
-                    shape.legend = "Node type",edge.label.color = Module,shape = net%v%"phono",shape.palette = c("Genotype" = 17,"Phenotype" = 19),
-                    color.legend = "Modules color",legend.position = "bottom",arrow.gap = 0.0280)
+                    shape.legend = "",edge.label.color = Module,shape = net%v%"phono",shape.palette = c("Genotype" = 17,"Phenotype" = 19),
+                    color.legend = "Modules",legend.position = "bottom",arrow.gap = 0.0280)
   return(PlotGraphWithModulesObj)
 }
