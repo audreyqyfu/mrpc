@@ -28,7 +28,12 @@ PlotGraphWithModules=function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=8,a
   #Make two group (i) for phenotypes (e.g., gene expression)=circle and (ii) genotypes=Triangle
   #shape.palette = c("Genotype" = 17,"Phenotype" = 19)
   #char=colnames(Adj_symmetric_matrix)[GV+1:(ncol(Adj_symmetric_matrix)-1)] #all CNV
-  char <- colnames(Adj_symmetric_matrix)[1:GV] #all CNV
+  if(GV==0){
+    char<-NULL
+  }
+  else{
+    char <- colnames(Adj_symmetric_matrix)[1:GV] #all CNV
+  }
   #char=colnames(Adj_symmetric_matrix)[-c(1:GV)] #all CNV
   net%v%"phono" <- ifelse((colnames(New_Mat_MO) %in% char),"Genotype","Phenotype")
   
