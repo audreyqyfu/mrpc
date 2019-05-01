@@ -1,6 +1,12 @@
 
 MRPC builds on existing PC algorithms and learns a causal network with increased accuracy.  The inferred causal network contains directed and undirected edges, with the direction indicating causality.  For genomic data, MRPC determines edge direction under the principle of Mendelian randomization when genotype and molecular phenotype (e.g. gene expression) data are both available at the individual level. Nodes in the inferred network may be a genotype or a molecular phenotype.  
-The R package MRPC is available at https://github.com/audreyqyfu/mrpc.
+Development of the R package MRPC is at https://github.com/audreyqyfu/mrpc, and official releases are available on CRAN: https://cran.r-project.org/web/packages/MRPC/index.html.
+
+Refereces:
+
+Md. Bahadur Badsha, Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. bioRxiv. 171348. doi:10.1101/171348.
+
+Md. Bahadur Badsha, Evan A Martin, Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs.  arXiv. 1806.01899.
 
 ## Installation
 
@@ -24,12 +30,13 @@ R> install.packages("packagename")
 
 The following Bioconductor packages also need to be installed before running function `install_github`:
 ```
-R> source ('https://bioconductor.org/biocLite.R')
-R> biocLite ('RBGL')
-R> biocLite ('Rgraphviz')
-R> biocLite ('GO.db')
-R> biocLite ('impute')
-R> biocLite ('preprocessCore')
+R> if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+R> BiocManager::install ('RBGL')
+R> BiocManager::install ('Rgraphviz')
+R> BiocManager::install ('GO.db')
+R> BiocManager::install ('impute')
+R> BiocManager::install ('preprocessCore')
 ```
 ### 2. Installation from the source of a released package.
 
@@ -43,6 +50,12 @@ Again, you may need to first install the Bioconductor packages that MRPC depends
 Alternatively, you may also run the following command line in R, after changing the working directory to where MRPC_xxx.tar.gz is stored on your computer:
 ```
 R> install.packages("MRPC_xxx.tar.gz", repos = NULL, type="source")
+```
+### 3. Installation from CRAN.
+
+Official releases are available on CRAN.  To install,
+```
+R> install.packages("MRPC")
 ```
 ## Using MRPC
 After installation, load the MRPC package into R:
