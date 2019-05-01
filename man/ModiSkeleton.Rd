@@ -2,10 +2,10 @@
 \alias{ModiSkeleton}
 
 \title{
-Draw Undirected Graph using the Modified Skeleton Function
+Infer a graph skeleton (undirected graph)
 }
 \description{
-The Modiskeleton function is used to estimate the undirected graph, skeleton, using the modified skeleton function. The main difference is that the ModiSkeleton function uses alpha, significance level, as a function of the prior outcomes, reject or accept hypothesis, but the existing \link{skeleton} function used alpha as a fixed pre-assigned significance level. See details in \bold{Choice of Significance Level} below.
+This function infers a graph skeleton (i.e., an undirected graph). It is based on the function \link{skeleton} from the \code{pcalg} package. Both functions perform marginal and conditional indpenendence tests.  However, \code{ModiSkeleton} implements an online false discovery rate (FDR) control method in order to control the overall FDR, whereas \link{skeleton} controls only the type I error rate for each individual test. See details in \bold{Choice of Significance Level} below.
 }
 \usage{
 ModiSkeleton(data, suffStat, FDR, indepTest, labels, p,
@@ -15,29 +15,27 @@ ModiSkeleton(data, suffStat, FDR, indepTest, labels, p,
 }
 
 \arguments{
-Since, this is the modification of the existing \link{skeleton} function, therefore, most of the terms and sentences are taken from \link{skeleton} (Spirtes et al., 2000). Also, most of the arguments are identical to \link{MRPC} and \link{pc}.
+Many arguments are similar to those in \link{skeleton} and \link{pc} in the \code{pcalg} package.  Many of the arguments here are explicitly used in \link{MRPC}.
 
 \item{data}{
-Data matrix, where the rows are the observations and the columns are the genes. The columns are ordered from  single-nucleotide polymorphism (SNPs), indels, copy number variation (CNV), or expression quantitative trait loci (eQTL) to genes. If we consider one genetic variant, then the first column of the input matrix is the genetic variant and the remaining columns are the gene expression data and so on.
+Data matrix, where the rows are samples and the columns are features (e.g., genetic variants and phenotypes). Columns for genetic varants, if available, appear before other columns for phenotypes (e.g., gene expression).  For example, if there is one genetic variant, then the first column of the data matrix is the genetic variant and the remaining columns are the gene expression data.
 }
 
-\item{suffStat}{A \link{list} of sufficient statistics, containing all necessary elements for the conditional independence tests in the function indepTest for gaussCItest. The sufficient statistics consist of the correlation matrix of the data and the sample size.
+\item{suffStat}{A list consisting of the correlation matrix of the data and the sample size.
 }
 
 \item{FDR}{
-Need to specify pre-assigned level.If FDR=0.05, that ensures FDR and mFDR remains below 0.05.
+Desired overall FDR level.
 }
 
-\item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. The different indepTest is used for different data types, for example, Gaussian data = gaussCItest, Discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)
+\item{indepTest}{Name of the statistical test. It is used to test the independence of x and y given S, where x and y are variables and S is a vector, possibly empty, of variables. The return value of indepTest is the p-value of the test for conditional independence.  Different tests may used for different data types. For example, \code{indepTest='gaussCItest'} for Gaussian data, \code{indepTest='disCItest'} for discrete data, and \code{indepTest='binCItest'} for binary data. See additional details in help(gaussCItest).
 
-The \link{ci.test} (Marco Scutari, 2010) is also used for testing conditional independence and return value of indepTest is the p-value. If none is specified, the default test statistic is the mutual information for categorical variables, the Jonckheere-Terpstra test for ordered factors and the linear correlation for continuous variables.See help(ci.test)
-
-Remember that need to specify the which indepTest would like for independence testing. For example, if you would like to use gaussCItest you would type indepTest = 'gaussCItest' into the function otherwise indepTest = 'citest'. Note that, we used \link{gaussCItest} to compare our \link{MRPC} with the existing \link{pc}, because of \link{ci.test} is not robust. See details in example.
+\link{ci.test} in the \code{bnlearn} package (Marco Scutari, 2010) may also be used for testing conditional independence and return a p-value. The default test statistic is the mutual information for categorical variables, the Jonckheere-Terpstra test for ordered factors and the linear correlation for continuous variables. See help(ci.test).
 }
 
-\item{labels}{A character vector of variable, or node, names. All variables are denoted in column in the input matrix.}
+\item{labels}{A character vector of names of variables (nodes). These are typically the column names of the data matrix.}
 
-\item{p}{(optional) The number of variables, or nodes. May be specified if the labels are not provided, in which case the labels are set to 1:p.}
+\item{p}{(optional) The number of variables (nodes). Need to be specified if the labels are not provided, in which case the labels are set to 1:p.}
 
   \item{method}{
 (optional) Character string specifying method. The default, "stable" provides an order-independent skeleton.
@@ -59,9 +57,7 @@ Remember that need to specify the which indepTest would like for independence te
 
 }
 \details{
-We incorporated sequential hypothesis testing to draw the undirected graph, skeleton, by the \link{ModiSkeleton} function this is similar to the pc algorithm \link{skeleton} function but, the difference is that the \link{ModiSkeleton} function uses alpha, significance level, as a function of the prior outcomes, reject or accept hypothesis. The \link{skeleton} function uses alpha as a fixed pre-assigned significance level. Also, the \link{ModiSkeleton} function takes a robust correlation approach (Badsha et al., 2013) which reduces the impact of outliers. While the \link{skeleton} function uses classical correlation which is highly influnced by outliers. See details in in \link{ModiSkeleton} and \link{skeleton}). The other terms are the same as \link{skeleton}.
-
-The skeleton function starts with a complete undirected graph. Then a series of conditional independence tests is done and edges are deleted in the following way.
+The \link{ModiSkeleton} function incorporates sequential hypothesis testing to infer the graph skeleton and can take a robust correlation approach (Badsha et al., 2013) which reduces the impact of outliers. This function starts with a complete undirected graph and performs a series of marginal and conditional independence tests, removing the corresponding edge if the test is not rejected.
 
 \bold{First}, all pairs of nodes are tested for marginal independence. If two nodes x and y are judged to be marginally independent at level alpha, we adjusted the significance level at every test, see below for the details \bold{Choice of Significance Level}, the edge between them is deleted and the empty set is saved as separation sets S[x, y] and S[y, x]. After all pairs have been tested for marginal independence and some edges might have been removed.
 
@@ -131,12 +127,12 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
- \link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based PC (MRPC) algorithm; \link{EdgeOrientation} for orientation rules for edges in MRPC; \link{SimulateData} simulated data generating function.
+ \link{MRPC}; \link{EdgeOrientation}; \link{SimulateData}.
 }
 \examples{
 # Load packages
-library(pcalg)   # library for pc algorithm
-library(bnlearn) # library for ci.test
+library(pcalg)   # library for multiple pc algorithms
+library(bnlearn) # library for Bayesian network inference algorithms
 
 # Load predefined simulated data
 # Data pre-processing
