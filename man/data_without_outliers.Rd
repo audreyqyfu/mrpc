@@ -5,7 +5,8 @@
 Example data without outliers
 }
 \description{
-The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 and T3. The genotype nodes are discrete, whereas the phenotype nodes are continuous. We randomly added 10 artificial outliers to our original data matrix.First, we generated uniform distribution for outlying expression and add with the original data. Then we check the robustness by three methods (MRPC, mmhc, and pc) in the presence of outliers.
+The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 and T3.  The code below compares the performance of \link{MRPC}, \link{mmhc} and \link{pc} on this data set.
+
 }
 
 \value{
