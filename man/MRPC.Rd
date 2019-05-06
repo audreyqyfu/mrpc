@@ -67,25 +67,21 @@ Remember that need to specify the which indepTest would like for independence te
 
 }
 \details{
-Nodes are used as major building blocks of the models, which represent random variables and edges, which encode conditional dependence relations of the enclosing vertices (Kalisch and Buhlmann, 2007). The structure of conditional independence among the random variables can be explored using the Markov properties. The directed edges show the presence and direction of direct causal effects. A bidirected edge means that the edge orientation should be forward (--->) or bacward (<---). The PC algorithm is computationally efficient for learning the underlying DAG (Kalisch and Buhlmann, 2007). The MPRC algorithm improves on the existing PC algorithm in the following aspects:
+The PC algorithm is computationally efficient for learning a directed acyclic graph (Spirtes et al., 2000).  Several variants of the original PC algorithms are available (Kalisch and Buhlmann, 2007; Kalisch et al., 2012). Similar to these PC-like algorithms, our MPRC algorithm also contains two main steps:
+    
+\bold{Step-1}: Inference of the graph skeleton.  A graph skeleton is an undirected graph with edges that are supported by the data.  Similar to existing PC-like algorithms, we perform statistical tests for marginal and conditional independence tests.  If the null hypothesis of independence is not rejected, then the corresponding edge is removed and never tested again.  
+    
+However, unlike existing algorithms, which control only the type I error rate for each individual test, MRPC implements the LOND (Level On the Number of Discoveries) method (Javanmard and Montanari, 2015), which is a sequential hypothesis testing procedure and sets the significance level for each test based on the number of discoveries (i.e., rejections), to control the overall false discovery rate (FDR).  See \link{ModiSkeleton}.
+    
+Genome data may have outliers that drastically alter the topology of the inferred graph. MRPC allows for the estimate of robust correlation, which may be the substitute of the Pearson correlation as the input to graph inference (Badsha et al., 2013).    
 
-(i) the genotype data at genetic variants provide additional information that helps distinguish the casual direction between two genes; this is the rationale behind the principle of Mendelian Randomization (PMR). This principle can greatly reduce the space of possible graphs and increase the inference efficiency for inference of genomic data but PC does not rely on MR and determination of the edge direction can be tricky when the graph is large.
-
-(ii) the number of statistical tests is unknown beforehand in all existing variants of the PC algorithm. It is unclear how these algorithms control the false discovery rate (FDR) or marginal FDR (mFDR), because it controls only the type I error rate for each individual test.
-
-(iii) the phenotype data often have outliers, even after normalization, which may drastically alter the topology of the inferred graph. 
-
-(iv) to find the v-structure the PC algorithm assumes that if there is no evidence that two nodes are conditionally independent, then the nodes are conditionally dependent, although we do not have any evidence about their conditional dependence. In that case the v-structure is worng.
-
-To overcome the above challenges, we propose a novel algorithm, MRPC (MR-based PC), which can be applied to genotype and gene expression data and efficiently learn a causal graph of genes. \bold{First}, we take a robust approach (Badsha et al., 2013) and calculate the robust correlation matrix on which the series of hypothesis testing is performed. \bold{Second}, we adopt a sequential method LOND (significance Levels based On Number of Discoveries) (Javanmard and Montanari, 2015) that controls the FDR or marginal FDR (mFDR) in an online manner, where level of significance is used a function of the previous decision made so far (we adjusted at each step in the test) and that ensures that FDR and mFDR remains below alpha. \bold{Third}, we improve the v-structure identification using the addtional conditional test. \bold{Finally}, we implement a new way for edge direction determination based on Mendelian randomization.
-
-The two main steps in the MRPC algorithm are as follows:
-
-\bold{Step-1}: We incorporated sequential hypothesis testing to draw the undirected graph (skeleton) by \link{ModiSkeleton} function  (similar as the pc algorithm by \link{skeleton} function but, difference is that the \link{ModiSkeleton} function is used alpha (significance level) as a function of the prior outcomes (reject or accept hypothesis) but the \link{skeleton} function used alpha as a fixed pre-assigned significance level and \link{ModiSkeleton} take a robust correlation approach reduces the impact of outliers but the \link{skeleton} used classical correlation which is highly influnced by outliers. See details in in \link{ModiSkeleton} and \link{skeleton}).
-
-\bold{Step-2}: We implemented a new way for edge direction determination based on Mendelian randomization (MR). We consider the first column of the input matrix will be the genotype of the SNPs/indels/CNV/eQTL and the remaining column are the gene expression data. See details in \link{EdgeOrientation}.
-
-All statistical inference is done in \bold{Step 1}, while \bold{Step-2} is just application of deterministic rules on the results of \bold{Step-1}. If the first part is done correctly, the second part will never fail. If, however, there are errors in \bold{Step-1}, \bold{Step-2} will be more sensitive since it depends on the inferential results of \bold{Step-1}.
+\bold{Step-2}: Edge orientation.  With the graph skeleton inferred from Step 1, we orient each edge that is present in the graph.  MRPC is fundamentally different from algorithms in the \code{pcalg} (Kalisch and Buhlmann, 2007; Kalisch et al., 2012) and \code{bnlearn} (Scutari, 2010) packages in the following ways (see \link{EdgeOrientation}):
+    
+(i) When analyzing genomic data, genetic variants provide additional information that helps distinguish the casual direction between two genes.  Our MRPC algorithm incorporates the principle of Mendelian Randomization (PMR) in graph inference, which greatly reduces the space of possible graphs and increases the inference efficiency.
+    
+(ii) Next or if the input is not genomic data, we search for possible triplets that may form a v-structure (e.g., X→Y←Z). We check conditional test results from step I to see whether X and Z are independent given Y. If they are, then this is not a v-structure; alternative models for the triplet may be any of the following three Markov equivalent graphs: X→Y→Z, X←Y←Z, and X←Y→Z. If this test is not performed in the first step, we conduct it in this step.  This step improves the accuracy of the v-structure identification over existing methods. 
+    
+(iii) If there are undirected edges after steps (i) and (ii), we examine iteratively triplets of nodes with at least one directed edge and no more than one undirected edge. We check the marginal and conditional test results from Step I to determine which of the basic models is consistent with the test results.  It is plausible that some undirected edges cannot be oriented, and we leave them as undirected.
 }
 
 \value{
