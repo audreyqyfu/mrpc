@@ -21,7 +21,7 @@ Many arguments are similar to those in \link{skeleton} and \link{pc} in the \cod
 Data matrix, where the rows are samples and the columns are features (e.g., genetic variants and phenotypes). Columns for genetic varants, if available, appear before other columns for phenotypes (e.g., gene expression).  For example, if there is one genetic variant, then the first column of the data matrix is the genetic variant and the remaining columns are the gene expression data.
 }
 
-\item{suffStat}{A list consisting of the correlation matrix of the data and the sample size.
+\item{suffStat}{A list consisting of the correlation matrix of the data and the sample size.  
 }
 
 \item{FDR}{
@@ -57,11 +57,11 @@ Desired overall FDR level.
 
 }
 \details{
-The \link{ModiSkeleton} function incorporates sequential hypothesis testing to infer the graph skeleton and can take a robust correlation approach (Badsha et al., 2013) which reduces the impact of outliers. This function starts with a complete undirected graph and performs a series of marginal and conditional independence tests, removing the corresponding edge if the test is not rejected.
+The \link{ModiSkeleton} function incorporates sequential hypothesis testing to infer the graph skeleton. This function starts with a complete graph (all nodes are connected with undirected edges) and performs a series of marginal and conditional independence tests, removing the corresponding edge if the test is not rejected.
 
 \bold{First}, all pairs of nodes are tested for marginal independence. If two nodes x and y are judged to be marginally independent at level alpha, we adjusted the significance level at every test, see below for the details \bold{Choice of Significance Level}, the edge between them is deleted and the empty set is saved as separation sets S[x, y] and S[y, x]. After all pairs have been tested for marginal independence and some edges might have been removed.
 
-\bold{Second}, all pairs of nodes (x, y) are tested for conditional independence given any single node or all possible subsets of the remaining nodes. If there is any node z such that x and y are conditionally independent given z, the edge between x and y is removed and node z is saved as separation set, sepset, S[x, y] and S[y, x]. The algorithm continues in this way by increasing the size of the conditioning set step by step. The algorithm stops if all adjacency sets in the current graph are smaller than the size of the conditioning set. The result is the skeleton in which every edge is still undirected.
+\bold{Second}, nodes (x, y) with an edge are tested for conditional independence given any single node or all possible subsets of the remaining nodes. If there is any node z such that x and y are conditionally independent given z, the edge between x and y is removed and node z is saved as separation set, sepset, S[x, y] and S[y, x]. The algorithm continues in this way by increasing the size of the conditioning set step by step. The algorithm stops if all adjacency sets in the current graph are smaller than the size of the conditioning set. The result is the skeleton in which every edge is still undirected.
 
 Now, each triple of vertices (x, z, y) such that the pairs (x, z) and (y, z) are each adjacent in the skeleton but (x, y) are not, such a triple is called an 'unshielded triple', is oriented based on the information saved in the conditioning sepset S[x, y] and S[y, x]. More precisely, an unshielded triple x---z---y is oriented as x ---> z <--- y, called a v-structure, if z is not in S[x, y] = S[y, x] i.e., x and y are conditionally dependent in given z.
 
@@ -71,7 +71,7 @@ One of the most important parts of our method is the choice of significance leve
 To draw the undirected skeleton, the \link{skeleton} algorithm (Spirtes et al., 2000) used alpha as a fixed pre-assigned significance level, which does not control the FDR and mFDR. Kalisch and Buhlmann, 2007 also used alpha as a fixed pre-assigned value based on Structural Hamming Distance (SHD) suggested by Tsamardinos et al., (2006) for estimating high-dimensional DAG with the \link{pc} algorithm. But, the problem is that to calculate SHD, we have to need the true graph, which is unknown in our study.
 
 Another problem of using fixed pre-assigned significance level, alpha, is that if the p-value is close to the value of alpha, then it is difficult to accept or reject null hypotheses. For example, if p-value = 0.02312 and if we used fixed alpha = 0.05, then it is considered to be statistically significant. But, if we used alpha = 0.01, then it is considered to be statistically insignificant, see examples in \link{MRPC} for model 0 and model 3. Now, a question is how can we choose the appropriate value of alpha.
-To avoid these problems, we need to adjust the alpha value at each step of the test. (Benjamini and Hochberg, 1995) also proposed a sequential testing procedure to control FDR in multiple testing problems assuming that all the p-values are given a priori but it does not address the scenario described above.
+To avoid these problems, we need to adjust the alpha value at each step of the test. 
 
 Therefore, the \link{ModiSkeleton} function uses the LOND algorithm for alpha, level of significance, as a function of the prior outcomes, reject or accept, that control FDR and mFDR in an online manner (Javanmard and Montanari, 2015), which ensures that FDR remains below a pre-assigned alpha level.
 
