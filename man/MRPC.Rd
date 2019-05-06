@@ -143,7 +143,7 @@ principle of Mendelian randomization. bioRxiv, 2018. doi:10.1101/171348.
 
 }
 \seealso{
-\link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{EdgeOrientation} for orientation rules determination for edges in MRPC; \link{SimulateData} for simulated data generating function.
+\link{ModiSkeleton} for inferring a graph skeleton (i.e., an undirected graph); \link{EdgeOrientation} for edge orientation in the inferred graph skeleton; \link{SimulateData} for generating data under a topology.
 }
 \examples{
 # Load packages
