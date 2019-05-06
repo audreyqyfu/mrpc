@@ -2,10 +2,10 @@
 \alias{MRPCtruth}
 
 \title{
-Truth models for MRPC examples
+Graphs used in simulation
 }
 \description{
-Truth of the five basic topologies and three common topologies in biology, multi-parents, star and layered.
+Topologies of the five basic models and three common graphs in biology: namely the multi-parent graph, the star graph and the layered graph.
 }
 
 \author{
