@@ -1,10 +1,10 @@
 \name{MRPC}
 \alias{MRPC}
 \title{
-Estimate a causal network using the MRPC algorithm
+Infer a causal network using the MRPC algorithm
 }
 \description{
-The MRPC () function is used to estimate a causal network (or causal graph) with directed and undirected edges from observational data, by modifying the existing \link{pc} algorithm (Spirtes et al., 2000). Existing \link{pc} algorithm is used for estimating the DAG from observational data and several variants are implemented in the R package called pcalg. Several challenges remain when the \link{pc} algorithm is applied to noisy genomic data. To tackle these challenges, we developed a novel machine learning algorithm called Mendelian Randomization (MR) based PC (MRPC) to efficiently learn a causal gene regulatory network (or a causal graph of genes) using genotype and gene expression data. Unlike existing \link{pc} algorithm, the four major updates in the MRPC algorithm are that (i) we incorporate a sequential testing method to control the False Discovery Rate (FDR), (ii) take a robust approach to reduce the impact of outliers, (iii) improve v-structure identification and (iv) implement a new way for edge direction determination based on the Principle of Mendelian Randomization (PMR) (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
+This function is used to infer a causal network (or a causal graph) with directed and undirected edges from observational data.  It implements the MRPC (PC with the principle of Mendelian randomization) algorithm described in Badsha and Fu (2018), and the implementation is based on the \link{pc} algorithm in the \code{pcalg} package. The MRPC algorithm contains four major updates over the \link{pc} algorithm: (i) incorporating a sequential testing method to control the False Discovery Rate (FDR), (ii) improved v-structure identification; (iii) allowing for calculation of robust correlation to reduce the impact of outliers, and (iv) a new procedure for edge orientation based on the Principle of Mendelian Randomization (PMR) (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
 
 }
 \usage{
@@ -19,10 +19,10 @@ MRPC(data, suffStat, GV, FDR = 0.05, indepTest, labels, p,
 }
 
 \arguments{
-The MRPC algorithm is a modification of the existing \link{pc} algorithm. Therefore, most of the terms and sentences are taken from \link{pc} (Spirtes et al., 2000).
+This function is based on the \link{pc} function in the \code{pcalg} package. Therefore, many arguments are similar to those in \link{pc}.
 
 \item{data}{
-Data matrix, where the rows are the observations and the columns are the genes. The columns are ordered from  single-nucleotide polymorphism (SNPs), indels, copy number variation (CNV), or expression quantitative trait loci (eQTL) to genes. If we consider one genetic variant, then the first column of the input matrix is the genetic variant and the remaining columns are the gene expression data and so on.
+Data matrix, where the rows are observations and the columns are features (i.e., variables, or nodes). If genetic variants are included, then the columns start from genetic variants (e.g., single-nucleotide polymorphisms, or SNPs; insertions and deletions, or indels; copy number variation, or CNVs; and expression quantitative trait loci, or eQTLs to genes), and followed by phenotypes (e.g., gene expression).  For example, if the data contains one genetic variant, then the first column of the input matrix is the genetic variant and the remaining columns are the gene expression data.
 }
 
 \item{suffStat}{A \link{list} of sufficient statistics, containing all necessary elements for the conditional independence tests in the function indepTest for gaussCItest. The sufficient statistics consist of the correlation matrix of the data and the sample size.
@@ -32,7 +32,7 @@ Data matrix, where the rows are the observations and the columns are the genes. 
 }
 
 \item{FDR}{
-Need to specify pre-assigned level. If FDR = 0.05 this ensures FDR and mFDR remains below 0.05.
+Need to specify the desired level of the overall false discovery rate. 
 }
 \item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. The different indepTest is used for different data types, for example, Gaussian data = gaussCItest, Discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)
 
