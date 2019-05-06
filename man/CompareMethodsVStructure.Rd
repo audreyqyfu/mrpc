@@ -5,7 +5,7 @@
 Comparison of inference accuracy with and without a v-structure
 }
 \description{
-This is the example comparison of inference accuracy with and without a v-structure by recall and precision of three methods, MPRC, mmhc, and pc, across 1000 data sets. Signal values indicate the signal strength: the larger the value the stronger the signal. The sample size in each simulated data set is 1000. See Badsha and Fu, 2018 for the comparison of inference accuracy with sample sizes of 50, 200, and 500 .  
+This is the example comparison of inference accuracy with and without a v-structure by recall and precision of three methods, \link{MPRC}, \link{mmhc}, and \link{pc}, across 1000 data sets. Signal values indicate the signal strength: the larger the value the stronger the signal. The sample size in each simulated data set is 1000. See Badsha and Fu (2018) for the comparison of inference accuracy with sample sizes of 50, 200, and 500 .  
 }
 \usage{
 CompareMethodsVStructure(N = 1000, signal, model, ita = 1000)
@@ -30,8 +30,16 @@ The output is a matrix, where the rows are the three methods, MRPC, mmhc, and pc
 Matrix
 }
 \references{
-1. Badsha MB, Fu AQ (2018). Learning causal biological networks with the principle of Mendelian randomization." bioRxiv. doi:10.1101/171348.
+Md Bahadur Badsha and Audrey Qiuyan Fu (2018). Learning causal biological networks with the 
+principle of Mendelian randomization. bioRxiv doi:10.1101/171348.
+
+Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
+  
+Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
+
+Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
 }
+
 \author{
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
