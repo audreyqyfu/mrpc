@@ -2,7 +2,7 @@
 MRPC builds on existing PC algorithms and learns a causal network with increased accuracy.  The inferred causal network contains directed and undirected edges, with the direction indicating causality.  For genomic data, MRPC determines edge direction under the principle of Mendelian randomization when genotype and molecular phenotype (e.g. gene expression) data are both available at the individual level. Nodes in the inferred network may be a genotype or a molecular phenotype.  
 Development of the R package MRPC is at https://github.com/audreyqyfu/mrpc, and official releases are available on CRAN: https://cran.r-project.org/web/packages/MRPC/index.html.
 
-Refereces:
+References:
 
 Md. Bahadur Badsha, Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. bioRxiv. 171348. doi:10.1101/171348.
 
