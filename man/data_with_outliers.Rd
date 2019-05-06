@@ -2,10 +2,10 @@
 \alias{data_with_outliers}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Example data with outliers and impact on graph inference
+Example data with outliers
 }
 \description{
-The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 and T3. The genotype nodes are discrete, whereas the phenotype nodes are continuous. We randomly added 10 artificial outliers to our original data matrix. First, we generated uniform distribution for outlying expression and add with the original data. Then we check the robustness by three methods (MRPC, mmhc, and pc) in the presence of outliers.
+The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 and T3. The genotype nodes are discrete, whereas the phenotype nodes are continuous. The data matrix includes 10 outliers generated from a uniform distribution. 
 }
 
 \value{
