@@ -15,7 +15,7 @@ ModiSkeleton(data, suffStat, FDR, indepTest, labels, p,
 }
 
 \arguments{
-Many arguments are similar to those in \link{skeleton} and \link{pc} in the \code{pcalg} package.  Many of the arguments here are explicitly used in \link{MRPC}.
+Many arguments are similar to those in \link{skeleton} and \link{pc} in the \code{pcalg} package.  Several arguments here are also arguments for the function \link{MRPC}.
 
 \item{data}{
 Data matrix, where the rows are samples and the columns are features (e.g., genetic variants and phenotypes). Columns for genetic varants, if available, appear before other columns for phenotypes (e.g., gene expression).  For example, if there is one genetic variant, then the first column of the data matrix is the genetic variant and the remaining columns are the gene expression data.
