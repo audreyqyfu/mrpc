@@ -2,10 +2,10 @@
 \alias{seqDiff}
 
 \title{
-Deviation of the two sequnces
+Deviation between two graphs represented by two sequences
 }
 \description{
-Deviation of the inferred graph from the true graph.
+This function evaluates whether two graphs are identical.  Each graph is represented first by a binary vector, which is the vectorized adjacency matrix, and then converted to a decimal number.  The difference in the decimal numberes is the deviation between the two graphs.
 }
 \usage{
 seqDiff(g1, g2)
