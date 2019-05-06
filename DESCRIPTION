@@ -5,8 +5,8 @@ Version: 2.1.0
 Author: Md Bahadur Badsha [aut,cre],Evan A Martin [ctb] and Audrey Qiuyan Fu [aut]
 Maintainer: Md Bahadur Badsha <mdbadsha@uidaho.edu>
 Description: This package implements the MRPC (PC with the principle of Mendelian randomization) algorithm to 
-            infer causal graph. It also contains functions to simulate data under a certain topology, to visual 
-            graphs, and to compare graphs. 
+            infer causal graphs. It also contains functions to simulate data under a certain topology, to visualize 
+            a graph in different ways, and to compare graphs and quantify the differences. 
             See Badsha and Fu (2018) <doi:10.1101/171348>,Badsha, Martin and Fu (2018) <arXiv:1806.01899>. 
 License: GPL (>= 2)
 Depends: R (>= 3.0)
