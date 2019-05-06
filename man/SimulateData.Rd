@@ -2,10 +2,10 @@
 \alias{SimulateData}
 
 \title{
-Generating simulated data
+Simulate data under certain graphs
 }
 \description{
-Function for simulating data.
+This function simulates data using linear models for several graphs: the five basic topologies and three topologies that are common in biology, namely the multi-parent graph, the star graph and the layered graph.  See references for details.
 }
 \usage{
 SimulateData(N, p, model, b0.1, b1.1, b1.2, b1.3, sd.1)
@@ -36,9 +36,14 @@ Matrix
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
+\references{
+Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. bioRxiv, 2018. doi:10.1101/171348.
+  
+Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs. arXiv, 2018. arXiv:1806.01899.  
+}
 
 \seealso{
-\link{MRPC} for estimating a DAG using the modified pc (MRPC) algorithm; \link{ModiSkeleton} for estimating a undirected graph using modified \link{skeleton} function; \link{EdgeOrientation} for orientation rules for edges in MRPC algorithm; \link{SimulateDataNP} the gene to have data generated has no parent; \link{SimulateData1P} the node to have data generated has one parent; \link{SimulateData2P} the node to have data generated has two parents.
+\link{MRPC}; \link{SimulateDataNP}, which simulates data for a node with no parent; \link{SimulateData1P} for a node with one parent; \link{SimulateData2P} for a node with two parents.
 
 }
 \examples{
