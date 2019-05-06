@@ -27,14 +27,13 @@ Need to specify pre-assigned level. If FDR = 0.05, that ensures FDR and mFDR rem
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
 \details{
-The orientation of the edge directions based on Mendelian randomization using the four different cases. Here, we consider x is a genetic variant, y and z are the gene expression data. The 1st column of the input matrix will be the genetic variant and the remaining columns are the gene expression data.
+The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu (2018) and Badsha et al. (2018). For example, we consider x to be a genetic variant, y and z the phenotype nodes.
 
 Four different cases are as follows:
 
 \bold{Case-1}: Relation between x, genetic variant, and the other nodes. Then genetic variant will regulate the other node, genes, and direction will be genetic variant --> other node. Note that if the data has more than one genetic variant and two genetic variant have edges, then direction will be genetic variant <--> genetic variant, which indicates that there is evidence that the two genetic variants are not independent, but we do not have enough information to determine which genetic variant is the regulator and which is the target.
 
 \bold{Case-2}: If y and z are adjacent and, x and z are conditionally independent given y, then gene y will regulate the expression of gene z and the edge direction will be y --> z.
-
 
 \bold{Case-3}: If y and z are adjacent and, x and z are conditionally dependent given y, then gene z will regulate the expression of gene y and the edge direction will be z --> y.
 
