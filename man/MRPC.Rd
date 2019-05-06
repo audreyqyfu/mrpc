@@ -61,7 +61,7 @@ Remember that need to specify the which indepTest would like for independence te
 
 \item{maj.rule}{(optional) Logical. Indicates that the triplets will be checked for ambiguity using a majority rule idea, which is less strict than the conservative PC algorithm. For more information, see details.}
 
-\item{solve.confl}{(optional) If TRUE, the orientation of the v-structures and the orientation rules work with lists for candidate sets and allow bi-directed edges to resolve conflicting edge orientations. In this case, only option u2pd = "relaxed"" is supported. Note that the resulting object might not be a CPDAG because bi-directed edges might be present. See details for more information.}
+\item{solve.confl}{(optional) If TRUE, the orientation of the v-structures and the orientation rules work with lists for candidate sets and allow bi-directed edges to resolve conflicting edge orientations. In this case, only option u2pd = "relaxed" is supported. Note that the resulting object might not be a CPDAG because bi-directed edges might be present. See details for more information.}
 
 \item{verbose}{(optional) If TRUE, detailed output is provided. The default is FALSE which does not print output details.}
 
@@ -69,13 +69,13 @@ Remember that need to specify the which indepTest would like for independence te
 \details{
 Nodes are used as major building blocks of the models, which represent random variables and edges, which encode conditional dependence relations of the enclosing vertices (Kalisch and Buhlmann, 2007). The structure of conditional independence among the random variables can be explored using the Markov properties. The directed edges show the presence and direction of direct causal effects. A bidirected edge means that the edge orientation should be forward (--->) or bacward (<---). The PC algorithm is computationally efficient for learning the underlying DAG (Kalisch and Buhlmann, 2007). The MPRC algorithm improves on the existing PC algorithm in the following aspects:
 
-(i) the genotype data at genetic variants (e.g., SNPs and copy number variation) provide additional information that helps distinguish the casual direction between two genes; this is the rationale behind Mendelian Randomization (MR). MR can greatly reduce the space of possible graphs and increase the inference efficiency for inference of genomic data but PC does not rely on MR and determination of the edge direction can be tricky when the graph is large.
+(i) the genotype data at genetic variants provide additional information that helps distinguish the casual direction between two genes; this is the rationale behind the principle of Mendelian Randomization (PMR). This principle can greatly reduce the space of possible graphs and increase the inference efficiency for inference of genomic data but PC does not rely on MR and determination of the edge direction can be tricky when the graph is large.
 
-(ii) the number of statistical tests is unknown beforehand in all existing variants of the PC algorithm. It is unclear how these algorithms control the false discovery rate (FDR) or marginal FDR (mFDR), because it is used alpha as a fixed pre-assigned significance level for testing the independence test, but results are sensitive to the choice of alpha, which is an important issue for multiple hypotheses testing.
+(ii) the number of statistical tests is unknown beforehand in all existing variants of the PC algorithm. It is unclear how these algorithms control the false discovery rate (FDR) or marginal FDR (mFDR), because it controls only the type I error rate for each individual test.
 
-(iii) the gene expression data often have outliers, even after normalization, which may drastically alter the topology of the inferred graph. 
+(iii) the phenotype data often have outliers, even after normalization, which may drastically alter the topology of the inferred graph. 
 
-(iv) to find the v-structure the PC algorithm assumes that if there is no evidence that two nodes are conditionally independent, then the nodes are conditionally dependent, although we don't have any evidence about their conditional dependence. In that case the v-structure is worng.
+(iv) to find the v-structure the PC algorithm assumes that if there is no evidence that two nodes are conditionally independent, then the nodes are conditionally dependent, although we do not have any evidence about their conditional dependence. In that case the v-structure is worng.
 
 To overcome the above challenges, we propose a novel algorithm, MRPC (MR-based PC), which can be applied to genotype and gene expression data and efficiently learn a causal graph of genes. \bold{First}, we take a robust approach (Badsha et al., 2013) and calculate the robust correlation matrix on which the series of hypothesis testing is performed. \bold{Second}, we adopt a sequential method LOND (significance Levels based On Number of Discoveries) (Javanmard and Montanari, 2015) that controls the FDR or marginal FDR (mFDR) in an online manner, where level of significance is used a function of the previous decision made so far (we adjusted at each step in the test) and that ensures that FDR and mFDR remains below alpha. \bold{Third}, we improve the v-structure identification using the addtional conditional test. \bold{Finally}, we implement a new way for edge direction determination based on Mendelian randomization.
 
@@ -124,22 +124,22 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-1.Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
+Md Bahadur Badsha and Audrey Qiuyan Fu (2018). Learning causal biological networks with the 
+principle of Mendelian randomization. bioRxiv doi:10.1101/171348.
 
-2. Javanmard and Montanari (March 5, 2015) On Online Control of False Discovery Rate. arXiv:150206197 [statME].
+Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 
-3.Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26 (2012).
+Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013) Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
 
-4. Kalisch, M. and Buhlmann, P. (2007) Estimating High-Dimensional Directed Acyclic Graphs with the PC-Algorithm, Journal of Machine Learning Research, 8, 613-636.
+Javanmard, A. and Montanari, A. (2015) On Online Control of False Discovery Rate. arXiv:150206197 [statME].
 
-5.Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
+Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
 
-6. Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the 
-principle of Mendelian randomization. bioRxiv, 2018. doi:10.1101/171348.
+Kalisch, M. and Buhlmann, P. (2007) Estimating High-Dimensional Directed Acyclic Graphs with the PC-Algorithm, Journal of Machine Learning Research, 8, 613-636.
 
-7. Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs. arXiv, 2018. arXiv:1806.01899
+Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
 
-8. Spirtes,P.  Glymour, C. and Scheines, R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
+Spirtes,P.  Glymour, C. and Scheines, R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
 
 }
 \seealso{
