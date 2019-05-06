@@ -1,14 +1,14 @@
 \name{simu_data_M2}
 \alias{simu_data_M2}
 \title{
-Data for model 2
+Data for Model 2
 }
 \description{
-Simulate data for model 2.
+Data simulated under Model 2.
 }
 
 \details{
-The column order of the input matrix is the genotype from Single-nucleotide polymorphism (SNPs), indels, copy number variation (CNV), or Expression quantitative trait loci (eQTL) to genes. If we consider one SNPs/CNV/indels/CNV/eQTL then the first column of the input matrix is the SNPs/CNV/indels/CNV/eQTL and the remaining columns are the gene expression data.
+The columns of the data matrix are the genetic variant (with three genotypes) and phenotype nodes.
 }
 
 \value{
@@ -18,5 +18,5 @@ Matrix
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 \seealso{
-\link{SimulateData} for simulated data generating function.
+\link{SimulateData}.
 }
