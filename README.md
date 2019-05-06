@@ -26,7 +26,6 @@ MRPC depends on several R packages from CRAN and from Bioconductor.  It is likel
 ```
 R> install.packages("packagename")
 ```
-**_Note that the package git2r is one of the required packages.  However, currently (as of July 2018) its binary release for OS X is behind its source version and its Windows binary release. If you are using OS X, you need to install the slightly-behind binary release for OS X._**
 
 The following Bioconductor packages also need to be installed before running function `install_github`:
 ```
