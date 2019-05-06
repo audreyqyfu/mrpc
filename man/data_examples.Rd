@@ -2,17 +2,17 @@
 \alias{data_examples}
 
 \title{
-Example data for simple and complex model
+Example data under simple and complex models
 }
 \description{
-Examples with both continuous and discrete data.
+Example data under the simple and complex graphs.  Data may be continuous or discrete.
 }
 \usage{
 data(data_examples)
 }
 
 \details{
-Contains a numeric data matrix and a graph for both continuous and discrete data. 
+For each model, the graph and a simulated data matrix are available for both continuous and discrete data. 
 
 \bold{For continuous data with genetic information}: 1000 samples in row and 6 variables in column. First two columns are the genetic variants and remaning columns are gene expression.
 
