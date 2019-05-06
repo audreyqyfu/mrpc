@@ -133,15 +133,15 @@ Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013) Robust complementary
 
 Javanmard, A. and Montanari, A. (2015) On Online Control of False Discovery Rate. arXiv:150206197 [statME].
 
-Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
-
 Kalisch, M. and Buhlmann, P. (2007) Estimating High-Dimensional Directed Acyclic Graphs with the PC-Algorithm, Journal of Machine Learning Research, 8, 613-636.
+
+Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
 
 Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
 
 Spirtes,P.  Glymour, C. and Scheines, R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
-
 }
+                    
 \seealso{
 \link{ModiSkeleton} for inferring a graph skeleton (i.e., an undirected graph); \link{EdgeOrientation} for edge orientation in the inferred graph skeleton; \link{SimulateData} for generating data under a topology.
 }
