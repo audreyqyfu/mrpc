@@ -5,11 +5,16 @@
 Graphs used in simulation
 }
 \description{
-Topologies of the five basic models and three common graphs in biology: namely the multi-parent graph, the star graph and the layered graph.
+Topologies of the five basic models and three common graphs in biology: namely the multi-parent graph, the star graph and the layered graph.  See details in Badsha and Fu (2018).
 }
 
 \author{
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
+}
+
+\references{
+Md Bahadur Badsha and Audrey Qiuyan Fu (2018). Learning causal biological networks with the 
+principle of Mendelian randomization. bioRxiv doi:10.1101/171348.     
 }
 
 \examples{
