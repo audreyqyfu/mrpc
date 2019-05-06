@@ -4,7 +4,7 @@
 \title{Comparision of inference accuracy using the same data but with different node orderings.}
 
 \description{
-Investigate the impact of the same data but with different node orderings across three methods: \link{MRPC} (Badsha et al., 2018), \link{mmhc} implemented in \code{bnlearn} (Scutari, 2010) and \link{pc} implemented in \code{pcalg} (Kalisch et al., 2012). 
+Investigate the impact of the same data but with different node orderings across three methods: \link{MRPC} (Badsha and Fu, 2018; Badsha et al., 2018), \link{mmhc} implemented in \code{bnlearn} (Scutari, 2010) and \link{pc} implemented in \code{pcalg} (Kalisch et al., 2012). 
 }
 \usage{
 CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
@@ -24,11 +24,15 @@ The output is a matrix where each row indicates the data sets and the columns ar
 Matrix
 }
 \references{
-1.Md. Bahadur Badsha, Audrey Qiuyan Fu: Learning causal biological networks with generalized Mendelian randomization.bioRxiv (2017), 171348. 
+Md Bahadur Badsha and Audrey Qiuyan Fu (2018). Learning causal biological networks with the 
+principle of Mendelian randomization. bioRxiv doi:10.1101/171348.
 
-2.Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
+Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 
-3.Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. Causal Inference Using Graphical Models with the R Package pcalg. J. Stat.Softw. 47, 26 (2012).
+Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
+
+Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
+
 }
 
 \author{
