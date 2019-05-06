@@ -79,10 +79,10 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the 
-principle of Mendelian randomization. bioRxiv, 2018. doi:10.1101/171348.
-    
-Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs. arXiv, 2018. arXiv:1806.01899.
+Md Bahadur Badsha and Audrey Qiuyan Fu (2018). Learning causal biological networks with the 
+principle of Mendelian randomization. bioRxiv doi:10.1101/171348.
+
+Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 }
                 
 \seealso{
