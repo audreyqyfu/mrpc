@@ -2,10 +2,10 @@
 \alias{EdgeOrientation}
 
 \title{
-Edge orientation rules for the MRPC algorithm
+Perform edge orientation under the MRPC algorithm
 }
 \description{
-This function performs the last step of the \link{MRPC} algorithm where it determines the edge direction of the undirected graph. The function first determines the edges between genetic variants and gene expression nodes based on MR. Then it orients the v-structures followed by the remaining edges weather MR is applicable or not. MR is a new way for edge direction determination based on four different cases. See below for the details.
+This function performs the second step of the \link{MRPC} algorithm where it determines the edge direction in the graph skeleton inferred by the function \link{ModiSkeleton}. If the data contain genetic variants, this function first determines the edges between genetic variants and phenotype nodes based on the principle of Mendelian randomization. Next it identifies potential v-structures and orients the edges in them.  For the remaining edges, it examines triplets in turn to see whether a triplet is compatible with one of the basic models. See the references for details.
 }
 \usage{
 EdgeOrientation(gInput, GV = GV, suffStat, FDR, indepTest = indepTest, verbose = FALSE)
@@ -78,8 +78,15 @@ An object of \link{class} that contains an estimate of the equivalence class of 
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
+\references{
+Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the 
+principle of Mendelian randomization. bioRxiv, 2018. doi:10.1101/171348.
+    
+Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs. arXiv, 2018. arXiv:1806.01899.
+}
+                
 \seealso{
-\link{MRPC} for estimating a DAG using the Mendelian Randomization (MR) based (PC) algorithm; \link{ModiSkeleton} for estimating a skeleton using modified skeleton function; \link{SimulateData} for simulated data generating function.
+\link{MRPC}; \link{ModiSkeleton}; \link{SimulateData}.
 
 }
 
