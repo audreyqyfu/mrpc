@@ -1,10 +1,10 @@
 \name{CompareMethodsNodeOrdering}
 \alias{CompareMethodsNodeOrdering}
 
-\title{Same data but different nodes ordering.}
+\title{Comparision of inference accuracy using the same data but with different node orderings.}
 
 \description{
-Investigate the impact of the same data but with different node orderings across three methods: MRPC (Badsha et al., 2018), the mmhc method (implemented in bnlearn; Scutari, 2010) and the pc method (implemented in pcalg; Kalisch et al., 2012). 
+Investigate the impact of the same data but with different node orderings across three methods: \link{MRPC} (Badsha et al., 2018), \link{mmhc} implemented in \code{bnlearn} (Scutari, 2010) and \link{pc} implemented in \code{pcalg} (Kalisch et al., 2012). 
 }
 \usage{
 CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
