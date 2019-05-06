@@ -2,10 +2,14 @@
 \alias{RecallPrecision}
 
 \title{
-Performance evaluation by recall and precision in MRPC
+Calculate recall and precision for two graphs
 }
 \description{
-Recall = (# edges correctly identified in inferred graph) / (# edges in true graph); Precision = (# edges correctly identified in inferred graph) / (# edges in inferred graph).For example, when the true graph is V-->T1-->T2, and the inferred graphs are i) V-->T1-->T2, and V-->T2; ii) V-->T1--T2; and iii) V-->T1<--T2, the number of correctly identified edges is then 2, 1.5, and 1.5, respectively. Recall is calculated to be 1, 0.75, and 0.75 respectively, whereas precision is 2/3 = 0.67, 1.5/2 = 0.75, and 1.5/2 = 0.75, respectively.  
+This function counts the number of true and false positives, and calculates recall and precision, which are defined as follows:
+  
+Recall = (# edges correctly identified in inferred graph) / (# edges in true graph). 
+  
+Precision = (# edges correctly identified in inferred graph) / (# edges in inferred graph).  
 }
 \usage{
 RecallPrecision(g1, g2, GV, edge.presence = 1.0, edge.direction = 0.5)
@@ -29,7 +33,7 @@ The weight for the edge direction.
 }
 }
 \details{
-We consider it more important to be able to identify the presence of an edge than to also get the direct correct. Therefore, we assign 1 to an edge with the correct direction and 0.5 to an edge with the wrong direction or no direction (Badsha et al., 2018).
+We consider it more important to be able to identify the presence of an edge than to also get the direct correct. Therefore, we assign 1 as the default to an edge with the correct direction and 0.5 to an edge with the wrong direction or no direction (Badsha and Fu, 2018; Badsha et al., 2018).
 }
 
 \value{
@@ -47,8 +51,9 @@ A \link{list} of object that containing the following:
 }
 
 \references{
-1.Md. Bahadur Badsha, Audrey Qiuyan Fu: Learning causal biological networks with the principle of Mendelian randomization (Nat Comn; under reveiw 2018), 
-
+Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. bioRxiv, 2018. doi:10.1101/171348.
+  
+Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs. arXiv, 2018. arXiv:1806.01899.  
 }
 \author{
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
