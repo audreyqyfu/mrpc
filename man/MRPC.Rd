@@ -4,7 +4,7 @@
 Infer a causal network using the MRPC algorithm
 }
 \description{
-This function is used to infer a causal network (or a causal graph) with directed and undirected edges from observational data.  It implements the MRPC (PC with the principle of Mendelian randomization) algorithm described in Badsha and Fu (2018), and the implementation is based on the \link{pc} algorithm in the \code{pcalg} package. The MRPC algorithm contains four major updates over the \link{pc} algorithm: (i) incorporating a sequential testing method to control the False Discovery Rate (FDR), (ii) improved v-structure identification; (iii) allowing for calculation of robust correlation to reduce the impact of outliers, and (iv) a new procedure for edge orientation based on the Principle of Mendelian Randomization (PMR) (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
+This function is used to infer a causal network (or a causal graph) with directed and undirected edges from observational data.  It implements the MRPC (PC with the principle of Mendelian randomization) algorithm described in Badsha and Fu (2018), and the implementation is based on the \link{pc} algorithm in the \code{pcalg} package. The MRPC algorithm contains four major updates over the \link{pc} algorithm: (i) incorporating a sequential testing method to control the False Discovery Rate (FDR), (ii) improved v-structure identification; (iii) allowing for calculation of robust correlation to reduce the impact of outliers, and (iv) a new procedure for edge orientation based on the principle of Mendelian randomization (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
 
 }
 \usage{
@@ -77,7 +77,7 @@ Genome data may have outliers that drastically alter the topology of the inferre
 
 \bold{Step-2}: Edge orientation.  With the graph skeleton inferred from Step 1, we orient each edge that is present in the graph.  MRPC is fundamentally different from algorithms in the \code{pcalg} (Kalisch and Buhlmann, 2007; Kalisch et al., 2012) and \code{bnlearn} (Scutari, 2010) packages in the following ways (see \link{EdgeOrientation}):
     
-(i) When analyzing genomic data, genetic variants provide additional information that helps distinguish the casual direction between two genes.  Our MRPC algorithm incorporates the principle of Mendelian Randomization (PMR) in graph inference, which greatly reduces the space of possible graphs and increases the inference efficiency.
+(i) When analyzing genomic data, genetic variants provide additional information that helps distinguish the casual direction between two genes.  Our MRPC algorithm incorporates the principle of Mendelian randomization in graph inference, which greatly reduces the space of possible graphs and increases the inference efficiency.
     
 (ii) Next or if the input is not genomic data, we search for possible triplets that may form a v-structure (e.g., X→Y←Z). We check conditional test results from step I to see whether X and Z are independent given Y. If they are, then this is not a v-structure; alternative models for the triplet may be any of the following three Markov equivalent graphs: X→Y→Z, X←Y←Z, and X←Y→Z. If this test is not performed in the first step, we conduct it in this step.  This step improves the accuracy of the v-structure identification over existing methods. 
     
