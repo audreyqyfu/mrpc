@@ -18,19 +18,19 @@ Invoke R and then type with the following command:
 ```
 R> install.packages ("devtools")
 R> library (devtools)
-#install R packages that MRPC depends on before running the next line 
-#see details below
-R>install_github ("audreyqyfu/mrpc")
+# install R packages that MRPC depends on before running the next line 
+# see details below
+R> install_github ("audreyqyfu/mrpc")
 ```
 MRPC depends on several R packages from CRAN and from Bioconductor.  It is likely that some of these packages are not installed on your computer.  If the R package is available on CRAN, you may use the following command line for installation (change _packagename_ to the name of the package to be installed, e.g, bnlearn, pcalg, etc.) before running function `install_github`:
 ```
-R> install.packages("packagename")
+R> install.packages ("packagename")
 ```
 
 The following Bioconductor packages also need to be installed before running function `install_github`:
 ```
-R> if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+R> if (!requireNamespace ("BiocManager", quietly = TRUE))
+    install.packages ("BiocManager")
 R> BiocManager::install ('RBGL')
 R> BiocManager::install ('Rgraphviz')
 R> BiocManager::install ('GO.db')
@@ -48,13 +48,13 @@ $ R CMD INSTALL MRPC_xxx.tar.gz
 Again, you may need to first install the Bioconductor packages that MRPC depends on using the instructions above.
 Alternatively, you may also run the following command line in R, after changing the working directory to where MRPC_xxx.tar.gz is stored on your computer:
 ```
-R> install.packages("MRPC_xxx.tar.gz", repos = NULL, type="source")
+R> install.packages ("MRPC_xxx.tar.gz", repos = NULL, type="source")
 ```
 ### 3. Installation from CRAN.
 
 Official releases are available on CRAN.  To install,
 ```
-R> install.packages("MRPC")
+R> install.packages ("MRPC")
 ```
 ## Using MRPC
 After installation, load the MRPC package into R:
