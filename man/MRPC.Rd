@@ -67,7 +67,7 @@ Remember that need to specify the which indepTest would like for independence te
 
 }
 \details{
-The PC algorithm is computationally efficient for learning a directed acyclic graph (Spirtes et al., 2000).  Several variants of the original PC algorithms are available (Kalisch and Buhlmann, 2007; Kalisch et al., 2012). Similar to these PC-like algorithms, our MPRC algorithm also contains two main steps:
+The PC algorithm is computationally efficient for learning a directed acyclic graph (Spirtes et al., 2000).  Several variants of the original PC algorithms are available (Kalisch and Buhlmann, 2007; Kalisch et al., 2012). Similar to these PC-like algorithms, our MRPC algorithm also contains two main steps:
     
 \bold{Step-1}: Inference of the graph skeleton.  A graph skeleton is an undirected graph with edges that are supported by the data.  Similar to existing PC-like algorithms, we perform statistical tests for marginal and conditional independence tests.  If the null hypothesis of independence is not rejected, then the corresponding edge is removed and never tested again.  
     
@@ -79,7 +79,14 @@ Genome data may have outliers that drastically alter the topology of the inferre
     
 (i) When analyzing genomic data, genetic variants provide additional information that helps distinguish the casual direction between two genes.  Our MRPC algorithm incorporates the principle of Mendelian randomization in graph inference, which greatly reduces the space of possible graphs and increases the inference efficiency.
     
-(ii) Next or if the input is not genomic data, we search for possible triplets that may form a v-structure (e.g., X→Y←Z). We check conditional test results from step I to see whether X and Z are independent given Y. If they are, then this is not a v-structure; alternative models for the triplet may be any of the following three Markov equivalent graphs: X→Y→Z, X←Y←Z, and X←Y→Z. If this test is not performed in the first step, we conduct it in this step.  This step improves the accuracy of the v-structure identification over existing methods. 
+(ii) Next or if the input is not genomic data, we search for possible triplets 
+that may form a v-structure (e.g.,X-->Y<--Z). We check conditional test results
+from step I to see whether X and Z are independent given Y. If they are, then 
+this is not a v-structure; alternative models for the triplet may be any of the 
+following three Markov equivalent graphs: X-->Y-->Z, X<--Y<--Z, and 
+X<--Y-->Z. If this test is not performed in the first step, we conduct it in 
+this step. This step improves the accuracy of the v-structure identification over
+existing methods. 
     
 (iii) If there are undirected edges after steps (i) and (ii), we examine iteratively triplets of nodes with at least one directed edge and no more than one undirected edge. We check the marginal and conditional test results from Step I to determine which of the basic models is consistent with the test results.  It is plausible that some undirected edges cannot be oriented, and we leave them as undirected.
 }
