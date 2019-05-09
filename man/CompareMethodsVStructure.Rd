@@ -5,7 +5,7 @@
 Comparison of inference accuracy with and without a v-structure
 }
 \description{
-This is the example comparison of inference accuracy with and without a v-structure by recall and precision of three methods, \link{MPRC}, \link{mmhc}, and \link{pc}, across 1000 data sets. Signal values indicate the signal strength: the larger the value the stronger the signal. The sample size in each simulated data set is 1000. See Badsha and Fu (2018) for the comparison of inference accuracy with sample sizes of 50, 200, and 500 .  
+This is the example comparison of inference accuracy with and without a v-structure by recall and precision of three methods, \link{MRPC}, \link{mmhc}, and \link{pc}, across 1000 data sets. Signal values indicate the signal strength: the larger the value the stronger the signal. The sample size in each simulated data set is 1000. See Badsha and Fu (2018) for the comparison of inference accuracy with sample sizes of 50, 200, and 500 .  
 }
 \usage{
 CompareMethodsVStructure(N = 1000, signal, model, ita = 1000)
