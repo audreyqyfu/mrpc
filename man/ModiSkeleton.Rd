@@ -8,10 +8,10 @@ Infer a graph skeleton (undirected graph)
 This function infers a graph skeleton (i.e., an undirected graph). It is based on the function \link{skeleton} from the \code{pcalg} package. Both functions perform marginal and conditional indpenendence tests.  However, \code{ModiSkeleton} implements an online false discovery rate (FDR) control method in order to control the overall FDR, whereas \link{skeleton} controls only the type I error rate for each individual test. See details below.
 }
 \usage{
-ModiSkeleton(data, suffStat, FDR, indepTest, labels, p,
+ModiSkeleton(data, suffStat, FDR, alpha, indepTest, labels, p,
     method = c("stable", "original", "stable.fast"),
     m.max = Inf, fixedGaps = NULL, fixedEdges = NULL,
-    NAdelete = TRUE, verbose = FALSE)
+    NAdelete = TRUE, FDRcontrol = TRUE, verbose = FALSE)
 }
 
 \arguments{
@@ -27,6 +27,7 @@ Data matrix, where the rows are samples and the columns are features (e.g., gene
 \item{FDR}{
 Desired overall FDR level.
 }
+\item{alpha}{significance level (number in (0,1) for the individual tests.}
 
 \item{indepTest}{Name of the statistical test. It is used to test the independence of x and y given S, where x and y are variables and S is a vector, possibly empty, of variables. The return value of indepTest is the p-value of the test for conditional independence.  Different tests may used for different data types. For example, \code{indepTest='gaussCItest'} for Gaussian data, \code{indepTest='disCItest'} for discrete data, and \code{indepTest='binCItest'} for binary data. See additional details in help(gaussCItest).
 
@@ -50,6 +51,8 @@ Desired overall FDR level.
 \item{fixedEdges}{ (optional) A logical matrix of dimension p*p. If entry [x, y], [y, x], or both are TRUE, the edge x---y is never considered for removal. Therefore, this edge is guaranteed to be present in the resulting graph.}
 
 \item{NAdelete}{(optional) If indepTest returns NA and this option is TRUE, the corresponding edge is deleted. If this option is FALSE, the edge is not deleted.}
+
+\item{FDRcontrol}{(optional) The default is TRUE which is used sequential FDR control method, otherwise used fixed significance level for the individual tests.}
 
 \item{verbose}{
 (optional) If TRUE, detailed output is provided. Default is FALSE for no output details
@@ -145,8 +148,8 @@ Rcor_R <- RobustCor(data,
 suffStat_R <- list(C = Rcor_R$RR, n = n)
 
 Skel.fit <- ModiSkeleton(data, suffStat_R,
-                         FDR = 0.05, indepTest = 'gaussCItest',
-                         labels = V, verbose = TRUE)
+                         FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest',
+                         labels = V, FDRcontrol = TRUE, verbose = TRUE)
 
 # Plot the results
 # Show estimated skeleton

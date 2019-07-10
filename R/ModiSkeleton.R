@@ -1,7 +1,7 @@
 #This is the part 1 of MRPC to draw the undirected graph
-ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "disCItest","citest"), labels, p, method = c("stable",
+ModiSkeleton<-function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "disCItest","citest"), labels, p, method = c("stable",
                                                              "original", "stable.fast"), m.max = Inf, fixedGaps = NULL,
-                  fixedEdges = NULL, NAdelete = TRUE, verbose = FALSE)
+                  fixedEdges = NULL, NAdelete = TRUE, FDRcontrol=TRUE,verbose = FALSE)
 {
   cl <- match.call()
   if (!missing(p))
@@ -137,7 +137,13 @@ ModiSkeleton<-function (data,suffStat,FDR, indepTest = c("gaussCItest", "disCIte
             cat("Test number =", m, "\n")
             cat("pval =", pval[m], "\n")
             
-            Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+            if (FDRcontrol){ #if want to control sequential FDR 
+              Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+            }
+            else
+            {
+              Alpha=alpha #if want to use fixed significance level 
+            }
             cat("Alpha value =", Alpha, "\n")
 
             if (pval[m]<= Alpha) {  #Reject H0 (H0:nodes are independent)

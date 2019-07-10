@@ -8,7 +8,8 @@ Perform edge orientation under the MRPC algorithm
 This function performs the second step of the \link{MRPC} algorithm where it determines the edge direction in the graph skeleton inferred by the function \link{ModiSkeleton}. If the data contain genetic variants, this function first determines the edges between genetic variants and phenotype nodes based on the principle of Mendelian randomization. Next it identifies potential v-structures and orients the edges in them.  For the remaining edges, it examines triplets in turn to see whether a triplet is compatible with one of the basic models. See the references for details.
 }
 \usage{
-EdgeOrientation(gInput, GV = GV, suffStat, FDR, indepTest = indepTest, verbose = FALSE)
+EdgeOrientation(gInput, GV = GV, suffStat, FDR, alpha,indepTest = indepTest, 
+FDRcontrol = FDRcontrol, verbose = FALSE)
 
 }
 
@@ -21,9 +22,13 @@ EdgeOrientation(gInput, GV = GV, suffStat, FDR, indepTest = indepTest, verbose =
 }
 
 \item{FDR}{
-Need to specify pre-assigned level. If FDR = 0.05, that ensures FDR and mFDR remains below 0.05.
-}
+Need to specify pre-assigned level. If FDR = 0.05, that ensures FDR and mFDR remains below 0.05.}
+\item{alpha}{significance level (number in (0,1) for the individual tests.}
+
 \item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. The different indepTest is used for different data types, for example, Gaussian data = gaussCItest, Discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)}
+
+\item{FDRcontrol}{(optional) The default is TRUE which is used sequential FDR control method, otherwise used fixed significance level for the individual tests.}
+
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
 \details{
@@ -78,8 +83,10 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-Md Bahadur Badsha and Audrey Qiuyan Fu (2018). Learning causal biological networks with the 
-principle of Mendelian randomization. bioRxiv doi:10.1101/171348.
+Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological
+networks with the principle of Mendelian randomization. Frontiers in
+Genetics 2019, 10(460).
+
 
 Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 }
@@ -112,14 +119,15 @@ suffStat_R <- list(C = Rcor_R$RR,
                    n = n)
 
 # Estimate skeleton
-Skel.fit <- ModiSkeleton(data, suffStat_R, FDR = 0.05,
-                         indepTest = 'gaussCItest',
-                         labels = V, verbose = TRUE)
+Skel.fit <- ModiSkeleton(data, suffStat_R, FDR = 0.05, alpha = 0.05,
+                         indepTest = 'gaussCItest',labels = V,
+                          FDRcontrol = TRUE, verbose = TRUE)
 
 # Edge Orientation
 Edge_orientation <- EdgeOrientation(Skel.fit, GV = 1,
-                                    suffStat_R, FDR = 0.05,
-                                    indepTest = 'gaussCItest', verbose = 1)
+                                    suffStat_R, FDR = 0.05,alpha = 0.05,
+                                    indepTest = 'gaussCItest', 
+                                    FDRcontrol = TRUE,verbose = 1)
 
 # Plot the results
 par(mfrow = c(1, 2))

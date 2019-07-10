@@ -8,13 +8,13 @@ This function is used to infer a causal network (or a causal graph) with directe
 
 }
 \usage{
-MRPC(data, suffStat, GV, FDR = 0.05, indepTest, labels, p,
+MRPC(data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest, labels, p,
     fixedGaps = NULL, fixedEdges = NULL,
     NAdelete = TRUE, m.max = Inf,
     u2pd = c("relaxed", "rand", "retry"),
     skel.method = c("stable", "original", "stable.fast"),
     conservative = FALSE,
-    maj.rule = FALSE, solve.confl = FALSE,
+    maj.rule = FALSE, solve.confl = FALSE, FDRcontrol = TRUE,
     verbose = FALSE)
 }
 
@@ -34,6 +34,8 @@ Data matrix, where the rows are observations and the columns are features (i.e.,
 \item{FDR}{
 Need to specify the desired level of the overall false discovery rate. 
 }
+\item{alpha}{significance level (number in (0,1) for the individual tests.}
+    
 \item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. The different indepTest is used for different data types, for example, Gaussian data = gaussCItest, Discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)
 
 The \link{ci.test} (Marco Scutari, 2010) is also used for testing conditional independence and return value of indepTest is the p-value. If none is specified, the default test statistic is the mutual information for categorical variables, the Jonckheere-Terpstra test for ordered factors and the linear correlation for continuous variables.See help(ci.test)
@@ -62,6 +64,8 @@ Remember that need to specify the which indepTest would like for independence te
 \item{maj.rule}{(optional) Logical. Indicates that the triplets will be checked for ambiguity using a majority rule idea, which is less strict than the conservative PC algorithm. For more information, see details.}
 
 \item{solve.confl}{(optional) If TRUE, the orientation of the v-structures and the orientation rules work with lists for candidate sets and allow bi-directed edges to resolve conflicting edge orientations. In this case, only option u2pd = "relaxed" is supported. Note that the resulting object might not be a CPDAG because bi-directed edges might be present. See details for more information.}
+
+\item{FDRcontrol}{(optional) The default is TRUE which is used sequential FDR control method, otherwise used fixed significance level for the individual tests.}
 
 \item{verbose}{(optional) If TRUE, detailed output is provided. The default is FALSE which does not print output details.}
 
@@ -127,8 +131,9 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-Md Bahadur Badsha and Audrey Qiuyan Fu (2018). Learning causal biological networks with the 
-principle of Mendelian randomization. bioRxiv doi:10.1101/171348.
+Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological
+networks with the principle of Mendelian randomization. Frontiers in
+Genetics 2019, 10(460).
 
 Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 
@@ -185,8 +190,10 @@ MRPC.fit<- MRPC(data,
                 suffStat_R,
                 GV = 1,
                 FDR = 0.05,
+                alpha = 0.05,
                 indepTest = 'gaussCItest',
                 labels = V,
+                FDRcontrol = TRUE,
                 verbose = TRUE)
 
 # Estimated graph by mmhc
