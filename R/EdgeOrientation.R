@@ -1,6 +1,6 @@
 #This is the part 2 of MRPC to direction determination of the undirected edges.
 
-EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbose = FALSE)
+EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,alpha,indepTest=indepTest,FDRcontrol=FDRcontrol,verbose = FALSE)
 {
   g <- as(gInput@graph, "matrix") # g ia an adjacency from undirected graph (skleton)
   g1=g
@@ -79,7 +79,13 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
           pval=disCItest(x, z, y, suffStat) #additional
         }
         #pval=disCItest(x, z, y, suffStat) #additional conditional test
+        if (FDRcontrol){
         Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+        }
+        else
+        {
+          Alpha=alpha
+        }
         cat("x=", x, " y=", y, " S=", z,"\n")
         cat("Test number =", m, "\n")
         cat("Additional pval value =", pval, "\n")
@@ -162,7 +168,15 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 {
                   pval=disCItest(x, z, y, suffStat) #additional pval
                 }
-                Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                
+                if (FDRcontrol){
+                  Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                }
+                
+                else
+                {
+                  Alpha=alpha
+                }
                 cat("Additional pval value =", pval, "\n")
                 cat("Alpha value =", Alpha, "\n")
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
@@ -241,7 +255,13 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 {
                   pval=disCItest(x, z, y, suffStat) #additional
                 }                
-                Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                if (FDRcontrol){
+                  Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                }
+                else
+                {
+                  Alpha=alpha
+                }
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m]=1
                   
@@ -336,8 +356,13 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                   pval=disCItest(x, z, y, suffStat) #additional
                 }
                 
-                Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-                
+                if (FDRcontrol){
+                  Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                }
+                else
+                {
+                  Alpha=alpha
+                }
                 cat("Additional pval value =", pval, "\n")
                 cat("Alpha value =", Alpha, "\n")
                 
@@ -416,7 +441,13 @@ EdgeOrientation<-function (gInput,GV=GV,suffStat,FDR,indepTest =indepTest,verbos
                 {
                   pval=disCItest(x, z, y, suffStat) #additional
                 }                
-                Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                if (FDRcontrol){
+                  Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
+                }
+                else
+                {
+                  Alpha=alpha
+                }
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m]=1
                   
