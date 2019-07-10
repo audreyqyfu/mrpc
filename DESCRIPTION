@@ -8,7 +8,7 @@ Description: A PC Algorithm with the Principle of Mendelian Randomization. This 
             (PC with the principle of Mendelian randomization) algorithm to infer causal graphs. It also 
             contains functions to simulate data under a certain topology, to visualize a graph in different 
             ways, and to compare graphs and quantify the differences. 
-            See Badsha and Fu (2018) <doi:10.1101/171348>,Badsha, Martin and Fu (2018) <arXiv:1806.01899>. 
+            See Badsha and Fu (2019) <doi.org/10.3389/fgene.2019.00460>,Badsha, Martin and Fu (2018) <arXiv:1806.01899>. 
 License: GPL (>= 2)
 Depends: R (>= 3.0)
 LazyData: TRUE
