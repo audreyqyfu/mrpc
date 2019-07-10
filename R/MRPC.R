@@ -1,8 +1,8 @@
 
-MRPC<-function (data,suffStat,GV,FDR=0.05,indepTest = c("gaussCItest","disCItest", "citest"),labels, p, fixedGaps = NULL,
+MRPC<-function (data,suffStat,GV,FDR=0.05,alpha=0.05,indepTest = c("gaussCItest","disCItest", "citest"),labels, p, fixedGaps = NULL,
                fixedEdges = NULL, NAdelete = TRUE, m.max = Inf,u2pd = c("relaxed", "rand", "retry"),
                skel.method = c("stable", "original","stable.fast"), conservative = FALSE, maj.rule = FALSE,
-               solve.confl = FALSE, verbose = FALSE)
+               solve.confl = FALSE, FDRcontrol=TRUE,verbose = FALSE)
 {
   cl <- match.call()
   if (!missing(p))
@@ -36,9 +36,9 @@ MRPC<-function (data,suffStat,GV,FDR=0.05,indepTest = c("gaussCItest","disCItest
   #indepTestName <- as.character (quote(indepTest))
 
   cat ("test for independence:", indepTest, "\n")
-  skel <- ModiSkeleton(data,suffStat,FDR,indepTest,labels = labels,
+  skel <- ModiSkeleton(data,suffStat,FDR=FDR,alpha=alpha,indepTest=indepTest,labels = labels,
                        method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
-                      NAdelete = NAdelete, m.max = m.max, verbose = verbose)
+                      NAdelete = NAdelete, m.max = m.max, FDRcontrol=FDRcontrol,verbose = verbose)
   skel@call <- cl
   
   #indepTest <- match.fun (indepTest)
@@ -49,12 +49,12 @@ MRPC<-function (data,suffStat,GV,FDR=0.05,indepTest = c("gaussCItest","disCItest
                          #NAdelete = NAdelete, m.max = m.max, verbose = verbose)
     #skel$call <- cl
     if (!conservative && !maj.rule) {
-      switch(u2pd,relaxed = EdgeOrientation(skel,GV=GV,suffStat,FDR,indepTest,verbose = verbose))
+      switch(u2pd,relaxed = EdgeOrientation(skel,GV=GV,suffStat,FDR,alpha,FDRcontrol=FDRcontrol,indepTest,verbose = verbose))
     }
     else {
-      pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha = FDR,
-                            version.unf = c(2, 1), maj.rule = maj.rule, verbose = verbose)
-      EdgeOrientation(pc.$sk, verbose = verbose)
+      pc. <- pc.cons.intern(skel,suffStat, match.fun(indepTest),alpha=alpha,
+                            version.unf = c(2, 1), maj.rule = maj.rule,verbose = verbose)
+      EdgeOrientation(pc.$sk,FDRcontrol=FDRcontrol,verbose = verbose)
     }
   #} #else {
     #skel <- ModiSkeleton(data,suffStat,GV,FDR,indepTest,labels = labels,
