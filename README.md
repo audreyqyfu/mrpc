@@ -4,7 +4,9 @@ Development of the R package MRPC is at https://github.com/audreyqyfu/mrpc, and 
 
 References:
 
-Md. Bahadur Badsha, Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. bioRxiv. 171348. doi:10.1101/171348.
+Md. Bahadur Badsha, Audrey Qiuyan Fu. Learning causal biological networks
+with the principle of Mendelian randomization. Frontiers in Genetics 2019,
+10(460).
 
 Md. Bahadur Badsha, Evan A Martin, Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs.  arXiv. 1806.01899.
 
