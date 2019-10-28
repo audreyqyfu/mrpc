@@ -29,7 +29,7 @@ importMethodsFrom("graph",
 		  numNodes, numEdges,
 		  subGraph, ugraph)
 
-importFrom("bnlearn","ci.test","graphviz.plot","mmhc")
+importFrom("bnlearn","ci.test","graphviz.plot","mmhc","mmpc","pc.stable")
 importFrom("compositions", "unbinary")
 importFrom("dynamicTreeCut","cutreeDynamic")
 importFrom("fastcluster","hclust")
@@ -45,9 +45,10 @@ importFrom("mice","mice","complete","mice.impute.pmm")
 importFrom("network","network","%v%<-","%v%")
 importFrom("pcalg","disCItest","gaussCItest","pc","pc.cons.intern","udag2pdag","udag2pdagSpecial","udag2pdagRelaxed","getNextSet","wgtMatrix")
 #importFrom("Rgraphviz","plot")
-importFrom("stats","sd","dist","approx","as.dist","cor", "rbinom", "rnorm","as.hclust","na.omit","median","quantile","cov","cov2cor","qnorm")
+importFrom("psych", "corr.test")
+importFrom("stats","sd","dist","approx","as.dist","cor","prcomp","rbinom", "rnorm","as.hclust","na.omit","median","quantile","cov","cov2cor","qnorm")
 importFrom("utils", "combn","write.table")
-importFrom("WGCNA","TOMsimilarity","labels2colors","plotDendroAndColors")
+importFrom("WGCNA","TOMsimilarity","labels2colors","plotDendroAndColors","qvalue")
 import(sna)
 import(Rgraphviz)
 
