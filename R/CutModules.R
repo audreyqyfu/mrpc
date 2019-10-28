@@ -1,4 +1,4 @@
-CutModules=function (x, cuts, m = 150, g, levels.mean = FALSE, digits, minmax = TRUE,
+CutModules <- function (x, cuts, m = 150, g, levels.mean = FALSE, digits, minmax = TRUE,
                           oneval = TRUE, onlycuts = FALSE)
 {
   method <- 1
@@ -105,7 +105,7 @@ CutModules=function (x, cuts, m = 150, g, levels.mean = FALSE, digits, minmax = 
       brack <- rep("]", l - 1)
       brack[l - 1] <- "]"
       fmt <- format(cuts)
-      fmt=as.numeric(fmt)
+      fmt <- as.numeric(fmt)
       labs <- paste("[",1+fmt[1:(l - 1)], ",",fmt[2:l],
                     brack, sep = "")
       if (oneval) {
