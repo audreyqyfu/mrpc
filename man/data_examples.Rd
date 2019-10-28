@@ -5,7 +5,7 @@
 Example data under simple and complex models
 }
 \description{
-Example data under the simple and complex graphs.  Data may be continuous or discrete.
+Example data under the simple and complex graphs. Data may be continuous or discrete.
 }
 \usage{
 data(data_examples)
@@ -54,14 +54,12 @@ n <- nrow(data_examples$simple$cont$withGV$data)
 # extract the node/column names
 V <- colnames(data_examples$simple$cont$withGV$data)  
 
-# calculate robust correlation matrix
-Rcor_R <- RobustCor(data_examples$simple$cont$withGV$data,
-                    Beta = 0.005) 
-
-suffStat_R <- list(C = Rcor_R$RR, n = n)
+# Classical correlation
+suffStat_C <- list(C = cor(data_examples$simple$cont$withGV$data),
+                   n = n)
 
 data.mrpc.cont.withGV <- MRPC(data = data_examples$simple$cont$withGV$data,
-                              suffStat = suffStat_R, GV = 2,
+                              suffStat = suffStat_C, GV = 2,
                               FDR = 0.05, indepTest = 'gaussCItest',
                               labels = V, verbose = TRUE)
 
@@ -84,14 +82,12 @@ n <- nrow(data_examples$simple$cont$withoutGV$data)
 # extract the node/column names
 V <- colnames(data_examples$simple$cont$withoutGV$data)
 
-# calculate robust correlation matrix
-Rcor_R <- RobustCor(data_examples$simple$cont$withoutGV$data,
-                    Beta = 0.005) 
-                    
-suffStat_R <- list(C = Rcor_R$RR, n = n)
+# Classical correlation
+suffStat_C <- list(C = cor(data_examples$simple$cont$withoutGV$data),
+                   n = n)
 
 data.mrpc.cont.withoutGV <- MRPC(data = data_examples$simple$cont$withoutGV$data,
-                                 suffStat = suffStat_R, GV = 0,
+                                 suffStat = suffStat_C, GV = 0,
                                  FDR = 0.05, indepTest = 'gaussCItest',
                                  labels = V, verbose = TRUE)
 
@@ -113,16 +109,14 @@ n <- nrow(data_examples$simple$disc$withGV$data)
 # extract the node/column names
 V <- colnames(data_examples$simple$disc$withGV$data)
 
-# calculate robust correlation matrix
-Rcor_R <- RobustCor(data_examples$simple$disc$withGV$data,
-                    Beta = 0.005)
-                    
-suffStat_R <- list(C = Rcor_R$RR, n = n)
+# Classical correlation
+suffStat_C <- list(C = cor(data_examples$simple$disc$withGV$data),
+                   n = n)
 
 data.mrpc.disc.withGV <- MRPC(data = data_examples$simple$disc$withGV$data,
-                              suffStat = suffStat_R, GV = 1,
+                              suffStat = suffStat_C, GV = 1,
                               FDR = 0.05, indepTest = 'gaussCItest',
-                              labels = V, verbose = TRUE)
+                              labels = V, FDRcontrol = TRUE,verbose = TRUE)
 
 par (mfrow = c(1, 2))
 # plot the true graph
@@ -142,16 +136,14 @@ n <- nrow (data_examples$simple$disc$withoutGV$data)
 # extract the node/column names
 V <- colnames(data_examples$simple$disc$withoutGV$data)   
 
-# calculate robust correlation matrix
-Rcor_R <- RobustCor(data_examples$simple$disc$withoutGV$data,
-                    Beta = 0.005) 
-                    
-suffStat_R <- list(C = Rcor_R$RR, n = n)
+# Classical correlation
+suffStat_C <- list(C = cor(data_examples$simple$disc$withoutGV$data),
+                   n = n)
 
 data.mrpc.disc.withoutGV <- MRPC(data = data_examples$simple$disc$withoutGV$data,
-                                 suffStat = suffStat_R, GV = 1,
+                                 suffStat = suffStat_C, GV = 1,
                                  FDR = 0.05, indepTest = 'gaussCItest',
-                                 labels = V, verbose = TRUE)
+                                 labels = V, FDRcontrol = TRUE,verbose = TRUE)
 
 par(mfrow = c(1, 2))
 # plot the true graph
@@ -177,8 +169,9 @@ PlotDendrogramObj <- PlotDendrogram(Adj_directed,
                   minModuleSize = 5)
                   
 #Visualization of inferred graph with modules colors
-PlotGraphWithModulesObj<-PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=14,node.size=8
-,arrow.size = 5,label.size = 3,alpha = 1) 
+PlotGraphWithModulesObj<-PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=14,
+node.size=8,arrow.size = 5,label.size = 3,alpha = 1) 
+
 #plot 
 plot(PlotGraphWithModulesObj)  
 }
