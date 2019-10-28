@@ -19,13 +19,13 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
   switch(model,
 
          model0 = {
-           T1<- SimulateData1P(N=N,
+           T1 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
 
-           T2<- SimulateDataNP(N=N,
+           T2 <- SimulateDataNP(N=N,
                         b0.1 = b0.1,
                         sd.1 = sd.1)
 
@@ -37,12 +37,12 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
          },
 
          model1 = {
-           T1<- SimulateData1P(N=N,
+           T1 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T2<- SimulateData1P(N=N,
+           T2 <- SimulateData1P(N=N,
                         P1=T1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
@@ -53,10 +53,10 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
            ))
          },
          model2 = {
-           T2<- SimulateDataNP(N=N,
+           T2 <- SimulateDataNP(N=N,
                         b0.1 = b0.1,
                         sd.1 = sd.1)
-           T1<- SimulateData2P(N=N,
+           T1 <- SimulateData2P(N=N,
                         P1=V1,
                         P2=T2,
                         b0.1 = b0.1,
@@ -70,12 +70,12 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
 
          },
          model3 = {
-           T1<- SimulateData1P(N=N,
+           T1 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T2<- SimulateData1P(N=N,
+           T2 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
@@ -87,12 +87,12 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
 
          },
          model4 = {
-           T1.a<- SimulateData1P(N=N,
+           T1.a <- SimulateData1P(N=N,
                           P1=V1,
                           b0.1 = b0.1,
                           b1.1 = b1.1,
                           sd.1 = sd.1)
-           T2.a<- SimulateData2P(N=N,
+           T2.a <- SimulateData2P(N=N,
                           P1=V1,
                           P2=T1.a,
                           b0.1 = b0.1,
@@ -100,12 +100,12 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                           b1.2 = b1.2,
                           sd.1 = sd.1)
 
-           T2.b<- SimulateData1P(N=N,
+           T2.b <- SimulateData1P(N=N,
                           P1=V1,
                           b0.1 = b0.1,
                           b1.1 = b1.1,
                           sd.1 = sd.1)
-           T1.b<- SimulateData2P(N=N,
+           T1.b <- SimulateData2P(N=N,
                           P1=V1,
                           P2=T2.b,
                           b0.1 = b0.1,
@@ -137,13 +137,13 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
          
          multiparent= {
            
-           T2<- SimulateDataNP(N=N,
+           T2 <- SimulateDataNP(N=N,
                         b0.1 = b0.1,
                         sd.1 = sd.1)
-           T3<- SimulateDataNP(N=N,
+           T3 <- SimulateDataNP(N=N,
                         b0.1 = b0.1,
                         sd.1 = sd.1)
-           T1<- SimulateData3P(N=N,
+           T1 <- SimulateData3P(N=N,
                         P1=V1,
                         P2=T2,
                         P3=T3,
@@ -159,27 +159,27 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
          },
          starshaped= {
            
-           T1<- SimulateData1P(N=N,
+           T1 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T2<- SimulateData1P(N=N,
+           T2 <- SimulateData1P(N=N,
                         P1=T1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T3<- SimulateData1P(N=N,
+           T3 <- SimulateData1P(N=N,
                         P1=T1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T4<- SimulateData1P(N=N,
+           T4 <- SimulateData1P(N=N,
                         P1=T1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T5<- SimulateData1P(N=N,
+           T5 <- SimulateData1P(N=N,
                         P1=T1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
@@ -192,39 +192,39 @@ SimulateData<- function(N, p,model,b0.1, b1.1, b1.2,b1.3, sd.1) {
                              T5 = T5))
          },
          layered= {
-           T1<- SimulateData1P(N=N,
+           T1 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T2<- SimulateData1P(N=N,
+           T2 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T3<- SimulateData1P(N=N,
+           T3 <- SimulateData1P(N=N,
                         P1=V1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T4<- SimulateData1P(N=N,
+           T4 <- SimulateData1P(N=N,
                         P1=T1,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T5<- SimulateData2P(N=N,
+           T5 <- SimulateData2P(N=N,
                         P1=T1,
                         P2=T2,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         b1.2 = b1.2,
                         sd.1 = sd.1)
-           T6<- SimulateData1P(N=N,
+           T6 <- SimulateData1P(N=N,
                         P1=T2,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
                         sd.1 = sd.1)
-           T7<- SimulateData1P(N=N,
+           T7 <- SimulateData1P(N=N,
                         P1=T3,
                         b0.1 = b0.1,
                         b1.1 = b1.1,
