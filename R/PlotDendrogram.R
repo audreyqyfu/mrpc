@@ -3,14 +3,14 @@ PlotDendrogram=function(Adj_directed, minModuleSize = 5, groupLabels = " ", dend
   #Adj_directed is a matrix from directed graph
   #Start to find Module based on library(WGCNA)
   #convert to a symmetric matrix because Adj_directed is not symmetric
-  Adj_symmetric_matrix<-Adj_directed
+  Adj_symmetric_matrix <- Adj_directed
   for (i in 1:nrow(Adj_symmetric_matrix))
   {
     for (j in 1:ncol(Adj_symmetric_matrix))
     {
       if(Adj_symmetric_matrix[i,j]==1)
       {
-        Adj_symmetric_matrix[j,i]=1
+        Adj_symmetric_matrix[j,i] <- 1
       }
     }
   }
