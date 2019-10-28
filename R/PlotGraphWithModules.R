@@ -1,8 +1,8 @@
-PlotGraphWithModules=function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=8,arrow.size = 5,label.size = 3,alpha = 1,...) {
+PlotGraphWithModules <- function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=8,arrow.size = 5,label.size = 3,alpha = 1,...) {
   
   
-  AC<- PlotDendrogramObj$dynamicColors #All (genes and CNV) colors
-  CT<- table(AC)   #Color table
+  AC <- PlotDendrogramObj$dynamicColors #All (genes and CNV) colors
+  CT <- table(AC)   #Color table
   Adj_symmetric_matrix <- PlotDendrogramObj$Adj_symmetric_matrix #symmetric matrix from PlotDendrogram
   G_Order <- vector("list")
   n <- vector("list")
@@ -29,7 +29,7 @@ PlotGraphWithModules=function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=8,a
   #shape.palette = c("Genotype" = 17,"Phenotype" = 19)
   #char=colnames(Adj_symmetric_matrix)[GV+1:(ncol(Adj_symmetric_matrix)-1)] #all CNV
   if(GV==0){
-    char<-NULL
+    char <- NULL
   }
   else{
     char <- colnames(Adj_symmetric_matrix)[1:GV] #all CNV
