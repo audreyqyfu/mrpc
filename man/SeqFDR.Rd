@@ -35,9 +35,9 @@ We used the LOND (significance Levels based On Number of Discoveries) algorithm 
 The value of alpha.
 }
 \references{
-[1] Javanmard and Montanari (March 5, 2015): On Online Control of False Discovery Rate. arXiv:150206197 [statME].
+1. Javanmard and Montanari (March 5, 2015): On Online Control of False Discovery Rate. arXiv:150206197 [statME].
 
-[2] Foster, D. P. and Stine, R. A. (2007): Alpha-investing: A procedure for sequential control of expected false discoveries. http://gosset.wharton.upenn.edu/research/edc.pdf,.
+2. Foster, D. P. and Stine, R. A. (2007): Alpha-investing: A procedure for sequential control of expected false discoveries. http://gosset.wharton.upenn.edu/research/edc.pdf,.
 
 }
 \author{
