@@ -122,9 +122,6 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
  \link{MRPC}; \link{EdgeOrientation}; \link{SimulateData}.
 }
 \examples{
-# Load packages
-library(pcalg)   # library for multiple pc algorithms
-library(bnlearn) # library for Bayesian network inference algorithms
 
 # Load predefined simulated data
 # Data pre-processing
@@ -142,12 +139,11 @@ data <- simu_data_M1 # data for model 1
 n <- nrow(data)      # Number of row
 V <- colnames(data)  # Column names
 
-Rcor_R <- RobustCor(data,
-                    0.005) # Robust correlation (Beta = 0.005)
-                    
-suffStat_R <- list(C = Rcor_R$RR, n = n)
+# Classical correlation
+suffStat_C <- list(C = cor(data),
+                   n = n)
 
-Skel.fit <- ModiSkeleton(data, suffStat_R,
+Skel.fit <- ModiSkeleton(data, suffStat_C,
                          FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest',
                          labels = V, FDRcontrol = TRUE, verbose = TRUE)
 
