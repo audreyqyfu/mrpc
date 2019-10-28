@@ -22,13 +22,13 @@ aSHD=function (g1, g2,GV,edge.presence=1.0,edge.direction=0.5)
   #If ordering nodes
    if(any(colnames(m1)!=colnames(m2)))
    {
-     Order_node=match(colnames(m1),colnames(m2))
-     m2<-m2[Order_node,Order_node] #new
+     Order_node <- match(colnames(m1),colnames(m2))
+     m2 <- m2[Order_node,Order_node] #new
    }
    
-  Distannce_matrix=matrix(0, nrow(m1),ncol(m1)) #Output matrix
-  ind1=which(m1==1,arr.ind = T)  #pullout the edges from 1st graph
-  ind2=which(m2==1,arr.ind = T)  #pullout the edges from 2nd graph
+  Distannce_matrix <- matrix(0, nrow(m1),ncol(m1)) #Output matrix
+  ind1 <- which(m1==1,arr.ind = T)  #pullout the edges from 1st graph
+  ind2 <- which(m2==1,arr.ind = T)  #pullout the edges from 2nd graph
   
   #For 1st graph
   for (i in seq_len(nrow(ind1))) {
@@ -37,13 +37,13 @@ aSHD=function (g1, g2,GV,edge.presence=1.0,edge.direction=0.5)
     #If missing edges then penalty =1
     if((m1[x,y]==1 || m1[y,x]!=1)  & (m2[x,y]!=1 & m2[y,x]!=1) & Distannce_matrix[x,y]==0 & Distannce_matrix[y,x]==0 )
     {
-      Distannce_matrix[x,y]=edge.presence 
+      Distannce_matrix[x,y] <- edge.presence 
     }
     #If missing direction then penalty =0.5
     if(m1[x,y]==1 & m1[y,x]!=1 & m2[x,y]==1 & m2[y,x]==1)
       
     {
-      Distannce_matrix[x,y]=edge.direction
+      Distannce_matrix[x,y] <- edge.direction
     }
     
     #if((x<=GV & y<=GV) & m1[x,y]==1 & m1[y,x]!=1 & (m2[x,y]==1 || m2[y,x]==1))
@@ -59,24 +59,24 @@ aSHD=function (g1, g2,GV,edge.presence=1.0,edge.direction=0.5)
     #If missing edge then penalty =1  
     if((m2[x,y]==1 || m2[y,x]!=1)  & (m1[x,y]!=1 & m1[y,x]!=1) & Distannce_matrix[x,y]==0 & Distannce_matrix[y,x]==0)
     {
-      Distannce_matrix[x,y]=edge.presence 
+      Distannce_matrix[x,y] <- edge.presence 
     }
     
     #If missing direction then penalty =0.5
     if(m2[x,y]==1 & m2[y,x]!=1 & m1[y,x]==1 & Distannce_matrix[x,y]==0 & Distannce_matrix[y,x]==0)
       
     {
-      Distannce_matrix[x,y]=edge.direction
+      Distannce_matrix[x,y] <- edge.direction
     }
   }
   #
   #if(GV>1 & (any(Distannce_matrix[1:GV,1:GV]==.5) || any(Distannce_matrix[,1:GV]==.5)))
   if(GV>1)
   {
-    W=which(Distannce_matrix[1:GV,1:GV]==0.5,arr.ind = T)
-    Distannce_matrix[W]=0 
+    W <- which(Distannce_matrix[1:GV,1:GV]==0.5,arr.ind = T)
+    Distannce_matrix[W] <- 0 
   }
   
-  Distance=sum(Distannce_matrix)  
+  Distance <- sum(Distannce_matrix)  
   return(Distance)
 }

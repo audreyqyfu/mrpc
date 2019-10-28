@@ -1,7 +1,7 @@
 mpinv <- function(X)
 {
 # Moore-Penrose inverse
-Eps <-100000*.Machine$double.eps;# 100*.Machine$double.eps;
+Eps <- 100000*.Machine$double.eps;# 100*.Machine$double.eps;
 
 # singular value decomposition
 s <- svd(X);
@@ -35,7 +35,7 @@ mp <- s$v%*%inv%*%t(s$u);
 # set very small values to zero
 mp[abs(mp) < Eps] <- 0;
 return(mp);
-};
+}
 
 #mpinv(X)
 
