@@ -58,7 +58,7 @@ suffStat_R1 <- list(C = Rcor_R1$RR,
 MRPC.fit_withoutoutlier <- MRPC(data_without_outliers, suffStat_R1,
                                 GV = 2, FDR = 0.05,
                                 indepTest ='gaussCItest',
-                                labels = V, verbose = TRUE)
+                                labels = V, FDRcontrol = TRUE,verbose = TRUE)
 
 # Estimated graph by mmhc
 data <- data.frame(data_without_outliers)
@@ -89,7 +89,7 @@ suffStat_R1 <- list(C = Rcor_R1$RR,
 MRPC.fit_withoutlier <- MRPC(data_with_outliers, suffStat_R1,
                              GV = 2, FDR = 0.05,
                              indepTest ='gaussCItest',
-                             labels = V, verbose = TRUE)
+                             labels = V, FDRcontrol = TRUE,verbose = TRUE)
 
 # Estimated graph by mmhc
 data <- data.frame(data_with_outliers)
