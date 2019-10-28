@@ -37,7 +37,8 @@ We take a robust approach and calculate the robust correlation matrix (Badsha et
 }
 
 \references{
-1.Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
+1. Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
+
 2. Van Buuren, S., Groothuis-Oudshoorn, K. (2011). mice: Multivariate Imputation by Chained Equations in R. Journal of Statistical Software, 45(3), 1-67. http://www.jstatsoft.org/v45/i03/
 }
 \author{
@@ -49,5 +50,5 @@ R <- RobustCor(simu_data_M0,
                Beta = 0.005,
                plot = FALSE)
                
-RCor <- R$RR  # Correlation matrix
+RCorr <- R$RR  # Correlation matrix
 }
