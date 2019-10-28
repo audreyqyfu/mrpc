@@ -1,7 +1,8 @@
 Package: MRPC
 Type: Package
-Title: PC Algorithm with the Principle of Mendelian Randomization
 Version: 2.1.0
+Date: 2019-10-28
+Title: PC Algorithm with the Principle of Mendelian Randomization
 Author: Md Bahadur Badsha [aut,cre],Evan A Martin [ctb] and Audrey Qiuyan Fu [aut]
 Maintainer: Md Bahadur Badsha <mdbadsha@uidaho.edu>
 Description: A PC Algorithm with the Principle of Mendelian Randomization. This package implements the MRPC 
@@ -13,6 +14,6 @@ License: GPL (>= 2)
 Depends: R (>= 3.0)
 LazyData: TRUE
 Imports:bnlearn,compositions,dynamicTreeCut,GGally,fastcluster,gtools,graph,graphics,Hmisc,methods,mice,
-        network,pcalg,Rgraphviz,stats,sna,utils,WGCNA
+        network,pcalg,psych,Rgraphviz,stats,sna,utils,WGCNA
 NeedsCompilation: no
 Packaged: 2018-08-09 18:07:43 UTC; mdbadsha
