@@ -4,7 +4,7 @@
 Infer a causal network using the MRPC algorithm
 }
 \description{
-This function is used to infer a causal network (or a causal graph) with directed and undirected edges from observational data.  It implements the MRPC (PC with the principle of Mendelian randomization) algorithm described in Badsha and Fu (2018), and the implementation is based on the \link{pc} algorithm in the \code{pcalg} package. The MRPC algorithm contains four major updates over the \link{pc} algorithm: (i) incorporating a sequential testing method to control the False Discovery Rate (FDR), (ii) improved v-structure identification; (iii) allowing for calculation of robust correlation to reduce the impact of outliers, and (iv) a new procedure for edge orientation based on the principle of Mendelian randomization (Badsha and Fu, 2018 and Badsha et al., 2018). See details below. 
+This function is used to infer a causal network (or a causal graph) with directed and undirected edges from observational data.  It implements the MRPC (PC with the principle of Mendelian randomization) algorithm described in Badsha and Fu, 2019, and the implementation is based on the \link{pc} algorithm in the \code{pcalg} package. The MRPC algorithm contains four major updates over the \link{pc} algorithm: (i) incorporating a sequential testing method to control the False Discovery Rate (FDR), (ii) improved v-structure identification; (iii) allowing for calculation of robust correlation to reduce the impact of outliers, and (iv) a new procedure for edge orientation based on the principle of Mendelian randomization (Badsha and Fu, 2019 and Badsha et al., 2018). See details below. 
 
 }
 \usage{
@@ -131,23 +131,21 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological
-networks with the principle of Mendelian randomization. Frontiers in
-Genetics 2019, 10(460).
+1. Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics 2019, 10(460).
 
-Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
+2. Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 
-Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013) Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
+3. Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013) Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
 
-Javanmard, A. and Montanari, A. (2015) On Online Control of False Discovery Rate. arXiv:150206197 [statME].
+4. Javanmard, A. and Montanari, A. (2015) On Online Control of False Discovery Rate. arXiv:150206197 [statME].
 
-Kalisch, M. and Buhlmann, P. (2007) Estimating High-Dimensional Directed Acyclic Graphs with the PC-Algorithm, Journal of Machine Learning Research, 8, 613-636.
+5. Kalisch, M. and Buhlmann, P. (2007) Estimating High-Dimensional Directed Acyclic Graphs with the PC-Algorithm, Journal of Machine Learning Research, 8, 613-636.
 
-Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
+6. Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
 
-Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
+7. Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
 
-Spirtes,P.  Glymour, C. and Scheines, R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
+8. Spirtes,P.  Glymour, C. and Scheines, R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
 }
                     
 \seealso{
@@ -158,7 +156,7 @@ Spirtes,P.  Glymour, C. and Scheines, R (2000). Causation, Prediction, and Searc
 # We compare different simulated data across three methods: MRPC, 
 # PC in pcalg (Kalisch et al., 2012), and mmhc in bnlearn (Marco Scutari, 2010)
 library(pcalg)    # library for pc algorithm
-library(bnlearn)  # library for mmhc
+library(bnlearn)  # library for pc.stable, mmpc and mmhc
 
 # Load predefined simulated data
 # Data pre-processing
@@ -180,14 +178,9 @@ V <- colnames(data)     # Column names
 suffStat_C <- list(C = cor(data),
                    n = n)
 
-# Robust correlation (Beta = 0.005)
-Rcor_R <- RobustCor(data, 0.005) 
-suffStat_R <- list(C = Rcor_R$RR,
-                   n = n)
-
 # Estimated graph by MRPC using gaussCItest and beta = 0.005
-MRPC.fit<- MRPC(data,
-                suffStat_R,
+MRPC.fit <- MRPC(data,
+                suffStat_C,
                 GV = 1,
                 FDR = 0.05,
                 alpha = 0.05,
@@ -196,9 +189,6 @@ MRPC.fit<- MRPC(data,
                 FDRcontrol = TRUE,
                 verbose = TRUE)
 
-# Estimated graph by mmhc
-mmhc.fit <- mmhc(data)
-
 # Estimated graph by PC with alpha = 0.05
 pc.fit <- pc(suffStat_C,
              indepTest = gaussCItest,
@@ -206,17 +196,34 @@ pc.fit <- pc(suffStat_C,
              labels = V,
              verbose = TRUE)
 
+## arcs not to be included from gene expression to genotype
+bl <- data.frame (from=colnames (data)[-1], to='V1')
+
+# Estimated graph by pc.stable
+pc.stable.fit <- pc.stable(data.frame(data),blacklist=bl,undirected = FALSE) 
+
+# Estimated graph by mmpc
+mmpc.fit <- mmpc(data.frame(data),blacklist=bl,undirected = FALSE) 
+
+# Estimated graph by mmhc
+mmhc.fit <- mmhc(data.frame(data),blacklist=bl)
+
+
 # Plot the results
 # Show estimated graph
-par(mfrow = c(2, 2))
+par(mfrow = c(2, 3))
 plot(Truth,
      main = "(A) Truth")
 plot(MRPC.fit,
      main = "(B) MRPC")
-graphviz.plot(mmhc.fit,
-              main = "(C) mmhc")
 plot(pc.fit,
-     main ="(D) pc")
+    main ="(C) pc")
+graphviz.plot(pc.stable.fit,
+    main = "(D) pc.stable")
+graphviz.plot(mmpc.fit,
+    main = "(E) mmpc")
+graphviz.plot(mmhc.fit,
+    main = "(F) mmhc")
 
 # Another option for plot of the results. First fig is the nodes
 # dendrogram with colored modules. Second fig is the plot of the graph
