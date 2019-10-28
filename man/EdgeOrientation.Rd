@@ -5,11 +5,11 @@
 Perform edge orientation under the MRPC algorithm
 }
 \description{
-This function performs the second step of the \link{MRPC} algorithm where it determines the edge direction in the graph skeleton inferred by the function \link{ModiSkeleton}. If the data contain genetic variants, this function first determines the edges between genetic variants and phenotype nodes based on the principle of Mendelian randomization. Next it identifies potential v-structures and orients the edges in them.  For the remaining edges, it examines triplets in turn to see whether a triplet is compatible with one of the basic models. See the references for details.
+This function performs the second step of the \link{MRPC} algorithm where it determines the edge direction in the graph skeleton inferred by the function \link{ModiSkeleton}. If the data contain genetic variants, this function first determines the edges between genetic variants and phenotype nodes based on the principle of Mendelian randomization. Next it identifies potential v-structures and orients the edges in them. For the remaining edges, it examines triplets in turn to see whether a triplet is compatible with one of the basic models. See the references for details.
 }
 \usage{
-EdgeOrientation(gInput, GV = GV, suffStat, FDR, alpha,indepTest = indepTest, 
-FDRcontrol = FDRcontrol, verbose = FALSE)
+EdgeOrientation(gInput, GV, suffStat, FDR, alpha,indepTest, 
+FDRcontrol, verbose = FALSE)
 
 }
 
@@ -32,7 +32,7 @@ Need to specify pre-assigned level. If FDR = 0.05, that ensures FDR and mFDR rem
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
 \details{
-The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu (2018) and Badsha et al. (2018). For example, we consider x to be a genetic variant, y and z the phenotype nodes.
+The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu (2019) and Badsha et al. (2018). For example, we consider x to be a genetic variant, y and z the phenotype nodes.
 
 Four different cases are as follows:
 
@@ -83,12 +83,9 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological
-networks with the principle of Mendelian randomization. Frontiers in
-Genetics 2019, 10(460).
+1. Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics 2019, 10(460).
 
-
-Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
+2. Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 }
                 
 \seealso{
@@ -97,8 +94,6 @@ Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R packag
 }
 
 \examples{
-# Load packages
-library(pcalg)  #library for existing pc
 
 # Load predefined data
 # Data pre-processing
@@ -112,20 +107,18 @@ data <- simu_data_M1    #data load for model 1
 n <- nrow (data)        #Number of row
 V <- colnames(data)     #Column names
 
-Rcor_R <- RobustCor(data,
-                    0.005) #Robust correlation (Beta = 0.005)
-                    
-suffStat_R <- list(C = Rcor_R$RR,
+# Classical correlation
+suffStat_C <- list(C = cor(data),
                    n = n)
 
 # Estimate skeleton
-Skel.fit <- ModiSkeleton(data, suffStat_R, FDR = 0.05, alpha = 0.05,
+Skel.fit <- ModiSkeleton(data, suffStat_C, FDR = 0.05, alpha = 0.05,
                          indepTest = 'gaussCItest',labels = V,
                           FDRcontrol = TRUE, verbose = TRUE)
 
 # Edge Orientation
 Edge_orientation <- EdgeOrientation(Skel.fit, GV = 1,
-                                    suffStat_R, FDR = 0.05,alpha = 0.05,
+                                    suffStat_C, FDR = 0.05,alpha = 0.05,
                                     indepTest = 'gaussCItest', 
                                     FDRcontrol = TRUE,verbose = 1)
 
