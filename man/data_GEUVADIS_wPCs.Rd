@@ -62,7 +62,7 @@ List_significant_asso <- which(Significant_asso, arr.ind = TRUE, useNames = TRUE
 List_significant_asso[1:10,]
 
 #Example list of eQTLs or genes names with statistically associated with PC2
-eqtl.genes_PC2 <- colnames(data_GEUVADIS_combine)[List_significant_asso
+eqtl.genes_PC2 <- colnames(data_GEUVADIS_combined)[List_significant_asso
                             [which(List_significant_asso[,1]=="2"),2]]
 #For example: gene SBF2-AS1 statistically associated with PC2 
 #Note, gene SBF2-AS1 is a member of eQTL 50 with snp rs7124238 and gene SWAP70 in
