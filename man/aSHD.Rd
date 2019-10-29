@@ -41,8 +41,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{
-# True model
-# True graph (V1 --> T1 --> T2 --> T3)
+# True model (V1 --> T1 --> T2 --> T3)
 tarmat_s1 <- matrix(0,
                     nrow = 4,
                     ncol = 4)
