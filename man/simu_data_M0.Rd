@@ -1,6 +1,6 @@
 \name{simu_data_M0}
 \alias{simu_data_M0}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Data for Model 0
 }
