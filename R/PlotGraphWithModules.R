@@ -1,7 +1,7 @@
 PlotGraphWithModules <- function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=8,arrow.size = 5,label.size = 3,alpha = 1,...) {
   
   
-  AC <- PlotDendrogramObj$dynamicColors #All (genes and CNV) colors
+  AC <- PlotDendrogramObj$dynamicColors #All (genes and GV) colors
   CT <- table(AC)   #Color table
   Adj_symmetric_matrix <- PlotDendrogramObj$Adj_symmetric_matrix #symmetric matrix from PlotDendrogram
   G_Order <- vector("list")
@@ -27,14 +27,14 @@ PlotGraphWithModules <- function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=
   net <- network(New_Mat_MO, directed = TRUE)
   #Make two group (i) for phenotypes (e.g., gene expression)=circle and (ii) genotypes=Triangle
   #shape.palette = c("Genotype" = 17,"Phenotype" = 19)
-  #char=colnames(Adj_symmetric_matrix)[GV+1:(ncol(Adj_symmetric_matrix)-1)] #all CNV
+  #char=colnames(Adj_symmetric_matrix)[GV+1:(ncol(Adj_symmetric_matrix)-1)] #all GV
   if(GV==0){
     char <- NULL
   }
   else{
-    char <- colnames(Adj_symmetric_matrix)[1:GV] #all CNV
+    char <- colnames(Adj_symmetric_matrix)[1:GV] #all GV
   }
-  #char=colnames(Adj_symmetric_matrix)[-c(1:GV)] #all CNV
+  #char=colnames(Adj_symmetric_matrix)[-c(1:GV)] #all GV
   net%v%"phono" <- ifelse((colnames(New_Mat_MO) %in% char),"Genotype","Phenotype")
   
   #library(GGally) #Need for ggnet2 function

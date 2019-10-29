@@ -296,8 +296,8 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
         
         if(tarmat[x, y]==0 & tarmat[y, x]==0) #bidirected if still no edge in tarmat
         {
-          tarmat[x, y]=1
-          tarmat[y, x]=1
+          tarmat[x, y] <- 1
+          tarmat[y, x] <- 1
         }
       }
     }

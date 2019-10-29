@@ -18,6 +18,7 @@ CutModules <- function (x, cuts, m = 150, g, levels.mean = FALSE, digits, minmax
       g <- max(1, floor(nnm/m))
     if (g < 1)
       stop("g must be >=1, m must be positive")
+    
     options(digits = 15)
     n <- table(x)
     xx <- as.double(names(n))

@@ -1,4 +1,5 @@
 #This is the part 1 of MRPC to draw the undirected graph
+
 ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "disCItest","citest"), labels, p, method = c("stable",
                                                              "original", "stable.fast"), m.max = Inf, fixedGaps = NULL,
                   fixedEdges = NULL, NAdelete = TRUE, FDRcontrol=TRUE,verbose = FALSE)

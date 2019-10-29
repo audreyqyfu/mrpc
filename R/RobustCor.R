@@ -1,3 +1,5 @@
+# This is the function to calculate robust correlation
+
 RobustCor <- function(xx,Beta, plot=FALSE)
 {
   #xx=as.matrix(xx,na.action(xx))

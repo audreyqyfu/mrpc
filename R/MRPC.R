@@ -1,3 +1,4 @@
+#This is the main function of MRPC algorithm combine with ModiSkeleton and EdgeOrientation
 
 MRPC <- function (data,suffStat,GV,FDR=0.05,alpha=0.05,indepTest = c("gaussCItest","disCItest", "citest"),labels, p, fixedGaps = NULL,
                fixedEdges = NULL, NAdelete = TRUE, m.max = Inf,u2pd = c("relaxed", "rand", "retry"),

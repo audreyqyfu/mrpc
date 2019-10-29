@@ -1,4 +1,4 @@
-PlotDendrogram=function(Adj_directed, minModuleSize = 5, groupLabels = " ", dendroLabels = FALSE, hclustHang = 0.03, dendroAddGuide = FALSE, dendroGuideHang = 0.05, dendroMain = "Dendrogram with modules of nodes in colors", ...) {
+PlotDendrogram <- function(Adj_directed, minModuleSize = 5, groupLabels = " ", dendroLabels = FALSE, hclustHang = 0.03, dendroAddGuide = FALSE, dendroGuideHang = 0.05, dendroMain = "Dendrogram with modules of nodes in colors", ...) {
   
   #Adj_directed is a matrix from directed graph
   #Start to find Module based on library(WGCNA)
