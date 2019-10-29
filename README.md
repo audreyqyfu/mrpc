@@ -29,15 +29,17 @@ MRPC depends on several R packages from CRAN and from Bioconductor.  It is likel
 R> install.packages ("packagename")
 ```
 
-The following Bioconductor packages also need to be installed before running function `install_github`:
+The following Bioconductor packages also need to be installed before running function `install_github` or `install.packages`:
 ```
 R> if (!requireNamespace ("BiocManager", quietly = TRUE))
     install.packages ("BiocManager")
-R> BiocManager::install ('RBGL')
-R> BiocManager::install ('Rgraphviz')
+R> BiocManager::install ('AnnotationDbi')
 R> BiocManager::install ('GO.db')
+R> BiocManager::install ('graph')
 R> BiocManager::install ('impute')
 R> BiocManager::install ('preprocessCore')
+R> BiocManager::install ('RBGL')
+R> BiocManager::install ('Rgraphviz')
 ```
 ### 2. Installation from the source of a released package.
 
