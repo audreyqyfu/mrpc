@@ -1,11 +1,11 @@
 \name{data_without_outliers}
 \alias{data_without_outliers}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Example data without outliers
 }
 \description{
-The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 and T3.  The code below compares the performance of \link{MRPC}, \link{mmhc} and \link{pc} on this data set.
+The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 and T3. The code below compares the performance of \link{MRPC}, \link{mmhc} and \link{pc} on this data set.
 
 }
 

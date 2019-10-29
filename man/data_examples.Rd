@@ -44,7 +44,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \examples{
 
-# Continuous data with genetic information
+# Continuous data with genetic varitant (GV)
 # load the data
 data("data_examples")  
 

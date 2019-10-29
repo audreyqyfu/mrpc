@@ -1,6 +1,6 @@
 \name{data_with_outliers}
 \alias{data_with_outliers}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Example data with outliers
 }
