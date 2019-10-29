@@ -5,7 +5,7 @@
 Infer a graph skeleton (undirected graph)
 }
 \description{
-This function infers a graph skeleton (i.e., an undirected graph). It is based on the function \link{skeleton} from the \code{pcalg} package. Both functions perform marginal and conditional indpenendence tests.  However, \code{ModiSkeleton} implements an online false discovery rate (FDR) control method in order to control the overall FDR, whereas \link{skeleton} controls only the type I error rate for each individual test. See details below.
+This function infers a graph skeleton (i.e., an undirected graph). It is based on the function \link{skeleton} from the \code{pcalg} package. Both functions perform marginal and conditional indpenendence tests. However, \code{ModiSkeleton} implements an online false discovery rate (FDR) control method in order to control the overall FDR, whereas \link{skeleton} controls only the type I error rate for each individual test. See details below.
 }
 \usage{
 ModiSkeleton(data, suffStat, FDR, alpha, indepTest, labels, p,
@@ -15,7 +15,7 @@ ModiSkeleton(data, suffStat, FDR, alpha, indepTest, labels, p,
 }
 
 \arguments{
-Many arguments are similar to those in \link{skeleton} and \link{pc} in the \code{pcalg} package.  Several arguments here are also arguments for the function \link{MRPC}.
+Many arguments are similar to those in \link{skeleton} and \link{pc} in the \code{pcalg} package. Several arguments here are also arguments for the function \link{MRPC}.
 
 \item{data}{
 Data matrix, where the rows are samples and the columns are features (e.g., genetic variants and phenotypes). Columns for genetic varants, if available, appear before other columns for phenotypes (e.g., gene expression).  For example, if there is one genetic variant, then the first column of the data matrix is the genetic variant and the remaining columns are the gene expression data.
