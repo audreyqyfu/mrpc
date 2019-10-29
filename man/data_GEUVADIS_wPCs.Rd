@@ -40,12 +40,12 @@ PCs_matrix <- PCs$x
 
 #load GEUVADIS 62 eQTL-gene sets data (sample=373 and variables=194 (eQTLs=62 and
 #genes=132))
-data("data_GEUVADIS_combine")  
+data("data_GEUVADIS_combined")  
 
 library(psych) #library for corr.test
 #correlations and pvalues using top 10 PCs
 no_PCs <- 10
-corr_PCs <- corr.test(PCs_matrix[,1:no_PCs],data_GEUVADIS_combine)
+corr_PCs <- corr.test(PCs_matrix[,1:no_PCs],data_GEUVADIS_combined)
 #The matrix of correlations
 corr_matrix <- corr_PCs$r
 # All p-values

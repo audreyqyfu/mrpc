@@ -1,5 +1,5 @@
-\name{data_GEUVADIS_combine}
-\alias{data_GEUVADIS_combine}
+\name{data_GEUVADIS_combined}
+\alias{data_GEUVADIS_combined}
 \docType{data}
 \title{
 GEUVADIS data with combine 62 eQTLs-genes
