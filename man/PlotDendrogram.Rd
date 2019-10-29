@@ -13,7 +13,7 @@ PlotDendrogram(Adj_directed, minModuleSize, groupLabels = " ",
                dendroAddGuide = FALSE, dendroGuideHang = 0.05, 
                dendroMain = "Dendrogram with modules of nodes in colors", ...)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{Adj_directed}{
 Adjacency matrix from directed graph
