@@ -1,3 +1,4 @@
+#This is a function to calculate deviation between two graphs represented by two sequences
 
 seqDiff <- function(g1, g2){
   

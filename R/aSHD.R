@@ -5,7 +5,7 @@
 #The larger this distance, the more different the two graphs are. We adjusted 
 #the SHD to reduce the penalty on the wrong direction of an edge to 0.5.Details
 #in help(aSHD)
-aSHD=function (g1, g2,GV,edge.presence=1.0,edge.direction=0.5) 
+aSHD <- function (g1, g2,GV,edge.presence=1.0,edge.direction=0.5) 
 {
   if (is(g1, "pcAlgo")) 
     g1 <- g1@graph
