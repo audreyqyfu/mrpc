@@ -46,9 +46,9 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{
-R <- RobustCor(simu_data_M0,
+RobustCor_objects <- RobustCor(simu_data_M0,
                Beta = 0.005,
                plot = FALSE)
                
-RCorr <- R$RR  # Correlation matrix
+Rcorr <- RobustCor_objects $RR  # Correlation matrix
 }
