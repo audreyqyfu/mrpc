@@ -22,7 +22,6 @@ FDR level.
   \item{a}{
 A constant.
 }
-
   \item{R}{
 All of the decisions from the tests that have already been performed.
 }
