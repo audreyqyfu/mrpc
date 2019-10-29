@@ -28,7 +28,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 #Examining top PCs as potential confounders in GEUVADIS data
 
 #load data with all genes in GEUVADIS (sample=373 and genes=23722)
-data_githubURL <- "https://github.com/mdbahadur/mrpc_data/raw/master/data_GEUVADIS_allgenes.RData"
+data_githubURL <- "https://github.com/audreyqyfu/mrpc_data/raw/master/data_GEUVADIS_allgenes.RData"
 
 load(url(data_githubURL))
 
