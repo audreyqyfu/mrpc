@@ -1,3 +1,5 @@
+#This is function to cut a numeric variable into intervals
+
 CutModules <- function (x, cuts, m = 150, g, levels.mean = FALSE, digits, minmax = TRUE,
                           oneval = TRUE, onlycuts = FALSE)
 {

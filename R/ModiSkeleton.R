@@ -1,4 +1,4 @@
-#This is the part 1 of MRPC to draw the undirected graph
+#This is the step 1 of MRPC to draw the undirected graph
 
 ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "disCItest","citest"), labels, p, method = c("stable",
                                                              "original", "stable.fast"), m.max = Inf, fixedGaps = NULL,
@@ -41,7 +41,7 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
     sepset <- lapply(seq_p, function(.) vector("list", p))
     pMax <- matrix(-Inf, nrow = p, ncol = p)
     m <- 0L    #Current test number
-    R<- 0L      #Rejection number
+    R <- 0L      #Rejection number
     Alpha <- 0L
     pval <- 0L
 

@@ -1,3 +1,5 @@
+#Plot a graph with nodes in modules indicated by colors
+
 PlotGraphWithModules <- function(Adj_directed,PlotDendrogramObj,GV=GV,node.size=8,arrow.size = 5,label.size = 3,alpha = 1,...) {
   
   

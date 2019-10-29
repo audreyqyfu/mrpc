@@ -1,3 +1,5 @@
+#This is function to plot a dendrogram and display node groups in colored modules
+
 PlotDendrogram <- function(Adj_directed, minModuleSize = 5, groupLabels = " ", dendroLabels = FALSE, hclustHang = 0.03, dendroAddGuide = FALSE, dendroGuideHang = 0.05, dendroMain = "Dendrogram with modules of nodes in colors", ...) {
   
   #Adj_directed is a matrix from directed graph
@@ -39,8 +41,6 @@ PlotDendrogram <- function(Adj_directed, minModuleSize = 5, groupLabels = " ", d
   Colorlist <- table(dynamicColors)
   #print(Colorlist)
   
-  # Plot the dendrogram and colors underneath
-  #par(mfrow=c(1,2))
   #sizeGrWindow(20,6);
   PlotDendrogramObj <- plotDendroAndColors(dendro = geneTree, colors = dynamicColors, groupLabels = groupLabels,
                       dendroLabels = dendroLabels, hang = hclustHang,

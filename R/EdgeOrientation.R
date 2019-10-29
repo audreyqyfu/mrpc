@@ -1,4 +1,4 @@
-#This is the part 2 of MRPC to direction determination of the undirected edges.
+#This is the step 2 of MRPC to direction determination of the undirected edges.
 
 EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,verbose = FALSE)
 {
