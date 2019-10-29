@@ -1,3 +1,4 @@
+#This is the function of Sequential FDR method that controls the FDR in an online manner
 
 SeqFDR <- function(m,FDR,a=2,R)
 {

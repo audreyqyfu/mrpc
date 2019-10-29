@@ -37,9 +37,6 @@ mp[abs(mp) < Eps] <- 0;
 return(mp);
 }
 
-#mpinv(X)
-
-
 #X <- cbind(1, diag(3)); # singular matrix
 #y <- 1:3
 #Xp <- qr(X);
