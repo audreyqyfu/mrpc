@@ -65,15 +65,19 @@ List_significant_asso <- which(Significant_asso, arr.ind = TRUE, useNames = TRUE
 List_significant_asso[1:10,]
 
 # Example list of eQTLs or genes names with statistically associated with PC1
-eqtl.genes_PC1 <- colnames(data_GEUVADIS_combined)[List_significant_asso [which(List_significant_asso[,1]=="1"),2]]
+eqtl.genes_PC1 <- colnames(data_GEUVADIS_combined)[List_significant_asso 
+                           [which(List_significant_asso[,1]=="1"),2]]
+
 print(eqtl.genes_PC1)
 
 # Example list of eQTLs or genes names with statistically associated with PC2
-eqtl.genes_PC2 <- colnames(data_GEUVADIS_combined)[List_significant_asso [which(List_significant_asso[,1]=="2"),2]]
+eqtl.genes_PC2 <- colnames(data_GEUVADIS_combined)[List_significant_asso 
+                           [which(List_significant_asso[,1]=="2"),2]]
 print(eqtl.genes_PC2)
 
 # Example list of eQTLs or genes names with statistically associated with PC3
-eqtl.genes_PC3 <- colnames(data_GEUVADIS_combined)[List_significant_asso [which(List_significant_asso[,1]=="3"),2]]
+eqtl.genes_PC3 <- colnames(data_GEUVADIS_combined)[List_significant_asso 
+                           [which(List_significant_asso[,1]=="3"),2]]
 print(eqtl.genes_PC3)
 
 #------------- 
@@ -93,10 +97,19 @@ n <- nrow (data_GEU_Q50)        # Number of rows
 V <- colnames(data_GEU_Q50)     # Column names
 
 # Classical correlation
-suffStat_C_Q50 <- list(C = cor(data_GEU_Q50, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_Q50 <- list(C = cor(data_GEU_Q50, use = 'pairwise.complete.obs'),
+                       n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_withoutPC_GEU_Q50 <- MRPC(D1_GEU_Q50, suffStat_C_Q50, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_withoutPC_GEU_Q50 <- MRPC(data_GEU_Q50, 
+                                  suffStat_C_Q50, 
+                                  GV = 1, 
+                                  FDR = 0.05, 
+                                  alpha = 0.05, 
+                                  indepTest = 'gaussCItest', 
+                                  labels = V,  
+                                  FDRcontrol = TRUE, 
+                                  verbose = TRUE)
 
 # eQTL 50 data with PC2 in GEUVADIS
 data_withPC_Q50 <- cbind(data_GEU_Q50,PCs_matrix[,2])
@@ -106,10 +119,19 @@ n <- nrow (data_withPC_Q50)        # Number of rows
 V <- colnames(data_withPC_Q50)     # Column names
 
 # Classical correlation
-suffStat_C_withPC_Q50 <- list(C = cor(data_withPC_Q50, use = 'pairwise.complete.obs'),  n = n)
+suffStat_C_withPC_Q50 <- list(C = cor(data_withPC_Q50, use = 'pairwise.complete.obs'),  
+                              n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q50 <- MRPC(Data_withPC_Q50, suffStat_C_withPC_Q50, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_witPC_GEU_Q50 <- MRPC(Data_withPC_Q50, 
+                               suffStat_C_withPC_Q50, 
+                               GV = 1, 
+                               FDR = 0.05, 
+                               alpha = 0.05, 
+                               indepTest = 'gaussCItest', 
+                               labels = V,  
+                               FDRcontrol = TRUE, 
+                               verbose = TRUE)
 
 # Plot 
 par(mfrow=c(1,2))
@@ -134,10 +156,19 @@ n <- nrow (data_GEU_Q29)        # Number of rows
 V <- colnames(data_GEU_Q29)     # Column names
 
 # Classical correlation
-suffStat_C_Q29 <- list(C = cor(data_GEU_Q29, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_Q29 <- list(C = cor(data_GEU_Q29, use = 'pairwise.complete.obs'),
+                       n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_withoutPC_GEU_Q29 <- MRPC(D1_GEU_Q29, suffStat_C_Q29, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_withoutPC_GEU_Q29 <- MRPC(data_GEU_Q29, 
+                                   suffStat_C_Q29, 
+                                   GV = 1, 
+                                   FDR = 0.05, 
+                                   alpha = 0.05, 
+                                   indepTest = 'gaussCItest', 
+                                   labels = V,  
+                                   FDRcontrol = TRUE, 
+                                   verbose = TRUE)
  
 # eQTL 29 data with PC1 in GEUVADIS
 data_withPC_Q29 <- cbind(data_GEU_Q29,PCs_matrix[,1])
@@ -147,10 +178,19 @@ n <- nrow (data_withPC_Q29)        # Number of rows
 V <- colnames(data_withPC_Q29)     # Column names
 
 # Classical correlation
-suffStat_C_withPC_Q29 <- list(C = cor(data_withPC_Q29, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_withPC_Q29 <- list(C = cor(data_withPC_Q29, use = 'pairwise.complete.obs'),
+                              n = n)
 
 # Estimated graph by MRPC
-MRPC.fit_witPC_GEU_Q29 <- MRPC(Data_withPC_Q29, suffStat_C_withPC_Q29, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_witPC_GEU_Q29 <- MRPC(Data_withPC_Q29, 
+                               suffStat_C_withPC_Q29, 
+                               GV = 1, 
+                               FDR = 0.05, 
+                               alpha = 0.05, 
+                               indepTest = 'gaussCItest', 
+                               labels = V,  
+                               FDRcontrol = TRUE, 
+                               verbose = TRUE)
  
 # Plot 
 par(mfrow=c(1,2))
@@ -175,10 +215,19 @@ n <- nrow (data_GEU_Q43)        # Number of rows
 V <- colnames(data_GEU_Q43)     # Column names
 
 # Classical correlation
-suffStat_C_Q43 <- list(C = cor(data_GEU_Q43, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_Q43 <- list(C = cor(data_GEU_Q43, use = 'pairwise.complete.obs'), 
+                       n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_withoutPC_GEU_Q43 <- MRPC(D1_GEU_Q43, suffStat_C_Q43, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_withoutPC_GEU_Q43 <- MRPC(data_GEU_Q43, 
+                                   suffStat_C_Q43, 
+                                   GV = 1, 
+                                   FDR = 0.05, 
+                                   alpha = 0.05, 
+                                   indepTest = 'gaussCItest', 
+                                   labels = V,  
+                                   FDRcontrol = TRUE, 
+                                   verbose = TRUE)
  
 # eQTL 43 data with PC2 in GEUVADIS
 data_withPC_Q43 <- cbind(data_GEU_Q43,PCs_matrix[,2])
@@ -188,10 +237,19 @@ n <- nrow (data_withPC_Q43)        # Number of rows
 V <- colnames(data_withPC_Q43)     # Column names
 
 # Classical correlation
-suffStat_C_withPC_Q43 <- list(C = cor(data_withPC_Q43, use = 'pairwise.complete.obs'),  n = n)
+suffStat_C_withPC_Q43 <- list(C = cor(data_withPC_Q43, use = 'pairwise.complete.obs'), 
+                              n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q43 <- MRPC(Data_withPC_Q43, suffStat_C_withPC_Q43, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_witPC_GEU_Q43 <- MRPC(Data_withPC_Q43, 
+                               suffStat_C_withPC_Q43, 
+                               GV = 1, 
+                               FDR = 0.05, 
+                               alpha = 0.05, 
+                               indepTest = 'gaussCItest', 
+                               labels = V,  
+                               FDRcontrol = TRUE, 
+                               verbose = TRUE)
 
 # Plot
 par(mfrow=c(1,2))
@@ -217,10 +275,19 @@ n <- nrow (data_GEU_Q34)        # Number of rows
 V <- colnames(data_GEU_Q34)     # Column names
 
 # Classical correlation
-suffStat_C_Q34 <- list(C = cor(data_GEU_Q34, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_Q34 <- list(C = cor(data_GEU_Q34, use = 'pairwise.complete.obs'), 
+                       n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_withoutPC_GEU_Q34 <- MRPC(D1_GEU_Q34, suffStat_C_Q34, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_withoutPC_GEU_Q34 <- MRPC(data_GEU_Q34, 
+                                   suffStat_C_Q34, 
+                                   GV = 1, 
+                                   FDR = 0.05, 
+                                   alpha = 0.05, 
+                                   indepTest = 'gaussCItest', 
+                                   labels = V,  
+                                   FDRcontrol = TRUE, 
+                                   verbose = TRUE)
  
 # eQTL 34 data with PC2 and PC3 in GEUVADIS
 data_withPC_Q34 <- cbind(data_GEU_Q34,PCs_matrix[,c(2,3)])
@@ -230,10 +297,19 @@ n <- nrow (data_withPC_Q34)        # Number of rows
 V <- colnames(data_withPC_Q34)     # Column names
 
 # Classical correlation
-suffStat_C_withPC_Q34 <- list(C = cor(data_withPC_Q34, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_withPC_Q34 <- list(C = cor(data_withPC_Q34, use = 'pairwise.complete.obs'), 
+                              n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q34 <- MRPC(Data_withPC_Q34, suffStat_C_withPC_Q34, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_witPC_GEU_Q34 <- MRPC(Data_withPC_Q34, 
+                               suffStat_C_withPC_Q34, 
+                               GV = 1, 
+                               FDR = 0.05, 
+                               alpha = 0.05, 
+                               indepTest = 'gaussCItest', 
+                               labels = V,  
+                               FDRcontrol = TRUE, 
+                               verbose = TRUE)
 
 # Plot 
 par(mfrow=c(1,2))
@@ -258,10 +334,19 @@ n <- nrow (data_GEU_Q8)        # Number of rows
 V <- colnames(data_GEU_Q8)     # Column names
 
 # Classical correlation
-suffStat_C_Q8 <- list(C = cor(data_GEU_Q8, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_Q8 <- list(C = cor(data_GEU_Q8, use = 'pairwise.complete.obs'), 
+                      n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_withoutPC_GEU_Q8 <- MRPC(D1_GEU_Q8, suffStat_C_Q8, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
+MRPC.fit_withoutPC_GEU_Q8 <- MRPC(data_GEU_Q8, 
+                                  suffStat_C_Q8, 
+                                  GV = 1, 
+                                  FDR = 0.05, 
+                                  alpha = 0.05, 
+                                  indepTest = 'gaussCItest', 
+                                  labels = V,  
+                                  FDRcontrol = TRUE, 
+                                  verbose = TRUE)
  
 # eQTL 8 data with PC1 and PC3 in GEUVADIS
 data_withPC_Q8 <- cbind(data_GEU_Q8,PCs_matrix[,c(1,3)])
@@ -271,11 +356,19 @@ n <- nrow (data_withPC_Q8)        # Number of rows
 V <- colnames(data_withPC_Q8)     # Column names
 
 # Classical correlation
-suffStat_C_withPC_Q8 <- list(C = cor(data_withPC_Q8, use = 'pairwise.complete.obs'), n = n)
+suffStat_C_withPC_Q8 <- list(C = cor(data_withPC_Q8, use = 'pairwise.complete.obs'), 
+                             n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q8 <- MRPC(Data_withPC_Q8, suffStat_C_withPC_Q8, GV = 1, FDR = 0.05, alpha = 0.05, indepTest = 'gaussCItest', labels = V,  FDRcontrol = TRUE, verbose = TRUE)
- 
+MRPC.fit_witPC_GEU_Q8 <- MRPC(Data_withPC_Q8, 
+                              suffStat_C_withPC_Q8, 
+                              GV = 1, 
+                              FDR = 0.05, 
+                              alpha = 0.05, 
+                              indepTest = 'gaussCItest', 
+                              labels = V,  
+                              FDRcontrol = TRUE, 
+                              verbose = TRUE)
 # Plot 
 par(mfrow=c(1,2))
 plot(MRPC.fit_withoutPC_GEU_Q8,
