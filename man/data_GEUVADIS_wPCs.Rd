@@ -25,74 +25,71 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \examples{
 
-# Examining top PCs as potential confounders in GEUVADIS data
+# Examining principal components (PCs) as potential confounders in analysis of the GEUVADIS data
 library(MRPC) # MRPC
 
-# load data with all genes in GEUVADIS (sample=373 and genes=23722)
+# Load data with all genes in GEUVADIS 
+# 373 individuals
+# 23722 genes
 data_githubURL <- "https://github.com/audreyqyfu/mrpc_data/raw/master/data_GEUVADIS_allgenes.RData"
 load(url(data_githubURL))
 
-# Apply pca
+# Run PCA
 library(stats) # prcomp
 PCs <- prcomp(data_GEUVADIS_allgenes,scale=TRUE)
-
-# extract pca matrix 
+# Extract the PCs 
 PCs_matrix <- PCs$x
 
-# load GEUVADIS 62 eQTL-gene sets data (sample=373 and variables=194 (eQTLs=62 and genes=132))
+# Load the 62 eQTL-gene sets
+# 373 individuals
+# 194 variables (eQTLs=62 and genes=132)
 data("data_GEUVADIS_combined")  
 
-library(psych) # corr.test
-# correlations and pvalues using top 10 PCs
+## Identify PCs that are significantly associated with eQTL-gene sets
+# Compute the correlations and corresponding p values between the top PCs and the eQTLs and genes
+library(psych) # to use corr.test
 no_PCs <- 10
 corr_PCs <- corr.test(PCs_matrix[,1:no_PCs],data_GEUVADIS_combined)
-
-# The matrix of correlations
+# The correlation matrix
 corr_matrix <- corr_PCs$r
-
-# All p-values
+# The p-values
 Pvalues <- corr_PCs$p
-
-# Statistically significant associations between each of the top 10 PCs and the eQTL-gene sets
+# Apply the q value method at FDR of 0.05
 library(WGCNA) # qvalue
 qobj <- qvalue(Pvalues, fdr.level=0.05,robust = TRUE) 
 
-# Significant associations list
+# Significant associations
 Significant_asso <- qobj$significant
 List_significant_asso <- which(Significant_asso, arr.ind = TRUE, useNames = TRUE)
-
-# 1st columns are the PCs and 2nd columns are the corresponding associated eQTLs/genes.
+# 1st column is the PCs
+# 2nd column contains the associated eQTLs or genes
 List_significant_asso[1:10,]
 
-# Example list of eQTLs or genes names with statistically associated with PC1
+# Examples of eQTLs or genes that are significantly associated with certain PCs
+# PC1
 eqtl.genes_PC1 <- colnames(data_GEUVADIS_combined)[List_significant_asso 
                            [which(List_significant_asso[,1]=="1"),2]]
-
 print(eqtl.genes_PC1)
-
-# Example list of eQTLs or genes names with statistically associated with PC2
+# PC2
 eqtl.genes_PC2 <- colnames(data_GEUVADIS_combined)[List_significant_asso 
                            [which(List_significant_asso[,1]=="2"),2]]
 print(eqtl.genes_PC2)
-
-# Example list of eQTLs or genes names with statistically associated with PC3
+# PC3
 eqtl.genes_PC3 <- colnames(data_GEUVADIS_combined)[List_significant_asso 
                            [which(List_significant_asso[,1]=="3"),2]]
 print(eqtl.genes_PC3)
 
+
 #------------- 
 # For example: 
-# gene SBF2-AS1 statistically associated with PC2 
+# Gene SBF2-AS1 is significantly associated with PC2 
 print(eqtl.genes_PC2[24])
 
-# Note, gene SBF2-AS1 is a member of eQTL 50 with snp rs7124238 and gene SWAP70 in
-# GEUVADIS. Then we applied MRPC jointly for the eQTL-gene set and the associated PC2 
-# (rs7124238, SWAP70, SBF2-AS1, PC2)
-
-# eQTL 50 data without PC2 in GEUVADIS
+# Gene SBF2-AS1 is in the eQTL-gene set #50 with snp rs7124238 and gene SWAP70
 data_GEU_Q50 <- data_GEUVADIS$Data_Q50$Data_EUR
 colnames(data_GEU_Q50) <- c("rs7124238","SBF2-AS1","SWAP70")
 
+# Analyze the eQTL-gene set without PC2
 n <- nrow (data_GEU_Q50)        # Number of rows
 V <- colnames(data_GEU_Q50)     # Column names
 
@@ -111,7 +108,7 @@ MRPC.fit_withoutPC_GEU_Q50 <- MRPC(data_GEU_Q50,
                                   FDRcontrol = TRUE, 
                                   verbose = TRUE)
 
-# eQTL 50 data with PC2 in GEUVADIS
+# Analyze the eQTL-gene set with PC2
 data_withPC_Q50 <- cbind(data_GEU_Q50,PCs_matrix[,2])
 colnames(data_withPC_Q50)[4] <- "PC2"
 
@@ -123,7 +120,7 @@ suffStat_C_withPC_Q50 <- list(C = cor(data_withPC_Q50, use = 'pairwise.complete.
                               n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q50 <- MRPC(Data_withPC_Q50, 
+MRPC.fit_withPC_GEU_Q50 <- MRPC(Data_withPC_Q50, 
                                suffStat_C_withPC_Q50, 
                                GV = 1, 
                                FDR = 0.05, 
@@ -137,20 +134,18 @@ MRPC.fit_witPC_GEU_Q50 <- MRPC(Data_withPC_Q50,
 par(mfrow=c(1,2))
 plot(MRPC.fit_withoutPC_GEU_Q50,
      main = "Without PC" )
-plot(MRPC.fit_witPC_GEU_Q50,
+plot(MRPC.fit_withPC_GEU_Q50,
      main = "Without PC")
 
 #------------- 
-# gene LCMT2 statistically associated with PC1 
+# Gene LCMT2 is significantly associated with PC1 
 print(eqtl.genes_PC1[8])
 
-# Note, gene LCMT2 is a member of eQTL 29 with snp rs2278858 and gene ADAL in
-# GEUVADIS. Then we applied MRPC jointly for the eQTL-gene set and the associated PC1 
-# (rs2278858, LCMT2, ADAL, PC1)
-
-# eQTL 29 data without PC1 in GEUVADIS
+# Gene LCMT2 is in the eQTL-gene set #29 with snp rs2278858 and gene ADAL 
 data_GEU_Q29 <- data_GEUVADIS$Data_Q29$Data_EUR
 colnames(data_GEU_Q29) <- c("rs2278858", "LCMT2", "ADAL")
+
+# Analyze the eQTL-gene set without PC1
 
 n <- nrow (data_GEU_Q29)        # Number of rows
 V <- colnames(data_GEU_Q29)     # Column names
@@ -170,7 +165,7 @@ MRPC.fit_withoutPC_GEU_Q29 <- MRPC(data_GEU_Q29,
                                    FDRcontrol = TRUE, 
                                    verbose = TRUE)
  
-# eQTL 29 data with PC1 in GEUVADIS
+# Analyze the eQTL-gene set with PC1
 data_withPC_Q29 <- cbind(data_GEU_Q29,PCs_matrix[,1])
 colnames(data_withPC_Q29)[4] <- "PC1"
 
@@ -182,7 +177,7 @@ suffStat_C_withPC_Q29 <- list(C = cor(data_withPC_Q29, use = 'pairwise.complete.
                               n = n)
 
 # Estimated graph by MRPC
-MRPC.fit_witPC_GEU_Q29 <- MRPC(Data_withPC_Q29, 
+MRPC.fit_withPC_GEU_Q29 <- MRPC(Data_withPC_Q29, 
                                suffStat_C_withPC_Q29, 
                                GV = 1, 
                                FDR = 0.05, 
@@ -196,20 +191,18 @@ MRPC.fit_witPC_GEU_Q29 <- MRPC(Data_withPC_Q29,
 par(mfrow=c(1,2))
 plot(MRPC.fit_withoutPC_GEU_Q29,
      main = "Without PC" )
-plot(MRPC.fit_witPC_GEU_Q29,
+plot(MRPC.fit_withPC_GEU_Q29,
      main = "With PC")
 
 #------------- 
-# genes SERPINB8 and HMSD are statistically associated with PC2 
+# Genes SERPINB8 and HMSD are significantly associated with PC2 
 print(eqtl.genes_PC2[c(20,21)])
 
-# Note, genes SERPINB8 and HMSD are a member of eQTL 43 with snp rs55928920 in GEUVADIS.
-# Then we applied MRPC jointly for the eQTL-gene set and the associated PC2 
-# (rs55928920, SERPINB8, HMSD, PC2)
-
-# eQTL 43 data without PC2 in GEUVADIS
+# Genes SERPINB8 and HMSD are in the eQTL-gene set #43 with snp rs55928920 
 data_GEU_Q43 <- data_GEUVADIS$Data_Q43$Data_EUR
 colnames(data_GEU_Q43) <- c("rs55928920",	"SERPINB8",	"HMSD")
+
+# Analyze the eQTL-gene set without PC2
 
 n <- nrow (data_GEU_Q43)        # Number of rows
 V <- colnames(data_GEU_Q43)     # Column names
@@ -229,7 +222,7 @@ MRPC.fit_withoutPC_GEU_Q43 <- MRPC(data_GEU_Q43,
                                    FDRcontrol = TRUE, 
                                    verbose = TRUE)
  
-# eQTL 43 data with PC2 in GEUVADIS
+# Analyze the eQTL-gene set with PC2
 data_withPC_Q43 <- cbind(data_GEU_Q43,PCs_matrix[,2])
 colnames(data_withPC_Q43)[4] <- "PC2"
 
@@ -241,7 +234,7 @@ suffStat_C_withPC_Q43 <- list(C = cor(data_withPC_Q43, use = 'pairwise.complete.
                               n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q43 <- MRPC(Data_withPC_Q43, 
+MRPC.fit_withPC_GEU_Q43 <- MRPC(Data_withPC_Q43, 
                                suffStat_C_withPC_Q43, 
                                GV = 1, 
                                FDR = 0.05, 
@@ -255,21 +248,20 @@ MRPC.fit_witPC_GEU_Q43 <- MRPC(Data_withPC_Q43,
 par(mfrow=c(1,2))
 plot(MRPC.fit_withoutPC_GEU_Q43,
      main = "Without PC" )
-plot(MRPC.fit_witPC_GEU_Q43,
+plot(MRPC.fit_withPC_GEU_Q43,
      main = "With PC")
 
 #------------- 
 
-# gene PLAC8 is statistically associated with PC2 and PC3
+# Gene PLAC8 is significantly associated with PC2 and PC3
 print(eqtl.genes_PC2[17])
 print(eqtl.genes_PC3[12])
-# Note, gene PLAC8 is a member of eQTL 34 with snp rs28718968 and gene COQ2 in
-# GEUVADIS. Then we applied MRPC jointly for the eQTL-gene set and the associated PC2 and PC3
-# (rs28718968, COQ2, PLAC8, PC2, PC3)
 
-# eQTL 34 data without PC3 in GEUVADIS
+# Gene PLAC8 is in the eQTL-gene set  #34 with snp rs28718968 and gene COQ2 
 data_GEU_Q34 <- data_GEUVADIS$Data_Q34$Data_EUR
 colnames(data_GEU_Q34) <- c("rs28718968",	"COQ2", "PLAC8")
+
+# Analyze the eQTL-gene set without PC2 and PC3
 
 n <- nrow (data_GEU_Q34)        # Number of rows
 V <- colnames(data_GEU_Q34)     # Column names
@@ -289,7 +281,7 @@ MRPC.fit_withoutPC_GEU_Q34 <- MRPC(data_GEU_Q34,
                                    FDRcontrol = TRUE, 
                                    verbose = TRUE)
  
-# eQTL 34 data with PC2 and PC3 in GEUVADIS
+# Analyze the eQTL-gene set with PC2 and PC3
 data_withPC_Q34 <- cbind(data_GEU_Q34,PCs_matrix[,c(2,3)])
 colnames(data_withPC_Q34)[4:5] <- c("PC2", "PC3")
 
@@ -301,7 +293,7 @@ suffStat_C_withPC_Q34 <- list(C = cor(data_withPC_Q34, use = 'pairwise.complete.
                               n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q34 <- MRPC(Data_withPC_Q34, 
+MRPC.fit_withPC_GEU_Q34 <- MRPC(Data_withPC_Q34, 
                                suffStat_C_withPC_Q34, 
                                GV = 1, 
                                FDR = 0.05, 
@@ -315,20 +307,19 @@ MRPC.fit_witPC_GEU_Q34 <- MRPC(Data_withPC_Q34,
 par(mfrow=c(1,2))
 plot(MRPC.fit_withoutPC_GEU_Q34,
      main = "Without PC" )
-plot(MRPC.fit_witPC_GEU_Q34,
+plot(MRPC.fit_withPC_GEU_Q34,
      main = "With PC")
 
 #------------- 
-# gene PIP4P1 and PNP are statistically associated with PC1 and PC3, respectively.
+# Genes PIP4P1 and PNP are significantly associated with PC1 and PC3, respectively.
 print(eqtl.genes_PC1[1])
 print(eqtl.genes_PC3[7])
-# Note, gene PNP is a member of eQTL 8 with snp rs11305802 and genes PIP4P1 and AL355075.3 in
-# GEUVADIS. Then we applied MRPC jointly for the eQTL-gene set and the associated PC1 and PC3 
-# (rs11305802, PIP4P1, AL355075.3, PNP, PC1, PC3)
 
-# eQTL 8 data without PC1 and PC3 in GEUVADIS
+# Genes PIP4P1 and PNP are in the eQTL-gene set #8 with snp rs11305802 and gene  AL355075.3 
 data_GEU_Q8 <- data_GEUVADIS$Data_Q8$Data_EUR
 colnames(data_GEU_Q8) <- c("rs11305802","PIP4P1", "AL355075.3", "PNP")
+
+# Analyze the eQTL-gene set without PC1 and PC3
 
 n <- nrow (data_GEU_Q8)        # Number of rows
 V <- colnames(data_GEU_Q8)     # Column names
@@ -348,9 +339,10 @@ MRPC.fit_withoutPC_GEU_Q8 <- MRPC(data_GEU_Q8,
                                   FDRcontrol = TRUE, 
                                   verbose = TRUE)
  
-# eQTL 8 data with PC1 and PC3 in GEUVADIS
+# Analyze the eQTL-gene set with PC1 and PC3
 data_withPC_Q8 <- cbind(data_GEU_Q8,PCs_matrix[,c(1,3)])
 colnames(data_withPC_Q8)[5:6] <- c("PC1","PC3")
+
 
 n <- nrow (data_withPC_Q8)        # Number of rows
 V <- colnames(data_withPC_Q8)     # Column names
@@ -360,7 +352,7 @@ suffStat_C_withPC_Q8 <- list(C = cor(data_withPC_Q8, use = 'pairwise.complete.ob
                              n = n)
 
 # Estimated graph by MRPC 
-MRPC.fit_witPC_GEU_Q8 <- MRPC(Data_withPC_Q8, 
+MRPC.fit_withPC_GEU_Q8 <- MRPC(Data_withPC_Q8, 
                               suffStat_C_withPC_Q8, 
                               GV = 1, 
                               FDR = 0.05, 
@@ -373,7 +365,7 @@ MRPC.fit_witPC_GEU_Q8 <- MRPC(Data_withPC_Q8,
 par(mfrow=c(1,2))
 plot(MRPC.fit_withoutPC_GEU_Q8,
      main = "Without PC" )
-plot(MRPC.fit_witPC_GEU_Q8,
+plot(MRPC.fit_withPC_GEU_Q8,
      main = "With PC")
 
 }
