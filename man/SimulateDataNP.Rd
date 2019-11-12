@@ -30,5 +30,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 \link{SimulateData} for simulated data generating function.
 }
 \examples{
-SimulateDataNP(N = 10^3, b0.1 = 0, sd.1 = 1)
+DataNP <- SimulateDataNP(N = 10^3, 
+                       b0.1 = 0, 
+                       sd.1 = 1)
 }

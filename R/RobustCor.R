@@ -77,7 +77,10 @@ RobustCor <- function(xx,Beta, plot=FALSE)
   Wt.weight <- Wx
   if (plot) plot(Wt.weight)
   
-  return(list(RR=Cor.coef, M=M.new, V=V.new, Wt=Wt.weight))
+  return(list(RR=Cor.coef, 
+              M=M.new, 
+              V=V.new, 
+              Wt=Wt.weight))
 }
 
 

@@ -18,19 +18,20 @@ CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
   \item{n_nodeordering}{The number of times you want to reorder the nodes for testing the results of the three methods.}
 }
 \details{
-The output is a matrix where each row indicates the data sets and the columns are the results of the different node orderings by three methods MRPC, mmhc, and pc respectively. 
+The output is a matrix where each row indicates the data sets and the columns are the results of the different node orderings by five methods MRPC, pc, pc.stable, mmpc, and mmhc respectively. 
 }
 \value{
 Matrix
 }
 \references{
-1. Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics 2019, 10(460).
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
 
-2. Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
+2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899.
 
-3. Marco Scutari (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
+3. Kalisch M, Machler M, Colombo D, Maathuis MH and Buhlmann P (2012). Causal Inference Using Graphical Models with the R Package pcalg. Journal of Statistical Software, 47, 26.
 
-4. Kalisch, M., Machler, M., Colombo, D., Maathuis, M.H. & Buhlmann, P. (2012) Causal Inference Using Graphical Models with the R Package pcalg. J. Stat. Softw. 47, 26.
+4. Scutari M (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
+
 
 }
 
@@ -40,18 +41,20 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \examples{
 # We want to generate 2 different data sets for truth1 (V1-->T1-->T2-->T3) 
-#with signal = 1, N = 100 and 6 different node orderings. Therefore, you will 
-#get 2 by 30 output matrix, where first and second row are the data 1 and 2 respectively.
-#Columns 1:6, 7:12, 13:18, 19:24 and 25:30 are for MRPC, PC, pc.stable, mmpc and
+# with signal = 1, N = 100 and 6 different node orderings. Therefore, we will 
+# get 2 by 30 output matrix, where first and second row are the data 1 and 2 respectively.
+# Columns 1:6, 7:12, 13:18, 19:24 and 25:30 are for MRPC, pc, pc.stable, mmpc and
 # mmhc respectively with node order 1, 2, ..., 6.
 
-library(pcalg)   # for pc
-library(bnlearn) # for pc.stable,mmpc and mmhc
+library(MRPC)    #  MRPC
+library(pcalg)   #  pc
+library(bnlearn) #  pc.stable,mmpc and mmhc
 
 # Run
-Output <- CompareMethodsNodeOrdering(N = 100, 'truth1',
-                         signal = 1, n_data = 2,
-                         n_nodeordering = 6)
-
+Output <- CompareMethodsNodeOrdering(N = 100, 
+                                    'truth1',
+                                     signal = 1, 
+                                     n_data = 2,
+                                     n_nodeordering = 6)
 }
 

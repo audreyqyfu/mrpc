@@ -5,7 +5,7 @@
 Deviation between two graphs represented by two sequences
 }
 \description{
-This function evaluates whether two graphs are identical.  Each graph is represented first by a binary vector, which is the vectorized adjacency matrix, and then converted to a decimal number.  The difference in the decimal numberes is the deviation between the two graphs.
+This function evaluates whether two graphs are identical. Each graph is represented first by a binary vector, which is the vectorized adjacency matrix, and then converted to a decimal number. The difference in the decimal numberes is the deviation between the two graphs.
 }
 \usage{
 seqDiff(g1, g2)
@@ -56,7 +56,7 @@ tarmat_s2[3, 2] <- 1
 tarmat_s2[3, 4] <- 1
 
 # Deviation of the inferred graph from the true graph.
-seqDiff(tarmat_s2,
-        tarmat_s1)
+Results <- seqDiff(tarmat_s2,
+                   tarmat_s1)
          
 }

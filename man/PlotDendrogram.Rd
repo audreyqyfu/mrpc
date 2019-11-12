@@ -1,6 +1,6 @@
 \name{PlotDendrogram}
 \alias{PlotDendrogram}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Plot a dendrogram and display node groups in colored modules
 }
@@ -70,6 +70,6 @@ Adj_directed <- as(data_examples$complex$cont$withGV$graph,
 
 # Plot of dendrogram with modules colors of nodes
 PlotDendrogramObj <- PlotDendrogram(Adj_directed,
-                  minModuleSize = 5)
+                                    minModuleSize = 5)
 }
 

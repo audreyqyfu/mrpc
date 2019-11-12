@@ -1,6 +1,6 @@
 \name{PlotGraphWithModules}
 \alias{PlotGraphWithModules}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Plot a graph with nodes in modules indicated by colors 
 }
@@ -13,7 +13,7 @@ PlotGraphWithModules(Adj_directed, PlotDendrogramObj,
                      label.size = 3,alpha = 1,...)
 
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{Adj_directed}{
 Adjacency matrix of a graph.
@@ -55,7 +55,7 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
-\link{PlotDendrogram}.
+\link{PlotDendrogram}
 }
 \examples{
 # Adjacency matrix from a graph in the example
@@ -64,11 +64,16 @@ Adj_directed <- as(data_examples$complex$cont$withGV$graph,
 
 # A clustering dendrogram with nodes grouped in colored modules
 PlotDendrogramObj <- PlotDendrogram(Adj_directed,
-                  minModuleSize = 5)
+                                    minModuleSize = 5)
                   
 # A graph object with nodes in modules
-PlotGraphWithModulesObj<-PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=14,node.size=8
-,arrow.size = 5,label.size = 3,alpha = 1) 
+PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
+                                                PlotDendrogramObj,
+                                                GV=14,
+                                                node.size=8,
+                                                arrow.size = 5,
+                                                label.size = 3,
+                                                alpha = 1) 
 
 # Plot the graph with nodes in different colors
 plot(PlotGraphWithModulesObj) 

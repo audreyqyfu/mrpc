@@ -2,10 +2,10 @@
 \alias{data_without_outliers}
 
 \title{
-Example data without outliers
+Example data without outliers (noises)
 }
 \description{
-The data contain two genotype nodes, V1 and V2, and 3 phenotype nodes, T1, T2 and T3. The code below compares the performance of \link{MRPC}, \link{mmhc} and \link{pc} on this data set.
+The data contain two genotype nodes, V1 and V2, and three phenotype nodes, T1, T2 and T3. The code below compares the performance of \link{MRPC}, \link{mmhc} and \link{pc} on this data set.
 
 }
 
@@ -18,10 +18,13 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{
-library(pcalg) #for pc
-library(bnlearn) #for mmhc
+# Load packages
 
-#Truth without outlier
+library(MRPC)     # MRPC
+library(pcalg)    # pc
+library(bnlearn)  # mmhc
+
+# Truth without outlier
 tarmat <- matrix(0,
                  nrow = ncol(data_with_outliers),
                  ncol = ncol(data_with_outliers))
@@ -43,81 +46,88 @@ Truth <- as(tarmat,
 n <- nrow(data_without_outliers)     # Number of rows
 V <- colnames(data_without_outliers) # Column names
 
-# Classical correlation
+# Calculate Pearson correlation
 suffStat_C1 <- list(C = cor(data_without_outliers),
                     n = n)
 
-# Robust correlation (Beta = 0.005)
+# Calculate robust correlation (Beta = 0.005)
 Rcor_R1 <- RobustCor(data_without_outliers,
-                     0.005) 
-                     
+                     Beta=0.005) 
 suffStat_R1 <- list(C = Rcor_R1$RR,
                     n = n)
 
-# Estimated graph by MRPC using gaussCItest and beta = 0.005
-MRPC.fit_withoutoutlier <- MRPC(data_without_outliers, suffStat_R1,
-                                GV = 2, FDR = 0.05,
+# Infer the graph by MRPC with robust correlation 
+MRPC.fit_withoutoutlier <- MRPC(data_without_outliers, 
+                                suffStat = suffStat_R1,
+                                GV = 2, 
+                                FDR = 0.05,
                                 indepTest ='gaussCItest',
-                                labels = V, FDRcontrol = TRUE,verbose = TRUE)
+                                labels = V, 
+                                FDRcontrol = TRUE,
+                                verbose = TRUE)
 
-# Estimated graph by mmhc
+# Infer the by pc with Pearson correlation
+pc.fit_withoutoutlier <- pc(suffStat = suffStat_C1,
+                            indepTest = gaussCItest,
+                            alpha = 0.05, 
+                            labels = V,
+                            verbose = TRUE)
+
+# Infer the graph by mmhc
 data <- data.frame(data_without_outliers)
 mmhc_withoutoutlier <- mmhc(data)
-
-# Estimated graph by pc with alpha = 0.05
-pc.fit_withoutoutlier <- pc(suffStat_C1,
-                            indepTest = gaussCItest,
-                            alpha = 0.05, labels = V,
-                            verbose = TRUE)
 
 # Data with outliers
 n <- nrow (data_with_outliers)    # Number of rows
 V <- colnames(data_with_outliers) # Column names
 
-# Classical correlation
+# Calculate Pearson correlation
 suffStat_C1 <- list(C = cor(data_with_outliers),
                     n = n)
 
-# Robust correlation (Beta = 0.005)
+# Calculate robust correlation (Beta = 0.005)
 Rcor_R1 <- RobustCor(data_with_outliers,
-                     0.005) 
-                     
+                     Beta=0.005) 
 suffStat_R1 <- list(C = Rcor_R1$RR,
                     n = n)
 
-# Estimated graph by MRPC using gaussCItest and beta = 0.005
-MRPC.fit_withoutlier <- MRPC(data_with_outliers, suffStat_R1,
-                             GV = 2, FDR = 0.05,
+# Infer the graph by MRPC with robust correlation
+MRPC.fit_withoutlier <- MRPC(data_with_outliers, 
+                             suffStat = suffStat_R1,
+                             GV = 2, 
+                             FDR = 0.05,
                              indepTest ='gaussCItest',
-                             labels = V, FDRcontrol = TRUE,verbose = TRUE)
+                             labels = V, 
+                             FDRcontrol = TRUE,
+                             verbose = TRUE)
 
-# Estimated graph by mmhc
+# Infer the graph by pc with Pearson correlation
+pc.fit_withoutlier <- pc(suffStat = suffStat_C1,
+                         indepTest = gaussCItest,
+                         alpha = 0.05, 
+                         labels = V,
+                         verbose = TRUE)
+
+# Infer the graph by mmhc
 data <- data.frame(data_with_outliers)
 mmhc_withoutlier <- mmhc(data)
 
-# Estimated graph by pc with alpha = 0.05
-pc.fit_withoutlier <- pc(suffStat_C1,
-                         indepTest = gaussCItest,
-                         alpha = 0.05, labels = V,
-                         verbose = TRUE)
-
-# Plot the results
-# Show the estimated graph
+# Plot the inferred graphs
 par(mfrow = c(2, 4))
 plot(Truth,
      main = "Truth")
 plot(MRPC.fit_withoutoutlier,
      main = "MRPC")
-graphviz.plot(mmhc_withoutoutlier,
-              main = "mmhc")
 plot(pc.fit_withoutoutlier,
      main = "pc")
+graphviz.plot(mmhc_withoutoutlier,
+              main = "mmhc")
 plot(Truth,
      main = " ")
 plot(MRPC.fit_withoutlier,
      main = " ")
-graphviz.plot(mmhc_withoutlier,
-              main = " ")
 plot(pc.fit_withoutlier,
      main = " ")
+graphviz.plot(mmhc_withoutlier,
+              main = " ")
 }

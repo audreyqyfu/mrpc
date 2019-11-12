@@ -2,10 +2,10 @@
 \alias{MRPCtruth}
 
 \title{
-Graphs used in simulation
+Graphs used as truth in simulation
 }
 \description{
-Topologies of the five basic models and three common graphs in biology: namely the multi-parent graph, the star graph and the layered graph.  See details in Badsha and Fu (2019).
+Topologies of the five basic models and three common graphs in biology: namely the multi-parent graph, the star graph and the layered graph. See details in Badsha and Fu, 2019.
 }
 
 \author{
@@ -13,12 +13,13 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-1. Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics 2019, 10(460).   
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).  
 }
 
 \examples{
-data("MRPCtruth") #load data
+data("MRPCtruth") # load data
 
+# Plots
 par(mfrow = c(2, 4))
 plot(MRPCtruth$M0,
      main = "Model0")

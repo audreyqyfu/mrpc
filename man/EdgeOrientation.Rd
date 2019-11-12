@@ -9,7 +9,7 @@ This function performs the second step of the \link{MRPC} algorithm where it det
 }
 \usage{
 EdgeOrientation(gInput, GV, suffStat, FDR, alpha,indepTest, 
-FDRcontrol, verbose = FALSE)
+                FDRcontrol, verbose = FALSE)
 
 }
 
@@ -32,7 +32,7 @@ Need to specify pre-assigned level. If FDR = 0.05, that ensures FDR and mFDR rem
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
 \details{
-The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu (2019) and Badsha et al. (2018). For example, we consider x to be a genetic variant, y and z the phenotype nodes.
+The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu, 2019 and Badsha et al., 2018. For example, we consider x to be a genetic variant, y and z the phenotype nodes.
 
 Four different cases are as follows:
 
@@ -83,9 +83,9 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-1. Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics 2019, 10(460).
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
 
-2. Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. (2018) MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
+2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
 }
                 
 \seealso{
@@ -102,26 +102,34 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 # genetic variant and the remaining columns are the gene expression data.
 
 # Model 1
-Truth <- MRPCtruth$M1   #Truth for model 1
-data <- simu_data_M1    #data load for model 1
-n <- nrow (data)        #Number of row
-V <- colnames(data)     #Column names
+Truth <- MRPCtruth$M1   # Truth for model 1
+data <- simu_data_M1    # data load for model 1
+n <- nrow (data)        # Number of row
+V <- colnames(data)     # Column names
 
-# Classical correlation
+# Calculate Pearson correlation
 suffStat_C <- list(C = cor(data),
                    n = n)
 
-# Estimate skeleton
-Skel.fit <- ModiSkeleton(data, suffStat_C, FDR = 0.05, alpha = 0.05,
-                         indepTest = 'gaussCItest',labels = V,
-                          FDRcontrol = TRUE, verbose = TRUE)
+# Infer a graph skeleton
+Skel.fit <- ModiSkeleton(data, 
+                         suffStat = suffStat_C, 
+                         FDR = 0.05, 
+                         alpha = 0.05,
+                         indepTest = 'gaussCItest',
+                         labels = V,
+                         FDRcontrol = TRUE, 
+                         verbose = TRUE)
 
 # Edge Orientation
-Edge_orientation <- EdgeOrientation(Skel.fit, GV = 1,
-                                    suffStat_C, FDR = 0.05,alpha = 0.05,
+Edge_orientation <- EdgeOrientation(Skel.fit, 
+                                    suffStat = suffStat_C, 
+                                    GV = 1,
+                                    FDR = 0.05,
+                                    alpha = 0.05,
                                     indepTest = 'gaussCItest', 
-                                    FDRcontrol = TRUE,verbose = 1)
-
+                                    FDRcontrol = TRUE,
+                                    verbose = TRUE)
 # Plot the results
 par(mfrow = c(1, 2))
 plot(Truth,

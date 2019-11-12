@@ -298,11 +298,11 @@ RecallPrecision <- function (g1, g2, GV,includeGV,edge.presence=1.0,edge.directi
   }
   
   #return(Evaluation_matrix)
-  return(list(Matrix=Evaluation_matrix,
-              TP=Evaluation_matrix[TP],
-              FP=Evaluation_matrix[FP],
-              NIE=NIE,
-              NTE=NTE,
-              Recall=Recall,
-              Precision=Precision))
+  return(list(Matrix = Evaluation_matrix,
+              TP = Evaluation_matrix[TP],
+              FP = Evaluation_matrix[FP],
+              NTE = NTE,
+              NIE = NIE,
+              Recall = Recall,
+              Precision = Precision))
 }

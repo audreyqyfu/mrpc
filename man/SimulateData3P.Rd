@@ -35,7 +35,13 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
   \link{SimulateData} for simulated data generating function.
 }
 \examples{
-  SimulateData3P(N = 10^3, P1 = 1, P2 = 1, P3 = 1, 
-          b0.1 = 0, b1.1 = 1, b1.2 = 1, 
-          b1.3 = 1, sd.1 = 1)
+Data3P <- SimulateData3P(N = 10^3, 
+                         P1 = 1, 
+                         P2 = 1, 
+                         P3 = 1, 
+                         b0.1 = 0, 
+                         b1.1 = 1, 
+                         b1.2 = 1, 
+                         b1.3 = 1, 
+                         sd.1 = 1)
 }

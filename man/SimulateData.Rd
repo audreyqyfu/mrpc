@@ -5,7 +5,7 @@
 Simulate data under certain graphs
 }
 \description{
-This function simulates data using linear models for several graphs: the five basic topologies and three topologies that are common in biology, namely the multi-parent graph, the star graph and the layered graph.  See references for details.
+This function simulates data using linear models for several graphs: the five basic topologies and three topologies that are common in biology, namely the multi-parent graph, the star graph and the layered graph. See references for details.
 }
 \usage{
 SimulateData(N, p, model, b0.1, b1.1, b1.2, b1.3, sd.1)
@@ -37,11 +37,9 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \references{
-1. Md Bahadur Badsha and Audrey Qiuyan Fu. Learning causal biological
-networks with the principle of Mendelian randomization. Frontiers in
-Genetics 2019, 10(460).
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
   
-2. Md Bahadur Badsha, Evan A Martin, and Audrey Qiuyan Fu. MRPC: An R package for accurate inference of causal graphs. arXiv, 2018. arXiv:1806.01899.  
+2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899. 
 }
 
 \seealso{
@@ -59,51 +57,82 @@ Genetics 2019, 10(460).
 
 
 ## Model 0
-simu_data_M0 <- SimulateData(N = 10^3, p = 0.45,
-                              'model0', b0.1 = 0,
-                              b1.1 = 1, b1.2 = 1,
-                              b1.3 = 1, sd.1 = 1)
-
+simu_data_M0 <- SimulateData(N = 10^3, 
+                             p = 0.45,
+                             'model0', 
+                             b0.1 = 0,
+                             b1.1 = 1, 
+                             b1.2 = 1,
+                             b1.3 = 1, 
+                             sd.1 = 1)
+                             
 ## Model 1
-simu_data_M1 <- SimulateData(N = 10^3, p = 0.45,
-                              'model1', b0.1 = 0,
-                              b1.1 = 1, b1.2 = 1,
-                              b1.3 = 1, sd.1 = 1)
-
+simu_data_M1 <- SimulateData(N = 10^3, 
+                             p = 0.45,
+                             'model1', 
+                             b0.1 = 0,
+                             b1.1 = 1, 
+                             b1.2 = 1,
+                             b1.3 = 1, 
+                             sd.1 = 1)
+                             
 ## Model 2
-simu_data_M2 <- SimulateData(N = 10^3, p = 0.45,
-                              'model2', b0.1 = 0,
-                              b1.1 = 1, b1.2 = 1,
-                              b1.3 = 1, sd.1 = 1)
-
+simu_data_M2 <- SimulateData(N = 10^3, 
+                             p = 0.45,
+                             'model2', 
+                             b0.1 = 0,
+                             b1.1 = 1, 
+                             b1.2 = 1,
+                             b1.3 = 1, 
+                             sd.1 = 1)
+                             
 ## Model 3
-simu_data_M3 <- SimulateData(N = 10^3, p = 0.45,
-                              'model3', b0.1 = 0,
-                              b1.1 = 1, b1.2 = 1,
-                              b1.3 = 1, sd.1 = 1)
-
+simu_data_M3 <- SimulateData(N = 10^3, 
+                             p = 0.45,
+                             'model3', 
+                             b0.1 = 0,
+                             b1.1 = 1, 
+                             b1.2 = 1,
+                             b1.3 = 1, 
+                             sd.1 = 1)
+                             
 ## Model 4
-simu_data_M4 <- SimulateData(N = 10^3, p = 0.45,
-                              'model4', b0.1 = 0,
-                              b1.1 = 1, b1.2 = 1,
-                              b1.3 = 1, sd.1 = 1)
-
+simu_data_M4 <- SimulateData(N = 10^3, 
+                             p = 0.45,
+                             'model4', 
+                             b0.1 = 0,
+                             b1.1 = 1, 
+                             b1.2 = 1,
+                             b1.3 = 1, 
+                             sd.1 = 1)
+                             
 ## Multiple Parent Model
-simu_data_multiparent <- SimulateData(N = 10^3, p = 0.45,
-                                       'multiparent', b0.1 = 0,
-                                       b1.1 = 1, b1.2 = 1,
-                                       b1.3 = 1, sd.1 = 1)
+simu_data_multiparent <- SimulateData(N = 10^3, 
+                                      p = 0.45,
+                                      'multiparent', 
+                                      b0.1 = 0,
+                                      b1.1 = 1, 
+                                      b1.2 = 1,
+                                      b1.3 = 1, 
+                                      sd.1 = 1)
 
 ## Star Model
-simu_data_starshaped <- SimulateData(N = 10^3, p = 0.45,
-                                      'starshaped', b0.1 = 0,
-                                      b1.1 = 1, b1.2 = 1,
-                                      b1.3 = 1, sd.1 = 1)
+simu_data_starshaped <- SimulateData(N = 10^3, 
+                                     p = 0.45,
+                                     'starshaped', 
+                                     b0.1 = 0,
+                                     b1.1 = 1, 
+                                     b1.2 = 1,
+                                     b1.3 = 1, 
+                                     sd.1 = 1)
 
 ## Layered Model
-simu_data_layered <- SimulateData(N = 10^3, p = 0.45,
-                                   'layered', b0.1 = 0,
-                                   b1.1 = 1, b1.2 = 1,
-                                   b1.3 = 1, sd.1 = 1)
-
+simu_data_layered <- SimulateData(N = 10^3, 
+                                  p = 0.45,
+                                  'layered', 
+                                  b0.1 = 0,
+                                  b1.1 = 1, 
+                                  b1.2 = 1,
+                                  b1.3 = 1, 
+                                  sd.1 = 1)
 }

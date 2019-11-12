@@ -98,33 +98,35 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 \examples{
 showClass("MRPCclass")
 
-# generate a MRPCclass object
-data <- simu_data_M1
+# Generate a MRPCclass object
+data <- simu_data_M1 # load data for model 1
 n <- nrow(data)      # Number of rows
 V <- colnames(data)  # Column names
 
-# Classical correlation
-suffStat_C <- list(C = cor(data), n = n)
-
-# Robust correlation (Beta = 0.005)
-Rcor_R <- RobustCor(data,
-                    0.005) 
-                    
-suffStat_R <- list(C = Rcor_R$RR, n = n)
-
-# Estimated graph by MRPC using gaussCItest and beta = 0.005
-MRPC.fit <- MRPC(data, suffStat_R, GV = 1,
-                 FDR = 0.05, indepTest ='gaussCItest',
-                 labels = V, verbose = TRUE)
+# Calculate Pearson correlation
+suffStat_C <- list(C = cor(data), 
+                   n = n)
 
 
-# use methods of class MRPCclass
+# Infer the graph by MRPC
+MRPC.fit <- MRPC(data, 
+                 suffStat_C, 
+                 GV = 1,
+                 FDR = 0.05, 
+                 alpha = 0.05,
+                 indepTest ='gaussCItest',
+                 labels = V, 
+                 FDRcontrol = TRUE,
+                 verbose = TRUE)
+
+
+# Use methods of class MRPCclass
 show(MRPC.fit)
 
 plot(MRPC.fit)
 summary(MRPC.fit)
 
-# access slots of this object
+# Access slots of this object
 (g  <- MRPC.fit@graph)
 str(ss <- MRPC.fit@sepset, max = 1)
 }

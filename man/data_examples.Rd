@@ -2,7 +2,7 @@
 \alias{data_examples}
 
 \title{
-Example data under simple and complex models
+Example data under a simple and complex models
 }
 \description{
 Example data under the simple and complex graphs. Data may be continuous or discrete.
@@ -48,21 +48,27 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 # load the data
 data("data_examples")  
 
-# extract the sample size
+# Extract the sample size
 n <- nrow(data_examples$simple$cont$withGV$data)  
 
-# extract the node/column names
+# Extract the node/column names
 V <- colnames(data_examples$simple$cont$withGV$data)  
 
-# Classical correlation
+# Calculate Pearson correlation
 suffStat_C <- list(C = cor(data_examples$simple$cont$withGV$data),
                    n = n)
 
+# Infer the graph by MRPC
 data.mrpc.cont.withGV <- MRPC(data = data_examples$simple$cont$withGV$data,
-                              suffStat = suffStat_C, GV = 2,
-                              FDR = 0.05, indepTest = 'gaussCItest',
-                              labels = V, verbose = TRUE)
-
+                              suffStat = suffStat_C, 
+                              GV = 2,
+                              FDR = 0.05, 
+                              alpha = 0.05,
+                              indepTest = 'gaussCItest',
+                              labels = V,
+                              FDRcontrol = TRUE,
+                              verbose = TRUE)
+# Plot the results
 par(mfrow = c(1, 2))
 # plot the true graph
 plot(data_examples$simple$cont$withGV$graph,
@@ -76,21 +82,27 @@ plot(data.mrpc.cont.withGV,
 # load the data
 data("data_examples")    
 
-# extract the sample size
+# Extract the sample size
 n <- nrow(data_examples$simple$cont$withoutGV$data) 
 
-# extract the node/column names
+# Extract the node/column names
 V <- colnames(data_examples$simple$cont$withoutGV$data)
 
-# Classical correlation
+# Calculate Pearson correlation
 suffStat_C <- list(C = cor(data_examples$simple$cont$withoutGV$data),
                    n = n)
 
+# Infer the graph by MRPC
 data.mrpc.cont.withoutGV <- MRPC(data = data_examples$simple$cont$withoutGV$data,
-                                 suffStat = suffStat_C, GV = 0,
-                                 FDR = 0.05, indepTest = 'gaussCItest',
-                                 labels = V, verbose = TRUE)
-
+                                 suffStat = suffStat_C, 
+                                 GV = 0,
+                                 FDR = 0.05,
+                                 alpha = 0.05,
+                                 indepTest = 'gaussCItest',
+                                 labels = V, 
+                                 FDRcontrol = TRUE,
+                                 verbose = TRUE)
+# Plot the results
 par(mfrow = c(1, 2))
 # plot the true graph
 plot(data_examples$simple$cont$withoutGV$graph,
@@ -103,26 +115,32 @@ plot(data.mrpc.cont.withoutGV,
 # load the data
 data("data_examples")     
 
-# extract the sample size
+# Extract the sample size
 n <- nrow(data_examples$simple$disc$withGV$data)  
 
-# extract the node/column names
+# Extract the node/column names
 V <- colnames(data_examples$simple$disc$withGV$data)
 
-# Classical correlation
+# Calculate Pearson correlation
 suffStat_C <- list(C = cor(data_examples$simple$disc$withGV$data),
                    n = n)
 
+# Infer the graph by MRPC
 data.mrpc.disc.withGV <- MRPC(data = data_examples$simple$disc$withGV$data,
-                              suffStat = suffStat_C, GV = 1,
-                              FDR = 0.05, indepTest = 'gaussCItest',
-                              labels = V, FDRcontrol = TRUE,verbose = TRUE)
-
+                              suffStat = suffStat_C, 
+                              GV = 1,
+                              FDR = 0.05, 
+                              alpha = 0.05,
+                              indepTest = 'gaussCItest',
+                              labels = V, 
+                              FDRcontrol = TRUE,
+                              verbose = TRUE)
+# Plot the results
 par (mfrow = c(1, 2))
 # plot the true graph
 plot(data_examples$simple$disc$withGV$graph,
      main = "truth") 
-# plot the inferred causal graph
+# Plot the inferred causal graph
 plot(data.mrpc.disc.withGV,
      main = "inferred") 
 
@@ -130,21 +148,27 @@ plot(data.mrpc.disc.withGV,
 # load the data
 data("data_examples")    
 
-# extract the sample size
+# Extract the sample size
 n <- nrow (data_examples$simple$disc$withoutGV$data)  
 
-# extract the node/column names
+# Extract the node/column names
 V <- colnames(data_examples$simple$disc$withoutGV$data)   
 
-# Classical correlation
+# Calculate Pearson correlation
 suffStat_C <- list(C = cor(data_examples$simple$disc$withoutGV$data),
                    n = n)
 
+# Infer the graph by MRPC
 data.mrpc.disc.withoutGV <- MRPC(data = data_examples$simple$disc$withoutGV$data,
-                                 suffStat = suffStat_C, GV = 1,
-                                 FDR = 0.05, indepTest = 'gaussCItest',
-                                 labels = V, FDRcontrol = TRUE,verbose = TRUE)
-
+                                 suffStat = suffStat_C, 
+                                 GV = 1,
+                                 FDR = 0.05, 
+                                 alpha = 0.05,
+                                 indepTest = 'gaussCItest',
+                                 labels = V, 
+                                 FDRcontrol = TRUE,
+                                 verbose = TRUE)
+# Plot the results
 par(mfrow = c(1, 2))
 # plot the true graph
 plot(data_examples$simple$disc$withoutGV$graph,
@@ -157,7 +181,7 @@ plot(data.mrpc.disc.withoutGV,
 # load the data
 data("data_examples")   
 
-# graph without clustering
+# Graph without clustering
 plot(data_examples$complex$cont$withGV$graph) 
 
 # Adjacency matrix from directed example graph
@@ -166,12 +190,16 @@ Adj_directed <- as(data_examples$complex$cont$withGV$graph,
 
 # Plot of dendrogram with modules colors of nodes
 PlotDendrogramObj <- PlotDendrogram(Adj_directed,
-                  minModuleSize = 5)
+                                    minModuleSize = 5)
                   
-#Visualization of inferred graph with modules colors
-PlotGraphWithModulesObj<-PlotGraphWithModules(Adj_directed,PlotDendrogramObj,GV=14,
-node.size=8,arrow.size = 5,label.size = 3,alpha = 1) 
-
-#plot 
+# Visualization of inferred graph with modules colors
+PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
+                                                PlotDendrogramObj,
+                                                GV=14,
+                                                node.size=8,
+                                                arrow.size = 5,
+                                                label.size = 3,
+                                                alpha = 1) 
+# plot 
 plot(PlotGraphWithModulesObj)  
 }

@@ -1,10 +1,10 @@
 \name{RobustCor}
 \alias{RobustCor}
 \title{
-Robust correlation matrix
+Calculate robust correlation matrix
 }
 \description{
-Robust correlation matrix based on beta value. The value of beta plays a key role in the performance of the robust method, which controls the tradeoff between the robustness and efficiency of the estimators.
+Calculate robust correlation matrix based on beta value. The value of beta plays a key role in the performance of the robust method, which controls the tradeoff between the robustness and efficiency of the estimators.
 }
 \usage{
 RobustCor(xx, Beta, plot = FALSE)
@@ -37,9 +37,9 @@ We take a robust approach and calculate the robust correlation matrix (Badsha et
 }
 
 \references{
-1. Badsha, M. B. Mollah, M. N. Jahan, N. and Kurata, H. (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng 116(3): 397-407.
+1. Badsha MB, Mollah MN, Jahan N and Kurata H (2013). Robust complementary hierarchical clustering for gene expression data analysis by beta-divergence. J Biosci Bioeng, 116(3): 397-407.
 
-2. Van Buuren, S., Groothuis-Oudshoorn, K. (2011). mice: Multivariate Imputation by Chained Equations in R. Journal of Statistical Software, 45(3), 1-67. http://www.jstatsoft.org/v45/i03/
+2. Van Buuren S and Groothuis-Oudshoorn K (2011). mice: Multivariate Imputation by Chained Equations in R. Journal of Statistical Software, 45(3), 1-67. http://www.jstatsoft.org/v45/i03/
 }
 \author{
 Md Bahadur Badsha (mdbadsha@uidaho.edu)
@@ -47,8 +47,8 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \examples{
 RobustCor_objects <- RobustCor(simu_data_M0,
-               Beta = 0.005,
-               plot = FALSE)
+                               Beta = 0.005,
+                               plot = FALSE)
                
 Rcorr <- RobustCor_objects $RR  # Correlation matrix
 }

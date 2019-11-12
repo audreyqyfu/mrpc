@@ -46,5 +46,9 @@ PlotDendrogram <- function(Adj_directed, minModuleSize = 5, groupLabels = " ", d
                       dendroLabels = dendroLabels, hang = hclustHang,
                       addGuide = dendroAddGuide, guideHang = dendroGuideHang,
                       main = dendroMain, ...)
-return(list(graph=PlotDendrogramObj,dynamicColors=dynamicColors,GroupMods=Grouplist,GroupModsColors=Colorlist,Adj_symmetric_matrix=Adj_symmetric_matrix))
+return(list(graph = PlotDendrogramObj,
+            dynamicColors = dynamicColors,
+            GroupMods = Grouplist,
+            GroupModsColors = Colorlist,
+            Adj_symmetric_matrix = Adj_symmetric_matrix))
 }
