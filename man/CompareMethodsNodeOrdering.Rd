@@ -4,7 +4,7 @@
 \title{Comparision of inference accuracy using the same data but with different node orderings.}
 
 \description{
-Investigate the impact of the same data but with different node orderings across three methods: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2018), \link{mmhc} implemented in \code{bnlearn} (Scutari, 2010) and \link{pc} implemented in \code{pcalg} (Kalisch et al., 2012). 
+Investigate the impact of the same data but with different node orderings across five methods: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2018), \link{pc}, implemented in \code{pcalg} (Kalisch et al., 2012), and \link{pc.stable}, \link{mmpc}, and \link{mmhc} which are implemented in \code{bnlearn} (Scutari, 2010). 
 }
 \usage{
 CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
@@ -18,7 +18,7 @@ CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
   \item{n_nodeordering}{The number of times you want to reorder the nodes for testing the results of the three methods.}
 }
 \details{
-The output is a matrix where each row indicates the data sets and the columns are the results of the different node orderings by five methods MRPC, pc, pc.stable, mmpc, and mmhc respectively. 
+The output is a matrix where each row indicates the data sets and the columns contain the results of the different node orderings by each of the five methods MRPC, pc, pc.stable, mmpc, and mmhc respectively. 
 }
 \value{
 Matrix
@@ -40,15 +40,15 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{
-# We want to generate 2 different data sets for truth1 (V1-->T1-->T2-->T3) 
+# We will generate 2 different data sets from truth1 (V1-->T1-->T2-->T3) 
 # with signal = 1, N = 100 and 6 different node orderings. Therefore, we will 
-# get 2 by 30 output matrix, where first and second row are the data 1 and 2 respectively.
+# get 2 by 30 output matrix, where the first and second rows are for data sets 1 and 2 respectively.
 # Columns 1:6, 7:12, 13:18, 19:24 and 25:30 are for MRPC, pc, pc.stable, mmpc and
 # mmhc respectively with node order 1, 2, ..., 6.
 
 library(MRPC)    #  MRPC
 library(pcalg)   #  pc
-library(bnlearn) #  pc.stable,mmpc and mmhc
+library(bnlearn) #  pc.stable, mmpc, and mmhc
 
 # Run
 Output <- CompareMethodsNodeOrdering(N = 100, 
