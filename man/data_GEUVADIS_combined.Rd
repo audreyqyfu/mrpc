@@ -5,11 +5,11 @@
 GEUVADIS data with combined 62 eQTL-gene sets from 373 Europeans
 }
 \description{
-The GEUVADIS (Lappalainen et al., 2013) data combined with slelected 62 eQTL-gene sets in Lymphoblastoid Cell Lines (LCLs) from 373 Europeans (See details in Badsha and Fu, 2019).
+The GEUVADIS (Lappalainen et al., 2013) data with 62 eQTL-gene sets combined into one data matrix from the Lymphoblastoid Cell Lines (LCLs) from 373 Europeans (see details in Badsha and Fu, 2019).
 }
 
 \details{
-The data set contains 373 samples in rows and 194 variables (62 eQTLs and 132 genes) in columns (i.e., data columns are: eQTL1, gene1 for eQTL1, gene2 for eQTL1, eQTL2, gene1 for eQTL2, gene2 for eQTL2 and so on). Also, we performed Principal Component Analysis (PCA) on the entire gene expression matrix in GEUVADIS from European samples, and examined whether Principal Components (PCs) are correlated with the eQTLs or genes. We used the top PCs as potential confounders. A confounder to affect the causal inference, it should be associated with the genes of interest. We examined the association between each of the top 10 PCs and the eQTL-gene sets, identified statistically significant associations, and then applied MRPC jointly for the eQTL-gene set and the associated PCs. See details in examples below. 
+The data set contains 373 samples in rows and 194 variables (62 eQTLs and 132 genes) in columns (i.e., data columns are: eQTL1, gene1 for eQTL1, gene2 for eQTL1, eQTL2, gene1 for eQTL2, gene2 for eQTL2 and so on). Also, we performed Principal Component Analysis (PCA) on the entire gene expression matrix in GEUVADIS from European samples, and examined whether Principal Components (PCs) are correlated with the eQTLs or genes. We used the top PCs as potential confounders. In order for confounding variable to affect the causal inference, it should be associated with the genes of interest. We examined the association between each of the top 10 PCs and the eQTL-gene sets, identified statistically significant associations, and then applied MRPC to the eQTL-gene set with the associated PCs. See details in the examples below. 
 }
 
 \value{
@@ -53,14 +53,14 @@ PCs_matrix <- PCs$x
 # 194 variables (eQTLs=62 and genes=132)
 data("data_GEUVADIS_combined")  
 
-## Identify PCs that are significantly associated with eQTL-gene sets
-# Compute the correlations and corresponding p values between the top PCs and the eQTLs and genes
+# Identify PCs that are significantly associated with eQTL-gene sets
+# Compute the correlation and corresponding p values between the top PCs and the eQTLs and genes
 library(psych) # to use corr.test
 no_PCs <- 10   
 corr_PCs <- corr.test(PCs_matrix[,1:no_PCs],data_GEUVADIS_combined)
 # The correlation matrix
 corr_matrix <- corr_PCs$r
-# The p-values
+# The p values
 Pvalues <- corr_PCs$p
 # Apply the q value method at FDR of 0.05
 library(WGCNA) # qvalue
@@ -69,11 +69,11 @@ qobj <- qvalue(Pvalues, fdr.level=0.05,robust = TRUE)
 # Significant associations
 Significant_asso <- qobj$significant
 List_significant_asso <- which(Significant_asso, arr.ind = TRUE, useNames = TRUE)
-# 1st column is the PCs
+# 1st column contains the PCs
 # 2nd column contains the associated eQTLs or genes
 List_significant_asso[1:10,]
 
-# Examples of eQTLs or genes that are significantly associated with certain PCs
+# Examples of eQTLs or genes that are significantly associated with selected PCs
 # PC1
 eqtl.genes_PC1 <- colnames(data_GEUVADIS_combined)[List_significant_asso 
                            [which(List_significant_asso[,1]=="1"),2]]
@@ -155,7 +155,6 @@ data_GEU_Q29 <- data_GEUVADIS$Data_Q29$Data_EUR
 colnames(data_GEU_Q29) <- c("rs2278858", "LCMT2", "ADAL")
 
 # Analyze the eQTL-gene set without PC1
-
 n <- nrow (data_GEU_Q29)        # Number of rows
 V <- colnames(data_GEU_Q29)     # Column names
 
@@ -213,7 +212,6 @@ data_GEU_Q43 <- data_GEUVADIS$Data_Q43$Data_EUR
 colnames(data_GEU_Q43) <- c("rs55928920",	"SERPINB8",	"HMSD")
 
 # Analyze the eQTL-gene set without PC2
-
 n <- nrow (data_GEU_Q43)        # Number of rows
 V <- colnames(data_GEU_Q43)     # Column names
 
@@ -272,7 +270,6 @@ data_GEU_Q34 <- data_GEUVADIS$Data_Q34$Data_EUR
 colnames(data_GEU_Q34) <- c("rs28718968",	"COQ2", "PLAC8")
 
 # Analyze the eQTL-gene set without PC2 and PC3
-
 n <- nrow (data_GEU_Q34)        # Number of rows
 V <- colnames(data_GEU_Q34)     # Column names
 
@@ -331,7 +328,6 @@ data_GEU_Q8 <- data_GEUVADIS$Data_Q8$Data_EUR
 colnames(data_GEU_Q8) <- c("rs11305802","PIP4P1", "AL355075.3", "PNP")
 
 # Analyze the eQTL-gene set without PC1 and PC3
-
 n <- nrow (data_GEU_Q8)        # Number of rows
 V <- colnames(data_GEU_Q8)     # Column names
 
