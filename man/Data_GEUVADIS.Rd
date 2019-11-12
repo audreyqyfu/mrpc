@@ -2,17 +2,17 @@
 \alias{data_GEUVADIS}
 
 \title{
-GEUVADIS data with slelected 62 eQTL-gene sets 
+GEUVADIS data with 62 eQTL-gene sets 
 }
 \description{
 The GEUVADIS (Lappalainen et al., 2013) data (i.e., gene expression) measured in Lymphoblastoid Cell Lines (LCLs) on a subset of individuals from the 1,000 Genomes Project including 373 Europeans and 89 Africans.
 }
 
 \details{
-The GEUVADIS (Genetic European Variation in Disease) project identified eQTLs across the human genome. Among the most stringent set of eQTLs, ~70 have more than one target gene. Finally, we found 62 unique eQTLs discovered at the most stringent criteria exhibit pleiotropy. We extracted the genotypes of these 62 eQTLs and the expression of the target genes in the 373 Europeans and 89 Africans (see Badsha and Fu, 2019).
+The GEUVADIS (Genetic European Variation in Disease) project identified eQTLs across the human genome. Among these eQTLs, ~70 have more than one target gene. Additionally, we found 62 unique eQTLs which exhibit pleiotropy. We extracted the genotypes of these 62 eQTLs and the expression of the target genes for 373 Europeans and 89 Africans (see Badsha and Fu, 2019).
 }
 \value{
-An object of \link{class} that contains slelected 62 eQTL-gene sets data for 373 Europeans and 89 Africans.
+A list that contains 62 eQTL-gene sets data for 373 Europeans and 89 Africans.
 }
 
 \references{
