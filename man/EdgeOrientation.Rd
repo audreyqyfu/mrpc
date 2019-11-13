@@ -14,7 +14,7 @@ EdgeOrientation(gInput, GV, suffStat, FDR, alpha,indepTest,
 }
 
 \arguments{
-\item{gInput}{Object containing skeleton, marginal and conditional independence information.
+\item{gInput}{Object containing the skeleton and marginal and conditional independence information.
 }
 \item{GV}{The number of genetic variants (SNPs/indels/CNV/eQTL) in the input data matrix. For example, if the data has one genetic variant, first column, then GV = 1, if 2, 1st and 2nd Column, then GV = 2, and so on.
 }
@@ -22,32 +22,34 @@ EdgeOrientation(gInput, GV, suffStat, FDR, alpha,indepTest,
 }
 
 \item{FDR}{
-Need to specify pre-assigned level. If FDR = 0.05, that ensures FDR and mFDR remains below 0.05.}
-\item{alpha}{significance level (number in (0,1) for the individual tests.}
+False discovery rate (number between 0 and 1). If FDR = 0.05, this ensures that the FDR and mFDR remains below 0.05.}
+                
+\item{alpha}{Significance level (number in (0,1) for the individual tests.}
 
-\item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. The different indepTest is used for different data types, for example, Gaussian data = gaussCItest, Discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)}
+\item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. There are three options for different data types, for example, Gaussian data = gaussCItest, discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)}
 
-\item{FDRcontrol}{(optional) The default is TRUE which is used sequential FDR control method, otherwise used fixed significance level for the individual tests.}
+\item{FDRcontrol}{(optional) The default is TRUE which implements a sequential FDR control method, otherwise used fixed significance level for the individual tests.}
 
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
+                                 
 \details{
 The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu, 2019 and Badsha et al., 2018. For example, we consider x to be a genetic variant, y and z the phenotype nodes.
 
-Four different cases are as follows:
+The four cases are as follows:
 
-\bold{Case-1}: Relation between x, genetic variant, and the other nodes. Then genetic variant will regulate the other node, genes, and direction will be genetic variant --> other node. Note that if the data has more than one genetic variant and two genetic variant have edges, then direction will be genetic variant <--> genetic variant, which indicates that there is evidence that the two genetic variants are not independent, but we do not have enough information to determine which genetic variant is the regulator and which is the target.
+\bold{Case-1}: Relation between x, genetic variant, and the other nodes. Then genetic variant will regulate the other node, genes, and direction will be genetic variant --> other node. Note that if the data has more than one genetic variant and there is an edge between two genetic variants, then direction will be genetic variant <--> genetic variant, which indicates that there is evidence that the two genetic variants are not independent, but we do not have enough information to determine which genetic variant is the regulator and which is the target.
 
 \bold{Case-2}: If y and z are adjacent and, x and z are conditionally independent given y, then gene y will regulate the expression of gene z and the edge direction will be y --> z.
 
 \bold{Case-3}: If y and z are adjacent and, x and z are conditionally dependent given y, then gene z will regulate the expression of gene y and the edge direction will be z --> y.
 
-\bold{Case-4}: If y and z are adjacent with x and y conditionally dependent given z and x and z conditionally dependent given y, then the edge direction will be y <--> z.
+\bold{Case-4}: If y and z are adjacent and x and y are conditionally dependent given z and x and z are conditionally dependent given y, then the edge direction will be y <--> z.
 
 }
 
 \value{
-An object of \link{class} that contains an estimate of the equivalence class of the underlying DAG.
+An object that contains an estimate of the equivalence class of the underlying DAG.
 \describe{
     
     \item{\code{call}:}{A \link{call} object: the original function call.}
