@@ -14,8 +14,8 @@ CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
   \item{N}{The number of observation.}
   \item{model}{Either 'truth1' or 'truth2' to specify the model you want to generate data from.}
   \item{signal}{The signal strength which is the coefficient of the parent nodes in the linear model.}
-  \item{n_data}{The number of data sets you want to generate for testing the results of the three methods.}
-  \item{n_nodeordering}{The number of times you want to reorder the nodes for testing the results of the three methods.}
+  \item{n_data}{The number of data sets you want to generate for testing the results of the five methods.}
+  \item{n_nodeordering}{The number of times you want to reorder the nodes for testing the results of the five methods.}
 }
 \details{
 The output is a matrix where each row indicates the data sets and the columns contain the results of the different node orderings by each of the five methods MRPC, pc, pc.stable, mmpc, and mmhc respectively. 
