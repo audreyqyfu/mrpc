@@ -18,7 +18,9 @@ CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
   \item{n_nodeordering}{The number of times to reorder the nodes.}
 }
 \details{
-The output is a matrix where each row indicates the data sets and the columns contain the results of the different node orderings by each of the five methods MRPC, pc, pc.stable, mmpc, and mmhc respectively. 
+The code runs a method on a data set, derives a vector of the differences between the inferred and the true adjacency matrix, and converts the difference vector into a decimal.  A decimal of 0 indicates perfect recovery of the truth.  Decimals such as 446 and -2214 indicate two different inferred graphs, both different from the truth. 
+
+The output is a matrix where the columns indicate which method and which node ordering (e.g., the columns may be 'MRPC_NO1', 'MRPC_NO2', 'PC_NO1', 'mmhc_NO6' and so on), and each row contains the decimals from differents methods for one simulated data set under different node orderings.  
 }
 \value{
 Matrix
