@@ -1,21 +1,21 @@
 \name{CompareMethodsNodeOrdering}
 \alias{CompareMethodsNodeOrdering}
 
-\title{Comparision of inference accuracy using the same data but with different node orderings.}
+\title{Comparison of inference accuracy using the same data but with different node orderings.}
 
 \description{
-Investigate the impact of the same data but with different node orderings across five methods: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2018), \link{pc}, implemented in \code{pcalg} (Kalisch et al., 2012), and \link{pc.stable}, \link{mmpc}, and \link{mmhc} which are implemented in \code{bnlearn} (Scutari, 2010). 
+Investigate the performance of five methods on the same data but with different node orderings: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2018), \link{pc}, implemented in \code{pcalg} (Kalisch et al., 2012), and \link{pc.stable}, \link{mmpc}, and \link{mmhc}, the last three all implemented in \code{bnlearn} (Scutari, 2010).  See details in Badsha et al., 2018.
 }
 \usage{
 CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
 }
 
 \arguments{
-  \item{N}{The number of observation.}
-  \item{model}{Either 'truth1' or 'truth2' to specify the model you want to generate data from.}
+  \item{N}{The number of observations.}
+  \item{model}{Either 'truth1' or 'truth2' to specify the model to generate data from.}
   \item{signal}{The signal strength which is the coefficient of the parent nodes in the linear model.}
-  \item{n_data}{The number of data sets you want to generate for testing the results of the five methods.}
-  \item{n_nodeordering}{The number of times you want to reorder the nodes for testing the results of the five methods.}
+  \item{n_data}{The number of independent data sets to generate.}
+  \item{n_nodeordering}{The number of times to reorder the nodes.}
 }
 \details{
 The output is a matrix where each row indicates the data sets and the columns contain the results of the different node orderings by each of the five methods MRPC, pc, pc.stable, mmpc, and mmhc respectively. 
