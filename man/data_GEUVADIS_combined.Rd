@@ -2,14 +2,16 @@
 \alias{data_GEUVADIS_combined}
 \docType{data}
 \title{
-GEUVADIS data with combined 62 eQTL-gene sets from 373 Europeans
+Combined genotype and gene expression data from 62 eQTL-gene sets in 373 Europeans from GEUVADIS
 }
 \description{
-The GEUVADIS (Lappalainen et al., 2013) data with 62 eQTL-gene sets combined into one data matrix from the Lymphoblastoid Cell Lines (LCLs) from 373 Europeans (see details in Badsha and Fu, 2019).
+The genotype and gene expression data of 62 eQTL-gene sets in 373 Europeans from the GEUVADIS consortium (Lappalainen et al., 2013) are combined into one data matrix.  Each of these eQTLs has been identified to be associated with more than one gene (see details in Badsha and Fu, 2019).
 }
 
 \details{
-The data set contains 373 samples in rows and 194 variables (62 eQTLs and 132 genes) in columns (i.e., data columns are: eQTL1, gene1 for eQTL1, gene2 for eQTL1, eQTL2, gene1 for eQTL2, gene2 for eQTL2 and so on). Also, we performed Principal Component Analysis (PCA) on the entire gene expression matrix in GEUVADIS from European samples, and examined whether Principal Components (PCs) are correlated with the eQTLs or genes. We used the top PCs as potential confounders. In order for confounding variable to affect the causal inference, it should be associated with the genes of interest. We examined the association between each of the top 10 PCs and the eQTL-gene sets, identified statistically significant associations, and then applied MRPC to the eQTL-gene set with the associated PCs. See details in the examples below. 
+The data set contains 373 samples in rows and 194 variables (62 eQTLs and 132 genes) in columns. Specifically, the columns are: eQTL1, gene1 for eQTL1, gene2 for eQTL1, eQTL2, gene1 for eQTL2, gene2 for eQTL2 and so on. 
+  
+For analysis, we account for potential confounding variables as additional nodes in the graph.  To do so, we first perform Principal Component Analysis (PCA) on the entire gene expression matrix from the European samples in GEUVADIS, and extract the top 10 PCs as potential confounding variables.  We next examine the statistical association between each of the top PCs and the eQTL-gene sets, and identify statistically significant associations (accounting for multiple testing with the q vlaue method).  We then apply MRPC to each eQTL-gene set with its associated PCs. See details in the examples below. Also see Badsha and Fu (2019) and Badsha et al. (2018).
 }
 
 \value{
@@ -17,9 +19,11 @@ Matrix
 }
 
 \references{
-1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
+1. Lappalainen T, et al. (2013). Transcriptome and genome sequencing uncovers functional variation in humans. Nature, 501, 506-511.
+  
+2. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
 
-2. Lappalainen T, et al. (2013). Transcriptome and genome sequencing uncovers functional variation in humans. Nature, 501, 506-511.
+3. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899.
 }
 
 \author{
@@ -34,9 +38,10 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 
 \donttest{
 # Examining principal components (PCs) as potential confounders in analysis of the GEUVADIS data
+  
 library(MRPC) # MRPC
 
-# Load data with all genes in GEUVADIS 
+# Load genomewide gene expression data in GEUVADIS 
 # 373 individuals
 # 23722 genes
 data_githubURL <- "https://github.com/audreyqyfu/mrpc_data/raw/master/data_GEUVADIS_allgenes.RData"
