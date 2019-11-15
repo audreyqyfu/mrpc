@@ -2,10 +2,10 @@
 \alias{CompareMethodsVStructure}
 
 \title{
-Comparison of inference accuracy with and without a v-structure
+Comparison of inference accuracy of different methods on data with and without a v-structure
 }
 \description{
-This is the example comparison of inference accuracy with and without a v-structure by recall and precision of five methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, and \link{mmhc}, across 1000 data sets. Signal values indicate the signal strength: the larger the value the stronger the signal. The sample size in each simulated data set is 1000. For more details on these comparisons see Badsha and Fu, 2019 and  Badsha et al., 2018.  
+This function compares inference accuracy on graphs with and without a v-structure in terms of recall and precision by five methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, and \link{mmhc}, across multiple data sets. See details in Badsha et al., 2018.  Also see Badsha and Fu, 2019.
 }
 \usage{
 CompareMethodsVStructure(N, signal, model, includeGV, ita)
@@ -13,21 +13,21 @@ CompareMethodsVStructure(N, signal, model, includeGV, ita)
 
 \arguments{
 
-\item{N}{Number of observation}
+\item{N}{Number of observations.}
 \item{signal}{
-The coefficient of parent nodes in the linear model. For example, strong = 1.0, moderate = 0.5, and weak = 0.2 signal strengths.
+The coefficient of parent nodes in the linear model. For example, strong = 1.0, moderate = 0.5, and weak = 0.2.
 }
   \item{model}{
-The model data will be simulated from. For example, if you want comparison of inference accuracy without a v-structure you would type 'model1' into the function. If you want comparison of inference accuracy with a v-structure you would type 'model2' into the function.
+The graph from which the data is generated.  Specifically, two graphs are considered here: 'model 1' (V1->T1->T2), which does not contain a v-structure, and 'model 2' (V1->T1<-T2), which is a v-structure.
 }
 \item{includeGV}{
-If TRUE, include edges involving genetic variants (GV) when comparing the true and inferred graphs. If FALSE, exclude edges involving genetic variants (GV) when comparing the true and inferred graphs.
+If TRUE, include edges involving genetic variants (GVs) when comparing the true and inferred graphs. If FALSE, exclude such edges.  
 }
-\item{ita}{Number of different data sets}
+\item{ita}{Number of independent data sets to simulate.}
 
 }
 \details{
-The output is a matrix, where the rows are the five methods MRPC, pc, pc.stable, mmpc, and mmhc, and the columns are mean Recall, sd Recall, mean Precision, and sd Precision, respectively.
+The output is a matrix, where the rows are the five methods: MRPC, pc, pc.stable, mmpc, and mmhc, and the columns are the mean of recall, sd of recall, mean of precision, and sd of precision, respectively.  Mean and sd are calculated across all the simulated data sets.  For methods from the bnlearn package (pc.stable, mmpc and mmhc), we apply the blacklist argument to exclude edges pointing at the genetic variant, and therefore evaluate recall and precision including the edges involving these edges (i.e., includeGV = TRUE).
 }
 \value{
 Matrix
@@ -47,29 +47,24 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \seealso{
-\link{RecallPrecision}: Performance Evaluation by Recall and Precision in MRPC.
+\link{RecallPrecision}: Performance evaluation in terms of recall and precision.
 }
 \examples{
-# Comparison of inference accuracy without a v-structure 
-# across 10 data sets where the sample size in each simulated 
-# data set is set to 100 and signal = 1.0. 
-# We excluded edges involving genetic variants.
+# For demonstration purposes, only 10 data sets 
+# with a sample size of 100 are simulated here.
 
+# Comparison of inference accuracy on model 1 without a v-structure 
 Result1 <- CompareMethodsVStructure(N = 100, 
                                     signal = 1.0,
                                     'model1', 
-                                    includeGV = FALSE,
+                                    includeGV = TRUE,
                                     ita = 10)
 
 # Comparison of inference accuracy with a v-structure
-# across 10 data sets where the sample size in each simulated 
-# data set is set to 100 and signal = 1.0. 
-# We excluded edges involving genetic variants.
-
 Result2 <- CompareMethodsVStructure(N = 100, 
                                     signal = 1.0,
                                     'model2',
-                                    includeGV = FALSE, 
+                                    includeGV = TRUE, 
                                     ita = 10)
 
 }
