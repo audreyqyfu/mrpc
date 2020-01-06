@@ -5,7 +5,7 @@
 Comparison of inference accuracy of different methods on data with and without a v-structure
 }
 \description{
-This function compares inference accuracy on graphs with and without a v-structure in terms of recall and precision by five methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, and \link{mmhc}, across multiple data sets. See details in Badsha et al., 2018.  Also see Badsha and Fu, 2019.
+This function compares inference accuracy on graphs with and without a v-structure in terms of recall and precision by five methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, and \link{mmhc}, across multiple data sets. See details in  Badsha and Fu, 2019 and Badsha et al., 2018.
 }
 \usage{
 CompareMethodsVStructure(N, signal, model, includeGV, ita)
@@ -51,20 +51,20 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 \examples{
 # For demonstration purposes, only 10 data sets 
-# with a sample size of 100 are simulated here.
+# with a sample size of 100 and signal is 1, are simulated here.
 
 # Comparison of inference accuracy on model 1 without a v-structure 
 Result1 <- CompareMethodsVStructure(N = 100, 
                                     signal = 1.0,
                                     'model1', 
-                                    includeGV = TRUE,
+                                    includeGV=TRUE,
                                     ita = 10)
 
 # Comparison of inference accuracy with a v-structure
 Result2 <- CompareMethodsVStructure(N = 100, 
                                     signal = 1.0,
                                     'model2',
-                                    includeGV = TRUE, 
+                                    includeGV=TRUE,
                                     ita = 10)
 
 }
