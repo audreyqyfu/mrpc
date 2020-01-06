@@ -1,4 +1,5 @@
 export(aSHD)
+export(AdjustMatrix)
 export(SimulateDataNP)
 export(SimulateData1P)
 export(SimulateData2P)
@@ -29,7 +30,7 @@ importMethodsFrom("graph",
 		  numNodes, numEdges,
 		  subGraph, ugraph)
 
-importFrom("bnlearn","ci.test","graphviz.plot","mmhc","mmpc","pc.stable")
+importFrom("bnlearn","amat","ci.test","graphviz.plot","mmhc","mmpc","pc.stable")
 importFrom("compositions", "unbinary")
 importFrom("dynamicTreeCut","cutreeDynamic")
 importFrom("fastcluster","hclust")
