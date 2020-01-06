@@ -4,23 +4,24 @@
 \title{Comparison of inference accuracy using the same data but with different node orderings.}
 
 \description{
-Investigate the performance of five methods on the same data but with different node orderings: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2018), \link{pc}, implemented in \code{pcalg} (Kalisch et al., 2012), and \link{pc.stable}, \link{mmpc}, and \link{mmhc}, the last three all implemented in \code{bnlearn} (Scutari, 2010).  See details in Badsha et al., 2018.
+Investigate the performance of five methods on the same data but with different node orderings: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2018), \link{pc}, implemented in \code{pcalg} (Kalisch et al., 2012), and \link{pc.stable}, \link{mmpc}, and \link{mmhc}, the last three all implemented in \code{bnlearn} (Scutari, 2010). See details in Badsha et al., 2018.
 }
 \usage{
-CompareMethodsNodeOrdering(N, model, signal, n_data, n_nodeordering)
+CompareMethodsNodeOrdering(N, signal, model, n_data, n_nodeordering)
 }
 
 \arguments{
   \item{N}{The number of observations.}
-  \item{model}{Either 'truth1' or 'truth2' to specify the model to generate data from.}
   \item{signal}{The signal strength which is the coefficient of the parent nodes in the linear model.}
+    \item{model}{Either 'truth1' or 'truth2' to specify the model to generate data from.}
   \item{n_data}{The number of independent data sets to generate.}
   \item{n_nodeordering}{The number of times to reorder the nodes.}
 }
 \details{
-The code runs a method on a data set, derives a vector of the differences between the inferred and the true adjacency matrix, and converts the difference vector into a decimal.  A decimal of 0 indicates perfect recovery of the truth.  Decimals such as 446 and -2214 indicate two different inferred graphs, both different from the truth. 
+We generated different data sets from each of the two graphs (V1-->T1-->T2-->T3 and V1-->T1<--T2-->T3), where V1 is the genetic varitant node and T1, T2 and T3 are the phenotype nodes. For each data set, we reordered the columns of the data matrix with different permutations of the T nodes, and thus generated new permuted data sets. We then applied all the methods to each of the data sets (restricting edge direction wherever necessary and possible), obtained different inferred graphs, and counted the number of unique graphs among the inferred graphs for each data set. 
 
-The output is a matrix where the columns indicate which method and which node ordering (e.g., the columns may be 'MRPC_NO1', 'MRPC_NO2', 'PC_NO1', 'mmhc_NO6' and so on), and each row contains the decimals from differents methods for one simulated data set under different node orderings.  
+The output is the number of unique graphs inferred by each method across all permutations.The columns are indicates which methods (MRPC, pc, pc.stable, mmpc and mmhc), and each rows are indicates the independent data sets under different node orderings. See details in Badsha et al., 2018.
+
 }
 \value{
 Matrix
@@ -42,21 +43,21 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 
 \examples{
-# We will generate 2 different data sets from truth1 (V1-->T1-->T2-->T3) 
-# with signal = 1, N = 100 and 6 different node orderings. Therefore, we will 
-# get 2 by 30 output matrix, where the first and second rows are for data sets 1 and 2 respectively.
-# Columns 1:6, 7:12, 13:18, 19:24 and 25:30 are for MRPC, pc, pc.stable, mmpc and
-# mmhc respectively with node order 1, 2, ..., 6.
+# We will generate 10 different data sets from truth1 (V1-->T1-->T2-->T3) 
+# with signal = 1.0, N = 100 and 6 different T nodes orderings. Therefore, we
+# will get 10 by 5 output matrix, where the rows are 10 independent data 
+# sets and columns are for five methods MRPC, pc, pc.stable, mmpc 
+# and mmhc respectively.
 
 library(MRPC)    #  MRPC
 library(pcalg)   #  pc
 library(bnlearn) #  pc.stable, mmpc, and mmhc
 
 # Run
-Output <- CompareMethodsNodeOrdering(N = 100, 
-                                    'truth1',
-                                     signal = 1, 
-                                     n_data = 2,
+Output <- CompareMethodsNodeOrdering(N = 100,
+                                     signal = 1.0, 
+                                     model = 'truth1',
+                                     n_data = 10,
                                      n_nodeordering = 6)
 }
 
