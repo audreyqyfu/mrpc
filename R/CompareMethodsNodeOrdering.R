@@ -1,328 +1,421 @@
-#This is the demo for simulation
-#Same data but different node ordering 
-#Details please see help(SoftwarePaperSimData)
-CompareMethodsNodeOrdering <- function(N, model,signal,n_data,n_nodeordering) {
+# In this code we used the same data set but permute the T nodes 
+
+# to generate multiple permuted data sets and apply the methods 
+
+# to check the variation in inferred graphs. 
+
+
+CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) {
   
-  #parameters settings
-  N <- N
+  
+  # Parameters
+  
   p <- 0.45
-  signal <- signal
+  
   b0.1 <- 0
+  
   b1.1 <- signal
+  
   b1.2 <- signal
+  
   b1.3 <- signal
+  
   sd.1 <- 1
   
-  ita_data <- n_data # Number of data sets
-  ita_node <- n_nodeordering # Number of node ordering 
-  
   switch(model,
-         
          truth1 = {
-           #Truth 1 (V1-->T1-->T2-->T3)
+           
+           # Truth1 model (V1-->T1-->T2-->T3)
+           
            tarmat_s1 <- matrix(0,nrow=4,ncol = 4)
+           
            colnames(tarmat_s1) <- c("V1","T1","T2","T3")
+           
            rownames(tarmat_s1) <- colnames(tarmat_s1)
-           #Create an adjacency matrix for truth
+           
+           # Adjacency matrix from the true graph
+           
            tarmat_s1[1,2] <- 1
+           
            tarmat_s1[2,3] <- 1
+           
            tarmat_s1[3,4] <- 1
-           #Graph
-           #Truth_s1<-as(tarmat_s1, "graphNEL")
            
-           #Output matrices
-           #MRPC
-           Diff_MRPC <- matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
-           colnames(Diff_MRPC) <- paste("MRPC_NO",1:ita_node,sep="")
-           rownames(Diff_MRPC) <- paste("Data_",1:ita_data,sep="")
-           #pc
-           Diff_PC <- matrix(NA,ncol = ita_node,nrow = ita_data)   #For PC
-           colnames(Diff_PC)<-paste("PC_NO",1:ita_node,sep="")
-           rownames(Diff_PC)<-paste("Data_",1:ita_data,sep="")
-           #pc.stable
-           Diff_pc.stable <- matrix(NA,ncol = ita_node,nrow = ita_data) #For pc.stable
-           colnames(Diff_pc.stable) <- paste("pc.stable_NO",1:ita_node,sep="")
-           rownames(Diff_pc.stable) <- paste("Data_",1:ita_data,sep="")
-           #mmpc
-           Diff_mmpc <- matrix(NA,ncol = ita_node,nrow = ita_data) #For mmpc
-           colnames(Diff_mmpc) <- paste("mmpc_NO",1:ita_node,sep="")
-           rownames(Diff_mmpc) <- paste("Data_",1:ita_data,sep="")
-           #mmhc
-           Diff_mmhc <- matrix(NA,ncol = ita_node,nrow = ita_data) #For mmhc
-           colnames(Diff_mmhc) <- paste("mmhc_NO",1:ita_node,sep="")
-           rownames(Diff_mmhc) <- paste("Data_",1:ita_data,sep="")
+           # The number of genetic variants in the graph.
            
+           GV <- 1
            
-           #Data
-           for (i in 1:ita_data) {
-             cat("ita_data=",i)
+           # The number of nodes
+           
+           n.nodes <- ncol (tarmat_s1)
+           
+           # Lists for the adjacency matrix output by each method.
+           
+           # MRPC
+           
+           Adjlist_MRPC <- vector (mode = 'list', length = n_data)
+           
+           # pc
+           
+           Adjlist_PC <- vector (mode = 'list', length = n_data)
+           
+           # pc.stable
+           
+           Adjlist_pc.stable <- vector (mode = 'list', length = n_data)
+           
+           # mmpc
+           
+           Adjlist_mmpc <- vector (mode = 'list', length = n_data)
+           
+           # mmhc
+           
+           Adjlist_mmhc <- vector (mode = 'list', length = n_data)
+           
+           # Matrix for the number of unique graphs for each data set (across n permutations).
+           
+           countMatrix <- matrix (nrow = n_data, ncol = 5)
+           
+           # name the columns according to the method.
+           
+           colnames (countMatrix) <- c('MRPC', 'pc', 'pc.stable', 'mmpc', 'mmhc')
+           
+           # Loop through the independent data sets.
+           
+           for (e in 1:n_data) {
+             
+             cat ("n_data=", e)
+             
+             # Simulate data for the true1.
+             
              V1 <- c(sample(c(0, 1, 2),size = N,replace = TRUE,prob = c((1 - p)^2,2*p*(1 - p),p^2)))
+             
              T1 <- SimulateData1P(N=N,P1=V1,b0.1=b0.1,b1.1=b1.1,sd.1=sd.1)
+             
              T2 <- SimulateData1P(N=N,P1=T1,b0.1=b0.1,b1.1=b1.1,sd.1=sd.1)
+             
              T3 <- SimulateData1P(N=N,P1=T2,b0.1=b0.1,b1.1=b1.1,sd.1=sd.1)
              
-             #Data combine
              Data1 <- cbind(V1,T1,T2,T3)
              
-             for (j in 1:ita_node) {
-               cat("ita_node=",j)
-               #library(gtools) #Permute
-               #if (require(gtools)) {
-               GV <- 1
-               temp.order <- c(GV,permute((GV+1):ncol(Data1)))
-               #}
-               # New data with permute
-               Data2 <- Data1[,temp.order]
+             # MRPC
+             
+             Adjlist_MRPC[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # pc
+             
+             Adjlist_PC[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # pc.stable
+             
+             Adjlist_pc.stable[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # mmpc
+             
+             Adjlist_mmpc[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # mmhc
+             
+             Adjlist_mmhc[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # Loop through all node permutations for one data set.
+             
+             for (j in 1:n_nodeordering) {
                
-               n <- nrow (Data2)    #Number of row
-               V <- colnames(Data2) #Column names
-               Rcor_R <- RobustCor(Data2, 0.005) #Robust correlation (Beta=0.005)
-               suffStat_R <- list(C = Rcor_R$RR, n = n)
+               cat ("n_nodeordering=", j)
                
-               Rcor_C <- RobustCor(Data2, 0) #Classical correlation (Beta=0)
-               suffStat_C <- list(C = Rcor_C$RR, n = n)
+               # Create a new ordering for the T nodes.
                
-               ## Estimated graph by MRPC using gaussCItest
-               MRPC.fit_1 <- MRPC(Data2,suffStat_R,GV=1,FDR=0.05,
-                                  indepTest ='gaussCItest',labels=V,verbose = TRUE)
-               #adjacency matrix from directed graph by MRPC
-               Adj_MRPC <- as(MRPC.fit_1@graph,"matrix")
+               temp.order <- c (GV, sample((GV + 1):n.nodes))
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s1)!=colnames(Adj_MRPC)))
-               {
-                 Order_node <- match(colnames(tarmat_s1),colnames(Adj_MRPC))
-                 Adj_MRPC <- Adj_MRPC[Order_node,Order_node] #new
-               }
+               # New data matrix with permuted nodes.
                
-               #Difference between inferred and truth
-               Diff_MRPC[i,j] <- seqDiff(Adj_MRPC,tarmat_s1)
+               Data2 <- Data1[, temp.order]
                
-               ## Estimated graph by PC
-               PC.fit_1 <- pc(suffStat_C,alpha =0.05,
-                              indepTest =gaussCItest,labels=V,verbose = TRUE)
-               #adjacency matrix from PC 
-               Adj_PC <- as(PC.fit_1@graph,"matrix")
+               n <- nrow (Data2)    # Sample size
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s1)!=colnames(Adj_PC)))
-               {
-                 Order_node <- match(colnames(tarmat_s1),colnames(Adj_PC))
-                 Adj_PC <- Adj_PC[Order_node,Order_node] #new
-               }
-               #Difference between inferred and truth
-               Diff_PC[i,j] <- seqDiff(Adj_PC,tarmat_s1)
+               V <- colnames (Data2) # Node labels
                
-               ## arcs not to be included from gene expression to genotype
-               bl <- data.frame (from=colnames (Data2)[-1], to='V1')
+               # Calculate Pearson correlation
                
-               ## Estimated graph by pc.stable
-               M_pc.stable <- pc.stable(data.frame(Data2),blacklist=bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE) 
-               G_pc.stable <- graphviz.plot(M_pc.stable)
-               #adjacency matrix from pc.stable 
-               Adj_pc.stable <- as(G_pc.stable,"matrix")
+               suffStat <- list (C = cor (Data2), n = n)
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s1)!=colnames(Adj_pc.stable)))
-               {
-                 Order_node <- match(colnames(tarmat_s1),colnames(Adj_pc.stable))
-                 Adj_pc.stable <- Adj_pc.stable[Order_node,Order_node] #new
-               }
-               #Convert binary to decimal for pc.stable
-               #Difference between inferred and truth
-               Diff_pc.stable[i,j] <- seqDiff(Adj_pc.stable,tarmat_s1)
-              
-               ## Estimated graph by mmpc
-               M_mmpc <- mmpc(data.frame(Data2),blacklist=bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE) 
-               G_mmpc <- graphviz.plot(M_mmpc)
-               #adjacency matrix from mmpc 
-               Adj_mmpc <- as(G_mmpc,"matrix")
+               # Infer the graph by MRPC
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s1)!=colnames(Adj_mmpc)))
-               {
-                 Order_node <- match(colnames(tarmat_s1),colnames(Adj_mmpc))
-                 Adj_mmpc <- Adj_mmpc[Order_node,Order_node] #new
-               }
-               #Convert binary to decimal for mmpc
-               #Difference between inferred and truth
-               Diff_mmpc[i,j] <- seqDiff(Adj_mmpc,tarmat_s1)
+               MRPC_Inferred <- MRPC (Data2, suffStat, GV = GV, FDR = 0.05, alpha = 0.05, FDRcontrol = TRUE, indepTest = 'gaussCItest', labels = V, verbose = FALSE)
                
-               ## Estimated graph by mmhc
-               M_mmhc <- mmhc(data.frame(Data2),blacklist=bl) 
-               G_mmhc <- graphviz.plot(M_mmhc)
-               #adjacency matrix from mmhc 
-               Adj_mmhc <- as(G_mmhc,"matrix")
+               # Adjacency matrix from the graph by MRPC
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s1)!=colnames(Adj_mmhc)))
-               {
-                 Order_node <- match(colnames(tarmat_s1),colnames(Adj_mmhc))
-                 Adj_mmhc <- Adj_mmhc[Order_node,Order_node] #new
-               }
-               #Convert binary to decimal for mmhc
-               #Difference between inferred and truth
-               Diff_mmhc[i,j] <- seqDiff(Adj_mmhc,tarmat_s1)
+               G_MRPC <- as (MRPC_Inferred@graph, "matrix")
                
-               #Results=cbind (Diff_MRPC,Diff_mmhc,Diff_PC)
-               # write results to csv file
-               #row indicates the number of data and col indicates number of node ordering by MRPC,mmhc and PC respectively
-               #write.table (cbind (Diff_MRPC,Diff_mmhc,Diff_PC), file = "Results_1.csv",sep=",",row.names = F,col.names = F)
-               #return(Results)
+               # Save adjacency matrix
+               
+               Adjlist_MRPC[[e]][[j]] <- AdjustMatrix (tarmat_s1, G_MRPC)
+               
+               # Infer the graph by PC
+               
+               PC_Inferred <- pc (suffStat, alpha = 0.05, indepTest = gaussCItest, labels = V, verbose = F)
+               
+               # Adjacency matrix from the graph by pc
+               
+               G_PC <- as (PC_Inferred@graph, "matrix")
+               
+               # Save adjacency matrix
+               
+               Adjlist_PC[[e]][[j]] <- AdjustMatrix (tarmat_s1, G_PC)
+               
+               # arcs not to be included from gene expression to genotype
+               
+               to <- rep (colnames (Data2)[1:GV], each = (ncol (Data2) - GV))
+               
+               from <- rep (colnames (Data2)[(GV + 1):ncol (Data2)], GV)
+               
+               bl <- cbind (from, to)
+               
+               # Infer the graph by pc.stable
+               
+               pc.stable_Inferred <- pc.stable (data.frame (Data2), blacklist = bl, alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+               
+               # Inferred graph object by pc.stable
+               
+               G_pc.stable <- amat (pc.stable_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_pc.stable[[e]][[j]] <- AdjustMatrix (tarmat_s1, G_pc.stable)
+               
+               # Infer the graph by mmpc
+               
+               mmpc_Inferred <- mmpc (data.frame (Data2), blacklist = bl, alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+               
+               # Inferred graph object by mmpc
+               
+               G_mmpc <- amat (mmpc_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_mmpc[[e]][[j]] <- AdjustMatrix (tarmat_s1, G_mmpc)
+               
+               # Infer the graph by mmhc
+               
+               mmhc_Inferred <- mmhc (data.frame (Data2), blacklist = bl, debug = FALSE)
+               
+               # Inferred graph object by mmpc
+               
+               G_mmhc <- amat (mmhc_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_mmhc[[e]][[j]] <- AdjustMatrix (tarmat_s1, G_mmhc)
+               
              }
+             
+             # Calculate the number of unique graphs inferred by each method across all permutations.
+             
+             countMatrix[e, ] <- c(length (unique (Adjlist_MRPC[[e]])), length (unique (Adjlist_PC[[e]])), length (unique (Adjlist_pc.stable[[e]])), length (unique (Adjlist_mmpc[[e]])), length( unique (Adjlist_mmhc[[e]])))
+             
            }
-           return(cbind(Diff_MRPC, Diff_PC, Diff_pc.stable, Diff_mmpc, Diff_mmhc))
+           
+           return(countMatrix)
+           
          },
+         
          truth2 = {
-           #Truth 2 (V1-->T1<--T2-->T3)
+           
+           # Truth2 model (V1-->T1<--T2-->T3)
+           
            tarmat_s2 <- matrix(0,nrow=4,ncol = 4)
+           
            colnames(tarmat_s2) <- c("V1","T1","T2","T3")
+           
            rownames(tarmat_s2) <- colnames(tarmat_s2)
-           #Create an adjacency matrix for truth
+           
+           # Adjacency matrix from the true graph
+           
            tarmat_s2[1,2] <- 1
+           
            tarmat_s2[3,2] <- 1
+           
            tarmat_s2[3,4] <- 1
-           #Graph
-           #Truth_s2<-as(tarmat_s2, "graphNEL")
            
-           #Output matrices
-           #MRPC
-           Diff_MRPC <- matrix(NA,ncol = ita_node,nrow = ita_data) #For MRPC
-           colnames(Diff_MRPC) <- paste("MRPC_NO",1:ita_node,sep="")
-           rownames(Diff_MRPC) <- paste("Data_",1:ita_data,sep="")
-           #pc
-           Diff_PC <- matrix(NA,ncol = ita_node,nrow = ita_data)   #For PC
-           colnames(Diff_PC) <- paste("PC_NO",1:ita_node,sep="")
-           rownames(Diff_PC) <- paste("Data_",1:ita_data,sep="")
-           #pc.stable
-           Diff_pc.stable <- matrix(NA,ncol = ita_node,nrow = ita_data) #For pc.stable
-           colnames(Diff_pc.stable) <- paste("pc.stable_NO",1:ita_node,sep="")
-           rownames(Diff_pc.stable) <- paste("Data_",1:ita_data,sep="")
-           #mmpc
-           Diff_mmpc <- matrix(NA,ncol = ita_node,nrow = ita_data) #For mmpc
-           colnames(Diff_mmpc) <- paste("mmpc_NO",1:ita_node,sep="")
-           rownames(Diff_mmpc) <- paste("Data_",1:ita_data,sep="")
-           #mmhc
-           Diff_mmhc <- matrix(NA,ncol = ita_node,nrow = ita_data) #For mmhc
-           colnames(Diff_mmhc) <- paste("mmhc_NO",1:ita_node,sep="")
-           rownames(Diff_mmhc) <- paste("Data_",1:ita_data,sep="")
+           # The number of genetic variants in the graph.
            
-           #Results=0L
-           #Data
-           for (i in 1:ita_data) {
-             cat("ita_data=",i)
-             #Data
+           GV <- 1
+           
+           # The number of nodes
+           
+           n.nodes <- ncol (tarmat_s2)
+           
+           # Lists for the adjacency matrix output by each method.
+           
+           # MRPC
+           
+           Adjlist_MRPC <- vector (mode = 'list', length = n_data)
+           
+           # pc
+           
+           Adjlist_PC <- vector (mode = 'list', length = n_data)
+           
+           # pc.stable
+           
+           Adjlist_pc.stable <- vector (mode = 'list', length = n_data)
+           
+           # mmpc
+           
+           Adjlist_mmpc <- vector (mode = 'list', length = n_data)
+           
+           # mmhc
+           
+           Adjlist_mmhc <- vector (mode = 'list', length = n_data)
+           
+           # Matrix for the number of unique graphs for each data set (across n permutations).
+           
+           countMatrix <- matrix (nrow = n_data, ncol = 5)
+           
+           # name the columns according to the method.
+           
+           colnames (countMatrix) <- c('MRPC', 'pc', 'pc.stable', 'mmpc', 'mmhc')
+           
+           # Loop through the independent data sets.
+           
+           for (e in 1:n_data) {
+             
+             cat ("n_data=", e)
+             
+             # Simulate data for the true2.
+             
              V1 <- c(sample(c(0, 1, 2),size = N,replace = TRUE,prob = c((1 - p)^2,2*p*(1 - p),p^2)))
+             
              T2 <- SimulateDataNP(N=N,b0.1=b0.1,sd.1=sd.1)
+             
              T1 <- SimulateData2P(N=N,P1=V1,P2=T2,b0.1=b0.1,b1.1=b1.1,b1.2=b1.2,sd.1=sd.1)
+             
              T3 <- SimulateData1P(N=N,P1=T2,b0.1=b0.1,b1.1=b1.1,sd.1=sd.1)
-             #Data combine
+             
+             # Combined
              Data1 <- cbind(V1,T1,T2,T3)
              
-             for (j in 1:ita_node) {
-               cat("ita_node=",j)
-               #library(gtools) #Permute
-               GV <- 1
-               temp.order <- c(GV,gtools::permute((GV+1):ncol(Data1)))
-               # New data with permute
-               Data2 <- Data1[,temp.order]
+             # MRPC
+             
+             Adjlist_MRPC[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # pc
+             
+             Adjlist_PC[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # pc.stable
+             
+             Adjlist_pc.stable[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # mmpc
+             
+             Adjlist_mmpc[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # mmhc
+             
+             Adjlist_mmhc[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # Loop through all node permutations for one data set.
+             
+             for (j in 1:n_nodeordering) {
                
-               n <- nrow (Data2)    #Number of row
-               V <- colnames(Data2) #Column names
-               Rcor_R <- RobustCor(Data2, 0.005) #Robust correlation (Beta=0.005)
-               suffStat_R <-list(C = Rcor_R$RR, n = n)
+               cat ("n_nodeordering=", j)
                
-               Rcor_C <- RobustCor(Data2, 0) #Classical correlation (Beta=0)
-               suffStat_C <- list(C = Rcor_C$RR, n = n)
+               # Create a new ordering for the T nodes.
                
-               ## Estimated graph by MRPC using gaussCItest
-               MRPC.fit_1 <- MRPC(Data2,suffStat_R,GV=1,FDR=0.05,
-                                  indepTest ='gaussCItest',labels=V,verbose = TRUE)
-               #adjacency matrix from directed graph by MRPC
-               Adj_MRPC <- as(MRPC.fit_1@graph,"matrix")
+               temp.order <- c (GV, sample((GV + 1):n.nodes))
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s2)!=colnames(Adj_MRPC)))
-               {
-                 Order_node <- match(colnames(tarmat_s2),colnames(Adj_MRPC))
-                 Adj_MRPC <- Adj_MRPC[Order_node,Order_node] #new
-               }
+               # New data matrix with permuted nodes.
                
-               #Convert binary to decimal for MRPC
-               Diff_MRPC[i,j] <- seqDiff(Adj_MRPC,tarmat_s2)
+               Data2 <- Data1[, temp.order]
                
-               ## Estimated graph by PC
-               PC.fit_1 <- pc(suffStat_C,alpha =0.05,
-                              indepTest =gaussCItest,labels=V,verbose = TRUE)
-               #adjacency matrix from PC 
-               Adj_PC <- as(PC.fit_1@graph,"matrix")
+               n <- nrow (Data2)    # Sample size
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s2)!=colnames(Adj_PC)))
-               {
-                 Order_node <- match(colnames(tarmat_s2),colnames(Adj_PC))
-                 Adj_PC<-Adj_PC[Order_node,Order_node] #new
-               }
+               V <- colnames (Data2) # Node labels
                
-               #Difference between inferred and truth
-               Diff_PC[i,j] <- seqDiff(Adj_PC,tarmat_s2)
+               # Calculate Pearson correlation
                
-               ## arcs not to be included from gene expression to genotype
-               bl <- data.frame (from=colnames (Data2)[-1], to='V1')
+               suffStat <- list (C = cor (Data2), n = n)
                
-               ## Estimated graph by pc.stable
-               M_pc.stable <- pc.stable(data.frame(Data2),blacklist=bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE) 
-               G_pc.stable <- graphviz.plot(M_pc.stable)
-               #adjacency matrix from pc.stable 
-               Adj_pc.stable <- as(G_pc.stable,"matrix")
+               # Infer the graph by MRPC
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s2)!=colnames(Adj_pc.stable)))
-               {
-                 Order_node <- match(colnames(tarmat_s2),colnames(Adj_pc.stable))
-                 Adj_pc.stable <- Adj_pc.stable[Order_node,Order_node] #new
-               }
-               #Difference between inferred and truth
-               Diff_pc.stable[i,j] <- seqDiff(Adj_pc.stable,tarmat_s2)
+               MRPC_Inferred <- MRPC (Data2, suffStat, GV = GV, FDR = 0.05, alpha = 0.05, FDRcontrol = TRUE, indepTest = 'gaussCItest', labels = V, verbose = FALSE)
                
-               ## Estimated graph by mmpc
-               M_mmpc <- mmpc(data.frame(Data2),blacklist=bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE) 
-               G_mmpc <- graphviz.plot(M_mmpc)
-               #adjacency matrix from mmpc 
-               Adj_mmpc <- as(G_mmpc,"matrix")
+               # Adjacency matrix from the graph by MRPC
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s2)!=colnames(Adj_mmpc)))
-               {
-                 Order_node <- match(colnames(tarmat_s2),colnames(Adj_mmpc))
-                 Adj_mmpc <- Adj_mmpc[Order_node,Order_node] #new
-               }
-               #Difference between inferred and truth
-               Diff_mmpc[i,j] <- seqDiff(Adj_mmpc,tarmat_s2)
+               G_MRPC <- as (MRPC_Inferred@graph, "matrix")
                
-               M_mmhc <- mmhc(data.frame(Data2),blacklist=bl) 
-               G_mmhc <- graphviz.plot(M_mmhc)
-               #adjacency matrix from mmhc 
-               Adj_mmhc <- as(G_mmhc,"matrix")
+               # Save adjacency matrix
                
-               #If ordering nodes
-               if(any(colnames(tarmat_s2)!=colnames(Adj_mmhc)))
-               {
-                 Order_node <- match(colnames(tarmat_s2),colnames(Adj_mmhc))
-                 Adj_mmhc <- Adj_mmhc[Order_node,Order_node] #new
-               }
-               #Difference between inferred and truth
-               Diff_mmhc[i,j] <- seqDiff(Adj_mmhc,tarmat_s2)
+               Adjlist_MRPC[[e]][[j]] <- AdjustMatrix (tarmat_s2, G_MRPC)
                
-               #Results[i,j]=cbind (Diff_MRPC,Diff_mmhc,Diff_PC)
-               # write results to csv file
-               #row indicates the number of data and col indicates number of node ordering by MRPC,mmhc and PC respectively
-               #write.table (cbind (Diff_MRPC,Diff_mmhc,Diff_PC), file = "Results_2.csv",sep=",",row.names = F,col.names = F)
-               #return(Results)
+               # Infer the graph by PC
+               
+               PC_Inferred <- pc (suffStat, alpha = 0.05, indepTest = gaussCItest, labels = V, verbose = F)
+               
+               # Adjacency matrix from the graph by pc
+               
+               G_PC <- as (PC_Inferred@graph, "matrix")
+               
+               # Save adjacency matrix
+               
+               Adjlist_PC[[e]][[j]] <- AdjustMatrix (tarmat_s2, G_PC)
+               
+               # arcs not to be included from gene expression to genotype
+               
+               to <- rep (colnames (Data2)[1:GV], each = (ncol (Data2) - GV))
+               
+               from <- rep (colnames (Data2)[(GV + 1):ncol (Data2)], GV)
+               
+               bl <- cbind (from, to)
+               
+               # Infer the graph by pc.stable
+               
+               pc.stable_Inferred <- pc.stable (data.frame (Data2), blacklist = bl, alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+               
+               # Inferred graph object by pc.stable
+               
+               G_pc.stable <- amat (pc.stable_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_pc.stable[[e]][[j]] <- AdjustMatrix (tarmat_s2, G_pc.stable)
+               
+               # Infer the graph by mmpc
+               
+               mmpc_Inferred <- mmpc (data.frame (Data2), blacklist = bl, alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+               
+               # Inferred graph object by mmpc
+               
+               G_mmpc <- amat (mmpc_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_mmpc[[e]][[j]] <- AdjustMatrix (tarmat_s2, G_mmpc)
+               
+               # Infer the graph by mmhc
+               
+               mmhc_Inferred <- mmhc (data.frame (Data2), blacklist = bl, debug = FALSE)
+               
+               # Inferred graph object by mmpc
+               
+               G_mmhc <- amat (mmhc_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_mmhc[[e]][[j]] <- AdjustMatrix (tarmat_s2, G_mmhc)
+               
              }
+             
+             # Calculate the number of unique graphs inferred by each method across all permutations.
+             
+             countMatrix[e, ] <- c(length (unique (Adjlist_MRPC[[e]])), length (unique (Adjlist_PC[[e]])), length (unique (Adjlist_pc.stable[[e]])), length (unique (Adjlist_mmpc[[e]])), length( unique (Adjlist_mmhc[[e]])))
+             
            }
            
-           return(cbind(Diff_MRPC, Diff_PC, Diff_pc.stable, Diff_mmpc, Diff_mmhc))
+           return(countMatrix)
+           
          },
+         
          stop("Model not included or missing"))
+  
 }
