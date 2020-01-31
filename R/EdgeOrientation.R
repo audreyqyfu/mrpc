@@ -50,6 +50,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
   
   #Step-2 start
   #Start to orient v-structures
+  if (verbose)
   cat("\n V-structures are as follows :\n")
   # extract edges involving at least one gene node
   #edgesWithGs <- edges[which (edges[,1]>GV | edges[,2]>GV), ]
