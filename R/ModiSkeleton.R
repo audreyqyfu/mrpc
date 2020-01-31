@@ -134,8 +134,9 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
                 pval <- as.numeric(NAdelete)
               if (pMax[x, y] < pval[m])
                 pMax[x, y] <- pval[m]
-
+            if (verbose)
             cat("Test number =", m, "\n")
+              if (verbose)
             cat("pval =", pval[m], "\n")
             
             if (FDRcontrol){ #if want to control sequential FDR 
@@ -145,13 +146,16 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
             {
               Alpha <- alpha #if want to use fixed significance level 
             }
+            if (verbose)
             cat("Alpha value =", Alpha, "\n")
 
             if (pval[m]<= Alpha) {  #Reject H0 (H0:nodes are independent)
               R[m] <- 1
+              if (verbose)
               cat("Since pval<Alpha,test is rejected: Nodes are dependent", "\n")
             } else {
               R[m] <- 0  #Accept H0
+              if (verbose)
               cat("Since pval>Alpha,test is accepted:Nodes are independent", "\n")
             }
             if (pval[m]>= Alpha) {
