@@ -33,7 +33,7 @@ MRPC <- function (data,suffStat,GV,FDR=0.05,alpha=0.05,indepTest = c("gaussCItes
   }
   if (conservative && maj.rule)
     stop("Choose either conservative PC or majority rule PC!")
-
+  if (verbose)
   cat ("test for independence:", indepTest, "\n")
   skel <- ModiSkeleton(data,suffStat,FDR=FDR,alpha=alpha,indepTest=indepTest,labels = labels,
                        method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
