@@ -141,7 +141,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
                
                # Infer the graph by MRPC
                
-               MRPC_Inferred <- MRPC (Data2, suffStat, GV = GV, FDR = 0.05, alpha = 0.05, FDRcontrol = TRUE, indepTest = 'gaussCItest', labels = V, verbose = FALSE)
+               MRPC_Inferred <- MRPC (Data2, suffStat, GV = GV, FDR = 0.05, FDRcontrol = TRUE, indepTest = 'gaussCItest', labels = V, verbose = FALSE)
                
                # Adjacency matrix from the graph by MRPC
                
@@ -338,7 +338,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
                
                # Infer the graph by MRPC
                
-               MRPC_Inferred <- MRPC (Data2, suffStat, GV = GV, FDR = 0.05, alpha = 0.05, FDRcontrol = TRUE, indepTest = 'gaussCItest', labels = V, verbose = FALSE)
+               MRPC_Inferred <- MRPC (Data2, suffStat, GV = GV, FDR = 0.05, FDRcontrol = TRUE, indepTest = 'gaussCItest', labels = V, verbose = FALSE)
                
                # Adjacency matrix from the graph by MRPC
                
