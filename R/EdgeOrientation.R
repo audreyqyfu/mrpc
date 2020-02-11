@@ -87,10 +87,12 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
         {
           Alpha <- alpha
         }
+        if (verbose){
         cat("x=", x, " y=", y, " S=", z,"\n")
         cat("Test number =", m, "\n")
         cat("Additional pval value =", pval, "\n")
         cat("Alpha value =", Alpha, "\n")
+        }
         if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
           R[m] <- 1
           if (verbose) {
@@ -101,6 +103,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
         } 
         else {
           R[m] <- 0  #Accept H0
+          if (verbose)
           cat("Since pval>Alpha,additional test is accepted;", "Nodes", V[x] ,"and" ,V[z] ,"are independent given", V[y], "\n")
         }
         
@@ -178,8 +181,11 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 {
                   Alpha <- alpha
                 }
-                cat("Additional pval value =", pval, "\n")
-                cat("Alpha value =", Alpha, "\n")
+                if (verbose){
+                  cat("Additional pval value =", pval, "\n")
+                  cat("Alpha value =", Alpha, "\n")    
+                }
+
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   if (verbose) {
@@ -364,6 +370,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 {
                   Alpha <- alpha
                 }
+                if (verbose)
                 cat("Additional pval value =", pval, "\n")
                 cat("Alpha value =", Alpha, "\n")
                 
