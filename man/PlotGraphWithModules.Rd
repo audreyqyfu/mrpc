@@ -9,7 +9,7 @@ Visualization of a graph with nodes in modules inferred from the clustering dend
 }
 \usage{
 PlotGraphWithModules(Adj_directed, PlotDendrogramObj, 
-                     GV = GV, node.size = 8, arrow.size = 5,
+                     GV, node.size = 8, arrow.size = 5,
                      label.size = 3,alpha = 1,...)
 
 }
