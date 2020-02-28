@@ -75,7 +75,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
         {
           pval <- gaussCItest(x, z, y, suffStat)
         }
-        if(indepTest=="disCItest") #if indepTest=gaussCItest
+        if(indepTest=="disCItest") #if indepTest=disCItest
         {
           pval <- disCItest(x, z, y, suffStat) #additional
         }
@@ -88,7 +88,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
           Alpha <- alpha
         }
         if (verbose){
-        cat("x=", x, " y=", y, " S=", z,"\n")
+        cat("x=", x, " y=", z, " S=", y,"\n")
         cat("Test number =", m, "\n")
         cat("Additional pval value =", pval, "\n")
         cat("Alpha value =", Alpha, "\n")
