@@ -23,6 +23,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
   sd.1 <- 1
   
   switch(model,
+         
          truth1 = {
            
            # Truth1 model (V1-->T1-->T2-->T3)
@@ -71,13 +72,17 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
            
            Adjlist_mmhc <- vector (mode = 'list', length = n_data)
            
+           # hc
+           
+           Adjlist_hc <- vector (mode = 'list', length = n_data)
+           
            # Matrix for the number of unique graphs for each data set (across n permutations).
            
-           countMatrix <- matrix (nrow = n_data, ncol = 5)
+           countMatrix <- matrix (nrow = n_data, ncol = 6)
            
            # name the columns according to the method.
            
-           colnames (countMatrix) <- c('MRPC', 'pc', 'pc.stable', 'mmpc', 'mmhc')
+           colnames (countMatrix) <- c('MRPC', 'pc', 'pc.stable', 'mmpc', 'mmhc', 'hc')
            
            # Loop through the independent data sets.
            
@@ -117,6 +122,10 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
              
              Adjlist_mmhc[[e]] <- vector(mode = 'list', length = n_nodeordering)
              
+             # hc
+             
+             Adjlist_hc[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
              # Loop through all node permutations for one data set.
              
              for (j in 1:n_nodeordering) {
@@ -153,7 +162,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
                
                # Infer the graph by PC
                
-               PC_Inferred <- pc (suffStat, alpha = 0.05, indepTest = gaussCItest, labels = V, verbose = F)
+               PC_Inferred <- pc (suffStat, alpha = 0.05, indepTest = gaussCItest, labels = V, verbose = FALSE)
                
                # Adjacency matrix from the graph by pc
                
@@ -199,7 +208,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
                
                mmhc_Inferred <- mmhc (data.frame (Data2), blacklist = bl, debug = FALSE)
                
-               # Inferred graph object by mmpc
+               # Inferred graph object by mmhc
                
                G_mmhc <- amat (mmhc_Inferred)
                
@@ -207,11 +216,24 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
                
                Adjlist_mmhc[[e]][[j]] <- AdjustMatrix (tarmat_s1, G_mmhc)
                
+               # Infer the graph by hc
+               
+               hc_Inferred <- hc (data.frame (Data2), blacklist = bl, debug = FALSE)
+               
+               # Inferred graph object by mmhc
+               
+               G_hc <- amat (hc_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_hc[[e]][[j]] <- AdjustMatrix (tarmat_s1, G_hc)
+               
+               
              }
              
              # Calculate the number of unique graphs inferred by each method across all permutations.
              
-             countMatrix[e, ] <- c(length (unique (Adjlist_MRPC[[e]])), length (unique (Adjlist_PC[[e]])), length (unique (Adjlist_pc.stable[[e]])), length (unique (Adjlist_mmpc[[e]])), length( unique (Adjlist_mmhc[[e]])))
+             countMatrix[e, ] <- c(length (unique (Adjlist_MRPC[[e]])), length (unique (Adjlist_PC[[e]])), length (unique (Adjlist_pc.stable[[e]])), length (unique (Adjlist_mmpc[[e]])), length( unique (Adjlist_mmhc[[e]])), length( unique (Adjlist_hc[[e]])))
              
            }
            
@@ -267,13 +289,17 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
            
            Adjlist_mmhc <- vector (mode = 'list', length = n_data)
            
+           # hc
+           
+           Adjlist_hc <- vector (mode = 'list', length = n_data)
+           
            # Matrix for the number of unique graphs for each data set (across n permutations).
            
-           countMatrix <- matrix (nrow = n_data, ncol = 5)
+           countMatrix <- matrix (nrow = n_data, ncol = 6)
            
            # name the columns according to the method.
            
-           colnames (countMatrix) <- c('MRPC', 'pc', 'pc.stable', 'mmpc', 'mmhc')
+           colnames (countMatrix) <- c('MRPC', 'pc', 'pc.stable', 'mmpc', 'mmhc', 'hc')
            
            # Loop through the independent data sets.
            
@@ -313,6 +339,10 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
              # mmhc
              
              Adjlist_mmhc[[e]] <- vector(mode = 'list', length = n_nodeordering)
+             
+             # hc
+             
+             Adjlist_hc[[e]] <- vector(mode = 'list', length = n_nodeordering)
              
              # Loop through all node permutations for one data set.
              
@@ -396,7 +426,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
                
                mmhc_Inferred <- mmhc (data.frame (Data2), blacklist = bl, debug = FALSE)
                
-               # Inferred graph object by mmpc
+               # Inferred graph object by mmhc
                
                G_mmhc <- amat (mmhc_Inferred)
                
@@ -404,11 +434,24 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
                
                Adjlist_mmhc[[e]][[j]] <- AdjustMatrix (tarmat_s2, G_mmhc)
                
+               # Infer the graph by hc
+               
+               hc_Inferred <- hc (data.frame (Data2), blacklist = bl, debug = FALSE)
+               
+               # Inferred graph object by hc
+               
+               G_hc <- amat (hc_Inferred)
+               
+               # Save adjacency matrix
+               
+               Adjlist_hc[[e]][[j]] <- AdjustMatrix (tarmat_s2, G_hc)
+               
+               
              }
              
              # Calculate the number of unique graphs inferred by each method across all permutations.
              
-             countMatrix[e, ] <- c(length (unique (Adjlist_MRPC[[e]])), length (unique (Adjlist_PC[[e]])), length (unique (Adjlist_pc.stable[[e]])), length (unique (Adjlist_mmpc[[e]])), length( unique (Adjlist_mmhc[[e]])))
+             countMatrix[e, ] <- c(length (unique (Adjlist_MRPC[[e]])), length (unique (Adjlist_PC[[e]])), length (unique (Adjlist_pc.stable[[e]])), length (unique (Adjlist_mmpc[[e]])), length( unique (Adjlist_mmhc[[e]])), length( unique (Adjlist_hc[[e]])))
              
            }
            
