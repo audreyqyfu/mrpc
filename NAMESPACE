@@ -31,7 +31,7 @@ importMethodsFrom("graph",
 		  numNodes, numEdges,
 		  subGraph, ugraph)
 
-importFrom("bnlearn","amat","ci.test","graphviz.plot","mmhc","mmpc","pc.stable")
+importFrom("bnlearn","amat","ci.test","graphviz.plot","hc", "mmhc","mmpc","pc.stable")
 importFrom("compositions", "unbinary")
 importFrom("dynamicTreeCut","cutreeDynamic")
 importFrom("fastcluster","hclust")
