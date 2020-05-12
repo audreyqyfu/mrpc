@@ -103,6 +103,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
         } 
         else {
           R[m] <- 0  #Accept H0
+          #tarmat[x, y] <- tarmat[y, z] <- 1 #directed x-->y-->z
           if (verbose)
           cat("Since pval>Alpha,additional test is accepted;", "Nodes", V[x] ,"and" ,V[z] ,"are independent given", V[y], "\n")
         }
