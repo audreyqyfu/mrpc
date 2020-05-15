@@ -5,7 +5,7 @@
 Comparison of inference accuracy of different methods on data with and without a v-structure
 }
 \description{
-This function compares inference accuracy on graphs with and without a v-structure in terms of recall and precision by five methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, and \link{mmhc}, across multiple data sets. See details in  Badsha and Fu, 2019 and Badsha et al., 2018.
+This function compares inference accuracy on graphs with and without a v-structure in terms of recall and precision by six methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, \link{mmhc}, and \link{hc}, across multiple data sets. See details in  Badsha and Fu, 2019 and Badsha et al., 2018.
 }
 \usage{
 CompareMethodsVStructure(N, signal, model, includeGV, ita)
@@ -27,7 +27,7 @@ If TRUE, include edges involving genetic variants (GVs) when comparing the true 
 
 }
 \details{
-The output is a matrix, where the rows are the five methods: MRPC, pc, pc.stable, mmpc, and mmhc, and the columns are the mean of recall, sd of recall, mean of precision, and sd of precision, respectively.  Mean and sd are calculated across all the simulated data sets.  For methods from the bnlearn package (pc.stable, mmpc and mmhc), we apply the blacklist argument to exclude edges pointing at the genetic variant, and therefore evaluate recall and precision including the edges involving these edges (i.e., includeGV = TRUE).
+The output is a matrix, where the rows are the six methods: MRPC, pc, pc.stable, mmpc, mmhc, and hc, and the columns are the mean of recall, sd of recall, mean of precision, and sd of precision, respectively. Mean and sd are calculated across all the simulated data sets. For methods from the bnlearn package (pc.stable, mmpc, mmhc, and hc), we apply the blacklist argument to exclude edges pointing at the genetic variant, and therefore evaluate recall and precision including the edges involving these edges (i.e., includeGV = TRUE).
 }
 \value{
 Matrix
