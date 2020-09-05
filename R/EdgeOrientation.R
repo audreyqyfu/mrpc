@@ -371,10 +371,10 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 {
                   Alpha <- alpha
                 }
-                if (verbose)
+                if (verbose) {
                 cat("Additional pval value =", pval, "\n")
                 cat("Alpha value =", Alpha, "\n")
-                
+                }
                 #Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
