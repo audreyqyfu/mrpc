@@ -51,7 +51,7 @@ Other arguments passed to \link{ggnet2}.
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \seealso{
@@ -69,8 +69,8 @@ PlotDendrogramObj <- PlotDendrogram(Adj_directed,
 # A graph object with nodes in modules
 PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
                                                 PlotDendrogramObj,
-                                                GV=14,
-                                                node.size=8,
+                                                GV = 14,
+                                                node.size = 8,
                                                 arrow.size = 5,
                                                 label.size = 3,
                                                 alpha = 1) 
