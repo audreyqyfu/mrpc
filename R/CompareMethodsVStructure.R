@@ -52,7 +52,7 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
            
            # Truth for model 1 (V1-->T1-->T2) without v-structure 
            
-           tarmat_1 <- matrix(0,nrow=3,ncol = 3)
+           tarmat_1 <- matrix(0, nrow = 3,ncol = 3)
            
            colnames(tarmat_1) <- c("V1","T1","T2")
            
@@ -82,7 +82,14 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Data for model 1
              
-             simu.data_1 <- SimulateData(N = N,p = p,'model1',b0.1 = b0.1,b1.1 = b1.1,b1.2 = b1.2,b1.3 = b1.3,sd.1 = sd.1)
+             simu.data_1 <- SimulateData(N = N,
+                                         p = p,
+                                         'model1',
+                                         b0.1 = b0.1,
+                                         b1.1 = b1.1,
+                                         b1.2 = b1.2,
+                                         b1.3 = b1.3,
+                                         sd.1 = sd.1)
              
              # Create a new ordering for the T nodes.
              
@@ -90,7 +97,7 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # New data with permute
              
-             simu.data_2 <- simu.data_1[,temp.order]
+             simu.data_2 <- simu.data_1[, temp.order]
              
              n <- nrow (simu.data_2)    # Number of row
              
@@ -102,23 +109,53 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Infer the graph by MRPC
              
-             MRPC_Inferred <- MRPC(simu.data_2,suffStat,GV = GV,FDR=0.05, FDRcontrol = TRUE,indepTest ='gaussCItest',labels = V,verbose = FALSE)
+             MRPC_Inferred <- MRPC(simu.data_2, 
+                                   suffStat, 
+                                   GV = GV, 
+                                   FDR = 0.05, 
+                                   FDRcontrol = TRUE, 
+                                   indepTest ='gaussCItest', 
+                                   labels = V, 
+                                   verbose = FALSE)
              
              # Recall and Precision by MRPC
              
-             MRPC_Recall[i] <- RecallPrecision(Truth_1, MRPC_Inferred@graph, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             MRPC_Recall[i] <- RecallPrecision(Truth_1, 
+                                               MRPC_Inferred@graph, 
+                                               GV = GV, 
+                                               includeGV = includeGV, 
+                                               edge.presence = 1.0, 
+                                               edge.direction = 0.5)$Recall
              
-             MRPC_Precision[i] <- RecallPrecision(Truth_1, MRPC_Inferred@graph, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             MRPC_Precision[i] <- RecallPrecision(Truth_1, 
+                                                  MRPC_Inferred@graph, 
+                                                  GV = GV, 
+                                                  includeGV = includeGV, 
+                                                  edge.presence = 1.0, 
+                                                  edge.direction = 0.5)$Precision
              
              # Infer the graph by pc
              
-             PC_Inferred <- pc(suffStat,alpha =0.05,indepTest = gaussCItest,labels = V,verbose = FALSE)
+             PC_Inferred <- pc(suffStat,alpha =0.05,
+                               indepTest = gaussCItest,
+                               labels = V,
+                               verbose = FALSE)
              
              # Recall and Precision by pc
              
-             PC_Recall[i] <- RecallPrecision(Truth_1, PC_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             PC_Recall[i] <- RecallPrecision(Truth_1, 
+                                             PC_Inferred, 
+                                             GV = GV, 
+                                             includeGV = includeGV, 
+                                             edge.presence = 1.0, 
+                                             edge.direction = 0.5)$Recall
              
-             PC_Precision[i] <- RecallPrecision(Truth_1,PC_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             PC_Precision[i] <- RecallPrecision(Truth_1,
+                                                PC_Inferred, 
+                                                GV = GV, 
+                                                includeGV = includeGV, 
+                                                edge.presence = 1.0, 
+                                                edge.direction = 0.5)$Precision
              
              # arcs not to be included from gene expression to genotype
              
@@ -130,7 +167,13 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Infer the graph by pc.stable
              
-             pc.stable.fit <- pc.stable(simu.data_2, blacklist = bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+             pc.stable.fit <- pc.stable(simu.data_2, 
+                                        blacklist = bl,
+                                        alpha = 0.05, 
+                                        B = NULL, 
+                                        max.sx = NULL, 
+                                        debug = FALSE, 
+                                        undirected = FALSE)
              
              # Inferred graph object by pc.stable
              
@@ -140,13 +183,29 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
 
              # Recall and Precision by pc.stable
              
-             pc.stable_Recall[i] <- RecallPrecision(Truth_1,pc.stable_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             pc.stable_Recall[i] <- RecallPrecision(Truth_1,
+                                                    pc.stable_Inferred, 
+                                                    GV = GV, 
+                                                    includeGV = includeGV, 
+                                                    edge.presence = 1.0, 
+                                                    edge.direction = 0.5)$Recall
              
-             pc.stable_Precision[i] <- RecallPrecision(Truth_1, pc.stable_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             pc.stable_Precision[i] <- RecallPrecision(Truth_1, 
+                                                       pc.stable_Inferred, 
+                                                       GV = GV, 
+                                                       includeGV = includeGV, 
+                                                       edge.presence = 1.0, 
+                                                       edge.direction = 0.5)$Precision
              
              # Infer the graph by mmpc
             
-              mmpc.fit <- mmpc(simu.data_2, blacklist = bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+              mmpc.fit <- mmpc(simu.data_2, 
+                               blacklist = bl, 
+                               alpha = 0.05, 
+                               B = NULL, 
+                               max.sx = NULL, 
+                               debug = FALSE, 
+                               undirected = FALSE)
              
              # Inferred graph object by mmpc
              
@@ -156,13 +215,25 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Recall and Precision by mmpc
              
-             mmpc_Recall[i] <- RecallPrecision(Truth_1,mmpc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             mmpc_Recall[i] <- RecallPrecision(Truth_1, 
+                                               mmpc_Inferred, 
+                                               GV = GV, 
+                                               includeGV = includeGV,
+                                               edge.presence = 1.0, 
+                                               edge.direction = 0.5)$Recall
              
-             mmpc_Precision[i] <- RecallPrecision(Truth_1, mmpc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             mmpc_Precision[i] <- RecallPrecision(Truth_1, 
+                                                  mmpc_Inferred, 
+                                                  GV = GV, 
+                                                  includeGV = includeGV, 
+                                                  edge.presence = 1.0, 
+                                                  edge.direction = 0.5)$Precision
                         
              # Infer the graph by mmhc
              
-             mmhc.fit <- mmhc(simu.data_2, blacklist = bl, debug = FALSE) 
+             mmhc.fit <- mmhc(simu.data_2, 
+                              blacklist = bl, 
+                              debug = FALSE) 
              
              # Inferred graph object by mmhc
              
@@ -172,13 +243,25 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Recall and Precision by mmhc
              
-             mmhc_Recall[i] <- RecallPrecision(Truth_1, mmhc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             mmhc_Recall[i] <- RecallPrecision(Truth_1, 
+                                               mmhc_Inferred, 
+                                               GV = GV, 
+                                               includeGV = includeGV, 
+                                               edge.presence = 1.0, 
+                                               edge.direction = 0.5)$Recall
              
-             mmhc_Precision[i] <- RecallPrecision(Truth_1, mmhc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             mmhc_Precision[i] <- RecallPrecision(Truth_1, 
+                                                  mmhc_Inferred, 
+                                                  GV = GV, 
+                                                  includeGV = includeGV, 
+                                                  edge.presence = 1.0, 
+                                                  edge.direction = 0.5)$Precision
 
              # Infer the graph by hc
              
-             hc.fit <- hc(simu.data_2, blacklist = bl, debug = FALSE) 
+             hc.fit <- hc(simu.data_2, 
+                          blacklist = bl, 
+                          debug = FALSE) 
              
              # Inferred graph object by hc
              
@@ -188,9 +271,19 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Recall and Precision by hc
              
-             hc_Recall[i] <- RecallPrecision(Truth_1, hc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             hc_Recall[i] <- RecallPrecision(Truth_1, 
+                                             hc_Inferred, 
+                                             GV = GV, 
+                                             includeGV = includeGV, 
+                                             edge.presence = 1.0, 
+                                             edge.direction = 0.5)$Recall
              
-             hc_Precision[i] <- RecallPrecision(Truth_1, hc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             hc_Precision[i] <- RecallPrecision(Truth_1, 
+                                                hc_Inferred, 
+                                                GV = GV, 
+                                                includeGV = includeGV, 
+                                                edge.presence = 1.0, 
+                                                edge.direction = 0.5)$Precision
              
            }
          },
@@ -199,7 +292,7 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
            
            # Truth for model 2 (V1-->T1<--T2) with v-structure 
            
-           tarmat_2 <- matrix(0,nrow=3,ncol = 3)
+           tarmat_2 <- matrix(0, nrow = 3,ncol = 3)
            
            colnames(tarmat_2) <- c("V1","T1","T2")
            
@@ -229,7 +322,14 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Data for model 2
              
-             simu.data_1 <- SimulateData(N = N,p = p,'model2',b0.1 = b0.1,b1.1 = b1.1,b1.2 = b1.2,b1.3 = b1.3,sd.1 = sd.1)
+             simu.data_1 <- SimulateData(N = N, 
+                                         p = p, 
+                                         'model2', 
+                                         b0.1 = b0.1, 
+                                         b1.1 = b1.1, 
+                                         b1.2 = b1.2, 
+                                         b1.3 = b1.3, 
+                                         sd.1 = sd.1)
              
              # Create a new ordering for the T nodes.
              
@@ -249,23 +349,53 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Infer the graph by MRPC
              
-             MRPC_Inferred <- MRPC(simu.data_2,suffStat,GV = GV,FDR = 0.05, FDRcontrol = TRUE,indepTest ='gaussCItest',labels = V,verbose = FALSE)
+             MRPC_Inferred <- MRPC(simu.data_2,
+                                   suffStat,
+                                   GV = GV, 
+                                   FDR = 0.05, 
+                                   FDRcontrol = TRUE, 
+                                   indepTest ='gaussCItest',
+                                   labels = V,
+                                   verbose = FALSE)
              
              # Recall and Precision by MRPC
              
-             MRPC_Recall[i] <- RecallPrecision(Truth_2, MRPC_Inferred@graph, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             MRPC_Recall[i] <- RecallPrecision(Truth_2, 
+                                               MRPC_Inferred@graph, 
+                                               GV = GV, 
+                                               includeGV = includeGV, 
+                                               edge.presence = 1.0, 
+                                               edge.direction = 0.5)$Recall
             
-             MRPC_Precision[i] <- RecallPrecision(Truth_2, MRPC_Inferred@graph, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             MRPC_Precision[i] <- RecallPrecision(Truth_2, 
+                                                  MRPC_Inferred@graph, 
+                                                  GV = GV, 
+                                                  includeGV = includeGV, 
+                                                  edge.presence = 1.0, 
+                                                  edge.direction = 0.5)$Precision
              
              # Infer the graph by pc
              
-             PC_Inferred <- pc(suffStat,alpha =0.05,indepTest = gaussCItest,labels = V,verbose = FALSE)
+             PC_Inferred <- pc(suffStat,alpha = 0.05, 
+                               indepTest = gaussCItest,
+                               labels = V,
+                               verbose = FALSE)
              
              # Recall and Precision by pc
              
-             PC_Recall[i] <- RecallPrecision(Truth_2, PC_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             PC_Recall[i] <- RecallPrecision(Truth_2, 
+                                             PC_Inferred, 
+                                             GV = GV, 
+                                             includeGV = includeGV, 
+                                             edge.presence = 1.0, 
+                                             edge.direction = 0.5)$Recall
              
-             PC_Precision[i] <- RecallPrecision(Truth_2,PC_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             PC_Precision[i] <- RecallPrecision(Truth_2,
+                                                PC_Inferred, 
+                                                GV = GV, 
+                                                includeGV = includeGV, 
+                                                edge.presence = 1.0, 
+                                                edge.direction = 0.5)$Precision
              
              # arcs not to be included from gene expression to genotype
              
@@ -277,7 +407,13 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Infer the graph by pc.stable
              
-             pc.stable.fit <- pc.stable(simu.data_2, blacklist = bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+             pc.stable.fit <- pc.stable(simu.data_2, 
+                                        blacklist = bl, 
+                                        alpha = 0.05, 
+                                        B = NULL, 
+                                        max.sx = NULL, 
+                                        debug = FALSE, 
+                                        undirected = FALSE)
              
              # Inferred graph object by pc.stable
              
@@ -287,13 +423,29 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Recall and Precision by pc.stable
              
-             pc.stable_Recall[i] <- RecallPrecision(Truth_2,pc.stable_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             pc.stable_Recall[i] <- RecallPrecision(Truth_2,
+                                                    pc.stable_Inferred, 
+                                                    GV = GV, 
+                                                    includeGV = includeGV, 
+                                                    edge.presence = 1.0, 
+                                                    edge.direction = 0.5)$Recall
              
-             pc.stable_Precision[i] <- RecallPrecision(Truth_2, pc.stable_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             pc.stable_Precision[i] <- RecallPrecision(Truth_2, 
+                                                       pc.stable_Inferred, 
+                                                       GV = GV, 
+                                                       includeGV = includeGV, 
+                                                       edge.presence = 1.0, 
+                                                       edge.direction = 0.5)$Precision
              
              # Infer the graph by mmpc
              
-             mmpc.fit <- mmpc(simu.data_2, blacklist = bl,alpha = 0.05, B = NULL, max.sx = NULL, debug = FALSE, undirected = FALSE)
+             mmpc.fit <- mmpc(simu.data_2, 
+                              blacklist = bl, 
+                              alpha = 0.05, 
+                              B = NULL, 
+                              max.sx = NULL, 
+                              debug = FALSE, 
+                              undirected = FALSE)
              
              # Inferred graph object by mmpc
              
@@ -303,13 +455,25 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Recall and Precision by mmpc
              
-             mmpc_Recall[i] <- RecallPrecision(Truth_2,mmpc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             mmpc_Recall[i] <- RecallPrecision(Truth_2, 
+                                               mmpc_Inferred, 
+                                               GV = GV, 
+                                               includeGV = includeGV, 
+                                               edge.presence = 1.0, 
+                                               edge.direction = 0.5)$Recall
              
-             mmpc_Precision[i] <- RecallPrecision(Truth_2, mmpc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             mmpc_Precision[i] <- RecallPrecision(Truth_2, 
+                                                  mmpc_Inferred, 
+                                                  GV = GV, 
+                                                  includeGV = includeGV, 
+                                                  edge.presence = 1.0, 
+                                                  edge.direction = 0.5)$Precision
              
              # Infer the graph by mmhc
              
-             mmhc.fit <- mmhc(simu.data_2, blacklist = bl, debug = FALSE) 
+             mmhc.fit <- mmhc(simu.data_2, 
+                              blacklist = bl, 
+                              debug = FALSE) 
              
              # Inferred graph object by mmhc
              
@@ -319,13 +483,25 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Recall and Precision by mmhc
              
-             mmhc_Recall[i] <- RecallPrecision(Truth_2, mmhc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             mmhc_Recall[i] <- RecallPrecision(Truth_2, 
+                                               mmhc_Inferred, 
+                                               GV = GV, 
+                                               includeGV = includeGV, 
+                                               edge.presence = 1.0, 
+                                               edge.direction = 0.5)$Recall
             
-             mmhc_Precision[i] <- RecallPrecision(Truth_2, mmhc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             mmhc_Precision[i] <- RecallPrecision(Truth_2, 
+                                                  mmhc_Inferred, 
+                                                  GV = GV, 
+                                                  includeGV = includeGV, 
+                                                  edge.presence = 1.0, 
+                                                  edge.direction = 0.5)$Precision
              
              # Infer the graph by hc
              
-             hc.fit <- hc(simu.data_2, blacklist = bl, debug = FALSE) 
+             hc.fit <- hc(simu.data_2, 
+                          blacklist = bl, 
+                          debug = FALSE) 
              
              # Inferred graph object by hc
              
@@ -335,9 +511,19 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
              
              # Recall and Precision by hc
              
-             hc_Recall[i] <- RecallPrecision(Truth_2, hc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Recall
+             hc_Recall[i] <- RecallPrecision(Truth_2, 
+                                             hc_Inferred, 
+                                             GV = GV, 
+                                             includeGV = includeGV, 
+                                             edge.presence = 1.0, 
+                                             edge.direction = 0.5)$Recall
              
-             hc_Precision[i] <- RecallPrecision(Truth_2, hc_Inferred, GV = GV, includeGV = includeGV, edge.presence = 1.0, edge.direction = 0.5)$Precision
+             hc_Precision[i] <- RecallPrecision(Truth_2, 
+                                                hc_Inferred, 
+                                                GV = GV, 
+                                                includeGV = includeGV, 
+                                                edge.presence = 1.0, 
+                                                edge.direction = 0.5)$Precision
              
            }
          },
@@ -428,7 +614,7 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
                       Mean_Recall_mmhc,SD_Recall_mmhc,Mean_Precision_mmhc,SD_Precision_mmhc,
                       Mean_Recall_hc,SD_Recall_hc,Mean_Precision_hc,SD_Precision_hc
                       ),
-                    nrow = 6,ncol = 4,byrow = T)
+                    nrow = 6, ncol = 4, byrow = T)
   
   colnames(Outputs) <- c("Mean_Recall","SD_Recall","Mean_Precision","SD_Pricision")
   
