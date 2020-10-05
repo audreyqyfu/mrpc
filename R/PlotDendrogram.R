@@ -10,7 +10,7 @@ PlotDendrogram <- function(Adj_directed, minModuleSize = 5, groupLabels = " ", d
   {
     for (j in 1:ncol(Adj_symmetric_matrix))
     {
-      if(Adj_symmetric_matrix[i,j]==1)
+      if(Adj_symmetric_matrix[i,j] == 1)
       {
         Adj_symmetric_matrix[j,i] <- 1
       }
@@ -28,8 +28,10 @@ PlotDendrogram <- function(Adj_directed, minModuleSize = 5, groupLabels = " ", d
   #labels = FALSE, hang = 0.04);
   # Module identification using dynamic tree cut:
   #The Dynamic Tree Cut may identify modules whose expression profiles are very similar.
-  dynamicMods <- cutreeDynamic(dendro = geneTree, distM = dissTOM,
-                               deepSplit = 2, pamRespectsDendro = TRUE,
+  dynamicMods <- cutreeDynamic(dendro = geneTree, 
+                               distM = dissTOM,
+                               deepSplit = 2, 
+                               pamRespectsDendro = TRUE,
                                minClusterSize = minModuleSize);
   
   Grouplist <- table(dynamicMods)
@@ -42,10 +44,14 @@ PlotDendrogram <- function(Adj_directed, minModuleSize = 5, groupLabels = " ", d
   #print(Colorlist)
   
   #sizeGrWindow(20,6);
-  PlotDendrogramObj <- plotDendroAndColors(dendro = geneTree, colors = dynamicColors, groupLabels = groupLabels,
-                      dendroLabels = dendroLabels, hang = hclustHang,
-                      addGuide = dendroAddGuide, guideHang = dendroGuideHang,
-                      main = dendroMain, ...)
+  PlotDendrogramObj <- plotDendroAndColors(dendro = geneTree, 
+                                           colors = dynamicColors, 
+                                           groupLabels = groupLabels,
+                                           dendroLabels = dendroLabels, 
+                                           hang = hclustHang,
+                                           addGuide = dendroAddGuide, 
+                                           guideHang = dendroGuideHang,
+                                           main = dendroMain, ...)
 return(list(graph = PlotDendrogramObj,
             dynamicColors = dynamicColors,
             GroupMods = Grouplist,
