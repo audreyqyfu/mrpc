@@ -9,7 +9,7 @@ Topologies of the five basic models and three common graphs in biology: namely t
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \references{
