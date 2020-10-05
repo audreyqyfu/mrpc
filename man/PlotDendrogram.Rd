@@ -57,7 +57,7 @@ A list containing the graph objects as follows:
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \seealso{
