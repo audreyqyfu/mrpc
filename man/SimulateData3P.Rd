@@ -29,7 +29,7 @@ Simulate data for a node with three parents
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 \seealso{
   \link{SimulateData} for simulated data generating function.
