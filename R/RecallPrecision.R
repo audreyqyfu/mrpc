@@ -4,7 +4,7 @@
 #we assign edge.presence=1 to an edge with the correct direction 
 #and edge.direction=0.5 to an edge with the wrong direction or no direction
 #Details please see help(RecallPrecision)
-RecallPrecision <- function (g1, g2, GV,includeGV,edge.presence=1.0,edge.direction=0.5) 
+RecallPrecision <- function (g1, g2, GV, includeGV, edge.presence = 1.0, edge.direction = 0.5) 
 { 
   if (is(g1, "pcAlgo")) 
     g1 <- g1@graph
@@ -26,8 +26,8 @@ RecallPrecision <- function (g1, g2, GV,includeGV,edge.presence=1.0,edge.directi
   }
   
   #Output matrix
-  Evaluation_matrix <- matrix(0, nrow=1,ncol=2) 
-  colnames(Evaluation_matrix) <- c("TP","FP")
+  Evaluation_matrix <- matrix(0, nrow = 1, ncol = 2) 
+  colnames(Evaluation_matrix) <- c("TP", "FP")
   #index of evaluation matrix
   TP <- 1
   FP <- 2
@@ -76,61 +76,61 @@ RecallPrecision <- function (g1, g2, GV,includeGV,edge.presence=1.0,edge.directi
       #Found edge in the inferred graph but no edge exit in the true graph 
       
       #if x-->y  in true graph and x-->y in infrred graph then TP=1
-      if ((m1[x,y]==1 & m1[y,x]!=1) & (m2[x,y]==1 & m2[y,x]!=1))
+      if ((m1[x, y]==1 & m1[y, x]!=1) & (m2[x, y]==1 & m2[y, x]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.presence
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.presence
       }
       #if y-->x  in true graph and y-->x in infrred graph then TP=1
-      if ((m1[y,x]==1 & m1[x,y]!=1) & (m2[y,x]==1 & m2[x,y]!=1))
+      if ((m1[y, x]==1 & m1[x, y]!=1) & (m2[y, x]==1 & m2[x, y]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.presence
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.presence
       } 
       #if x<-->ytrue graph and x<-->y in infrred graph then TP=1 
       
-      if((m1[x,y]==1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.presence
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.presence
       }
       #if x-->y true graph and x<--y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]!=1) & (m2[x,y]!=1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]!=1) & (m2[x, y]!=1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<--y true graph and x-->y in infrred graph then TP=0.5
-      if((m1[x,y]!=1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]!=1))
+      if((m1[x, y]!=1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<-->ytrue graph and x-->y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]!=1))
+      if((m1[x, y]==1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<-->ytrue graph and x<--y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]==1) & (m2[x,y]!=1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]==1) & (m2[x, y]!=1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x-->ytrue graph and x<-->y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]!=1) & (m2[x,y]==1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]!=1) & (m2[x, y]==1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<--ytrue graph and x<-->y in infrred graph then TP=0.5
-      if((m1[x,y]!=1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]==1))
+      if((m1[x, y]!=1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x y (no edge) true graph and x--y in infrred graph then FP=1 
-      if((m1[x,y]==0 & m1[y,x]==0) & (m2[x,y]==1 || m2[y,x]==1))
+      if((m1[x, y]==0 & m1[y, x]==0) & (m2[x, y]==1 || m2[y, x]==1))
       {
-        Evaluation_matrix[FP] <- Evaluation_matrix[FP]+ 1.0
+        Evaluation_matrix[FP] <- Evaluation_matrix[FP] + 1.0
       }
       
       #Recall
@@ -164,8 +164,8 @@ RecallPrecision <- function (g1, g2, GV,includeGV,edge.presence=1.0,edge.directi
     }
     else
     {
-      m11 <- m1[-c(1:GV),-c(1:GV)]  #exclude GV
-      m22 <- m2[-c(1:GV),-c(1:GV)]  #exclude GV
+      m11 <- m1[-c(1:GV), -c(1:GV)]  #exclude GV
+      m22 <- m2[-c(1:GV), -c(1:GV)]  #exclude GV
     }
     #Calculate the edges from the true graph
     for (i in 1:nrow(m11))
@@ -202,8 +202,8 @@ RecallPrecision <- function (g1, g2, GV,includeGV,edge.presence=1.0,edge.directi
     }
     else
     {
-      m1 <- m1[-c(1:GV),-c(1:GV)] #exclude GV
-      m2 <- m2[-c(1:GV),-c(1:GV)] #exclude GV
+      m1 <- m1[-c(1:GV), -c(1:GV)] #exclude GV
+      m2 <- m2[-c(1:GV), -c(1:GV)] #exclude GV
     }
     #m1 <- m1[-c(1:GV),-c(1:GV)] #exclude GV
     #m2 <- m2[-c(1:GV),-c(1:GV)] #exclude GV
@@ -220,61 +220,61 @@ RecallPrecision <- function (g1, g2, GV,includeGV,edge.presence=1.0,edge.directi
       #Found edge in the inferred graph but no edge exit in the true graph 
       
       #if x-->y  in true graph and x-->y in infrred graph then TP=1
-      if ((m1[x,y]==1 & m1[y,x]!=1) & (m2[x,y]==1 & m2[y,x]!=1))
+      if ((m1[x, y]==1 & m1[y, x]!=1) & (m2[x, y]==1 & m2[y, x]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.presence
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.presence
       }
       #if y-->x  in true graph and y-->x in infrred graph then TP=1
-      if ((m1[y,x]==1 & m1[x,y]!=1) & (m2[y,x]==1 & m2[x,y]!=1))
+      if ((m1[y, x]==1 & m1[x, y]!=1) & (m2[y, x]==1 & m2[x, y]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.presence
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.presence
       } 
       #if x<-->ytrue graph and x<-->y in infrred graph then TP=1 
       
-      if((m1[x,y]==1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.presence
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.presence
       }
       #if x-->y true graph and x<--y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]!=1) & (m2[x,y]!=1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]!=1) & (m2[x, y]!=1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<--y true graph and x-->y in infrred graph then TP=0.5
-      if((m1[x,y]!=1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]!=1))
+      if((m1[x, y]!=1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<-->ytrue graph and x-->y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]!=1))
+      if((m1[x, y]==1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]!=1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<-->ytrue graph and x<--y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]==1) & (m2[x,y]!=1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]==1) & (m2[x, y]!=1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x-->ytrue graph and x<-->y in infrred graph then TP=0.5
-      if((m1[x,y]==1 & m1[y,x]!=1) & (m2[x,y]==1 & m2[y,x]==1))
+      if((m1[x, y]==1 & m1[y, x]!=1) & (m2[x, y]==1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x<--ytrue graph and x<-->y in infrred graph then TP=0.5
-      if((m1[x,y]!=1 & m1[y,x]==1) & (m2[x,y]==1 & m2[y,x]==1))
+      if((m1[x, y]!=1 & m1[y, x]==1) & (m2[x, y]==1 & m2[y, x]==1))
       {
-        Evaluation_matrix[TP] <- Evaluation_matrix[TP]+ edge.direction
+        Evaluation_matrix[TP] <- Evaluation_matrix[TP] + edge.direction
       }
       
       #if x y (no edge) true graph and x--y in infrred graph then FP=1 
-      if((m1[x,y]==0 & m1[y,x]==0) & (m2[x,y]==1 || m2[y,x]==1))
+      if((m1[x, y]==0 & m1[y, x]==0) & (m2[x, y]==1 || m2[y, x]==1))
       {
-        Evaluation_matrix[FP] <- Evaluation_matrix[FP]+ 1.0
+        Evaluation_matrix[FP] <- Evaluation_matrix[FP] + 1.0
       }
       
       #Recall
