@@ -43,7 +43,7 @@ Matrix
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \seealso{
@@ -57,14 +57,14 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 Result1 <- CompareMethodsVStructure(N = 100, 
                                     signal = 1.0,
                                     'model1', 
-                                    includeGV=TRUE,
+                                    includeGV = TRUE,
                                     ita = 10)
 
 # Comparison of inference accuracy with a v-structure
 Result2 <- CompareMethodsVStructure(N = 100, 
                                     signal = 1.0,
                                     'model2',
-                                    includeGV=TRUE,
+                                    includeGV = TRUE,
                                     ita = 10)
 
 }
