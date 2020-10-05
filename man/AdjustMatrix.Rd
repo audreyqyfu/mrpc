@@ -23,7 +23,7 @@ Matrix
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
@@ -40,7 +40,9 @@ reference[2,3] <- 1
 reference[3,4] <- 1
 
 # Input matrix 
-input <- matrix(0,nrow=4,ncol = 4)
+input <- matrix(0,
+                nrow = 4,
+                ncol = 4)
 colnames(input) <- c("V1","T2","T3","T1")
 rownames(input) <- colnames(input)
    
