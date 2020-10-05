@@ -39,7 +39,7 @@ A list that containing the numeric data matrix and components of a graph.
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
@@ -66,7 +66,7 @@ data.mrpc.cont.withGV <- MRPC(data = data_examples$simple$cont$withGV$data,
                               indepTest = 'gaussCItest',
                               labels = V,
                               FDRcontrol = TRUE,
-                              verbose = TRUE)
+                              verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))
 # plot the true graph
@@ -99,7 +99,7 @@ data.mrpc.cont.withoutGV <- MRPC(data = data_examples$simple$cont$withoutGV$data
                                  indepTest = 'gaussCItest',
                                  labels = V, 
                                  FDRcontrol = TRUE,
-                                 verbose = TRUE)
+                                 verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))
 # plot the true graph
@@ -131,7 +131,7 @@ data.mrpc.disc.withGV <- MRPC(data = data_examples$simple$disc$withGV$data,
                               indepTest = 'gaussCItest',
                               labels = V, 
                               FDRcontrol = TRUE,
-                              verbose = TRUE)
+                              verbose = FALSE)
 # Plot the results
 par (mfrow = c(1, 2))
 # plot the true graph
@@ -163,7 +163,7 @@ data.mrpc.disc.withoutGV <- MRPC(data = data_examples$simple$disc$withoutGV$data
                                  indepTest = 'gaussCItest',
                                  labels = V, 
                                  FDRcontrol = TRUE,
-                                 verbose = TRUE)
+                                 verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))
 # plot the true graph
@@ -191,8 +191,8 @@ PlotDendrogramObj <- PlotDendrogram(Adj_directed,
 # Visualization of inferred graph with modules colors
 PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
                                                 PlotDendrogramObj,
-                                                GV=14,
-                                                node.size=8,
+                                                GV = 14,
+                                                node.size = 8,
                                                 arrow.size = 5,
                                                 label.size = 3,
                                                 alpha = 1) 
