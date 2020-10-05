@@ -89,7 +89,7 @@ summary.
   }
 }
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 \seealso{
   \link{MRPC}, \link{ModiSkeleton}
@@ -107,17 +107,15 @@ V <- colnames(data)  # Column names
 suffStat_C <- list(C = cor(data), 
                    n = n)
 
-
 # Infer the graph by MRPC
 MRPC.fit <- MRPC(data, 
                  suffStat_C, 
                  GV = 1,
                  FDR = 0.05, 
-                 alpha = 0.05,
                  indepTest ='gaussCItest',
                  labels = V, 
                  FDRcontrol = TRUE,
-                 verbose = TRUE)
+                 verbose = FALSE)
 
 
 # Use methods of class MRPCclass
