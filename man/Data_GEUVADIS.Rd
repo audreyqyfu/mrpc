@@ -23,7 +23,7 @@ A list that contains 62 eQTL-gene sets data for 373 Europeans and 89 Africans.
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
