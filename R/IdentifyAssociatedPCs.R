@@ -1,11 +1,11 @@
 # This is the code to identify PCs that are significantly associated with eQTL-gene sets
 
-IdentifyAssociatedPCs <- function (PCs.matrix,no.PCs=10,data,fdr.level=0.05,corr.threshold=FALSE,corr.value=0.3) {
+IdentifyAssociatedPCs <- function (PCs.matrix, no.PCs = 10, data, fdr.level = 0.05, corr.threshold = FALSE, corr.value = 0.3) {
   
   # Compute the correlation and corresponding p values between the top PCs and the eQTLs and genes
   # library(psych) # to use corr.test
   # no.PCs <- no.PCs  
-  corr.PCs <- corr.test(PCs.matrix[,1:no.PCs],data)
+  corr.PCs <- corr.test(PCs.matrix[,1:no.PCs], data)
   
   # The correlation matrix
   corr.matrix <- corr.PCs$r
@@ -15,7 +15,7 @@ IdentifyAssociatedPCs <- function (PCs.matrix,no.PCs=10,data,fdr.level=0.05,corr
   # Apply the q value method at FDR of 0.05
   # library(WGCNA) # qvalue
   # qobj <- qvalue(Pvalues, fdr.level=0.05,robust = TRUE) 
-  qobj <- qvalue(Pvalues, fdr.level=fdr.level) 
+  qobj <- qvalue(Pvalues, fdr.level = fdr.level) 
   
   # Significant associations
   Significant.asso <- qobj$significant
@@ -84,9 +84,9 @@ IdentifyAssociatedPCs <- function (PCs.matrix,no.PCs=10,data,fdr.level=0.05,corr
     data.withPC <- data
   }
 
-return(list(AssociatedPCs=AssociatedPCs,
-            data.withPC=data.withPC,
-            corr.PCs=corr.matrix,
-            PCs.asso.list=PCs.asso.list,
-            qobj=qobj))
+return(list(AssociatedPCs = AssociatedPCs,
+            data.withPC = data.withPC,
+            corr.PCs = corr.matrix,
+            PCs.asso.list = PCs.asso.list,
+            qobj = qobj))
 }
