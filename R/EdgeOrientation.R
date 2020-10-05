@@ -13,14 +13,14 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
   
   # extract all edges
   g[lower.tri(g)] <- 0  # Use only upper triangular because g is symmetric matrix
-  edges <- which (g==1, arr.ind=TRUE)
+  edges <- which (g==1, arr.ind = TRUE)
   
   #Step-1 start
   if (GV>0) {
     # identify edges involving Vs
-    edgesWithBothVs <- edges[which (edges[,1]<= GV & edges[,2]<=GV), ]
-    edgesWithVFirst <- edges[which (edges[,1]<= GV & edges[,2]>GV), ]
-    edgesWithVSecond <- edges[which (edges[,1]> GV & edges[,2]<=GV), ]
+    edgesWithBothVs <- edges[which (edges[,1] <= GV & edges[,2] <= GV), ]
+    edgesWithVFirst <- edges[which (edges[,1] <= GV & edges[,2] > GV), ]
+    edgesWithVSecond <- edges[which (edges[,1] > GV & edges[,2] <= GV), ]
     
     # assign 1s to corresponding edges in tarmat
     # edges between two Vs are undirected (or bidirected)
@@ -167,7 +167,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 m <- m+1
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest for continuous data
                 {
-                  pval<- gaussCItest(x, z, y, suffStat) #additional pval
+                  pval <- gaussCItest(x, z, y, suffStat) #additional pval
                 }
                 if(indepTest=="disCItest") #if indepTest=disCItest for discrete data 
                 {
@@ -187,7 +187,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                   cat("Alpha value =", Alpha, "\n")    
                 }
 
-                if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
+                if (pval <= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   if (verbose) {
                     V <- colnames(g)
@@ -270,7 +270,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 {
                   Alpha <- alpha
                 }
-                if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
+                if (pval <= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   
                   if (verbose) {
@@ -322,7 +322,7 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
   #Start when data not necessary to contain genetic variants.
   if (any(tarmat == 1) & GV==0) #if at least one edge directed already made so far
   {
-    WW1 <- unique(which(tarmat==1,arr.ind = T)[,2]) #pullout the all canidate genes for v-structure
+    WW1 <- unique(which(tarmat == 1,arr.ind = T)[,2]) #pullout the all canidate genes for v-structure
     #WW1=WW1[-c(1:GV)]
     if(length(WW1)!=0)
     {
