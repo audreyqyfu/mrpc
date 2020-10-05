@@ -1,10 +1,10 @@
 Package: MRPC
 Type: Package
-Version: 2.2.0
-Date: 2019-11-15
+Version: 2.2.1
+Date: 2020-10-03
 Title: PC Algorithm with the Principle of Mendelian Randomization
 Author: Md Bahadur Badsha [aut,cre],Evan A Martin [ctb] and Audrey Qiuyan Fu [aut]
-Maintainer: Md Bahadur Badsha <mdbadsha@uidaho.edu>
+Maintainer: Md Bahadur Badsha <mbbadshar@gmail.com>
 Description: A PC Algorithm with the Principle of Mendelian Randomization. This package implements the MRPC 
             (PC with the principle of Mendelian randomization) algorithm to infer causal graphs. It also 
             contains functions to simulate data under a certain topology, to visualize a graph in different 
