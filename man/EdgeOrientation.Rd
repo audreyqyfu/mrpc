@@ -81,7 +81,7 @@ An object that contains an estimate of the equivalence class of the underlying D
 
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \references{
@@ -120,7 +120,7 @@ Skel.fit <- ModiSkeleton(data,
                          indepTest = 'gaussCItest',
                          labels = V,
                          FDRcontrol = TRUE, 
-                         verbose = TRUE)
+                         verbose = FALSE)
 
 # Edge Orientation
 Edge_orientation <- EdgeOrientation(Skel.fit, 
@@ -129,7 +129,7 @@ Edge_orientation <- EdgeOrientation(Skel.fit,
                                     FDR = 0.05,
                                     indepTest = 'gaussCItest', 
                                     FDRcontrol = TRUE,
-                                    verbose = TRUE)
+                                    verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))
 plot(Truth,
