@@ -127,7 +127,7 @@ An object of \link{class} that contains an estimate of the equivalence class of 
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \references{
@@ -153,13 +153,13 @@ Md Bahadur Badsha (mdbadsha@uidaho.edu)
 }
 \examples{
 # Load packages
-# We compare different simulated data across five methods: MRPC, 
-# PC in pcalg (Kalisch et al., 2012), and pc.stable, mmpc and mmhc in
+# We compare different simulated data across six methods: MRPC, 
+# PC in pcalg (Kalisch et al., 2012), and pc.stable, mmpc mmhc and hc in
 # bnlearn (Marco Scutari, 2010)
 
 library(MRPC)     # MRPC
 library(pcalg)    # pc
-library(bnlearn)  # pc.stable, mmpc and mmhc
+library(bnlearn)  # pc.stable, mmpc, mmhc and hc
 
 # Data pre-processing
 # The 1st column of the input matrix will be the genotype of the
@@ -188,30 +188,42 @@ MRPC.fit <- MRPC(data,
                 indepTest = 'gaussCItest',
                 labels = V,
                 FDRcontrol = TRUE,
-                verbose = TRUE)
+                verbose = FALSE)
 
 # Infer the graph by PC
 pc.fit <- pc(suffStat = suffStat_C,
              indepTest = gaussCItest,
              alpha = 0.05,
              labels = V,
-             verbose = TRUE)
+             verbose = FALSE)
 
 # arcs not to be included from gene expression to genotype used in pc.stable, mmpc 
-bl <- data.frame (from=colnames (data)[-1], to='V1')
+bl <- data.frame (from = colnames (data)[-1], 
+                  to = 'V1')
 
 # Infer the graph by pc.stable
-pc.stable.fit <- pc.stable(data.frame(data),blacklist=bl,undirected = FALSE) 
+pc.stable.fit <- pc.stable(data.frame(data),
+                           blacklist = bl,
+                           undirected = FALSE) 
 
 # Infer the graph by mmpc
-mmpc.fit <- mmpc(data.frame(data),blacklist=bl,undirected = FALSE) 
+mmpc.fit <- mmpc(data.frame(data),
+                 blacklist = bl,
+                 undirected = FALSE,
+                 debug = FALSE) 
 
 # Infer the graph by mmhc
-mmhc.fit <- mmhc(data.frame(data),blacklist=bl)
+mmhc.fit <- mmhc(data.frame(data),
+                 blacklist = bl,
+                 debug = FALSE)
 
+# Infer the graph by hc
+hc.fit <- hc (data.frame (data), 
+                          blacklist = bl, 
+                          debug = FALSE)
 
 # Plot the inferred graphs
-par(mfrow = c(2, 3))
+par(mfrow = c(1, 7))
 plot(Truth,
      main = "(A) Truth")
 plot(MRPC.fit,
@@ -224,7 +236,9 @@ graphviz.plot(mmpc.fit,
     main = "(E) mmpc")
 graphviz.plot(mmhc.fit,
     main = "(F) mmhc")
-
+graphviz.plot(hc.fit,
+    main = "(G) hc")
+    
 # Another option for plot of the results. First fig is the nodes
 # dendrogram with colored modules. Second fig is the plot of the graph
 # with color based on modules.
@@ -240,8 +254,8 @@ PlotDendrogramObj <- PlotDendrogram(Adj_directed,
 # Visualization of inferred graph with modules colors
 PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
                                                 PlotDendrogramObj,
-                                                GV=1,
-                                                node.size=8,
+                                                GV = 1,
+                                                node.size = 8,
                                                 arrow.size = 5,
                                                 label.size = 3,
                                                 alpha = 1) 
