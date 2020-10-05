@@ -115,7 +115,7 @@ An object containing an estimate of the skeleton of the underlying DAG as follow
 
 }
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \seealso{
@@ -151,7 +151,7 @@ Skel.fit <- ModiSkeleton(data,
                          indepTest = 'gaussCItest',
                          labels = V, 
                          FDRcontrol = TRUE, 
-                         verbose = TRUE)
+                         verbose = FALSE)
 
 # Plot the results
 
