@@ -27,7 +27,7 @@ Matrix
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \seealso{
@@ -118,7 +118,7 @@ MRPC.fit_withoutPC_GEU_Q50 <- MRPC(data_GEU_Q50,
                                   indepTest = 'gaussCItest', 
                                   labels = V,  
                                   FDRcontrol = TRUE, 
-                                  verbose = TRUE)
+                                  verbose = FALSE)
 
 # Analyze the eQTL-gene set with PC2
 data_withPC_Q50 <- cbind(data_GEU_Q50,PCs_matrix[,2])
@@ -139,7 +139,7 @@ MRPC.fit_withPC_GEU_Q50 <- MRPC(data_withPC_Q50,
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
                                 FDRcontrol = TRUE, 
-                                verbose = TRUE)
+                                verbose = FALSE)
 
 # Plot inferred graphs 
 par(mfrow=c(1,2))
@@ -173,7 +173,7 @@ MRPC.fit_withoutPC_GEU_Q29 <- MRPC(data_GEU_Q29,
                                    indepTest = 'gaussCItest', 
                                    labels = V,  
                                    FDRcontrol = TRUE, 
-                                   verbose = TRUE)
+                                   verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC1
 data_withPC_Q29 <- cbind(data_GEU_Q29,PCs_matrix[,1])
@@ -194,7 +194,7 @@ MRPC.fit_withPC_GEU_Q29 <- MRPC(data_withPC_Q29,
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
                                 FDRcontrol = TRUE, 
-                                verbose = TRUE)
+                                verbose = FALSE)
  
 # Plot inferred graphs 
 par(mfrow=c(1,2))
@@ -228,7 +228,7 @@ MRPC.fit_withoutPC_GEU_Q43 <- MRPC(data_GEU_Q43,
                                    indepTest = 'gaussCItest', 
                                    labels = V,  
                                    FDRcontrol = TRUE, 
-                                   verbose = TRUE)
+                                   verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC2
 data_withPC_Q43 <- cbind(data_GEU_Q43,PCs_matrix[,2])
@@ -249,7 +249,7 @@ MRPC.fit_withPC_GEU_Q43 <- MRPC(data_withPC_Q43,
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
                                 FDRcontrol = TRUE, 
-                                verbose = TRUE)
+                                verbose = FALSE)
 
 # Plot inferred graphs
 par(mfrow=c(1,2))
@@ -284,7 +284,7 @@ MRPC.fit_withoutPC_GEU_Q34 <- MRPC(data_GEU_Q34,
                                    indepTest = 'gaussCItest', 
                                    labels = V,  
                                    FDRcontrol = TRUE, 
-                                   verbose = TRUE)
+                                   verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC2 and PC3
 data_withPC_Q34 <- cbind(data_GEU_Q34,PCs_matrix[,c(2,3)])
@@ -305,7 +305,7 @@ MRPC.fit_withPC_GEU_Q34 <- MRPC(data_withPC_Q34,
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
                                 FDRcontrol = TRUE, 
-                                verbose = TRUE)
+                                verbose = FALSE)
 
 # Plot inferred graphs 
 par(mfrow=c(1,2))
@@ -340,7 +340,7 @@ MRPC.fit_withoutPC_GEU_Q8 <- MRPC(data_GEU_Q8,
                                   indepTest = 'gaussCItest', 
                                   labels = V,  
                                   FDRcontrol = TRUE, 
-                                  verbose = TRUE)
+                                  verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC1 and PC3
 data_withPC_Q8 <- cbind(data_GEU_Q8,PCs_matrix[,c(1,3)])
@@ -362,7 +362,7 @@ MRPC.fit_withPC_GEU_Q8 <- MRPC(data_withPC_Q8,
                                indepTest = 'gaussCItest', 
                                labels = V,  
                                FDRcontrol = TRUE, 
-                               verbose = TRUE)
+                               verbose = FALSE)
 # Plot inferred graphs 
 par(mfrow=c(1,2))
 plot(MRPC.fit_withoutPC_GEU_Q8,
