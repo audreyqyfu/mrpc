@@ -60,7 +60,7 @@ A \link{list} of object that containing the following:
 2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899. 
 }
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 
@@ -77,7 +77,6 @@ tarmat_s1 <- matrix(0,
                     ncol = 4)
                     
 colnames(tarmat_s1) <- c("V1", "T1", "T2", "T3")
-
 rownames(tarmat_s1) <- colnames(tarmat_s1)
 
 # Create an adjacency matrix for the true graph
@@ -96,7 +95,6 @@ tarmat_s2 <- matrix(0,
                     ncol = 4)
                     
 colnames(tarmat_s2) <- c("V1", "T1", "T2", "T3")
-
 rownames(tarmat_s2) <- colnames(tarmat_s2)
 
 # Create an adjacency matrix for the inferred graph
