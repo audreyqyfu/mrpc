@@ -42,7 +42,7 @@ We take a robust approach and calculate the robust correlation matrix (Badsha et
 2. Van Buuren S and Groothuis-Oudshoorn K (2011). mice: Multivariate Imputation by Chained Equations in R. Journal of Statistical Software, 45(3), 1-67. http://www.jstatsoft.org/v45/i03/
 }
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
