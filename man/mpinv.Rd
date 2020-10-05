@@ -22,7 +22,7 @@ Matrix
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 \examples{
 Inversematrix <- mpinv(simu_data_M0)

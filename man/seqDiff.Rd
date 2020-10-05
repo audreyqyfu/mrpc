@@ -21,7 +21,7 @@ Adjacency matrix from the second graph object.
 }
 
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
@@ -33,7 +33,6 @@ tarmat_s1 <- matrix(0,
                     ncol = 4)
                     
 colnames(tarmat_s1) <- c("V1", "T1", "T2", "T3")
-
 rownames(tarmat_s1) <- colnames(tarmat_s1)
 
 # Create an adjacency matrix for the true graph
@@ -47,7 +46,6 @@ tarmat_s2 <- matrix(0,
                     ncol = 4)
                     
 colnames(tarmat_s2) <-c ("V1", "T1", "T2", "T3")
-
 rownames(tarmat_s2) <- colnames(tarmat_s2)
 
 # Create an adjacency matrix for the inferred graph

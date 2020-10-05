@@ -15,7 +15,7 @@ The columns of the data matrix are the genetic variant (V node) and phenotype no
 Matrix
 }
 \author{
-Md Bahadur Badsha (mdbadsha@uidaho.edu)
+Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 \seealso{
 \link{SimulateData}.
