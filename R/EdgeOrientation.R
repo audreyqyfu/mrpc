@@ -1,10 +1,13 @@
 #This is the step 2 of MRPC to direction determination of the undirected edges.
 
-EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,verbose = FALSE)
-{
+EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
+                             FDRcontrol, tau = 0.5, lambda = 0.25,
+                             verbose = FALSE) {
+  
   g <- as(gInput@graph, "matrix") # g ia an adjacency from undirected graph (skleton)
   g1 <- g
   p <- nrow(g)
+  
   # tarmat (adjacency matrix for directed graph) is updated in every step, 
   # and contains the output of final topology
   tarmat <- matrix(0, nrow(g),ncol(g)) #same row and column from g
@@ -55,11 +58,29 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
   # extract edges involving at least one gene node
   #edgesWithGs <- edges[which (edges[,1]>GV | edges[,2]>GV), ]
   #ind <- edgesWithGs
+  
   m <- gInput@test  #current test
   Alpha <- gInput@alpha  #alpha
+  pval <- gInput@pval
   R <- gInput@R          #decision of test
   ind <- which(g1 == 1, arr.ind = TRUE)  #Pullout the all relation in adjacency matrix from undirected graph
   V <- colnames(g)
+  
+  # Update the addis vectors/values output from the ModiSkeleton function.
+  w0 <- tau * lambda * FDR/2
+  alphai <- gInput@alphai
+  kappai <- gInput@kappai
+  kappai_star <- gInput@kappai_star
+  K <- gInput@K
+  Ci <- gInput@Ci
+  Ci_sum <- sum(Ci)
+  Si <- gInput@Si
+  Si_sum <- sum(Si)
+  Ci_plus <- gInput@Ci_plus
+  gammai <- gInput@gammai
+  normalizer <- gInput@normalizer
+  exponent <- gInput@exponent
+  
   for (i in seq_len(nrow(ind))) {
     x <- ind[i, 1]
     y <- ind[i, 2]
@@ -71,29 +92,100 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
           !(y %in% gInput@sepset[[x]][[z]] || y %in% gInput@sepset[[z]][[x]])) 
       {
         m <- m+1
+        
+        # Increase the length of the R, pval, and other addis vectors if
+        # their length is greater than or equal to the current iteration.
+        if (m >= length(R)) {
+          
+          R <- c(R, numeric(m / 2))
+          pval <- c(pval, numeric(m / 2))
+          kappai <- c(kappai, numeric(m / 2))
+          kappai_star <- c(kappai_star, numeric(m / 2))
+          Ci <- c(Ci, numeric(m / 2))
+          Si <- c(Si, numeric(m / 2))
+          Ci_plus <- c(Ci_plus, numeric(m / 2))
+          gammai <- c(gammai, numeric(m / 2))
+          alphai <- c(alphai, numeric(m / 2))
+          
+        }
+        
         if(indepTest=="gaussCItest") #if indepTest=gaussCItest
         {
-          pval <- gaussCItest(x, z, y, suffStat)
+          pval[m] <- gaussCItest(x, z, y, suffStat)
         }
         if(indepTest=="disCItest") #if indepTest=disCItest
         {
-          pval <- disCItest(x, z, y, suffStat) #additional
+          pval[m] <- disCItest(x, z, y, suffStat) #additional
         }
         #pval=disCItest(x, z, y, suffStat) #additional conditional test
-        if (FDRcontrol){
-        Alpha <- SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-        }
-        else
-        {
+        if (FDRcontrol == 'LOND') {
+          
+          # Calculate alpha using the LOND method.
+          alphai[m] <- SeqFDR(m,FDR,a=2,R)
+          
+          Alpha <- alphai[m]
+          
+          # Calculate the alpha value using the ADDIS algorithm
+        } else if (FDRcontrol == 'ADDIS') {
+          
+          # Run ADDIS on the current iteration and update all the vectors
+          # and other values.
+          run_addis <- addis(alpha = FDR,
+                             tau = tau,
+                             lambda = lambda,
+                             iter = m,
+                             w0 = w0,
+                             pval = pval,
+                             alphai = alphai,
+                             gammai = gammai,
+                             kappai = kappai,
+                             kappai_star = kappai_star,
+                             K = K,
+                             Ci = Ci,
+                             Si = Si,
+                             Ri = R,
+                             Ci_plus = Ci_plus,
+                             Ci_sum = Ci_sum,
+                             Si_sum = Si_sum,
+                             normalizer = normalizer,
+                             exponent = exponent)
+          
+          # Update all values and vectors output from the addis function.
+          alphai[[m]] <- run_addis[[1]]
+          gammai[[m]] <- run_addis[[2]]
+          K <- run_addis[[3]]
+          R[[m]] <- run_addis[[5]]
+          Si[[m - 1]] <- run_addis[[6]]
+          Ci[[m - 1]] <- run_addis[[7]]
+          Ci_sum <- run_addis[[9]]
+          Si_sum <- run_addis[[10]]
+          
+          # Only update the kappai and Ci_plus vectors if K is greater
+          # than one. If K is zero then the first element in kappai will
+          # remain zero until the first rejection.
+          if (K != 0) {
+            
+            kappai[[K]] <- run_addis[[4]]
+            kappai_star[[K]] <- run_addis[[11]]
+            Ci_plus[1:K] <- run_addis[[8]]
+            
+          }
+          
+          # Update the Alpha value with the current alphai value.
+          Alpha <- alphai[[m]]
+          
+        } else {
+          
           Alpha <- alpha
+          
         }
         if (verbose){
         cat("x=", x, " y=", z, " S=", y,"\n")
         cat("Test number =", m, "\n")
-        cat("Additional pval value =", pval, "\n")
+        cat("Additional pval value =", pval[m], "\n")
         cat("Alpha value =", Alpha, "\n")
         }
-        if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
+        if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
           R[m] <- 1
           if (verbose) {
         cat(V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
@@ -121,9 +213,9 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
   #form a triplet
   #determine the direction using test results from part 1 based on gMR
   #Repeat until all undirected edges to directed
-  m <- m
-  Alpha <- Alpha
-  R <- R
+  # m <- m
+  # Alpha <- Alpha
+  # R <- R
   #start 
   #when data contain genetic variants
   if (any(tarmat == 1) & GV>0) #if at least one edge directed already made so far
@@ -165,29 +257,99 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 
               {
                 m <- m+1
+                
+                # Increase the length of the R, pval, and other addis vectors if
+                # their length is greater than or equal to the current iteration.
+                if (m >= length(R)) {
+                  
+                  R <- c(R, numeric(m / 2))
+                  pval <- c(pval, numeric(m / 2))
+                  kappai <- c(kappai, numeric(m / 2))
+                  kappai_star <- c(kappai_star, numeric(m / 2))
+                  Ci <- c(Ci, numeric(m / 2))
+                  Si <- c(Si, numeric(m / 2))
+                  Ci_plus <- c(Ci_plus, numeric(m / 2))
+                  gammai <- c(gammai, numeric(m / 2))
+                  alphai <- c(alphai, numeric(m / 2))
+                  
+                }
+                
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest for continuous data
                 {
-                  pval <- gaussCItest(x, z, y, suffStat) #additional pval
+                  pval[m] <- gaussCItest(x, z, y, suffStat) #additional pval
                 }
                 if(indepTest=="disCItest") #if indepTest=disCItest for discrete data 
                 {
-                  pval <- disCItest(x, z, y, suffStat) #additional pval
+                  pval[m] <- disCItest(x, z, y, suffStat) #additional pval
                 }
                 
-                if (FDRcontrol){
-                  Alpha <- SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-                }
-                
-                else
-                {
+                if (FDRcontrol == 'LOND') {
+                  
+                  # Calculate alpha using the LOND method.
+                  alphai[m] <- SeqFDR(m,FDR,a=2,R)
+                  
+                  Alpha <- alphai[m]
+                  
+                  # Calculate the alpha value using the ADDIS algorithm
+                } else if (FDRcontrol == 'ADDIS') {
+                  
+                  # Run ADDIS on the current iteration and update all the vectors
+                  # and other values.
+                  run_addis <- addis(alpha = FDR,
+                                     tau = tau,
+                                     lambda = lambda,
+                                     iter = m,
+                                     w0 = w0,
+                                     pval = pval,
+                                     alphai = alphai,
+                                     gammai = gammai,
+                                     kappai = kappai,
+                                     kappai_star = kappai_star,
+                                     K = K,
+                                     Ci = Ci,
+                                     Si = Si,
+                                     Ri = R,
+                                     Ci_plus = Ci_plus,
+                                     Ci_sum = Ci_sum,
+                                     Si_sum = Si_sum,
+                                     normalizer = normalizer,
+                                     exponent = exponent)
+                  
+                  # Update all values and vectors output from the addis function.
+                  alphai[[m]] <- run_addis[[1]]
+                  gammai[[m]] <- run_addis[[2]]
+                  K <- run_addis[[3]]
+                  R[[m]] <- run_addis[[5]]
+                  Si[[m - 1]] <- run_addis[[6]]
+                  Ci[[m - 1]] <- run_addis[[7]]
+                  Ci_sum <- run_addis[[9]]
+                  Si_sum <- run_addis[[10]]
+                  
+                  # Only update the kappai and Ci_plus vectors if K is greater
+                  # than one. If K is zero then the first element in kappai will
+                  # remain zero until the first rejection.
+                  if (K != 0) {
+                    
+                    kappai[[K]] <- run_addis[[4]]
+                    kappai_star[[K]] <- run_addis[[11]]
+                    Ci_plus[1:K] <- run_addis[[8]]
+                    
+                  }
+                  
+                  # Update the Alpha value with the current alphai value.
+                  Alpha <- alphai[[m]]
+                  
+                } else {
+                  
                   Alpha <- alpha
+                  
                 }
                 if (verbose){
-                  cat("Additional pval value =", pval, "\n")
+                  cat("Additional pval value =", pval[m], "\n")
                   cat("Alpha value =", Alpha, "\n")    
                 }
 
-                if (pval <= Alpha) {  #Reject H0 (H0:nodes are independent)
+                if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   if (verbose) {
                     V <- colnames(g)
@@ -255,22 +417,93 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 
               {
                 m <- m+1
+                
+                # Increase the length of the R, pval, and other addis vectors if
+                # their length is greater than or equal to the current iteration.
+                if (m >= length(R)) {
+                  
+                  R <- c(R, numeric(m / 2))
+                  pval <- c(pval, numeric(m / 2))
+                  kappai <- c(kappai, numeric(m / 2))
+                  kappai_star <- c(kappai_star, numeric(m / 2))
+                  Ci <- c(Ci, numeric(m / 2))
+                  Si <- c(Si, numeric(m / 2))
+                  Ci_plus <- c(Ci_plus, numeric(m / 2))
+                  gammai <- c(gammai, numeric(m / 2))
+                  alphai <- c(alphai, numeric(m / 2))
+                  
+                }
+                
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest
                 {
-                  pval<- gaussCItest(x, z, y, suffStat)
+                  pval[m] <- gaussCItest(x, z, y, suffStat)
                 }
                 if(indepTest=="disCItest") #if indepTest=gaussCItest
                 {
-                  pval <- disCItest(x, z, y, suffStat) #additional
+                  pval[m] <- disCItest(x, z, y, suffStat) #additional
                 }                
-                if (FDRcontrol){
-                  Alpha <- SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-                }
-                else
-                {
+                if (FDRcontrol == 'LOND') {
+                  
+                  # Calculate alpha using the LOND method.
+                  alphai[m] <- SeqFDR(m,FDR,a=2,R)
+                  
+                  Alpha <- alphai[m]
+                  
+                  # Calculate the alpha value using the ADDIS algorithm
+                } else if (FDRcontrol == 'ADDIS') {
+                  
+                  # Run ADDIS on the current iteration and update all the vectors
+                  # and other values.
+                  run_addis <- addis(alpha = FDR,
+                                     tau = tau,
+                                     lambda = lambda,
+                                     iter = m,
+                                     w0 = w0,
+                                     pval = pval,
+                                     alphai = alphai,
+                                     gammai = gammai,
+                                     kappai = kappai,
+                                     kappai_star = kappai_star,
+                                     K = K,
+                                     Ci = Ci,
+                                     Si = Si,
+                                     Ri = R,
+                                     Ci_plus = Ci_plus,
+                                     Ci_sum = Ci_sum,
+                                     Si_sum = Si_sum,
+                                     normalizer = normalizer,
+                                     exponent = exponent)
+                  
+                  # Update all values and vectors output from the addis function.
+                  alphai[[m]] <- run_addis[[1]]
+                  gammai[[m]] <- run_addis[[2]]
+                  K <- run_addis[[3]]
+                  R[[m]] <- run_addis[[5]]
+                  Si[[m - 1]] <- run_addis[[6]]
+                  Ci[[m - 1]] <- run_addis[[7]]
+                  Ci_sum <- run_addis[[9]]
+                  Si_sum <- run_addis[[10]]
+                  
+                  # Only update the kappai and Ci_plus vectors if K is greater
+                  # than one. If K is zero then the first element in kappai will
+                  # remain zero until the first rejection.
+                  if (K != 0) {
+                    
+                    kappai[[K]] <- run_addis[[4]]
+                    kappai_star[[K]] <- run_addis[[11]]
+                    Ci_plus[1:K] <- run_addis[[8]]
+                    
+                  }
+                  
+                  # Update the Alpha value with the current alphai value.
+                  Alpha <- alphai[[m]]
+                  
+                } else {
+                  
                   Alpha <- alpha
+                  
                 }
-                if (pval <= Alpha) {  #Reject H0 (H0:nodes are independent)
+                if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   
                   if (verbose) {
@@ -355,28 +588,99 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 
               {
                 m <- m+1
+                
+                # Increase the length of the R, pval, and other addis vectors if
+                # their length is greater than or equal to the current iteration.
+                if (m >= length(R)) {
+                  
+                  R <- c(R, numeric(m / 2))
+                  pval <- c(pval, numeric(m / 2))
+                  kappai <- c(kappai, numeric(m / 2))
+                  kappai_star <- c(kappai_star, numeric(m / 2))
+                  Ci <- c(Ci, numeric(m / 2))
+                  Si <- c(Si, numeric(m / 2))
+                  Ci_plus <- c(Ci_plus, numeric(m / 2))
+                  gammai <- c(gammai, numeric(m / 2))
+                  alphai <- c(alphai, numeric(m / 2))
+                  
+                }
+                
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest
                 {
-                  pval <- gaussCItest(x, z, y, suffStat)
+                  pval[m] <- gaussCItest(x, z, y, suffStat)
                 }
                 if(indepTest=="disCItest") #if indepTest=disCItest
                 {
-                  pval <- disCItest(x, z, y, suffStat) #additional
+                  pval[m] <- disCItest(x, z, y, suffStat) #additional
                 }
                 
-                if (FDRcontrol){
-                  Alpha <- SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-                }
-                else
-                {
+                if (FDRcontrol == 'LOND') {
+                  
+                  # Calculate alpha using the LOND method.
+                  alphai[m] <- SeqFDR(m,FDR,a=2,R)
+                  
+                  Alpha <- alphai[m]
+                  
+                  # Calculate the alpha value using the ADDIS algorithm
+                } else if (FDRcontrol == 'ADDIS') {
+                  
+                  # Run ADDIS on the current iteration and update all the vectors
+                  # and other values.
+                  run_addis <- addis(alpha = FDR,
+                                     tau = tau,
+                                     lambda = lambda,
+                                     iter = m,
+                                     w0 = w0,
+                                     pval = pval,
+                                     alphai = alphai,
+                                     gammai = gammai,
+                                     kappai = kappai,
+                                     kappai_star = kappai_star,
+                                     K = K,
+                                     Ci = Ci,
+                                     Si = Si,
+                                     Ri = R,
+                                     Ci_plus = Ci_plus,
+                                     Ci_sum = Ci_sum,
+                                     Si_sum = Si_sum,
+                                     normalizer = normalizer,
+                                     exponent = exponent)
+                  
+                  # Update all values and vectors output from the addis function.
+                  alphai[[m]] <- run_addis[[1]]
+                  gammai[[m]] <- run_addis[[2]]
+                  K <- run_addis[[3]]
+                  R[[m]] <- run_addis[[5]]
+                  Si[[m - 1]] <- run_addis[[6]]
+                  Ci[[m - 1]] <- run_addis[[7]]
+                  Ci_sum <- run_addis[[9]]
+                  Si_sum <- run_addis[[10]]
+                  
+                  # Only update the kappai and Ci_plus vectors if K is greater
+                  # than one. If K is zero then the first element in kappai will
+                  # remain zero until the first rejection.
+                  if (K != 0) {
+                    
+                    kappai[[K]] <- run_addis[[4]]
+                    kappai_star[[K]] <- run_addis[[11]]
+                    Ci_plus[1:K] <- run_addis[[8]]
+                    
+                  }
+                  
+                  # Update the Alpha value with the current alphai value.
+                  Alpha <- alphai[[m]]
+                  
+                } else {
+                  
                   Alpha <- alpha
+                  
                 }
                 if (verbose) {
-                cat("Additional pval value =", pval, "\n")
+                cat("Additional pval value =", pval[m], "\n")
                 cat("Alpha value =", Alpha, "\n")
                 }
                 #Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-                if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
+                if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   
                   if (verbose) {
@@ -442,22 +746,93 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
                 
               {
                 m <- m+1
+                
+                # Increase the length of the R, pval, and other addis vectors if
+                # their length is greater than or equal to the current iteration.
+                if (m >= length(R)) {
+                  
+                  R <- c(R, numeric(m / 2))
+                  pval <- c(pval, numeric(m / 2))
+                  kappai <- c(kappai, numeric(m / 2))
+                  kappai_star <- c(kappai_star, numeric(m / 2))
+                  Ci <- c(Ci, numeric(m / 2))
+                  Si <- c(Si, numeric(m / 2))
+                  Ci_plus <- c(Ci_plus, numeric(m / 2))
+                  gammai <- c(gammai, numeric(m / 2))
+                  alphai <- c(alphai, numeric(m / 2))
+                  
+                }
+                
                 if(indepTest=="gaussCItest") #if indepTest=gaussCItest
                 {
-                  pval <- gaussCItest(x, z, y, suffStat)
+                  pval[m] <- gaussCItest(x, z, y, suffStat)
                 }
                 if(indepTest=="disCItest") #if indepTest=gaussCItest
                 {
-                  pval <- disCItest(x, z, y, suffStat) #additional
+                  pval[m] <- disCItest(x, z, y, suffStat) #additional
                 }                
-                if (FDRcontrol){
-                  Alpha <- SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-                }
-                else
-                {
+                if (FDRcontrol == 'LOND') {
+                  
+                  # Calculate alpha using the LOND method.
+                  alphai[m] <- SeqFDR(m,FDR,a=2,R)
+                  
+                  Alpha <- alphai[m]
+                  
+                  # Calculate the alpha value using the ADDIS algorithm
+                } else if (FDRcontrol == 'ADDIS') {
+                  
+                  # Run ADDIS on the current iteration and update all the vectors
+                  # and other values.
+                  run_addis <- addis(alpha = FDR,
+                                     tau = tau,
+                                     lambda = lambda,
+                                     iter = m,
+                                     w0 = w0,
+                                     pval = pval,
+                                     alphai = alphai,
+                                     gammai = gammai,
+                                     kappai = kappai,
+                                     kappai_star = kappai_star,
+                                     K = K,
+                                     Ci = Ci,
+                                     Si = Si,
+                                     Ri = R,
+                                     Ci_plus = Ci_plus,
+                                     Ci_sum = Ci_sum,
+                                     Si_sum = Si_sum,
+                                     normalizer = normalizer,
+                                     exponent = exponent)
+                  
+                  # Update all values and vectors output from the addis function.
+                  alphai[[m]] <- run_addis[[1]]
+                  gammai[[m]] <- run_addis[[2]]
+                  K <- run_addis[[3]]
+                  R[[m]] <- run_addis[[5]]
+                  Si[[m - 1]] <- run_addis[[6]]
+                  Ci[[m - 1]] <- run_addis[[7]]
+                  Ci_sum <- run_addis[[9]]
+                  Si_sum <- run_addis[[10]]
+                  
+                  # Only update the kappai and Ci_plus vectors if K is greater
+                  # than one. If K is zero then the first element in kappai will
+                  # remain zero until the first rejection.
+                  if (K != 0) {
+                    
+                    kappai[[K]] <- run_addis[[4]]
+                    kappai_star[[K]] <- run_addis[[11]]
+                    Ci_plus[1:K] <- run_addis[[8]]
+                    
+                  }
+                  
+                  # Update the Alpha value with the current alphai value.
+                  Alpha <- alphai[[m]]
+                  
+                } else {
+                  
                   Alpha <- alpha
+                  
                 }
-                if (pval<= Alpha) {  #Reject H0 (H0:nodes are independent)
+                if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   
                   if (verbose) {
@@ -514,7 +889,18 @@ EdgeOrientation <- function (gInput,GV,suffStat,FDR,alpha,indepTest,FDRcontrol,v
     tarmat1[,1:GV] <- tarmat[,1:GV]
     tarmat <- tarmat1
   }
+  
   gInput@graph <- as(tarmat, "graphNEL")
+  gInput@R <- R[1:m]
+  gInput@K <- K
+  gInput@pval <- pval[1:m]
+  gInput@kappai <- kappai[1:K]
+  gInput@kappai_star <- kappai_star[1:K]
+  gInput@Ci <- Ci[1:m]
+  gInput@Si <- Si[1:m]
+  gInput@Ci_plus <- Ci_plus[1:K]
+  gInput@gammai <- gammai[1:m]
+  
   gInput
   
 }

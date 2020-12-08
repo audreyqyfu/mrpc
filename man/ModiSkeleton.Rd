@@ -11,7 +11,8 @@ This function infers a graph skeleton (i.e., an undirected graph). It is based o
 ModiSkeleton(data, suffStat, FDR, alpha, indepTest, labels, p,
              method = c("stable", "original", "stable.fast"),
              m.max = Inf, fixedGaps = NULL, fixedEdges = NULL,
-             NAdelete = TRUE, FDRcontrol = TRUE, verbose = FALSE)
+             NAdelete = TRUE, FDRcontrol = c("LOND", "ADDIS"),
+             tau, lambda, verbose = FALSE)
 }
 
 \arguments{
@@ -52,7 +53,11 @@ Desired overall FDR level.
 
 \item{NAdelete}{(optional) If indepTest returns NA and this option is TRUE, the corresponding edge is deleted. If this option is FALSE, the edge is not deleted.}
 
-\item{FDRcontrol}{(optional) The default is TRUE which is used sequential FDR control method, otherwise used fixed significance level for the individual tests.}
+\item{FDRcontrol}{(optional) A character string specifying the method used for online FDR control. The two options are either LOND (Javanmard and Montanari, 2015) or ADDIS (Tian and Ramdas, 2019). If this is left blank a fixed significance level, alpha, will be used for each test.}
+
+\item{tau}{A number between 0 and 1. This value is used to determine if a p-value will be considered for testing. For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
+
+\item{lambda}{A number between 0 and tau. This value is used to determine if a p-value is a candidate for rejection. For example, if a p-value is smaller than lambda then it can be rejected when testing the hypothesis (if the p-value is smaller than alphai).}
 
 \item{verbose}{
 (optional) If TRUE, detailed output is provided. Default is FALSE for no output details
@@ -94,7 +99,18 @@ An object containing an estimate of the skeleton of the underlying DAG as follow
     \item{\code{test}:}{The number of tests that have been performed.}
     \item{\code{alpha}:}{The level of significance 
     for the current test.}
-    \item{\code{R}:}{All of the decisions made so far from tests that have been performed.}
+    \item{\code{R}:}{All of the decisions made from tests that have been performed. A 1 indicates a rejected null hypothesis and 0 represents a null hypothesis that was not rejected.}
+    \item{\code{K}:}{The total number of rejections.}
+    \item{\code{pval}:}{A vector of p-values calculated for each test.}
+    \item{\code{normalizer}:}{The value that ensures the vector gammai sums to one.}
+    \item{\code{exponent}:}{The exponent of the p-series used to calculate each value of the gammai vector.}
+    \item{\code{alphai}:}{A vector containing the alpha value calculated for each test.}
+    \item{\code{kappai}:}{A vector containing the iteration at which each rejected test occurs.}
+    \item{\code{kappai_star}:}{Each element of this vector is the sum of the Si vector up to the iteration at which each rejection occurs.}
+    \item{\code{Ci}:}{A vector indicating whether or not a p-value is a candidate for being rejected.}
+    \item{\code{Si}:}{A vector indicating whether or not a p-value was discarded.}
+    \item{\code{Ci_plus}:}{Each element of this vector represents the number of times each kappai value was counted when calculating each alphai value.}
+    \item{\code{gammai}:}{The elements of this vector are the values of the p-series 0.4374901658/(m^(1.6)), where m is the iteration at which each test is performed.}
     
   }
 }
@@ -112,6 +128,8 @@ An object containing an estimate of the skeleton of the underlying DAG as follow
 6. Spirtes P, Glymour C and Scheines R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
 
 7.Tsamardinos I, Brown LE and Aliferis CF (2006). The Max-Min Hill-Climbing Bayesian Network Structure Learning Algorithm. Machine Learning, 65 (1), 31-78.
+
+8. Tian J and Ramdas A (2019). ADDIS: an adaptive discarding algorithm for online FDR control with conservative nulls. In Advances in Neural Information Processing Systems (pp. 9388-9396).
 
 }
 \author{
@@ -150,7 +168,7 @@ Skel.fit <- ModiSkeleton(data,
                          alpha = 0.05, 
                          indepTest = 'gaussCItest',
                          labels = V, 
-                         FDRcontrol = TRUE, 
+                         FDRcontrol = 'LOND', 
                          verbose = FALSE)
 
 # Plot the results

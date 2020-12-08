@@ -1,9 +1,9 @@
 #This is the step 1 of MRPC to draw the undirected graph
 
-ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "disCItest","citest"), labels, p, method = c("stable",
-                                                             "original", "stable.fast"), m.max = Inf, fixedGaps = NULL,
-                  fixedEdges = NULL, NAdelete = TRUE, FDRcontrol=TRUE,verbose = FALSE)
-{
+ModiSkeleton <- function (data, suffStat, FDR, alpha, indepTest = c("gaussCItest", "disCItest","citest"), labels, p,
+                          method = c("stable", "original", "stable.fast"), m.max = Inf, fixedGaps = NULL,
+                          fixedEdges = NULL, NAdelete = TRUE, FDRcontrol = c("LOND", "ADDIS"), 
+                          tau = 0.5, lambda = 0.25, verbose = FALSE) {
   cl <- match.call()
   if (!missing(p))
     stopifnot(is.numeric(p), length(p <- as.integer(p)) == 1, p >= 2)
@@ -41,9 +41,17 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
     sepset <- lapply(seq_p, function(.) vector("list", p))
     pMax <- matrix(-Inf, nrow = p, ncol = p)
     m <- 0L    #Current test number
-    R <- 0L      #Rejection number
     Alpha <- 0L
-    pval <- 0L
+    K <- 0
+    
+    # Initialize vectors/scalars that are specific to the addis function.
+    R <- pval <- kappai <- Ci <- Si <- Ci_plus <- numeric(dim(data)[2]^2)
+    gammai <- kappai_star <- alphai <- numeric(dim(data)[2]^2)
+    
+    # Create objects for the numerator and exponent of the gamma series. This
+    # is a p-series whose infinite sum is 1.
+    normalizer <- 0.4374901658
+    exponent <- 1.6
 
     diag(pMax) <- 1
     done <- FALSE
@@ -57,6 +65,7 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
       ind <- which(upper.tri(G), arr.ind = TRUE)
       ind <- ind[order(ind[, 1]), ]
       remEdges <- nrow(ind)
+      # Order refers to the number of nodes being conditioned on.
       if (verbose)
         cat("Order=", ord, "; remaining edges:", remEdges,
             "\n", sep = "")
@@ -64,7 +73,12 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
         G.l <- split(G, gl(p, p))
       }
 
+      # Loop through all possible edges.
       for (i in 1:remEdges) {
+        
+        # Print every 100th index of the edges considered and the number of all
+        # possible edges. If a test is performed, the details of this test will
+        # also be printed later (starting at line 161).
         if (verbose && (verbose >= 2 || i%%100 == 0))
           cat("|i=", i, "|iMax=", remEdges, "\n")
         x <- ind[i, 1]
@@ -96,13 +110,29 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
               done <- FALSE
             S <- seq_len(ord)
             repeat {
-              n.edgetests[ord1] <- n.edgetests[ord1] +
-                1
+              n.edgetests[ord1] <- n.edgetests[ord1] + 1
+              
               m <- m+1  #Total number of the test
+              
+              # Increase the length of the R, pval, and other ADDIS vectors if
+              # their length is greater than or equal to the current iteration.
+              if (m >= length(R)) {
+                
+                R <- c(R, numeric(dim(data)[2]^2))
+                pval <- c(pval, numeric(dim(data)[2]^2))
+                kappai <- c(kappai, numeric(dim(data)[2]^2))
+                kappai_star <- c(kappai_star, numeric(dim(data)[2]^2))
+                Ci <- c(Ci, numeric(dim(data)[2]^2))
+                Si <- c(Si, numeric(dim(data)[2]^2))
+                Ci_plus <- c(Ci_plus, numeric(dim(data)[2]^2))
+                gammai <- c(gammai, numeric(dim(data)[2]^2))
+                alphai <- c(alphai, numeric(dim(data)[2]^2))
+                
+              }
 
               ##Start to calculate P-value using ci.test and gaussCItest
               
-              if(indepTest=="citest") #if indepTest=ci.test
+              if(indepTest == "citest") #if indepTest=ci.test
                               {   
                                 x <- data[,ind[i,1]]
                                 y <- data[,ind[i,2]]
@@ -131,7 +161,7 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
               if (verbose)
                 cat("x=", x, " y=", y, " S=", nbrs[S],"\n")
               if (is.na(pval[m]))
-                pval <- as.numeric(NAdelete)
+                pval[m] <- as.numeric(NAdelete)
               if (pMax[x, y] < pval[m])
                 pMax[x, y] <- pval[m]
             if (verbose)
@@ -139,17 +169,103 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
               if (verbose)
             cat("pval =", pval[m], "\n")
             
-            if (FDRcontrol){ #if want to control sequential FDR 
-              Alpha <- SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
-            }
-            else
-            {
+            if (FDRcontrol == 'LOND') { #if want to control sequential FDR 
+              
+              # Calculate alpha using the LOND method.
+              alphai[m] <- SeqFDR(m,FDR,a=2,R)
+              
+              Alpha <- alphai[m]
+              
+            } else if (FDRcontrol == 'ADDIS') {
+              
+              # Calculate alpha using the ADDIS algorithm.
+              
+              # Initialize all the vectors and values for the first iteration.
+              if (m == 1) {
+                
+                # Calculate w0 from tau, lambda, and alpha. This value is used
+                # in calculating alpha_t at each iteration.
+                w0 <- tau * lambda * FDR/2
+                
+                # Calculate the sum of the candidate p-values.
+                Ci_sum <- 0
+                
+                # Calculate the sum of the selected tests for each p-value tested.
+                Si_sum <- 0
+                
+                # The total number of rejections so far.
+                K <- 0
+                
+                # Calculate the first element in the gamma sequence.
+                gammai[1] <- normalizer / 1^exponent
+                
+                # Calculate alphai for the first test.
+                alphai[1] <- w0 * gammai[1]
+                
+                # Update the Alpha value with alphai[1]
+                Alpha <- alphai[1]
+                
+                # Determine if the first test should be rejected
+                R[1] <- pval[1] <= alphai[1]
+                
+              } else {
+                
+                # Run ADDIS on the current iteration and update all the vectors
+                # and other values.
+                run_addis <- addis(alpha = FDR,
+                                   tau = tau,
+                                   lambda = lambda,
+                                   iter = m,
+                                   w0 = w0,
+                                   pval = pval,
+                                   alphai = alphai,
+                                   gammai = gammai,
+                                   kappai = kappai,
+                                   kappai_star = kappai_star,
+                                   K = K,
+                                   Ci = Ci,
+                                   Si = Si,
+                                   Ri = R,
+                                   Ci_plus = Ci_plus,
+                                   Ci_sum = Ci_sum,
+                                   Si_sum = Si_sum,
+                                   normalizer = normalizer,
+                                   exponent = exponent)
+                
+                # Update all values and vectors output from the addis function.
+                alphai[[m]] <- run_addis[[1]]
+                gammai[[m]] <- run_addis[[2]]
+                K <- run_addis[[3]]
+                R[[m]] <- run_addis[[5]]
+                Si[[m - 1]] <- run_addis[[6]]
+                Ci[[m - 1]] <- run_addis[[7]]
+                Ci_sum <- run_addis[[9]]
+                Si_sum <- run_addis[[10]]
+                
+                # Only update the kappai and Ci_plus vectors if K is greater
+                # than one. If K is zero then the first element in kappai will
+                # remain zero until the first rejection.
+                if (K != 0) {
+                  
+                  kappai[[K]] <- run_addis[[4]]
+                  kappai_star[[K]] <- run_addis[[11]]
+                  Ci_plus[1:K] <- run_addis[[8]]
+                  
+                }
+                
+                # Update the Alpha value with the current alphai value.
+                Alpha <- alphai[[m]]
+                
+              }
+              
+              
+            } else {
               Alpha <- alpha #if want to use fixed significance level 
             }
             if (verbose)
             cat("Alpha value =", Alpha, "\n")
 
-            if (pval[m]<= Alpha) {  #Reject H0 (H0:nodes are independent)
+            if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
               R[m] <- 1
               if (verbose)
               cat("Since pval<Alpha,test is rejected: Nodes are dependent", "\n")
@@ -158,7 +274,7 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
               if (verbose)
               cat("Since pval>Alpha,test is accepted:Nodes are independent", "\n")
             }
-            if (pval[m]>= Alpha) {
+            if (pval[m] >= Alpha) {
               G[x, y] <- G[y, x] <- FALSE
               sepset[[x]][[y]] <- nbrs[S]
 
@@ -196,9 +312,29 @@ ModiSkeleton <- function (data,suffStat,FDR,alpha,indepTest = c("gaussCItest", "
            # max.ord = as.integer(ord - 1), n.edgetests = n.edgetests,
            # sepset = sepset,pMax = pMax, zMin = matrix(NA, 1, 1))
 
-  new("MRPCclass",graph = Gobject,call = cl, n = integer(0),
-  max.ord = as.integer(ord - 1), n.edgetests = n.edgetests,
-  sepset = sepset,pMax = pMax, zMin = matrix(NA, 1, 1),test=m,alpha=Alpha,R=R)
+  new("MRPCclass",
+      graph = Gobject,
+      call = cl,
+      n = integer(0),
+      max.ord = as.integer(ord - 1),
+      n.edgetests = n.edgetests,
+      sepset = sepset,
+      pMax = pMax,
+      zMin = matrix(NA, 1, 1),
+      test = m,
+      alpha = Alpha,
+      R = R,
+      K = K,
+      pval = pval,
+      normalizer = normalizer,
+      exponent = exponent,
+      alphai = alphai,
+      kappai = kappai,
+      kappai_star = kappai_star,
+      Ci = Ci,
+      Si = Si,
+      Ci_plus = Ci_plus,
+      gammai = gammai)
 
   #return(list(obj=temp,test=m,alpha=Alpha,R=R))
   #else

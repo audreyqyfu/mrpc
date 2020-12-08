@@ -60,4 +60,3 @@ Output <- CompareMethodsNodeOrdering(N = 100,
                                      n_data = 10,
                                      n_nodeordering = 6)
 }
-

@@ -117,7 +117,7 @@ MRPC.fit_withoutPC_GEU_Q50 <- MRPC(data_GEU_Q50,
                                   FDR = 0.05, 
                                   indepTest = 'gaussCItest', 
                                   labels = V,  
-                                  FDRcontrol = TRUE, 
+                                  FDRcontrol = 'LOND', 
                                   verbose = FALSE)
 
 # Analyze the eQTL-gene set with PC2
@@ -138,7 +138,7 @@ MRPC.fit_withPC_GEU_Q50 <- MRPC(data_withPC_Q50,
                                 FDR = 0.05, 
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
-                                FDRcontrol = TRUE, 
+                                FDRcontrol = 'LOND', 
                                 verbose = FALSE)
 
 # Plot inferred graphs 
@@ -172,7 +172,7 @@ MRPC.fit_withoutPC_GEU_Q29 <- MRPC(data_GEU_Q29,
                                    FDR = 0.05, 
                                    indepTest = 'gaussCItest', 
                                    labels = V,  
-                                   FDRcontrol = TRUE, 
+                                   FDRcontrol = 'LOND', 
                                    verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC1
@@ -193,7 +193,7 @@ MRPC.fit_withPC_GEU_Q29 <- MRPC(data_withPC_Q29,
                                 FDR = 0.05, 
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
-                                FDRcontrol = TRUE, 
+                                FDRcontrol = 'LOND', 
                                 verbose = FALSE)
  
 # Plot inferred graphs 
@@ -227,7 +227,7 @@ MRPC.fit_withoutPC_GEU_Q43 <- MRPC(data_GEU_Q43,
                                    FDR = 0.05, 
                                    indepTest = 'gaussCItest', 
                                    labels = V,  
-                                   FDRcontrol = TRUE, 
+                                   FDRcontrol = 'LOND', 
                                    verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC2
@@ -248,7 +248,7 @@ MRPC.fit_withPC_GEU_Q43 <- MRPC(data_withPC_Q43,
                                 FDR = 0.05, 
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
-                                FDRcontrol = TRUE, 
+                                FDRcontrol = 'LOND', 
                                 verbose = FALSE)
 
 # Plot inferred graphs
@@ -283,7 +283,7 @@ MRPC.fit_withoutPC_GEU_Q34 <- MRPC(data_GEU_Q34,
                                    FDR = 0.05, 
                                    indepTest = 'gaussCItest', 
                                    labels = V,  
-                                   FDRcontrol = TRUE, 
+                                   FDRcontrol = 'LOND', 
                                    verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC2 and PC3
@@ -304,7 +304,7 @@ MRPC.fit_withPC_GEU_Q34 <- MRPC(data_withPC_Q34,
                                 FDR = 0.05, 
                                 indepTest = 'gaussCItest', 
                                 labels = V,  
-                                FDRcontrol = TRUE, 
+                                FDRcontrol = 'LOND', 
                                 verbose = FALSE)
 
 # Plot inferred graphs 
@@ -339,7 +339,7 @@ MRPC.fit_withoutPC_GEU_Q8 <- MRPC(data_GEU_Q8,
                                   FDR = 0.05, 
                                   indepTest = 'gaussCItest', 
                                   labels = V,  
-                                  FDRcontrol = TRUE, 
+                                  FDRcontrol = 'LOND', 
                                   verbose = FALSE)
  
 # Analyze the eQTL-gene set with PC1 and PC3
@@ -361,7 +361,7 @@ MRPC.fit_withPC_GEU_Q8 <- MRPC(data_withPC_Q8,
                                FDR = 0.05, 
                                indepTest = 'gaussCItest', 
                                labels = V,  
-                               FDRcontrol = TRUE, 
+                               FDRcontrol = 'LOND', 
                                verbose = FALSE)
 # Plot inferred graphs 
 par(mfrow=c(1,2))
@@ -372,4 +372,3 @@ plot(MRPC.fit_withPC_GEU_Q8,
 
 }
 }
-

@@ -8,8 +8,8 @@ Perform edge orientation under the MRPC algorithm
 This function performs the second step of the \link{MRPC} algorithm where it determines the edge direction in the graph skeleton inferred by the function \link{ModiSkeleton}. If the data contain genetic variants, this function first determines the edges between genetic variants and phenotype nodes based on the principle of Mendelian randomization. Next it identifies potential v-structures and orients the edges in them. For the remaining edges, it examines triplets in turn to see whether a triplet is compatible with one of the basic models. See the references for details.
 }
 \usage{
-EdgeOrientation(gInput, GV, suffStat, FDR, alpha,indepTest, 
-                FDRcontrol, verbose = FALSE)
+EdgeOrientation(gInput, GV, suffStat, FDR, alpha, indepTest, 
+                FDRcontrol, tau = 0.5, lambda = 0.25, verbose = FALSE)
 
 }
 
@@ -28,7 +28,11 @@ False discovery rate (number between 0 and 1). If FDR = 0.05, this ensures that 
 
 \item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. There are three options for different data types, for example, Gaussian data = gaussCItest, discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)}
 
-\item{FDRcontrol}{(optional) The default is TRUE which implements a sequential FDR control method, otherwise used fixed significance level for the individual tests.}
+\item{FDRcontrol}{(optional) A character string specifying the method used for online FDR control. The two options are either LOND (Javanmard and Montanari, 2015) or ADDIS (Tian and Ramdas, 2019). If this is left blank a fixed significance level, alpha, will be used for each test.}
+
+\item{tau}{A number between 0 and 1. This value is used to determine if a p-value will be considered for testing. For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
+
+\item{lambda}{A number between 0 and tau. This value is used to determine if a p-value is a candidate for rejection. For example, if a p-value is smaller than lambda then it can be rejected when testing the hypothesis (if the p-value is smaller than alphai).}
 
 \item{verbose}{(optional) 1: detailed output is provided; 0: No output is provided}
 }
@@ -74,7 +78,18 @@ An object that contains an estimate of the equivalence class of the underlying D
     \item{\code{test}:}{The number of tests that have been performed.}
     \item{\code{alpha}:}{The level of significance 
     for the current test.}
-    \item{\code{R}:}{A vector of all the decisions made so far from the tests that have been performed.}
+    \item{\code{R}:}{All of the decisions made from tests that have been performed. A 1 indicates a rejected null hypothesis and 0 represents a null hypothesis that was not rejected.}
+    \item{\code{K}:}{The total number of rejections.}
+    \item{\code{pval}:}{A vector of p-values calculated for each test.}
+    \item{\code{normalizer}:}{The value that ensures the vector gammai sums to one.}
+    \item{\code{exponent}:}{The exponent of the p-series used to calculate each value of the gammai vector.}
+    \item{\code{alphai}:}{A vector containing the alpha value calculated for each test.}
+    \item{\code{kappai}:}{A vector containing the iteration at which each rejected test occurs.}
+    \item{\code{kappai_star}:}{Each element of this vector is the sum of the Si vector up to the iteration at which each rejection occurs.}
+    \item{\code{Ci}:}{A vector indicating whether or not a p-value is a candidate for being rejected.}
+    \item{\code{Si}:}{A vector indicating whether or not a p-value was discarded.}
+    \item{\code{Ci_plus}:}{Each element of this vector represents the number of times each kappai value was counted when calculating each alphai value.}
+    \item{\code{gammai}:}{The elements of this vector are the values of the p-series 0.4374901658/(m^(1.6)), where m is the iteration at which each test is performed.}
     
   }
 }
@@ -88,6 +103,10 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
 
 2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
+
+3. Javanmard A and Montanari A (2015). On Online Control of False Discovery Rate. arXiv:150206197 [statME].
+
+4. Tian J and Ramdas A (2019). ADDIS: an adaptive discarding algorithm for online FDR control with conservative nulls. In Advances in Neural Information Processing Systems (pp. 9388-9396).
 }
                 
 \seealso{
@@ -119,7 +138,7 @@ Skel.fit <- ModiSkeleton(data,
                          FDR = 0.05, 
                          indepTest = 'gaussCItest',
                          labels = V,
-                         FDRcontrol = TRUE, 
+                         FDRcontrol = 'LOND', 
                          verbose = FALSE)
 
 # Edge Orientation
@@ -128,7 +147,7 @@ Edge_orientation <- EdgeOrientation(Skel.fit,
                                     GV = 1,
                                     FDR = 0.05,
                                     indepTest = 'gaussCItest', 
-                                    FDRcontrol = TRUE,
+                                    FDRcontrol = 'LOND',
                                     verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))

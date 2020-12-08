@@ -2,7 +2,7 @@
 \alias{data_examples}
 
 \title{
-Example data under a simple and complex models
+Example data under simple and complex models
 }
 \description{
 Example data under the simple and complex graphs. Data may be continuous or discrete.
@@ -65,7 +65,7 @@ data.mrpc.cont.withGV <- MRPC(data = data_examples$simple$cont$withGV$data,
                               FDR = 0.05, 
                               indepTest = 'gaussCItest',
                               labels = V,
-                              FDRcontrol = TRUE,
+                              FDRcontrol = 'LOND',
                               verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))
@@ -98,7 +98,7 @@ data.mrpc.cont.withoutGV <- MRPC(data = data_examples$simple$cont$withoutGV$data
                                  FDR = 0.05,
                                  indepTest = 'gaussCItest',
                                  labels = V, 
-                                 FDRcontrol = TRUE,
+                                 FDRcontrol = 'LOND',
                                  verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))
@@ -130,7 +130,7 @@ data.mrpc.disc.withGV <- MRPC(data = data_examples$simple$disc$withGV$data,
                               FDR = 0.05, 
                               indepTest = 'gaussCItest',
                               labels = V, 
-                              FDRcontrol = TRUE,
+                              FDRcontrol = 'LOND',
                               verbose = FALSE)
 # Plot the results
 par (mfrow = c(1, 2))
@@ -162,7 +162,7 @@ data.mrpc.disc.withoutGV <- MRPC(data = data_examples$simple$disc$withoutGV$data
                                  FDR = 0.05, 
                                  indepTest = 'gaussCItest',
                                  labels = V, 
-                                 FDRcontrol = TRUE,
+                                 FDRcontrol = 'LOND',
                                  verbose = FALSE)
 # Plot the results
 par(mfrow = c(1, 2))
@@ -197,5 +197,33 @@ PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
                                                 label.size = 3,
                                                 alpha = 1) 
 # plot 
-plot(PlotGraphWithModulesObj)  
+plot(PlotGraphWithModulesObj)
+
+# Run MRPC on the complex data set with ADDIS as the FDR control method.
+data <- data_examples$complex$cont$withGV$data
+n <- nrow (data)        # Number of rows
+V <- colnames(data)     # Column names
+
+# Calculate Pearson correlation
+suffStat_C <- list(C = cor(data),
+                   n = n)
+
+# Infer the graph by MRPC
+MRPC.addis <- MRPC(data,
+                   suffStat = suffStat_C,
+                   GV = 14,
+                   FDR = 0.05,
+                   indepTest = 'gaussCItest',
+                   labels = V,
+                   FDRcontrol = 'ADDIS',
+                   tau = 0.5,
+                   lambda = 0.25,
+                   verbose = FALSE)
+                   
+# Plot the true and inferred graphs.
+par(mfrow = c(1, 2))
+plot(data_examples$complex$cont$withGV$graph,
+     main = 'True graph')
+plot(MRPC.addis,
+     main = 'Inferred graph')
 }

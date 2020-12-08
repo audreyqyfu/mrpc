@@ -2,7 +2,7 @@
 \alias{IdentifyAssociatedPCs}
 
 \title{
-Identify principal components (PCs) that are significantly associated with eQTLs and genes
+Identifyprincipal components (PCs) that are significantly associated with eQTLs and genes
 }
 \description{
 This function identifies PCs that are significantly associated the eQTLs or genes, and merge the associated PCs with the data on the eQTL and genes.  PCs may be derived from Principal Component Analysis (PCA) of the entire gene expression matrix, and may be viewed as potential confounders in the sequent causal network analysis on the eQTLs and genes.  See details in  Badsha and Fu (2019) and Badsha et al. (2018).
@@ -90,7 +90,7 @@ MRPC.fit_FDR<- MRPC(data_withPC,
                     FDR = 0.05,
                     indepTest = 'gaussCItest',
                     labels = V,
-                    FDRcontrol = TRUE,
+                    FDRcontrol = 'LOND',
                     verbose = TRUE)
                     
 plot(MRPC.fit_FDR, main="MRPC with PCs (potential confounders)")

@@ -1,9 +1,9 @@
 #This is the main function of MRPC algorithm combine with ModiSkeleton and EdgeOrientation
 
-MRPC <- function (data,suffStat,GV,FDR=0.05,alpha=0.05,indepTest = c("gaussCItest","disCItest", "citest"),labels, p, fixedGaps = NULL,
-               fixedEdges = NULL, NAdelete = TRUE, m.max = Inf,u2pd = c("relaxed", "rand", "retry"),
-               skel.method = c("stable", "original","stable.fast"), conservative = FALSE, maj.rule = FALSE,
-               solve.confl = FALSE, FDRcontrol=TRUE,verbose = FALSE)
+MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("gaussCItest","disCItest", "citest"), labels, p, fixedGaps = NULL,
+               fixedEdges = NULL, NAdelete = TRUE, m.max = Inf, u2pd = c("relaxed", "rand", "retry"),
+               skel.method = c("stable", "original", "stable.fast"), conservative = FALSE, maj.rule = FALSE,
+               solve.confl = FALSE, FDRcontrol = c("LOND", "ADDIS"), tau = 0.5, lambda = 0.25, verbose = FALSE)
 {
   cl <- match.call()
   if (!missing(p))
@@ -35,9 +35,11 @@ MRPC <- function (data,suffStat,GV,FDR=0.05,alpha=0.05,indepTest = c("gaussCItes
     stop("Choose either conservative PC or majority rule PC!")
   if (verbose)
   cat ("test for independence:", indepTest, "\n")
-  skel <- ModiSkeleton(data,suffStat,FDR=FDR,alpha=alpha,indepTest=indepTest,labels = labels,
-                       method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
-                      NAdelete = NAdelete, m.max = m.max, FDRcontrol=FDRcontrol,verbose = verbose)
+  skel <- ModiSkeleton(data, suffStat, FDR = FDR, alpha = alpha, indepTest = indepTest,
+                       labels = labels, method = skel.method, fixedGaps = fixedGaps,
+                       fixedEdges = fixedEdges, NAdelete = NAdelete, m.max = m.max, 
+                       FDRcontrol = FDRcontrol, tau = tau, lambda = lambda,
+                       verbose = verbose)
   skel@call <- cl
   
   #indepTest <- match.fun (indepTest)
@@ -48,12 +50,18 @@ MRPC <- function (data,suffStat,GV,FDR=0.05,alpha=0.05,indepTest = c("gaussCItes
                          #NAdelete = NAdelete, m.max = m.max, verbose = verbose)
     #skel$call <- cl
     if (!conservative && !maj.rule) {
-      switch(u2pd,relaxed = EdgeOrientation(skel,GV=GV,suffStat,FDR,alpha,FDRcontrol=FDRcontrol,indepTest,verbose = verbose))
+      switch(u2pd,relaxed = EdgeOrientation(skel, GV = GV, suffStat, FDR, alpha,
+                                            FDRcontrol = FDRcontrol, indepTest,
+                                            tau = tau, lambda = lambda,
+                                            verbose = verbose))
     }
     else {
-      pc. <- pc.cons.intern(skel,suffStat, match.fun(indepTest),alpha=alpha,
-                            version.unf = c(2, 1), maj.rule = maj.rule,verbose = verbose)
-      EdgeOrientation(pc.$sk,FDRcontrol=FDRcontrol,verbose = verbose)
+      pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha = alpha,
+                            version.unf = c(2, 1), maj.rule = maj.rule,
+                            verbose = verbose)
+      
+      EdgeOrientation(pc.$sk, FDRcontrol = FDRcontrol, tau = tau,
+                      lambda = lambda, verbose = verbose)
     }
   #} #else {
     #skel <- ModiSkeleton(data,suffStat,GV,FDR,indepTest,labels = labels,

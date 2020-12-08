@@ -52,7 +52,7 @@ summary.
     
     \item{\code{n}:}{The sample 
     size used to estimate the graph.}
-        \item{\code{max.ord}:}{The 
+    \item{\code{max.ord}:}{The 
     maximum size of the conditioning set used 
     in the conditional independence tests of   
     the first part of the algorithm.}
@@ -66,12 +66,22 @@ summary.
     independence tests for edge i--j.}
     \item{\code{graph}:}{Object of class \code{"\linkS4class{graph}"}:
       The undirected or partially directed graph that was estimated.}
-          \item{\code{zMin}:}{Deprecated.}
+    \item{\code{zMin}:}{Deprecated.}
     \item{\code{test}:}{The number of tests that have been performed.}
     \item{\code{alpha}:}{The level of significance 
     for the current test.}
-    \item{\code{R}:}{All of the decisions made so far from tests that have been performed.}
-    
+    \item{\code{R}:}{All of the decisions made from tests that have been performed. A 1 indicates a rejected null hypothesis and 0 represents a null hypothesis that was not rejected.}
+    \item{\code{K}:}{The total number of rejections.}
+    \item{\code{pval}:}{A vector of p-values calculated for each test.}
+    \item{\code{normalizer}:}{The value that ensures the vector gammai sums to one.}
+    \item{\code{exponent}:}{The exponent of the p-series used to calculate each value of the gammai vector.}
+    \item{\code{alphai}:}{A vector containing the alpha value calculated for each test.}
+    \item{\code{kappai}:}{A vector containing the iteration at which each rejected test occurs.}
+    \item{\code{kappai_star}:}{Each element of this vector is the sum of the Si vector up to the iteration at which each rejection occurs.}
+    \item{\code{Ci}:}{A vector indicating whether or not a p-value is a candidate for being rejected.}
+    \item{\code{Si}:}{A vector indicating whether or not a p-value was discarded.}
+    \item{\code{Ci_plus}:}{Each element of this vector represents the number of times each kappai value was counted when calculating each alphai value.}
+    \item{\code{gammai}:}{The elements of this vector are the values of the p-series 0.4374901658/(m^(1.6)), where m is the iteration at which each test is performed.}
   }
 }
 
@@ -114,7 +124,7 @@ MRPC.fit <- MRPC(data,
                  FDR = 0.05, 
                  indepTest ='gaussCItest',
                  labels = V, 
-                 FDRcontrol = TRUE,
+                 FDRcontrol = 'LOND',
                  verbose = FALSE)
 
 

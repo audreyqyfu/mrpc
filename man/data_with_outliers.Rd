@@ -56,7 +56,7 @@ MRPC.fit_withoutoutliers <- MRPC (data_without_outliers,
                                   FDR = 0.05, 
                                   indepTest ='gaussCItest', 
                                   labels = V, 
-                                  FDRcontrol = TRUE, 
+                                  FDRcontrol = 'LOND', 
                                   verbose = FALSE)
 
 # Infer the graph by pc 
@@ -111,7 +111,7 @@ MRPC.fit_withoutliers_C2 <- MRPC (data_with_outliers,
                                   FDR = 0.05, 
                                   indepTest ='gaussCItest', 
                                   labels = V, 
-                                  FDRcontrol = TRUE, 
+                                  FDRcontrol = 'LOND', 
                                   verbose = FALSE)
 
 # Infer the graph by pc
@@ -168,7 +168,7 @@ MRPC.fit_withoutliers_R1 <- MRPC (data_with_outliers,
                                   FDR = 0.05, 
                                   indepTest = 'gaussCItest', 
                                   labels = V, 
-                                  FDRcontrol = TRUE, 
+                                  FDRcontrol = 'LOND', 
                                   verbose = FALSE)
 
 # Infer the graph by pc with robust correlation

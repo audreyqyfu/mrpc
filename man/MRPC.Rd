@@ -14,7 +14,8 @@ MRPC(data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest, labels, p,
     u2pd = c("relaxed", "rand", "retry"),
     skel.method = c("stable", "original", "stable.fast"),
     conservative = FALSE,
-    maj.rule = FALSE, solve.confl = FALSE, FDRcontrol = TRUE,
+    maj.rule = FALSE, solve.confl = FALSE,
+    FDRcontrol = c("LOND", "ADDIS"), tau = 0.5, lambda = 0.25,
     verbose = FALSE)
 }
 
@@ -65,7 +66,11 @@ Remember that need to specify the which indepTest would like for independence te
 
 \item{solve.confl}{(optional) If TRUE, the orientation of the v-structures and the orientation rules work with lists for candidate sets and allow bi-directed edges to resolve conflicting edge orientations. In this case, only option u2pd = "relaxed" is supported. Note that the resulting object might not be a CPDAG because bi-directed edges might be present. See details for more information.}
 
-\item{FDRcontrol}{(optional) The default is TRUE which is used sequential FDR control method, otherwise used fixed significance level for the individual tests.}
+\item{FDRcontrol}{(optional) A character string specifying the method used for online FDR control. The two options are either LOND (Javanmard and Montanari, 2015) or ADDIS (Tian and Ramdas, 2019). If this is left blank a fixed significance level, alpha, will be used for each test.}
+
+\item{tau}{A number between 0 and 1. This value is used to determine if a p-value will be considered for testing. For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
+
+\item{lambda}{A number between 0 and tau. This value is used to determine if a p-value is a candidate for rejection. For example, if a p-value is smaller than lambda then it can be rejected when testing the hypothesis (if the p-value is smaller than alphai).}
 
 \item{verbose}{(optional) If TRUE, detailed output is provided. The default is FALSE which does not print output details.}
 
@@ -121,7 +126,18 @@ An object of \link{class} that contains an estimate of the equivalence class of 
     \item{\code{test}:}{The number of tests that have been performed.}
     \item{\code{alpha}:}{The level of significance 
     for the current test.}
-    \item{\code{R}:}{All of the decisions made so far from tests that have been performed.}
+    \item{\code{R}:}{All of the decisions made from tests that have been performed. A 1 indicates a rejected null hypothesis and 0 represents a null hypothesis that was not rejected.}
+    \item{\code{K}:}{The total number of rejections.}
+    \item{\code{pval}:}{A vector of p-values calculated for each test.}
+    \item{\code{normalizer}:}{The value that ensures the vector gammai sums to one.}
+    \item{\code{exponent}:}{The exponent of the p-series used to calculate each value of the gammai vector.}
+    \item{\code{alphai}:}{A vector containing the alpha value calculated for each test.}
+    \item{\code{kappai}:}{A vector containing the iteration at which each rejected test occurs.}
+    \item{\code{kappai_star}:}{Each element of this vector is the sum of the Si vector up to the iteration at which each rejection occurs.}
+    \item{\code{Ci}:}{A vector indicating whether or not a p-value is a candidate for being rejected.}
+    \item{\code{Si}:}{A vector indicating whether or not a p-value was discarded.}
+    \item{\code{Ci_plus}:}{Each element of this vector represents the number of times each kappai value was counted when calculating each alphai value.}
+    \item{\code{gammai}:}{The elements of this vector are the values of the p-series 0.4374901658/(m^(1.6)), where m is the iteration at which each test is performed.}
     
   }
 }
@@ -146,6 +162,8 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 7. Scutari M (2010). Learning Bayesian Networks with the bnlearn R Package. Journal of Statistical Software, 35(3), 1-22.
 
 8. Spirtes P, Glymour C and Scheines R (2000). Causation, Prediction, and Search, 2nd edition. The MIT Press.
+
+9. Tian J and Ramdas A (2019). ADDIS: an adaptive discarding algorithm for online FDR control with conservative nulls. In Advances in Neural Information Processing Systems (pp. 9388-9396).
 }
                     
 \seealso{
@@ -187,7 +205,7 @@ MRPC.fit <- MRPC(data,
                 FDR = 0.05,
                 indepTest = 'gaussCItest',
                 labels = V,
-                FDRcontrol = TRUE,
+                FDRcontrol = 'LOND',
                 verbose = FALSE)
 
 # Infer the graph by PC
@@ -238,6 +256,34 @@ graphviz.plot(mmhc.fit,
     main = "(F) mmhc")
 graphviz.plot(hc.fit,
     main = "(G) hc")
+    
+# Run MRPC on the complex data set with ADDIS as the FDR control method.
+data <- data_examples$complex$cont$withGV$data
+n <- nrow (data)        # Number of rows
+V <- colnames(data)     # Column names
+
+# Calculate Pearson correlation
+suffStat_C <- list(C = cor(data),
+                   n = n)
+
+# Infer the graph by MRPC
+MRPC.addis <- MRPC(data,
+                   suffStat = suffStat_C,
+                   GV = 14,
+                   FDR = 0.05,
+                   indepTest = 'gaussCItest',
+                   labels = V,
+                   FDRcontrol = 'ADDIS',
+                   tau = 0.5,
+                   lambda = 0.25,
+                   verbose = FALSE)
+                   
+# Plot the true and inferred graphs.
+par(mfrow = c(1, 2))
+plot(data_examples$complex$cont$withGV$graph,
+     main = 'True graph')
+plot(MRPC.addis,
+     main = 'Inferred graph')
     
 # Another option for plot of the results. First fig is the nodes
 # dendrogram with colored modules. Second fig is the plot of the graph

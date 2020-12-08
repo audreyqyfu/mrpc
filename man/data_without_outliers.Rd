@@ -56,7 +56,7 @@ MRPC.fit_withoutoutliers <- MRPC (data_without_outliers,
                                   FDR = 0.05, 
                                   indepTest ='gaussCItest', 
                                   labels = V, 
-                                  FDRcontrol = TRUE, 
+                                  FDRcontrol = 'LOND', 
                                   verbose = FALSE)
 
 # Infer the graph by pc with Pearson correlation

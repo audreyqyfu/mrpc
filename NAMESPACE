@@ -50,7 +50,7 @@ importFrom("pcalg","disCItest","gaussCItest","pc","pc.cons.intern","udag2pdag","
 importFrom("plyr", "join.keys")
 importFrom("psych", "corr.test")
 importFrom("stats","sd","dist","approx","as.dist","cor","prcomp","rbinom", "rnorm","as.hclust","na.omit","median","quantile","cov","cov2cor","qnorm")
-importFrom("utils", "combn","write.table")
+importFrom("utils", "combn","write.table", "data")
 importFrom("WGCNA","TOMsimilarity","labels2colors","plotDendroAndColors","qvalue")
 import(sna)
 import(Rgraphviz)

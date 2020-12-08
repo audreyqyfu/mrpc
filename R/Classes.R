@@ -2,14 +2,25 @@ setClass("MRPCclass",
          slots = c(call = "call",
                    n = "integer",
                    max.ord = "integer",
-                   n.edgetests= "numeric",
-                   sepset= "list",
-                   pMax= "matrix",
+                   n.edgetests = "numeric",
+                   sepset = "list",
+                   pMax = "matrix",
                    graph = "graph", 
                    zMin = "matrix",
-                   test="numeric",
-                   alpha="numeric",
-                   R="numeric"))
+                   test ="numeric",
+                   alpha ="numeric",
+                   R = "numeric",
+                   K = "numeric",
+                   pval = "numeric",
+                   normalizer = "numeric",
+                   exponent = "numeric",
+                   alphai = "numeric",
+                   kappai = "numeric",
+                   kappai_star = "numeric",
+                   Ci = "numeric",
+                   Si = "numeric",
+                   Ci_plus = "numeric",
+                   gammai = "numeric"))
 
 ##' auxiliary, hidden
 show.MRPC.amat <- function(amat, zero.print, ...) {
@@ -92,4 +103,3 @@ setMethod("plot", signature(x = "MRPCclass"),
                               attrs = attrs, ...)
               }
           })
-
