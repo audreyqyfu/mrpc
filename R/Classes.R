@@ -20,7 +20,8 @@ setClass("MRPCclass",
                    Ci = "numeric",
                    Si = "numeric",
                    Ci_plus = "numeric",
-                   gammai = "numeric"))
+                   gammai = "numeric",
+                   gammai_sum = "numeric"))
 
 ##' auxiliary, hidden
 show.MRPC.amat <- function(amat, zero.print, ...) {

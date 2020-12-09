@@ -49,9 +49,14 @@
 #
 # Si_sum - A scalar. This is the sum of the Si vector at each iteration.
 #
-# normalizer - 
+# gammai_sum - A scalar. The sum of the gammai vector is calculated using the
+# Si_sum and therefore has to be recalculated each time the Si_sum changes. This
+# value is used in calculating the alphai_hat value at each iteration.
 #
-# exponent - 
+# normalizer - The value that ensures the gammai vector sums to one.
+#
+# exponent - The exponent of the p-series used to calculate each value of the
+# gammai vector.
 #
 # Returns the alphai value calculated for the current iteration and the updated
 # values for gammai, K, kappai, Ri, Si, Ci, Ci_plus, Ci_sum, and Si_sum.
@@ -73,6 +78,7 @@ addis <- function (alpha,
                    Ci_plus,
                    Ci_sum,
                    Si_sum,
+                   gammai_sum,
                    normalizer,
                    exponent) {
   
@@ -99,7 +105,7 @@ addis <- function (alpha,
   # Calculate the new sum of the Si vector.
   Si_sum <- Si_sum + Si[iter - 1]
   
-  # Determine if the p-value is a candidate for being tested.
+  # Determine if the p-value is a candidate for rejection.
   Ci[iter - 1] <- pval[iter - 1] <= tau * lambda
   
   # Check if the current p-value is a candidate for being tested.
@@ -124,29 +130,43 @@ addis <- function (alpha,
       
     }
     
-    # Create a vector that is the length of the number of rejected hypotheses
-    # minus one.
-    Kseq <- seq_len(K - 1)
-    
-    # Update the number of candidate p-values.
-    Ci_plus[Kseq] <- Ci_plus[Kseq] + Ci[iter - 1]
-    
-    # Sum the gammai sequence.
-    gammai_sum <- sum(gammai[Si_sum
-                             - kappai_star[Kseq]
-                             - Ci_plus[Kseq] + 1])
-    
-    # Sum the number of candidate p-values
-    Ci_plus[K] <- sum(Ci[seq(from = kappai[K] + 1,
-                             to = max(iter - 1, kappai[K] + 1))])
-    
-    # Update the sum of the gammai sequence.
-    gammai_sum <- (gammai_sum + gammai[Si_sum
-                                       - kappai_star[K]
-                                       - Ci_plus[K] + 1]
-                   - gammai[Si_sum
-                            - kappai_star[1]
-                            - Ci_plus[1] + 1])
+    # Check if the value from the last iteration of the Si vector is a one. In
+    # other words, was the p-value not discarded (pval[iter - 1] <= tau)?
+    if (Si[iter - 1] == 1) {
+      
+      # Create a vector that is the length of the number of rejected hypotheses
+      # minus one.
+      Kseq <- seq_len(K - 1)
+      
+      # Check if the value from the last iteration of the Ci vector is a one. In
+      # other words, is the p-value a candidate for rejection (pval[iter - 1]
+      # <= tau * lambda)?
+      if (Ci[iter - 1] == 1) {
+        
+        # Update the number of candidate p-values.
+        Ci_plus[Kseq] <- Ci_plus[Kseq] + Ci[iter - 1]
+        
+      }
+      
+      # Sum the gammai sequence.
+      gammai_sum <- sum(gammai[Si_sum
+                               - kappai_star[Kseq]
+                               - Ci_plus[Kseq] + 1])
+      
+      # Sum the number of candidate for rejection p-values for the Kth element.
+      Ci_plus[K] <- sum(Ci[seq(from = kappai[K] + 1,
+                               to = max(iter - 1, kappai[K] + 1))])
+      
+      # Update the sum of the gammai sequence after the Kth element of the
+      # Ci_plus vector has been updated.
+      gammai_sum <- (gammai_sum + gammai[Si_sum
+                                         - kappai_star[K]
+                                         - Ci_plus[K] + 1]
+                     - gammai[Si_sum
+                              - kappai_star[1]
+                              - Ci_plus[1] + 1])
+      
+    }
     
     # Calculate the potential alphai value.
     alphai_hat <- (w0 * gammai[Si_sum
@@ -208,7 +228,8 @@ addis <- function (alpha,
                  Ci_plus[1],
                  Ci_sum,
                  Si_sum,
-                 kappai_star[1]))
+                 kappai_star[1],
+                 gammai_sum))
     
   } else {
     
@@ -224,7 +245,8 @@ addis <- function (alpha,
                  Ci_plus[1:K],
                  Ci_sum,
                  Si_sum,
-                 kappai_star[K]))
+                 kappai_star[K],
+                 gammai_sum))
     
   }
   

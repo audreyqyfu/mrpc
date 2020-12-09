@@ -73,7 +73,7 @@ summary.
     \item{\code{R}:}{All of the decisions made from tests that have been performed. A 1 indicates a rejected null hypothesis and 0 represents a null hypothesis that was not rejected.}
     \item{\code{K}:}{The total number of rejections.}
     \item{\code{pval}:}{A vector of p-values calculated for each test.}
-    \item{\code{normalizer}:}{The value that ensures the vector gammai sums to one.}
+    \item{\code{normalizer}:}{The value that ensures the gammai vector sums to one.}
     \item{\code{exponent}:}{The exponent of the p-series used to calculate each value of the gammai vector.}
     \item{\code{alphai}:}{A vector containing the alpha value calculated for each test.}
     \item{\code{kappai}:}{A vector containing the iteration at which each rejected test occurs.}
@@ -82,6 +82,7 @@ summary.
     \item{\code{Si}:}{A vector indicating whether or not a p-value was discarded.}
     \item{\code{Ci_plus}:}{Each element of this vector represents the number of times each kappai value was counted when calculating each alphai value.}
     \item{\code{gammai}:}{The elements of this vector are the values of the p-series 0.4374901658/(m^(1.6)), where m is the iteration at which each test is performed.}
+    \item{\code{gammai_sum}:}{The sum of the gammai vector. This value is used in calculating the alphai value at each iteration.}
   }
 }
 

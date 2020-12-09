@@ -54,7 +54,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
   #Step-2 start
   #Start to orient v-structures
   if (verbose)
-  cat("\n V-structures are as follows :\n")
+    cat("\n V-structures are as follows :\n")
   # extract edges involving at least one gene node
   #edgesWithGs <- edges[which (edges[,1]>GV | edges[,2]>GV), ]
   #ind <- edgesWithGs
@@ -76,6 +76,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
   Ci_sum <- sum(Ci)
   Si <- gInput@Si
   Si_sum <- sum(Si)
+  gammai_sum <- gInput@gammai_sum
   Ci_plus <- gInput@Ci_plus
   gammai <- gInput@gammai
   normalizer <- gInput@normalizer
@@ -147,6 +148,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                              Ci_plus = Ci_plus,
                              Ci_sum = Ci_sum,
                              Si_sum = Si_sum,
+                             gammai_sum = gammai_sum,
                              normalizer = normalizer,
                              exponent = exponent)
           
@@ -159,6 +161,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
           Ci[[m - 1]] <- run_addis[[7]]
           Ci_sum <- run_addis[[9]]
           Si_sum <- run_addis[[10]]
+          gammai_sum <- run_addis[[12]]
           
           # Only update the kappai and Ci_plus vectors if K is greater
           # than one. If K is zero then the first element in kappai will
@@ -180,16 +183,16 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
           
         }
         if (verbose){
-        cat("x=", x, " y=", z, " S=", y,"\n")
-        cat("Test number =", m, "\n")
-        cat("Additional pval value =", pval[m], "\n")
-        cat("Alpha value =", Alpha, "\n")
+          cat("x=", x, " y=", z, " S=", y,"\n")
+          cat("Test number =", m, "\n")
+          cat("Additional pval value =", pval[m], "\n")
+          cat("Alpha value =", Alpha, "\n")
         }
         if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
           R[m] <- 1
           if (verbose) {
-        cat(V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
-        cat("Since pval<Alpha,additional test is rejected;", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
+            cat(V[x], "->", V[y], "<-", V[z], "\n")  #Printout the v-structures
+            cat("Since pval<Alpha,additional test is rejected;", "Nodes", V[x] ,"and" ,V[z] ,"are dependent given", V[y], "\n")
           }
           tarmat[x, y] <- tarmat[z, y] <- 1 #directed x-->y<--z
         } 
@@ -197,7 +200,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
           R[m] <- 0  #Accept H0
           #tarmat[x, y] <- tarmat[y, z] <- 1 #directed x-->y-->z
           if (verbose)
-          cat("Since pval>Alpha,additional test is accepted;", "Nodes", V[x] ,"and" ,V[z] ,"are independent given", V[y], "\n")
+            cat("Since pval>Alpha,additional test is accepted;", "Nodes", V[x] ,"and" ,V[z] ,"are independent given", V[y], "\n")
         }
         
       }
@@ -312,6 +315,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                                      Ci_plus = Ci_plus,
                                      Ci_sum = Ci_sum,
                                      Si_sum = Si_sum,
+                                     gammai_sum = gammai_sum,
                                      normalizer = normalizer,
                                      exponent = exponent)
                   
@@ -324,6 +328,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   Ci[[m - 1]] <- run_addis[[7]]
                   Ci_sum <- run_addis[[9]]
                   Si_sum <- run_addis[[10]]
+                  gammai_sum <- run_addis[[12]]
                   
                   # Only update the kappai and Ci_plus vectors if K is greater
                   # than one. If K is zero then the first element in kappai will
@@ -348,7 +353,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   cat("Additional pval value =", pval[m], "\n")
                   cat("Alpha value =", Alpha, "\n")    
                 }
-
+                
                 if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
                   R[m] <- 1
                   if (verbose) {
@@ -471,6 +476,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                                      Ci_plus = Ci_plus,
                                      Ci_sum = Ci_sum,
                                      Si_sum = Si_sum,
+                                     gammai_sum = gammai_sum,
                                      normalizer = normalizer,
                                      exponent = exponent)
                   
@@ -483,6 +489,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   Ci[[m - 1]] <- run_addis[[7]]
                   Ci_sum <- run_addis[[9]]
                   Si_sum <- run_addis[[10]]
+                  gammai_sum <- run_addis[[12]]
                   
                   # Only update the kappai and Ci_plus vectors if K is greater
                   # than one. If K is zero then the first element in kappai will
@@ -643,6 +650,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                                      Ci_plus = Ci_plus,
                                      Ci_sum = Ci_sum,
                                      Si_sum = Si_sum,
+                                     gammai_sum = gammai_sum,
                                      normalizer = normalizer,
                                      exponent = exponent)
                   
@@ -655,6 +663,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   Ci[[m - 1]] <- run_addis[[7]]
                   Ci_sum <- run_addis[[9]]
                   Si_sum <- run_addis[[10]]
+                  gammai_sum <- run_addis[[12]]
                   
                   # Only update the kappai and Ci_plus vectors if K is greater
                   # than one. If K is zero then the first element in kappai will
@@ -676,8 +685,8 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   
                 }
                 if (verbose) {
-                cat("Additional pval value =", pval[m], "\n")
-                cat("Alpha value =", Alpha, "\n")
+                  cat("Additional pval value =", pval[m], "\n")
+                  cat("Alpha value =", Alpha, "\n")
                 }
                 #Alpha=SeqFDR(m,FDR,a=2,R) #Alpha valued from sequential FDR test
                 if (pval[m] <= Alpha) {  #Reject H0 (H0:nodes are independent)
@@ -725,9 +734,9 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
           {
             for (d11 in 1:length(Rem1))
             {
-            x <- Rem2[d11]
-            y <- Rem1[d11]
-            z <- D1[d1]
+              x <- Rem2[d11]
+              y <- Rem1[d11]
+              z <- D1[d1]
             }
             
             if ((!is.na(x) & !is.na(y) & !is.na(z)) & (x!=0 & y!=0 & z!=0) & (x!=y & y!=z & z!=x))
@@ -800,6 +809,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                                      Ci_plus = Ci_plus,
                                      Ci_sum = Ci_sum,
                                      Si_sum = Si_sum,
+                                     gammai_sum = gammai_sum,
                                      normalizer = normalizer,
                                      exponent = exponent)
                   
@@ -812,6 +822,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   Ci[[m - 1]] <- run_addis[[7]]
                   Ci_sum <- run_addis[[9]]
                   Si_sum <- run_addis[[10]]
+                  gammai_sum <- run_addis[[12]]
                   
                   # Only update the kappai and Ci_plus vectors if K is greater
                   # than one. If K is zero then the first element in kappai will
@@ -900,6 +911,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
   gInput@Si <- Si[1:m]
   gInput@Ci_plus <- Ci_plus[1:K]
   gInput@gammai <- gammai[1:m]
+  gInput@gammai_sum <- gammai_sum
   
   gInput
   
