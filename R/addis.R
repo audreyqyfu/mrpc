@@ -148,34 +148,63 @@ addis <- function (alpha,
         
       }
       
-      # Sum the gammai sequence.
-      gammai_sum <- sum(gammai[Si_sum
-                               - kappai_star[Kseq]
-                               - Ci_plus[Kseq] + 1])
-      
       # Sum the number of candidate for rejection p-values for the Kth element.
       Ci_plus[K] <- sum(Ci[seq(from = kappai[K] + 1,
                                to = max(iter - 1, kappai[K] + 1))])
       
-      # Update the sum of the gammai sequence after the Kth element of the
-      # Ci_plus vector has been updated.
-      gammai_sum <- (gammai_sum + gammai[Si_sum
-                                         - kappai_star[K]
-                                         - Ci_plus[K] + 1]
-                     - gammai[Si_sum
-                              - kappai_star[1]
-                              - Ci_plus[1] + 1])
+      # Check the value of alphai from the last iteration and the p-value from
+      # the current iteration. If alphai[iter - 1] = tau * lambda and
+      # pval[iter] <= tau * lambda then there is no need to calculate the
+      # gammai_sum because the alphai_hat value (which is calculated with the
+      # gammai_sum value) will be larger than tau * lambda.
+      if (!(alphai[iter-1] == tau * lambda && pval[iter-1] <= tau * lambda)) {
+        
+        # Sum the gammai sequence.
+        gammai_sum <- sum(gammai[Si_sum
+                                 - kappai_star[Kseq]
+                                 - Ci_plus[Kseq] + 1])
+        
+        # Update the sum of the gammai sequence after the Kth element of the
+        # Ci_plus vector has been updated. The Ci_plus vector is updated before
+        # the if statement instead of after the gammai_sum value is initialized
+        # to save time when the alphai value is larger than tau * lambda.
+        gammai_sum <- (gammai_sum + gammai[Si_sum
+                                           - kappai_star[K]
+                                           - Ci_plus[K] + 1]
+                       - gammai[Si_sum
+                                - kappai_star[1]
+                                - Ci_plus[1] + 1])
+        
+      }
       
     }
     
-    # Calculate the potential alphai value.
-    alphai_hat <- (w0 * gammai[Si_sum
-                               - Ci_sum + 1]
-                   + (tau * (1 - lambda) * alpha - w0)
-                   * gammai[Si_sum
-                            - kappai_star[1]
-                            - Ci_plus[1] + 1]
-                   + tau * (1 - lambda) * alpha * gammai_sum)
+    # Check the value of alphai from the last iteration and the p-value from the
+    # current iteration. If alphai[iter - 1] = tau * lambda and
+    # pval[iter] <= tau * lambda then there is no need to calculate alphai_hat
+    # because this value will be larger than tau * lambda.
+    if (!(alphai[iter-1] == tau * lambda && pval[iter-1] <= tau * lambda)) {
+      
+      # Calculate the potential alphai value.
+      alphai_hat <- (w0 * gammai[Si_sum
+                                 - Ci_sum + 1]
+                     + (tau * (1 - lambda) * alpha - w0)
+                     * gammai[Si_sum
+                              - kappai_star[1]
+                              - Ci_plus[1] + 1]
+                     + tau * (1 - lambda) * alpha * gammai_sum)
+      
+      # The following code will be run when alphai[iter - 1] = tau * lambda and
+      # pval[iter] <= tau * lambda.
+    } else {
+      
+      # Set alphai_hat to a value that will be larger than tau * lambda for any
+      # values of tau and lambda. When alphai[iter - 1] = tau * lambda and
+      # pval[iter] <= tau the gammai_sum will not be calculated to save time and
+      # alphai_hat will need to be set to a large value.
+      alphai_hat <- 1
+      
+    }
     
   } else if (K == 1) {
     
