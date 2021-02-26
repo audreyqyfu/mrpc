@@ -134,22 +134,25 @@ RecallPrecision <- function (g1, g2, GV, includeGV, edge.presence = 1.0, edge.di
       }
       
       #Recall
-      if(Evaluation_matrix[TP]!=0)
-      {
+      if (NTE != 0) {
         Recall <- Evaluation_matrix[TP]/NTE
       }
-      else
-      {
-        Recall <- 0 
+      
+      else {
+        Recall <-NA
       }
-      #Precision
-      if(Evaluation_matrix[TP]!=0)
-      {
+      
+      
+      if (NIE != 0 ) {
         Precision <- Evaluation_matrix[TP]/NIE
       }
+      
+      
       else {
-        Precision <- 0
+        Precision <- NA
       }
+      
+     
     }
   }
   ####Without GV###
@@ -278,22 +281,26 @@ RecallPrecision <- function (g1, g2, GV, includeGV, edge.presence = 1.0, edge.di
       }
       
       #Recall
-      if(Evaluation_matrix[TP]!=0)
-      {
+      
+      if (NTE != 0) {
         Recall <- Evaluation_matrix[TP]/NTE
       }
-      else
-      {
-        Recall <- 0 
+      
+      else {
+        Recall <-NA
       }
-      #Precision
-      if(Evaluation_matrix[TP]!=0)
-      {
+      
+      
+      if (NIE != 0 ) {
         Precision <- Evaluation_matrix[TP]/NIE
       }
+      
+      
       else {
-        Precision <- 0
+        Precision <- NA
       }
+      
+      
     }
   }
   
