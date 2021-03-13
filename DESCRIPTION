@@ -11,7 +11,7 @@ Description: A PC Algorithm with the Principle of Mendelian Randomization. This 
             ways, and to compare graphs and quantify the differences. 
             See Badsha and Fu (2019) <https://doi.org/10.3389/fgene.2019.00460>,Badsha, Martin and Fu (2018) <arXiv:1806.01899>. 
 License: GPL (>= 2)
-Depends: R (>= 3.0)
+Depends: R (>= 3.6)
 LazyData: TRUE
 Imports:bnlearn,compositions,dynamicTreeCut,GGally,fastcluster,gtools,graph,graphics,Hmisc,methods,mice,
         network,pcalg,psych,Rgraphviz,stats,sna,utils,WGCNA,plyr
