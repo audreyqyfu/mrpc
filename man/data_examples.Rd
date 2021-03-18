@@ -119,16 +119,14 @@ n <- nrow(data_examples$simple$disc$withGV$data)
 # Extract the node/column names
 V <- colnames(data_examples$simple$disc$withGV$data)
 
-# Calculate Pearson correlation
-suffStat_C <- list(C = cor(data_examples$simple$disc$withGV$data),
-                   n = n)
+suffStat_C <- list (dm = data, adaptDF = FALSE, n.min = 1000)
 
 # Infer the graph by MRPC
 data.mrpc.disc.withGV <- MRPC(data = data_examples$simple$disc$withGV$data,
                               suffStat = suffStat_C, 
                               GV = 1,
                               FDR = 0.05, 
-                              indepTest = 'gaussCItest',
+                              indepTest = 'disCItest',
                               labels = V, 
                               FDRcontrol = 'LOND',
                               verbose = FALSE)
@@ -151,16 +149,14 @@ n <- nrow (data_examples$simple$disc$withoutGV$data)
 # Extract the node/column names
 V <- colnames(data_examples$simple$disc$withoutGV$data)   
 
-# Calculate Pearson correlation
-suffStat_C <- list(C = cor(data_examples$simple$disc$withoutGV$data),
-                   n = n)
+suffStat_C <- list (dm = data, adaptDF = FALSE, n.min = 1000)
 
 # Infer the graph by MRPC
 data.mrpc.disc.withoutGV <- MRPC(data = data_examples$simple$disc$withoutGV$data,
                                  suffStat = suffStat_C, 
                                  GV = 1,
                                  FDR = 0.05, 
-                                 indepTest = 'gaussCItest',
+                                 indepTest = 'disCItest',
                                  labels = V, 
                                  FDRcontrol = 'LOND',
                                  verbose = FALSE)

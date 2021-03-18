@@ -22,7 +22,7 @@ Many arguments are similar to those in \link{skeleton} and \link{pc} in the \cod
 Data matrix, where the rows are samples and the columns are features (e.g., genetic variants (GVs) and phenotypes). Columns are for GVs, if available, appear before other columns for phenotypes (e.g., gene expression). For example, if there is one GV, then the first column of the data matrix is the GV and the remaining columns are the gene expression data.
 }
 
-\item{suffStat}{A list consisting of the correlation matrix of the data and the sample size.  
+\item{suffStat}{A list of sufficient statistics. When the data is continuous or can be viewed as continuous, this list contains the correlation matrix of the data and the sample size, which are the necessary elements for the conditional independence tests in gaussCItest. When the data is discrete, this list contains the entire dataset.  
 }
 
 \item{FDR}{

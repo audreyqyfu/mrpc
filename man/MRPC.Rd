@@ -26,7 +26,7 @@ This function is based on the \link{pc} function in the \code{pcalg} package. Th
 Data matrix, where the rows are observations and the columns are features (i.e., variables, or nodes). If genetic variants (GVs) are included, then the columns start from GVs (e.g., single-nucleotide polymorphisms, or SNPs; insertions and deletions, or indels; copy number variation, or CNVs; and expression quantitative trait loci, or eQTLs to genes), and followed by phenotypes (e.g., gene expression). For example, if the data contains one GV, then the first column of the input matrix is the GV and the remaining columns are the gene expression data.
 }
 
-\item{suffStat}{A \link{list} of sufficient statistics when the correlation matrix may be used directly for hypothesis testing. This is usually the case when the data is continuous or can be viewed as continuous. This list contains the correlation matrix of the data and the sample size, which are the necessary elements for the conditional independence tests in gaussCItest. This argument is not needed when the data is discrete.
+\item{suffStat}{A list of sufficient statistics. When the data is continuous or can be viewed as continuous, this list contains the correlation matrix of the data and the sample size, which are the necessary elements for the conditional independence tests in gaussCItest. When the data is discrete, this list contains the entire dataset.
 } 
 
 \item{GV}{The number of genetic variants (SNPs/indels/CNV/eQTL) in the input data matrix. For example, if the data has one SNPs/indels/CNV/eQTL, first column, then GV = 1, if 2 SNPs/indels/CNV/eQTL, 1st and 2nd Column, then GV = 2, if no GV then GV = 0, and so on.
@@ -346,9 +346,11 @@ data <- data_examples$simple$disc$withGV$data
 n <- nrow (data)    # Sample size
 V <- colnames (data) # Node labels
 
-# Infer the graph by MRPC
-data.mrpc.disc.withGV <- MRPC (data, GV = 1, FDR = 0.05, indepTest = 'disCItest', labels = V, FDRcontrol = 'LOND', verbose = FALSE)
+suffStat <- list (dm = data, adaptDF = FALSE, n.min = 1000) # need different suffStat for discrete data
 
+# Infer the graph by MRPC
+
+data.mrpc.disc.withGV <- MRPC (data, suffStat = suffStat, GV = 1, FDR = 0.05, indepTest = 'disCItest', labels = V, FDRcontrol = TRUE, verbose = FALSE)
 
 # Discrete data without genetic variants
 data <- data_examples$simple$disc$withoutGV$data
@@ -356,9 +358,11 @@ data <- data_examples$simple$disc$withoutGV$data
 n <- nrow (data)    # Sample size
 V <- colnames (data) # Node labels
 
-# Infer the graph by MRPC
-data.mrpc.disc.withoutGV <- MRPC (data, GV = 0, FDR = 0.05, indepTest = 'disCItest', labels = V, FDRcontrol = 'LOND', verbose = FALSE)
+suffStat <- list (dm = data, adaptDF = FALSE)
 
+# Infer the graph by MRPC
+
+data.mrpc.disc.withoutGV <- MRPC (data, suffStat = suffStat, GV = 0, FDR = 0.05, indepTest = 'disCItest', labels = V, FDRcontrol = TRUE, verbose = FALSE)
 
 # Plots of true and inferred graphs on discrete data
 par (mfrow = c (2,2))
