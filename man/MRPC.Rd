@@ -170,6 +170,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 \link{ModiSkeleton} for inferring a graph skeleton (i.e., an undirected graph); \link{EdgeOrientation} for edge orientation in the inferred graph skeleton; \link{SimulateData} for generating data under a topology.
 }
 \examples{
+ \donttest{
 # Load packages
 # We compare different simulated data across six methods: MRPC, 
 # PC in pcalg (Kalisch et al., 2012), and pc.stable, mmpc mmhc and hc in
@@ -372,3 +373,4 @@ plot (data_examples$simple$disc$withoutGV$graph, main = "truth")
 plot (data.mrpc.disc.withoutGV, main = "inferred")
 
 }
+    }
