@@ -43,7 +43,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
-
+\donttest{
 # Continuous data with genetic varitant (GV)
 # load the data
 data("data_examples")  
@@ -226,3 +226,4 @@ plot(data_examples$complex$cont$withGV$graph,
 plot(MRPC.addis,
      main = 'Inferred graph')
 }
+  }
