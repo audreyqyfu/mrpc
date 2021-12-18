@@ -5,7 +5,7 @@
 Comparison of inference accuracy of different methods on data with and without a v-structure
 }
 \description{
-This function compares inference accuracy on graphs with and without a v-structure in terms of recall and precision by six methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, \link{mmhc}, and \link{hc}, across multiple data sets. See details in  Badsha and Fu, 2019 and Badsha et al., 2018.
+This function compares inference accuracy on graphs with and without a v-structure in terms of recall and precision by six methods \link{MRPC}, \link{pc}, \link{pc.stable}, \link{mmpc}, \link{mmhc}, and \link{hc}, across multiple data sets. See details in  Badsha and Fu, 2019 and Badsha et al., 2021.
 }
 \usage{
 CompareMethodsVStructure(N, signal, model, includeGV, ita)
@@ -35,7 +35,7 @@ Matrix
 \references{
 1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
 
-2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899.
+2. Badsha MB, Martin EA and Fu AQ (2021). An R Package for Inference of Causal Graphs. Frontiers in Genetics, 10(651812).
   
 3. Kalisch M, Machler M, Colombo D, Maathuis MH and Buhlmann P (2012). Causal Inference Using Graphical Models with the R Package pcalg. Journal of Statistical Software, 47, 26.
 
@@ -50,6 +50,8 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 \link{RecallPrecision}: Performance evaluation in terms of recall and precision.
 }
 \examples{
+  
+ \donttest{
 # For demonstration purposes, only 10 data sets 
 # with a sample size of 100 and signal is 1, are simulated here.
 
@@ -68,3 +70,4 @@ Result2 <- CompareMethodsVStructure(N = 100,
                                     ita = 10)
 
 }
+  }
