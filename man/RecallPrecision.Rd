@@ -37,7 +37,7 @@ The weight for the edge direction.
 }
 }
 \details{
-We consider it more important to be able to identify the presence of an edge than to also get the direct correct. Therefore, we assign 1 as the default to an edge with the correct direction and 0.5 to an edge with the wrong direction or no direction (Badsha and Fu, 2019; Badsha et al., 2018).
+We consider it more important to be able to identify the presence of an edge than to also get the direct correct. Therefore, we assign 1 as the default to an edge with the correct direction and 0.5 to an edge with the wrong direction or no direction (Badsha and Fu, 2019; Badsha et al., 2021).
 }
 
 \value{
@@ -57,7 +57,7 @@ A \link{list} of object that containing the following:
 \references{
 1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
   
-2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899. 
+2. Badsha MB, Martin EA and Fu AQ (2021). An R Package for Inference of Causal Graphs. Frontiers in Genetics, 10(651812). 
 }
 \author{
 Md Bahadur Badsha (mbbadshar@gmail.com)
