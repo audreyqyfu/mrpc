@@ -17,6 +17,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
+  \donttest{
 # Load packages
 
 library(MRPC)     # MRPC
@@ -213,3 +214,4 @@ plot (MRPC.fit_withoutliers_R1, main = "MRPC")
 plot (pc.fit_withoutliers_R1, main = "pc")
 
 }
+  }
