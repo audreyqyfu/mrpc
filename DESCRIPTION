@@ -1,7 +1,7 @@
 Package: MRPC
 Type: Package
 Version: 3.0.0
-Date: 2020-10-03
+Date: 2021-12-14
 Title: PC Algorithm with the Principle of Mendelian Randomization
 Author: Md Bahadur Badsha [aut,cre],Evan A Martin [ctb] and Audrey Qiuyan Fu [aut]
 Maintainer: Md Bahadur Badsha <mbbadshar@gmail.com>
@@ -9,11 +9,11 @@ Description: A PC Algorithm with the Principle of Mendelian Randomization. This 
             (PC with the principle of Mendelian randomization) algorithm to infer causal graphs. It also 
             contains functions to simulate data under a certain topology, to visualize a graph in different 
             ways, and to compare graphs and quantify the differences. 
-            See Badsha and Fu (2019) <https://doi.org/10.3389/fgene.2019.00460>,Badsha, Martin and Fu (2018) <arXiv:1806.01899>. 
+            See Badsha and Fu (2019) <doi:10.3389/fgene.2019.00460>,Badsha, Martin and Fu (2021) <doi:10.3389/fgene.2021.651812>. 
 License: GPL (>= 2)
 Depends: R (>= 3.6)
 LazyData: TRUE
 Imports:bnlearn,compositions,dynamicTreeCut,GGally,fastcluster,gtools,graph,graphics,Hmisc,methods,mice,
         network,pcalg,psych,Rgraphviz,stats,sna,utils,WGCNA,plyr
 NeedsCompilation: no
-Packaged: 2019-11-15 18:07:43 UTC; mdbadsha
+Packaged: 2021-12-14 18:07:43 UTC; mdbadsha
