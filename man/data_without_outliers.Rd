@@ -18,6 +18,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
+  \donttest{
 # Load packages
 
 library(MRPC)     # MRPC
@@ -110,3 +111,4 @@ graphviz.plot (mmpc_withoutoutliers, main = "mmpc")
 graphviz.plot (mmhc_withoutoutliers, main = "mmhc")
 graphviz.plot (hc_withoutoutliers, main = "hc")
 }
+  }
