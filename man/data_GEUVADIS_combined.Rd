@@ -36,7 +36,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 
 \examples{
 
-\donttest{
+\dontrun{
 # Examining principal components (PCs) as potential confounders in analysis of the GEUVADIS data
   
 library(MRPC) # MRPC

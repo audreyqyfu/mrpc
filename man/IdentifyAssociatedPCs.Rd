@@ -47,7 +47,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 \examples{
 
-\donttest{
+\dontrun{
 
 # Load genomewide gene expression data in GEUVADIS 
 # 373 individuals

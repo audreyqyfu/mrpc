@@ -107,6 +107,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
+\dontrun{
 showClass("MRPCclass")
 
 # Generate a MRPCclass object
@@ -138,5 +139,6 @@ summary(MRPC.fit)
 # Access slots of this object
 (g  <- MRPC.fit@graph)
 str(ss <- MRPC.fit@sepset, max = 1)
+}
 }
 \keyword{classes}

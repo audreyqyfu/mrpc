@@ -9,7 +9,8 @@ This function performs the second step of the \link{MRPC} algorithm where it det
 }
 \usage{
 EdgeOrientation(gInput, GV, suffStat, FDR, alpha, indepTest, 
-                FDRcontrol, tau = 0.5, lambda = 0.25, verbose = FALSE)
+                FDRcontrol = c("LOND", "ADDIS", "NONE"), 
+                tau = 0.5, lambda = 0.25, verbose = FALSE)
 
 }
 
@@ -28,7 +29,7 @@ False discovery rate (number between 0 and 1). If FDR = 0.05, this ensures that 
 
 \item{indepTest}{A \link{function} for testing conditional independence. It is used to test the conditional independence of x and y given S, called as indepTest(x, y, S, suffStat). Where, x and y are variables, and S is a vector, possibly empty, of variables. suffStat is a list, see the argument above. The return value of indepTest is the p-value of the test for conditional independence. There are three options for different data types, for example, Gaussian data = gaussCItest, discrete data = disCItest and Binary data = binCItest. See help(gaussCItest)}
 
-\item{FDRcontrol}{(optional) A character string specifying the method used for online FDR control. The two options are either LOND (Javanmard and Montanari, 2015) or ADDIS (Tian and Ramdas, 2019). If this is left blank a fixed significance level, alpha, will be used for each test.}
+\item{FDRcontrol}{A character string specifying whether online FDR control should be applied, and if so, what method to use. The two FDR control options are "LOND" (Javanmard and Montanari, 2015) or "ADDIS" (Tian and Ramdas, 2019). If "NONE" is specified, the type I error rate "alpha" will be used for each test.}
 
 \item{tau}{A number between 0 and 1. This value is used to determine if a p-value will be considered for testing. For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
 
@@ -115,6 +116,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
+\dontrun{
 
 # Load predefined data
 # Data pre-processing
@@ -185,5 +187,6 @@ plot(Edge_orientation,
 # Truth <- MRPCtruth$Layered
 # data <- simu_data_layered
 
+}
 }
 

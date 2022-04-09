@@ -3,9 +3,17 @@
 MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("gaussCItest","disCItest", "citest"), labels, p, fixedGaps = NULL,
                fixedEdges = NULL, NAdelete = TRUE, m.max = Inf, u2pd = c("relaxed", "rand", "retry"),
                skel.method = c("stable", "original", "stable.fast"), conservative = FALSE, maj.rule = FALSE,
-               solve.confl = FALSE, FDRcontrol = c("LOND", "ADDIS"), tau = 0.5, lambda = 0.25, verbose = FALSE)
+               solve.confl = FALSE, FDRcontrol = c("LOND", "ADDIS", "NONE"), tau = 0.5, lambda = 0.25, verbose = FALSE)
 {
   cl <- match.call()
+  
+  if (FDRcontrol == "LOND") {
+      cat ("Using the LOND method for online FDR control at FDR = ", FDR, "\n")
+  } else if (FDRcontrol == "ADDIS") {
+      cat ("Using the ADDIS method for online FDR control at FDR = ", FDR, "\n")
+  } else if (FDRcontrol == "NONE") {
+      cat ("Not applying error control. The type I error rate for each test is ", alpha, "\n")
+  }
   
   if (!missing(p))
     stopifnot(is.numeric(p), length(p <- as.integer(p)) ==
@@ -34,8 +42,9 @@ MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("g
   }
   if (conservative && maj.rule)
     stop("Choose either conservative PC or majority rule PC!")
+    
   if (verbose)
-  cat ("test for independence:", indepTest, "\n")
+  cat ("Test for independence:", indepTest, "\n")
   skel <- ModiSkeleton(data, suffStat, FDR = FDR, alpha = alpha, indepTest = indepTest,
                        labels = labels, method = skel.method, fixedGaps = fixedGaps,
                        fixedEdges = fixedEdges, NAdelete = NAdelete, m.max = m.max, 

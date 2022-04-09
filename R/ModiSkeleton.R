@@ -2,7 +2,7 @@
 
 ModiSkeleton <- function (data, suffStat, FDR, alpha, indepTest = c("gaussCItest", "disCItest","citest"), labels, p,
                           method = c("stable", "original", "stable.fast"), m.max = Inf, fixedGaps = NULL,
-                          fixedEdges = NULL, NAdelete = TRUE, FDRcontrol = c("LOND", "ADDIS"), 
+                          fixedEdges = NULL, NAdelete = TRUE, FDRcontrol = c("LOND", "ADDIS", "NONE"),
                           tau = 0.5, lambda = 0.25, verbose = FALSE) {
   cl <- match.call()
   if (!missing(p))
@@ -265,7 +265,7 @@ ModiSkeleton <- function (data, suffStat, FDR, alpha, indepTest = c("gaussCItest
                 }
                 
                 
-              } else {
+              } else if (FDRcontrol == 'NONE') {
                 Alpha <- alpha #if want to use fixed significance level 
               }
               if (verbose)

@@ -58,6 +58,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 \link{PlotDendrogram}
 }
 \examples{
+\dontrun{
 # Adjacency matrix from a graph in the example
 Adj_directed <- as(data_examples$complex$cont$withGV$graph,
                    "matrix")
@@ -77,5 +78,6 @@ PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
 
 # Plot the graph with nodes in different colors
 plot(PlotGraphWithModulesObj) 
+}
 }
 

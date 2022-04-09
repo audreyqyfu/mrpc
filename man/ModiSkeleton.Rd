@@ -11,7 +11,7 @@ This function infers a graph skeleton (i.e., an undirected graph). It is based o
 ModiSkeleton(data, suffStat, FDR, alpha, indepTest, labels, p,
              method = c("stable", "original", "stable.fast"),
              m.max = Inf, fixedGaps = NULL, fixedEdges = NULL,
-             NAdelete = TRUE, FDRcontrol = c("LOND", "ADDIS"),
+             NAdelete = TRUE, FDRcontrol = c("LOND", "ADDIS", "NONE"),
              tau, lambda, verbose = FALSE)
 }
 
@@ -53,7 +53,7 @@ Desired overall FDR level.
 
 \item{NAdelete}{(optional) If indepTest returns NA and this option is TRUE, the corresponding edge is deleted. If this option is FALSE, the edge is not deleted.}
 
-\item{FDRcontrol}{(optional) A character string specifying the method used for online FDR control. The two options are either LOND (Javanmard and Montanari, 2015) or ADDIS (Tian and Ramdas, 2019). If this is left blank a fixed significance level, alpha, will be used for each test.}
+\item{FDRcontrol}{A character string specifying whether online FDR control should be applied, and if so, what method to use. The two FDR control options are "LOND" (Javanmard and Montanari, 2015) or "ADDIS" (Tian and Ramdas, 2019). If "NONE" is specified, the type I error rate "alpha" will be used for each test.}
 
 \item{tau}{A number between 0 and 1. This value is used to determine if a p-value will be considered for testing. For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
 
@@ -140,6 +140,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
  \link{MRPC}; \link{EdgeOrientation}; \link{SimulateData}.
 }
 \examples{
+\dontrun{
 
 # Load predefined simulated data
 # Data pre-processing
@@ -198,5 +199,6 @@ plot(Skel.fit@graph,
 # Model Layered
 # data <- simu_data_layered
 
+}
 }
 

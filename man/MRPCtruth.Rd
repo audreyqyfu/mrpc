@@ -17,6 +17,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
+\dontrun{
 data("MRPCtruth") # load data
 
 # Plots
@@ -37,5 +38,6 @@ plot(MRPCtruth$Star,
      main = "Star")
 plot(MRPCtruth$Layered,
      main = "Layered")
-
+     
+}
 }

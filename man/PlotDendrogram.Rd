@@ -64,6 +64,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 \link{MRPC}.
 }
 \examples{
+\dontrun{
 # Adjacency matrix from directed example graph
 Adj_directed <- as(data_examples$complex$cont$withGV$graph,
                    "matrix")
@@ -71,5 +72,7 @@ Adj_directed <- as(data_examples$complex$cont$withGV$graph,
 # Plot of dendrogram with modules colors of nodes
 PlotDendrogramObj <- PlotDendrogram(Adj_directed,
                                     minModuleSize = 5)
+                                    
+}
 }
 

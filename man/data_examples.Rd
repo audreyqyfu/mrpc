@@ -43,7 +43,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
-\donttest{
+\dontrun{
 # Continuous data with genetic varitant (GV)
 # load the data
 data("data_examples")  

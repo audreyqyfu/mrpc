@@ -17,7 +17,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
-  \donttest{
+  \dontrun{
 # Load packages
 
 library(MRPC)     # MRPC

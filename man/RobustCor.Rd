@@ -46,9 +46,11 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \examples{
+\dontrun{
 RobustCor_objects <- RobustCor(simu_data_M0,
                                Beta = 0.005,
                                plot = FALSE)
                
 Rcorr <- RobustCor_objects $RR  # Correlation matrix
+}
 }

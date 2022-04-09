@@ -15,7 +15,7 @@ MRPC(data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest, labels, p,
     skel.method = c("stable", "original", "stable.fast"),
     conservative = FALSE,
     maj.rule = FALSE, solve.confl = FALSE,
-    FDRcontrol = c("LOND", "ADDIS"), tau = 0.5, lambda = 0.25,
+    FDRcontrol = c("LOND", "ADDIS", "NONE"), tau = 0.5, lambda = 0.25,
     verbose = FALSE)
 }
 
@@ -29,11 +29,10 @@ Data matrix, where the rows are observations and the columns are features (i.e.,
 \item{suffStat}{A list of sufficient statistics. When the data is continuous or can be viewed as continuous, this list contains the correlation matrix of the data and the sample size, which are the necessary elements for the conditional independence tests in gaussCItest. When the data is discrete, this list contains the entire dataset.
 } 
 
-\item{GV}{The number of genetic variants (SNPs/indels/CNV/eQTL) in the input data matrix. For example, if the data has one SNPs/indels/CNV/eQTL, first column, then GV = 1, if 2 SNPs/indels/CNV/eQTL, 1st and 2nd Column, then GV = 2, if no GV then GV = 0, and so on.
+\item{GV}{The number of genetic variants (SNPs/indels/CNV/eQTL) in the input data matrix. For example, if the data has one variant, which is in the first column, then GV = 1. If there are two variants, which are in the first and second Columns, then GV = 2. If there are no variants, then GV = 0.
 }
 
-\item{FDR}{
-Need to specify the desired level of the overall false discovery rate. 
+\item{FDR}{Need to specify the desired level of the overall false discovery rate. 
 }
 \item{alpha}{significance level (number in (0,1) for the individual tests.}
     
@@ -66,7 +65,7 @@ Remember that need to specify the which indepTest would like for independence te
 
 \item{solve.confl}{(optional) If TRUE, the orientation of the v-structures and the orientation rules work with lists for candidate sets and allow bi-directed edges to resolve conflicting edge orientations. In this case, only option u2pd = "relaxed" is supported. Note that the resulting object might not be a CPDAG because bi-directed edges might be present. See details for more information.}
 
-\item{FDRcontrol}{(optional) A character string specifying the method used for online FDR control. The two options are either LOND (Javanmard and Montanari, 2015) or ADDIS (Tian and Ramdas, 2019). If this is left blank a fixed significance level, alpha, will be used for each test.}
+\item{FDRcontrol}{A character string specifying whether online FDR control should be applied, and if so, what method to use. The two FDR control options are "LOND" (Javanmard and Montanari, 2015) or "ADDIS" (Tian and Ramdas, 2019). If "NONE" is specified, the type I error rate "alpha" will be used for each test.}
 
 \item{tau}{A number between 0 and 1. This value is used to determine if a p-value will be considered for testing. For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
 
@@ -170,11 +169,13 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 \link{ModiSkeleton} for inferring a graph skeleton (i.e., an undirected graph); \link{EdgeOrientation} for edge orientation in the inferred graph skeleton; \link{SimulateData} for generating data under a topology.
 }
 \examples{
- \donttest{
+ \dontrun{
 # Load packages
-# We compare different simulated data across six methods: MRPC, 
-# PC in pcalg (Kalisch et al., 2012), and pc.stable, mmpc mmhc and hc in
-# bnlearn (Marco Scutari, 2010)
+
+# We compare six methods on simulated data:
+# MRPC, 
+# pc in pcalg (Kalisch et al., 2012), 
+# and pc.stable, mmpc mmhc and hc in bnlearn (Marco Scutari, 2010)
 
 library(MRPC)     # MRPC
 library(pcalg)    # pc
@@ -182,13 +183,14 @@ library(bnlearn)  # pc.stable, mmpc, mmhc and hc
 
 # Data pre-processing
 # The 1st column of the input matrix will be the genotype of the
-# expression quantitative trait loci (eQTL)/Copy number variation (CNV)
+# genetic variants, such as
+# expression quantitative trait loci (eQTLs) or copy number variation (CNV),
 # and the remaining columns are the gene expression data.
 
 # We used pre-assigned level alpha = 0.05 that ensures FDR and mFDR
 # will remain below 0.05.
 
-# Load predefined simulated data
+# Load simulated data
 # Model 1
 Truth <- MRPCtruth$M1   # Truth for model 1
 data <- simu_data_M1    # load data for model 1
@@ -200,6 +202,7 @@ suffStat_C <- list(C = cor(data),
                    n = n)
 
 # Infer the graph by MRPC
+# using the LOND method for FDR control
 MRPC.fit <- MRPC(data,
                 suffStat = suffStat_C,
                 GV = 1,
@@ -209,14 +212,15 @@ MRPC.fit <- MRPC(data,
                 FDRcontrol = 'LOND',
                 verbose = FALSE)
 
-# Infer the graph by PC
+# Infer the graph by pc
 pc.fit <- pc(suffStat = suffStat_C,
              indepTest = gaussCItest,
              alpha = 0.05,
              labels = V,
              verbose = FALSE)
 
-# arcs not to be included from gene expression to genotype used in pc.stable, mmpc 
+# arcs (from gene expression to genotype) to be excluded 
+# in pc.stable and mmpc 
 bl <- data.frame (from = colnames (data)[-1], 
                   to = 'V1')
 
@@ -286,19 +290,16 @@ plot(data_examples$complex$cont$withGV$graph,
 plot(MRPC.addis,
      main = 'Inferred graph')
     
-# Another option for plot of the results. First fig is the nodes
-# dendrogram with colored modules. Second fig is the plot of the graph
-# with color based on modules.
-# To idendify modules and complex graph (Suitable if you have many nodes)
+# Other graph visualizations 
 # Adjacency matrix from directed graph
 Adj_directed <- as(MRPC.fit@graph,
                    "matrix")
 
-# Plot of dendrogram with modules colors of nodes
+# Plot of dendrogram with modules of different colors
 PlotDendrogramObj <- PlotDendrogram(Adj_directed,
                                     minModuleSize = 2)
                   
-# Visualization of inferred graph with modules colors
+# Visualization of inferred graph with module colors
 PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
                                                 PlotDendrogramObj,
                                                 GV = 1,
@@ -347,11 +348,18 @@ data <- data_examples$simple$disc$withGV$data
 n <- nrow (data)    # Sample size
 V <- colnames (data) # Node labels
 
-suffStat <- list (dm = data, adaptDF = FALSE, n.min = 1000) # need different suffStat for discrete data
+# need different suffStat for discrete data
+suffStat <- list (dm = data, adaptDF = FALSE, n.min = 1000) 
 
 # Infer the graph by MRPC
-
-data.mrpc.disc.withGV <- MRPC (data, suffStat = suffStat, GV = 1, FDR = 0.05, indepTest = 'disCItest', labels = V, FDRcontrol = TRUE, verbose = FALSE)
+data.mrpc.disc.withGV <- MRPC (data, 
+                               suffStat = suffStat, 
+                               GV = 1, 
+                               FDR = 0.05, 
+                               indepTest = 'disCItest', 
+                               labels = V, 
+                               FDRcontrol = 'LOND', 
+                               verbose = FALSE)
 
 # Discrete data without genetic variants
 data <- data_examples$simple$disc$withoutGV$data
@@ -362,8 +370,14 @@ V <- colnames (data) # Node labels
 suffStat <- list (dm = data, adaptDF = FALSE)
 
 # Infer the graph by MRPC
-
-data.mrpc.disc.withoutGV <- MRPC (data, suffStat = suffStat, GV = 0, FDR = 0.05, indepTest = 'disCItest', labels = V, FDRcontrol = TRUE, verbose = FALSE)
+data.mrpc.disc.withoutGV <- MRPC (data, 
+                                  suffStat = suffStat, 
+                                  GV = 0, 
+                                  FDR = 0.05, 
+                                  indepTest = 'disCItest', 
+                                  labels = V, 
+                                  FDRcontrol = 'LOND', 
+                                  verbose = FALSE)
 
 # Plots of true and inferred graphs on discrete data
 par (mfrow = c (2,2))
