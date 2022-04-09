@@ -1,6 +1,6 @@
 Package: MRPC
 Type: Package
-Version: 3.0.1
+Version: 3.1.0
 Date: 2022-04-07
 Title: PC Algorithm with the Principle of Mendelian Randomization
 Author: Md Bahadur Badsha [aut,cre],Evan A Martin [ctb] and Audrey Qiuyan Fu [aut]
@@ -16,4 +16,3 @@ LazyData: TRUE
 Imports:bnlearn,compositions,dynamicTreeCut,GGally,fastcluster,gtools,graph,graphics,Hmisc,methods,mice,
         network,pcalg,psych,Rgraphviz,stats,sna,utils,WGCNA,plyr
 NeedsCompilation: no
-Packaged: 2021-12-14 18:07:43 UTC; mdbadsha

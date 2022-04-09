@@ -47,13 +47,9 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 
 }
 \examples{
-
-# Data pre-processing
-
-# If you use only one genotype of the expression quantitative trait loci
-# (eQTL)/Copy number variation (CNV), the 1st column of
-# the input matrix will be #eQTL/CNV and the remaining
-# columns are the gene expression data.
+# When there is one genetic variant, the 1st column of
+# the simulated data matrix will be the variant and the remaining
+# columns are the gene expression nodes.
 
 
 ## Model 0

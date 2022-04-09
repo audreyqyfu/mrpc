@@ -1,9 +1,7 @@
 #This is the main function of MRPC algorithm combine with ModiSkeleton and EdgeOrientation
 
-MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("gaussCItest","disCItest", "citest"), labels, p, fixedGaps = NULL,
-               fixedEdges = NULL, NAdelete = TRUE, m.max = Inf, u2pd = c("relaxed", "rand", "retry"),
-               skel.method = c("stable", "original", "stable.fast"), conservative = FALSE, maj.rule = FALSE,
-               solve.confl = FALSE, FDRcontrol = c("LOND", "ADDIS", "NONE"), tau = 0.5, lambda = 0.25, verbose = FALSE)
+MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("gaussCItest","disCItest", "citest"), labels, p,
+               FDRcontrol = c("LOND", "ADDIS", "NONE"), tau = 0.5, lambda = 0.25, verbose = FALSE)
 {
   cl <- match.call()
   
@@ -37,24 +35,14 @@ MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("g
       stop("'p' is not needed when 'labels' is specified, and must match length(labels)")
     else message("No need to specify 'p', when 'labels' is given")
   }
-  u2pd <- match.arg(u2pd)
-  skel.method <- match.arg(skel.method)
-  if (u2pd != "relaxed") {
-    if (conservative || maj.rule)
-      stop("Conservative PC and majority rule PC can only be run with 'u2pd = relaxed'")
-    if (solve.confl)
-      stop("Versions of PC using lists for the orientation rules (and possibly bi-directed edges)\n can only be run with 'u2pd = relaxed'")
-  }
-  if (conservative && maj.rule)
-    stop("Choose either conservative PC or majority rule PC!")
-    
+  
   if (verbose)
   cat ("Test for independence:", indepTest, "\n")
   
   # Step I: Infer the graph skeleton
   skel <- ModiSkeleton(data, suffStat, FDR = FDR, alpha = alpha, indepTest = indepTest,
-                       labels = labels, method = skel.method, fixedGaps = fixedGaps,
-                       fixedEdges = fixedEdges, NAdelete = NAdelete, m.max = m.max, 
+                       labels = labels, method = "stable", fixedGaps = NULL,
+                       fixedEdges = NULL, NAdelete = TRUE, m.max = Inf,
                        FDRcontrol = FDRcontrol, tau = tau, lambda = lambda,
                        verbose = verbose)
   skel@call <- cl

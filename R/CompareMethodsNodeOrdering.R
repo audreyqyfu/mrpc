@@ -88,7 +88,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
            
            for (e in 1:n_data) {
              
-             cat ("n_data=", e)
+             cat ("Dataset:", e, "\n")
              
              # Simulate data for the true1.
              
@@ -130,7 +130,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
              
              for (j in 1:n_nodeordering) {
                
-               cat ("n_nodeordering=", j)
+               cat ("Node ordering:", j, "\n")
                
                # Create a new ordering for the T nodes.
                
@@ -305,7 +305,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
            
            for (e in 1:n_data) {
              
-             cat ("n_data=", e)
+             cat ("Dataset:", e, "\n")
              
              # Simulate data for the true2.
              
@@ -348,7 +348,7 @@ CompareMethodsNodeOrdering <- function (N, signal,model,n_data, n_nodeordering) 
              
              for (j in 1:n_nodeordering) {
                
-               cat ("n_nodeordering=", j)
+               cat ("Node ordering:", j, "\n")
                
                # Create a new ordering for the T nodes.
                
