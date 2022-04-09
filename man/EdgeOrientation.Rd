@@ -23,7 +23,7 @@ EdgeOrientation(gInput, GV, suffStat, FDR, alpha, indepTest,
 }
 
 \item{FDR}{
-False discovery rate (number between 0 and 1). If FDR = 0.05, this ensures that the FDR and mFDR remains below 0.05.}
+False discovery rate (number between 0 and 1). If FDR = 0.05, this ensures that the FDR remains below 0.05.}
                 
 \item{alpha}{Significance level (number in (0,1) for the individual tests.}
 
@@ -39,7 +39,7 @@ False discovery rate (number between 0 and 1). If FDR = 0.05, this ensures that 
 }
                                  
 \details{
-The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu, 2019 and Badsha et al., 2018. For example, we consider x to be a genetic variant, y and z the phenotype nodes.
+The orientation of the edge directions based on the principle of Mendelian randomization involves four cases, which are four of the five basic models in Badsha and Fu (2019) and Badsha et al.(2021). For example, we consider x to be a genetic variant, y and z the phenotype nodes.
 
 The four cases are as follows:
 
@@ -101,9 +101,9 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \references{
-1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10:460.
 
-2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv arXiv:1806.01899.
+2. Badsha MB, Martin EA and Fu AQ (2021). MRPC: An R Package for inference of causal graphs. Frontiers in Genetics, 10:651812.
 
 3. Javanmard A and Montanari A (2015). On Online Control of False Discovery Rate. arXiv:150206197 [statME].
 
@@ -117,16 +117,12 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 
 \examples{
 \dontrun{
-
-# Load predefined data
-# Data pre-processing
-
-# The 1st column of the input matrix will be the
-# genetic variant and the remaining columns are the gene expression data.
-
-# Model 1
+# Model 1 (mediation)
 Truth <- MRPCtruth$M1   # Truth for model 1
-data <- simu_data_M1    # data load for model 1
+
+# The 1st column of the data matrix is a genetic variant
+# and the remaining columns are gene expression nodes.
+data <- simu_data_M1 # load data for model 1
 n <- nrow (data)        # Number of row
 V <- colnames(data)     # Column names
 

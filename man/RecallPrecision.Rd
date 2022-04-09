@@ -5,7 +5,7 @@
 Calculate recall and precision for two graphs
 }
 \description{
-This function counts the number of true and false positives, and calculates recall and precision, which are defined as follows:
+This function counts the number of true and false positives, and calculates recall (i.e., power) and precision (i.e., 1-FDR), which are defined as follows:
   
 Recall = (# edges correctly identified in inferred graph) / (# edges in true graph). 
   
@@ -23,10 +23,10 @@ First graph object, from the true graph
 Second graph object, from the inferred graph
 }
   \item{GV}{
-The number of genetic variants (SNPs/indels/CNV/eQTL) in the input data. For example, if the data has one genetic variant, first column, then GV = 1, if 2, 1st and 2nd Column, then GV = 2, and so on.
+The number of genetic variants (SNPs/indels/CNV/eQTLs) in the input data matrix. For example, if the data has one variant, which is in the first column, then GV = 1. If there are two variants, which are in the first and second Columns, then GV = 2. If there are no variants, then GV = 0.
 }
 \item{includeGV}{
-If TRUE, include edges involving genetic variants (GV) when calculating recall and precision. If FALSE, excluded edges involving genetic variants (GV) when calculating recall and precision.
+If TRUE, include edges involving genetic variants (GV) when calculating recall and precision. If FALSE, exclude edges involving genetic variants (GV) when calculating recall and precision.
 }
 
 \item{edge.presence}{
@@ -55,9 +55,9 @@ A \link{list} of object that containing the following:
 }
 
 \references{
-1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
-  
-2. Badsha MB, Martin EA and Fu AQ (2021). An R Package for Inference of Causal Graphs. Frontiers in Genetics, 10(651812). 
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10:460.
+
+2. Badsha MB, Martin EA and Fu AQ (2021). MRPC: An R package for inference of causal graphs. Frontiers in Genetics, 10:651812.
 }
 \author{
 Md Bahadur Badsha (mbbadshar@gmail.com)

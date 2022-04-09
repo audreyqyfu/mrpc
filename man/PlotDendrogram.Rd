@@ -60,6 +60,10 @@ A list containing the graph objects as follows:
 Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
+\references{
+1. Badsha MB, Martin EA and Fu AQ (2021). MRPC: An R package for inference of causal graphs. Frontiers in Genetics, 10:651812. 
+}
+
 \seealso{
 \link{MRPC}.
 }

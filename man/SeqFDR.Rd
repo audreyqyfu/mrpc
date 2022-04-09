@@ -27,17 +27,14 @@ All of the decisions from the tests that have already been performed.
 }
 }
 \details{
-We used the LOND (significance Levels based On Number of Discoveries) algorithm that controls FDR and mFDR in an online manner (Javanmard and Montanari, 2015). Where the significance level, alpha, is based on the total number of discoveries made so far. Which is similar to the algorithm called alpha-investing rules introduced by (Foster and Staine, 2007) to control only mFDR in an online manner.
+We used the LOND (significance Levels based On Number of Discoveries) algorithm that controls FDR in an online manner (Javanmard and Montanari, 2015). The significance level (i.e., the type I error rate) is dynamic and based on the total number of discoveries made so far. 
 
 }
 \value{
 The value of alpha.
 }
 \references{
-1. Javanmard A and Montanari A (2015). On Online Control of False Discovery Rate. arXiv:150206197 [statME].
-
-2. Foster DP and Stine RA (2007). Alpha-investing: A procedure for sequential control of expected false discoveries. http://gosset.wharton.upenn.edu/research/edc.pdf,.
-
+1. Javanmard A and Montanari A (2015). On Online Control of False Discovery Rate. arXiv:150206197.
 }
 \author{
 Md Bahadur Badsha (mbbadshar@gmail.com)

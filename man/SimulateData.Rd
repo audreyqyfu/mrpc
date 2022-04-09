@@ -5,7 +5,7 @@
 Simulate data under certain graphs
 }
 \description{
-This function simulates data using linear models for several graphs: the five basic topologies and three topologies that are common in biology, namely the multi-parent graph, the star graph and the layered graph. See references for details.
+This function simulates data using linear models for several graphs: the five basic topologies and three topologies that are common in biology, namely the multi-parent graph, the star graph and the layered graph. See details in Badsha and Fu (2019) and Badsha et al. (2021).
 }
 \usage{
 SimulateData(N, p, model, b0.1, b1.1, b1.2, b1.3, sd.1)
@@ -25,7 +25,7 @@ SimulateData(N, p, model, b0.1, b1.1, b1.2, b1.3, sd.1)
 }
 
 \details{
-The first column of the input matrix is the genotype of the expression quantitative trait loci (eQTL)/Copy number variation (CNVs) and the remaining columns are the node expression data.
+The first column of the input matrix is a genetic variant and the remaining columns are gene expression nodes.
 }
 
 \value{
@@ -37,9 +37,9 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \references{
-1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
-  
-2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899. 
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10:460.
+
+2. Badsha MB, Martin EA and Fu AQ (2021). MRPC: An R package for inference of causal graphs. Frontiers in Genetics, 10:651812. 
 }
 
 \seealso{

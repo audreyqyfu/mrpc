@@ -5,7 +5,7 @@
 Graphs used as truth in simulation
 }
 \description{
-Topologies of the five basic models and three common graphs in biology: namely the multi-parent graph, the star graph and the layered graph. See details in Badsha and Fu, 2019.
+Topologies of the five basic models and three common graphs in biology: namely the multi-parent graph, the star graph and the layered graph. See details in Badsha and Fu (2019).
 }
 
 \author{
@@ -13,7 +13,7 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
 \references{
-1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).  
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10:460.
 }
 
 \examples{

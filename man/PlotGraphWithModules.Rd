@@ -54,6 +54,10 @@ Other arguments passed to \link{ggnet2}.
 Md Bahadur Badsha (mbbadshar@gmail.com)
 }
 
+\references{
+1. Badsha MB, Martin EA and Fu AQ (2021). MRPC: An R package for inference of causal graphs. Frontiers in Genetics, 10:651812. 
+}
+
 \seealso{
 \link{PlotDendrogram}
 }

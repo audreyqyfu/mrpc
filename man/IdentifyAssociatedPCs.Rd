@@ -5,7 +5,7 @@
 Identifyprincipal components (PCs) that are significantly associated with eQTLs and genes
 }
 \description{
-This function identifies PCs that are significantly associated the eQTLs or genes, and merge the associated PCs with the data on the eQTL and genes.  PCs may be derived from Principal Component Analysis (PCA) of the entire gene expression matrix, and may be viewed as potential confounders in the sequent causal network analysis on the eQTLs and genes.  See details in  Badsha and Fu (2019) and Badsha et al. (2018).
+This function identifies PCs that are significantly associated the eQTLs or genes, and merge the associated PCs with the data on the eQTL and genes.  PCs may be derived from Principal Component Analysis (PCA) of the entire gene expression matrix, and may be viewed as potential confounders in the sequent causal network analysis on the eQTLs and genes.  See details in Badsha and Fu (2019) and Badsha et al. (2021).
 }
 \usage{
 IdentifyAssociatedPCs(PCs.matrix,no.PCs,data,fdr.level,corr.threshold,corr.value)
@@ -33,13 +33,14 @@ A \link{list} of object that containing the following:
 
 }
 
-\references{
-1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
-
-2. Badsha MB, Martin EA and Fu AQ (2018). MRPC: An R package for accurate inference of causal graphs. arXiv:1806.01899.
-}
 \author{
 Md Bahadur Badsha (mbbadshar@gmail.com)
+}
+
+\references{
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10:460.
+
+2. Badsha MB, Martin EA and Fu AQ (2021). MRPC: An R package for inference of causal graphs. Frontiers in Genetics, 10:651812.
 }
 
 \seealso{

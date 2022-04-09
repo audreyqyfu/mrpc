@@ -4,7 +4,7 @@
 \title{Comparison of inference accuracy using the same data but with different node orderings.}
 
 \description{
-Investigate the performance of five methods on the same data but with different node orderings: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2021), \link{pc}, implemented in \code{pcalg} (Kalisch et al., 2012), and \link{pc.stable}, \link{mmpc}, \link{mmhc}, and \link{hc}, the last four all implemented in \code{bnlearn} (Scutari, 2010). See details in Badsha et al., 2021.
+Investigate the performance of five methods on the same data but with different node orderings: \link{MRPC} (Badsha and Fu, 2019; Badsha et al., 2021), \link{pc}, implemented in \code{pcalg} (Kalisch et al., 2012), and \link{pc.stable}, \link{mmpc}, \link{mmhc}, and \link{hc}, the last four all implemented in \code{bnlearn} (Scutari, 2010). See details in Badsha et al.(2021).
 }
 \usage{
 CompareMethodsNodeOrdering(N, signal, model, n_data, n_nodeordering)
@@ -27,9 +27,9 @@ The output is the number of unique graphs inferred by each method across all per
 Matrix
 }
 \references{
-1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10(460).
+1. Badsha MB and Fu AQ (2019). Learning causal biological networks with the principle of Mendelian randomization. Frontiers in Genetics, 10:460.
 
-2. Badsha MB, Martin EA and Fu AQ (2021). An R Package for Inference of Causal Graphs. Frontiers in Genetics, 10(651812).
+2. Badsha MB, Martin EA and Fu AQ (2021). MRPC: An R package for inference of causal graphs. Frontiers in Genetics, 10:651812.
 
 3. Kalisch M, Machler M, Colombo D, Maathuis MH and Buhlmann P (2012). Causal Inference Using Graphical Models with the R Package pcalg. Journal of Statistical Software, 47, 26.
 
