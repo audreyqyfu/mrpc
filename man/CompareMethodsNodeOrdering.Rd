@@ -44,21 +44,20 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 
 \examples{
   \donttest{
-# We will generate 10 different data sets from truth1 (V1-->T1-->T2-->T3) 
-# with signal = 1.0, N = 100 and 6 different T nodes orderings. Therefore, we
-# will get 10 by 6 output matrix, where the rows are 10 independent data 
-# sets and columns are for six methods MRPC, pc, pc.stable, mmpc 
-# mmhc, and hc respectively.
-
+# Load the libraries
 library(MRPC)    #  MRPC
 library(pcalg)   #  pc
 library(bnlearn) #  pc.stable, mmpc, mmhc, and hc
 
-# Run
+# For demonstration purposes, only 10 data sets
+# are simulated from truth1 (V1-->T1-->T2-->T3) 
+# with sample size N = 100, signal = 1.0, 
+# and 6 different T nodes orderings
 Output <- CompareMethodsNodeOrdering(N = 100,
                                      signal = 1.0, 
                                      model = 'truth1',
                                      n_data = 10,
                                      n_nodeordering = 6)
 }
+
   }

@@ -113,7 +113,7 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
                                    suffStat, 
                                    GV = GV, 
                                    FDR = 0.05, 
-                                   FDRcontrol = TRUE, 
+                                   FDRcontrol = 'LOND',
                                    indepTest ='gaussCItest', 
                                    labels = V, 
                                    verbose = FALSE)
@@ -353,7 +353,7 @@ CompareMethodsVStructure <- function(N,signal,model,includeGV,ita) {
                                    suffStat,
                                    GV = GV, 
                                    FDR = 0.05, 
-                                   FDRcontrol = TRUE, 
+                                   FDRcontrol = 'LOND',
                                    indepTest ='gaussCItest',
                                    labels = V,
                                    verbose = FALSE)

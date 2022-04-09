@@ -67,9 +67,9 @@ Remember that need to specify the which indepTest would like for independence te
 
 \item{FDRcontrol}{A character string specifying whether online FDR control should be applied, and if so, what method to use. The two FDR control options are "LOND" (Javanmard and Montanari, 2015) or "ADDIS" (Tian and Ramdas, 2019). If "NONE" is specified, the type I error rate "alpha" will be used for each test.}
 
-\item{tau}{A number between 0 and 1. This value is used to determine if a p-value will be considered for testing. For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
+\item{tau}{A scalar between 0 and 1. This value is used to determine if a p-value will be considered for testing, when FDRcontrol="ADDIS". For example, if a p-value is greater than tau then it is discarded and no test will be performed.}
 
-\item{lambda}{A number between 0 and tau. This value is used to determine if a p-value is a candidate for rejection. For example, if a p-value is smaller than lambda then it can be rejected when testing the hypothesis (if the p-value is smaller than alphai).}
+\item{lambda}{A scalar between 0 and tau. This value is used to determine if a p-value is a candidate for rejection, when FDRcontrol="ADDIS". For example, if a p-value is smaller than lambda then it can be rejected when testing the hypothesis (if the p-value is smaller than alphai).}
 
 \item{verbose}{(optional) If TRUE, detailed output is provided. The default is FALSE which does not print output details.}
 
@@ -298,12 +298,12 @@ Adj_directed <- as(MRPC.addis@graph,
 
 # Plot of dendrogram with modules of different colors
 PlotDendrogramObj <- PlotDendrogram(Adj_directed,
-                                    minModuleSize = 2)
+                                    minModuleSize = 5)
                   
 # Visualization of inferred graph with module colors
 PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
                                                 PlotDendrogramObj,
-                                                GV = 1,
+                                                GV = 14,
                                                 node.size = 8,
                                                 arrow.size = 5,
                                                 label.size = 3,

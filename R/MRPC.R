@@ -7,14 +7,19 @@ MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("g
 {
   cl <- match.call()
   
+  # check FDRcontrol method
   if (FDRcontrol == "LOND") {
       cat ("Using the LOND method for online FDR control at FDR = ", FDR, "\n")
   } else if (FDRcontrol == "ADDIS") {
       cat ("Using the ADDIS method for online FDR control at FDR = ", FDR, "\n")
   } else if (FDRcontrol == "NONE") {
       cat ("Not applying error control. The type I error rate for each test is ", alpha, "\n")
+  } else {
+      stop ("Choose one of the following three options for FDRcontrol: LOND, ADDIS, or NONE")
   }
   
+  # provide either the node labels
+  # or they are generated based on the number of nodes p
   if (!missing(p))
     stopifnot(is.numeric(p), length(p <- as.integer(p)) ==
                 1, p >= 2)
@@ -45,6 +50,8 @@ MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("g
     
   if (verbose)
   cat ("Test for independence:", indepTest, "\n")
+  
+  # Step I: Infer the graph skeleton
   skel <- ModiSkeleton(data, suffStat, FDR = FDR, alpha = alpha, indepTest = indepTest,
                        labels = labels, method = skel.method, fixedGaps = fixedGaps,
                        fixedEdges = fixedEdges, NAdelete = NAdelete, m.max = m.max, 
@@ -52,42 +59,10 @@ MRPC <- function (data, suffStat, GV, FDR = 0.05, alpha = 0.05, indepTest = c("g
                        verbose = verbose)
   skel@call <- cl
   
-  #indepTest <- match.fun (indepTest)
-  #if (GV) {
-    #cat ("test for independence:", indepTest, "\n")
-    #skel <- ModiSkeleton(data,suffStat,GV,FDR,indepTest,labels = labels,
-                         #method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
-                         #NAdelete = NAdelete, m.max = m.max, verbose = verbose)
-    #skel$call <- cl
-    if (!conservative && !maj.rule) {
-      switch(u2pd,relaxed = EdgeOrientation(skel, GV = GV, suffStat, FDR, alpha,
-                                            FDRcontrol = FDRcontrol, indepTest,
-                                            tau = tau, lambda = lambda,
-                                            verbose = verbose))
-    }
-    else {
-      pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha = alpha,
-                            version.unf = c(2, 1), maj.rule = maj.rule,
-                            verbose = verbose)
-      
-      EdgeOrientation(pc.$sk, FDRcontrol = FDRcontrol, tau = tau,
-                      lambda = lambda, verbose = verbose)
-    }
-  #} #else {
-    #skel <- ModiSkeleton(data,suffStat,GV,FDR,indepTest,labels = labels,
-                        # method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
-                         #NAdelete = NAdelete, m.max = m.max, verbose = verbose)
-    #skel$obj@call <- cl
-    #if (!conservative && !maj.rule) {
-     # switch(u2pd, rand = udag2pdag(skel), retry = udag2pdagSpecial(skel)$pcObj,
-            # relaxed = udag2pdagRelaxed(skel$obj, verbose = verbose,
-             #                          solve.confl = solve.confl))
-    #}
-    #else {
-     # pc. <- pc.cons.intern(skel, suffStat, match.fun(indepTest), alpha=FDR,
-                           # version.unf = c(2, 1), maj.rule = maj.rule, verbose = verbose)
-      #udag2pdagRelaxed(pc.$sk, verbose = verbose, unfVect = pc.$unfTripl,
-                      # solve.confl = solve.confl)
-    #}
-  #}
+  # Step II: Orient the edges
+    EdgeOrientation(skel, GV = GV, suffStat, FDR, alpha,
+                                          FDRcontrol = FDRcontrol, indepTest,
+                                          tau = tau, lambda = lambda,
+                                          verbose = verbose)
+                                          
 }

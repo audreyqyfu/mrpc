@@ -344,7 +344,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   # Update the Alpha value with the current alphai value.
                   Alpha <- alphai[[m]]
                   
-                } else {
+                } else if (FDRcontrol == 'NONE') {
                   
                   Alpha <- alpha
                   
@@ -505,7 +505,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   # Update the Alpha value with the current alphai value.
                   Alpha <- alphai[[m]]
                   
-                } else {
+                } else if (FDRcontrol == 'NONE') {
                   
                   Alpha <- alpha
                   
@@ -679,7 +679,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   # Update the Alpha value with the current alphai value.
                   Alpha <- alphai[[m]]
                   
-                } else {
+                } else if (FDRcontrol == 'NONE') {
                   
                   Alpha <- alpha
                   
@@ -838,7 +838,7 @@ EdgeOrientation <- function (gInput, GV, suffStat, FDR, alpha, indepTest,
                   # Update the Alpha value with the current alphai value.
                   Alpha <- alphai[[m]]
                   
-                } else {
+                } else if (FDRcontrol == 'NONE') {
                   
                   Alpha <- alpha
                   

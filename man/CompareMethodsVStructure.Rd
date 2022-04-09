@@ -52,8 +52,14 @@ Md Bahadur Badsha (mbbadshar@gmail.com)
 \examples{
   
  \donttest{
+# Load the libraries
+library(MRPC)     # MRPC
+library(pcalg)    # pc
+library(bnlearn)  # pc.stable, mmpc, mmhc and hc
+
 # For demonstration purposes, only 10 data sets 
-# with a sample size of 100 and signal is 1, are simulated here.
+# are simulated here 
+# with sample size N = 100 and signal = 1
 
 # Comparison of inference accuracy on model 1 without a v-structure 
 Result1 <- CompareMethodsVStructure(N = 100, 
