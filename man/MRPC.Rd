@@ -187,9 +187,7 @@ library(bnlearn)  # pc.stable, mmpc, mmhc and hc
 # expression quantitative trait loci (eQTLs) or copy number variation (CNV),
 # and the remaining columns are the gene expression data.
 
-# We used pre-assigned level alpha = 0.05 that ensures FDR and mFDR
-# will remain below 0.05.
-
+####################################-->    
 # Load simulated data
 # Model 1
 Truth <- MRPCtruth$M1   # Truth for model 1
@@ -261,7 +259,10 @@ graphviz.plot(mmhc.fit,
     main = "(F) mmhc")
 graphviz.plot(hc.fit,
     main = "(G) hc")
-    
+####################################<--    
+
+
+####################################-->    
 # Run MRPC on the complex data set with ADDIS as the FDR control method.
 data <- data_examples$complex$cont$withGV$data
 n <- nrow (data)        # Number of rows
@@ -292,7 +293,7 @@ plot(MRPC.addis,
     
 # Other graph visualizations 
 # Adjacency matrix from directed graph
-Adj_directed <- as(MRPC.fit@graph,
+Adj_directed <- as(MRPC.addis@graph,
                    "matrix")
 
 # Plot of dendrogram with modules of different colors
@@ -308,10 +309,12 @@ PlotGraphWithModulesObj <- PlotGraphWithModules(Adj_directed,
                                                 label.size = 3,
                                                 alpha = 1) 
 
-# Plot 
-plot(PlotGraphWithModulesObj) 
+plot(PlotGraphWithModulesObj)
+####################################<--    
 
 
+
+####################################-->    
 # Other models are available and may be called as follows:
 # Model 0
 # Truth <- MRPCtruth$M0
@@ -340,8 +343,10 @@ plot(PlotGraphWithModulesObj)
 # Model Layered
 # Truth <- MRPCtruth$Layered
 # data <- simu_data_layered
+####################################<--    
 
 
+####################################-->    
 # Discrete data with genetic variants
 data <- data_examples$simple$disc$withGV$data
 
@@ -360,6 +365,7 @@ data.mrpc.disc.withGV <- MRPC (data,
                                labels = V, 
                                FDRcontrol = 'LOND', 
                                verbose = FALSE)
+
 
 # Discrete data without genetic variants
 data <- data_examples$simple$disc$withoutGV$data
@@ -385,6 +391,7 @@ plot (data_examples$simple$disc$withGV$graph, main = "truth")
 plot (data.mrpc.disc.withGV, main = "inferred")
 plot (data_examples$simple$disc$withoutGV$graph, main = "truth")
 plot (data.mrpc.disc.withoutGV, main = "inferred")
+####################################<--    
 
 }
     }
